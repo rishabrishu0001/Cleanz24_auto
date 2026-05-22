@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import logoImg from '../assets/logo.jpeg';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
+import lastVideo from '../assets/last_video.mp4';
 import '../App.css';
 
-function Franchise() {
+function Franchise({ isDarkMode, toggleTheme }) {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -39,26 +41,45 @@ function Franchise() {
   return (
     <div className="d-flex flex-column min-vh-100 bg-primary-custom bg-carbon" style={{ overflowX: 'hidden' }}>
       
-      {/* 1. NAVBAR */}
-      <nav className="navbar navbar-dark py-3 nav-full nav-scrolled">
-        <div className="container">
-          <Link className="navbar-brand d-flex align-items-center text-decoration-none" to="/car-spa">
-            <img src={logoImg} alt="Cleanz24" height={40} className="rounded-circle border border-secondary me-2" />
-            <span className="fw-bold tracking-widest text-heading" style={{ letterSpacing: '2px', fontSize: '1.2rem' }}>
-              CLEANZ<span className="text-danger">24</span> FRANCHISE
-            </span>
-          </Link>
-          <div className="d-flex align-items-center gap-3">
-            <Link to="/car-spa" className="nav-link text-heading mx-2 fw-medium hover-brand">← Back to Spa</Link>
-            <a href="#inquiry" className="btn btn-outline-primary-custom px-4 fw-bold">Inquire Now</a>
-          </div>
-        </div>
-      </nav>
+      {/* 1. GLOBAL HEADER */}
+      <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
 
       {/* 2. HERO SECTION */}
-      <section className="hero-section text-center overflow-hidden" style={{ height: '70vh' }}>
+      <section className="hero-section position-relative text-center overflow-hidden d-flex flex-column justify-content-center" style={{ height: '100vh', backgroundImage: 'none', backgroundColor: '#000' }}>
+        {/* Cinematic Video Background */}
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 0
+          }}
+        >
+          <source src={lastVideo} type="video/mp4" />
+        </video>
+
+        {/* Global Dark Overlay */}
+        <div 
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.65)',
+            zIndex: 1
+          }}
+        />
+
         <motion.div
-          className="container mt-5"
+          className="container mt-5 position-relative z-2"
           initial="hidden"
           animate="visible"
           variants={staggerContainer}

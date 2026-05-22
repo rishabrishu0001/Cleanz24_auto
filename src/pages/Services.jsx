@@ -16,6 +16,7 @@ import carWashRinse from '../assets/car_wash_rinse.png';
 import carWashFoamStep2 from '../assets/car_wash_foam_step2.jpg';
 import carWashBucket from '../assets/car_wash_bucket.png';
 import carWashDry from '../assets/after_detailing.png';
+import serviceVideo from '../assets/service_ video.mp4';
 import { Link } from 'react-router-dom';
 import '../App.css';
 
@@ -45,9 +46,41 @@ function Services({ isDarkMode, toggleTheme }) {
       <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
 
       {/* HERO SECTION */}
-      <section className="hero-section text-center overflow-hidden">
+      <section className="hero-section position-relative text-center overflow-hidden" style={{ backgroundImage: 'none', backgroundColor: '#000', minHeight: '600px' }}>
+        {/* Cinematic Video Background */}
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 0
+          }}
+        >
+          <source src={serviceVideo} type="video/mp4" />
+        </video>
+
+        {/* Global Dark Overlay */}
+        <div 
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            zIndex: 1
+          }}
+        />
+
         <motion.div
-          className="container mt-5"
+          className="container mt-5 position-relative z-2"
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
@@ -65,7 +98,7 @@ function Services({ isDarkMode, toggleTheme }) {
       </section>
 
       {/* SIGNATURE SERVICES */}
-      <section id="services" className="py-5 bg-secondary-custom">
+      <section id="services" className="py-5" style={{ backgroundColor: isDarkMode ? '#111' : 'var(--bg-section-alt)' }}>
         <div className="container text-center py-5">
           <motion.span
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}

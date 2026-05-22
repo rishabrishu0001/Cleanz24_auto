@@ -28,7 +28,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/car-spa" element={<CarSpa isDarkMode={isDarkMode} toggleTheme={toggleTheme} />} />
-        <Route path="/franchise" element={<Franchise />} />
+        <Route path="/franchise" element={<Franchise isDarkMode={isDarkMode} toggleTheme={toggleTheme} />} />
         <Route path="/services" element={<Services isDarkMode={isDarkMode} toggleTheme={toggleTheme} />} />
         <Route path="/book" element={<Book isDarkMode={isDarkMode} toggleTheme={toggleTheme} />} />
       </Routes>

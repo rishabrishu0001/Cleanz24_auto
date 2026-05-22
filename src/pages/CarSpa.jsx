@@ -12,6 +12,7 @@ import Footer from '../components/Footer';
 import beforeDetailingImg from '../assets/before_detailing.png';
 import afterDetailingImg from '../assets/after_detailing.png';
 import cleanz24Technicians from '../assets/cleanz24_technicians.jpg';
+import firstVideo from '../assets/first_video.mp4';
 import { Link } from 'react-router-dom';
 import '../App.css';
 
@@ -130,9 +131,41 @@ function CarSpa({ isDarkMode, toggleTheme }) {
       <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
 
       {/* CINEMATIC HERO SECTION */}
-      <section className="hero-section text-center overflow-hidden">
+      <section className="hero-section position-relative text-center overflow-hidden" style={{ minHeight: '600px' }}>
+        {/* Cinematic Video Background */}
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 0
+          }}
+        >
+          <source src={firstVideo} type="video/mp4" />
+        </video>
+
+        {/* Global Dark Overlay */}
+        <div 
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.65)',
+            zIndex: 1
+          }}
+        />
+
         <motion.div
-          className="container mt-5"
+          className="container mt-5 position-relative z-2"
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
