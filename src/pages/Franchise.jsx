@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import logoImg from '../assets/logo.jpeg';
+import logoImg from '../assets/logo3.png';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import lastVideo from '../assets/last_video.mp4';

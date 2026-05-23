@@ -1,5 +1,5 @@
 import React from 'react';
-import logoImg from '../assets/logo.jpeg';
+import logoImg from '../assets/logo3.png';
 import { handleSmoothScroll } from '../utils';
 
 export default function Footer() {
@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="row justify-content-between mb-5">
           <div className="col-lg-4 mb-4 mb-lg-0">
             <a className="navbar-brand d-flex align-items-center mb-4" href="#home" onClick={(e) => handleSmoothScroll(e, '#home')}>
-              <img src={logoImg} alt="Cleanz24" height={45} className="rounded-circle border border-secondary me-2" />
+              <img src={logoImg} alt="Cleanz24" height={70} className="me-2" />
               <span className="fw-bold tracking-widest text-heading h4 mb-0" style={{ letterSpacing: '2px' }}>CLEANZ24</span>
             </a>
             <p className="text-muted-custom pe-lg-4 mb-4">

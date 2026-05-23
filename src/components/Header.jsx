@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import logoImg from '../assets/logo.jpeg';
+import logoImg from '../assets/logo3.png';
 import { Link } from 'react-router-dom';
 
 export default function Header({ isDarkMode, toggleTheme }) {
@@ -21,8 +21,8 @@ export default function Header({ isDarkMode, toggleTheme }) {
     >
       <div className="container">
         <Link className="navbar-brand d-flex align-items-center text-decoration-none" to="/car-spa">
-          <img src={logoImg} alt="Cleanz24" height={40} className="rounded-circle border border-secondary me-2" />
-          <span className="fw-bold tracking-widest text-heading" style={{ letterSpacing: '2px', fontSize: '1.2rem' }}>CLEANZ24</span>
+          <img src={logoImg} alt="Cleanz24" height={60} className="me-2" />
+          {/* <span className="fw-bold tracking-widest text-heading" style={{ letterSpacing: '2px', fontSize: '1.2rem' }}>CLEANZ24</span> */}
         </Link>
         <button className="navbar-toggler border-0 shadow-none px-2" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
           <span className="navbar-toggler-icon" style={{ filter: isDarkMode ? 'brightness(0) invert(1)' : 'brightness(0)', opacity: 1 }}></span>

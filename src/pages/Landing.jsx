@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import logoImg from '../assets/logo.jpeg';
+import logoImg from '../assets/logo3.png';
 import afterDetailingImg from '../assets/after_detailing.png';
 import '../App.css';
 
@@ -83,7 +83,7 @@ function Landing() {
             clipPath: leftClip,
             transition: 'clip-path 0.7s cubic-bezier(0.25, 0.8, 0.25, 1)',
             zIndex: 1,
-            background: 'radial-gradient(circle at 30% 50%, rgba(0, 102, 162, 0.45) 0%, rgba(0, 17, 34, 0.95) 80%)'
+            background: 'radial-gradient(circle at 30% 50%, rgba(0, 226, 129, 0.25) 0%, rgba(0, 20, 10, 0.95) 80%)'
           }}
           onMouseEnter={() => setHoveredSide('laundry')}
           onMouseLeave={() => setHoveredSide(null)}
@@ -108,12 +108,12 @@ function Landing() {
           <div className="landing-content laundry-content-wrapper z-2">
             <div className="landing-icon-wrap mb-4 display-3" style={{ textShadow: '0 0 20px rgba(0, 226, 129, 0.3)' }}>🧺</div>
             <h2 className="display-4 fw-black text-uppercase tracking-wide font-oswald text-white mb-3">
-              PREMIER <br /><span className="text-info">LAUNDRY</span>
+              PREMIER <br /><span style={{ color: '#00e281' }}>LAUNDRY</span>
             </h2>
             <p className="text-white-50 lead fw-light mb-4" style={{ fontSize: '1rem', lineHeight: '1.6' }}>
               Expert garment care, chemical dry cleaning, and fabric restoration services.
             </p>
-            <span className="btn-portal btn-laundry text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border border-info">
+            <span className="btn-portal btn-laundry text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border" style={{ borderColor: '#00e281' }}>
               ENTER LAUNDRY
             </span>
           </div>
@@ -224,14 +224,14 @@ function Landing() {
         }
 
         .btn-laundry {
-          background: rgba(0, 102, 162, 0.2);
-          color: #0dcaf0 !important;
+          background: rgba(0, 226, 129, 0.15);
+          color: #00e281 !important;
           border-radius: 50px !important;
         }
         .btn-laundry:hover {
-          background: #0dcaf0;
+          background: #00e281;
           color: #000 !important;
-          box-shadow: 0 0 20px rgba(13, 202, 240, 0.5) !important;
+          box-shadow: 0 0 20px rgba(0, 226, 129, 0.5) !important;
           transform: translateY(-2px);
         }
 
@@ -315,7 +315,7 @@ function Landing() {
             width: 100% !important;
           }
           .laundry-panel {
-            background: radial-gradient(circle at center, rgba(0, 102, 162, 0.5) 0%, rgba(0, 11, 33, 0.98) 100%) !important;
+            background: radial-gradient(circle at center, rgba(0, 226, 129, 0.25) 0%, rgba(0, 20, 10, 0.98) 100%) !important;
           }
           .carspa-panel {
             background: radial-gradient(circle at center, rgba(217, 4, 41, 0.3) 0%, rgba(5, 5, 5, 0.99) 100%), linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.6)), url(${afterDetailingImg}) center/cover no-repeat !important;
