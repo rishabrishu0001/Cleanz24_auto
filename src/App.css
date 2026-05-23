@@ -751,3 +751,34 @@ body.light-mode .property-req-details p {
     left: 0.5rem !important;
   }
 }
+
+/* MOBILE NAV OVERRIDES */
+@media (max-width: 991px) {
+  #mynavbar {
+    background-color: var(--nav-scrolled-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-top: 15px;
+    border: 1px solid var(--nav-border);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+  #mynavbar .navbar-nav {
+    align-items: flex-start !important;
+    width: 100%;
+  }
+  #mynavbar .nav-link {
+    width: 100%;
+    padding: 12px 0 !important;
+    margin: 0 !important;
+    border-bottom: 1px solid var(--faq-border);
+  }
+  #mynavbar .theme-toggle {
+    margin: 15px 0 !important;
+    align-self: flex-start;
+  }
+  #mynavbar .btn-outline-primary-custom {
+    margin: 10px 0 0 0 !important;
+    width: 100%;
+    text-align: center;
+  }
+}
