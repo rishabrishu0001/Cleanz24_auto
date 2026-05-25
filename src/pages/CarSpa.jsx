@@ -190,6 +190,28 @@ function CarSpa({ isDarkMode, toggleTheme }) {
         </motion.div>
       </section>
 
+      {/* BEFORE & AFTER TRANSFORMATION SECTION */}
+      <section className="py-5 bg-secondary-custom border-bottom" style={{ borderColor: 'var(--card-border)' }}>
+        <div className="container py-5 text-center">
+          <motion.span 
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
+            className="text-uppercase text-brand-primary fw-bold small mb-2 d-block tracking-widest" style={{ letterSpacing: '3px' }}>
+            SEE THE DIFFERENCE
+          </motion.span>
+          <motion.h2 
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
+            className="display-5 fw-bold text-heading mb-5">
+            TRANSFORMATION SHOWCASE
+          </motion.h2>
+          
+          <motion.div 
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
+            className="mx-auto shadow-lg rounded overflow-hidden" style={{ maxWidth: '900px', border: '1px solid rgba(74,222,128,0.2)' }}>
+            <BeforeAfterSlider />
+          </motion.div>
+        </div>
+      </section>
+
       {/* 3-COLUMN CUSTOM LAYOUT SECTION */}
       <section className="position-relative py-5" style={{ minHeight: '100vh', background: 'var(--bg-body)' }}>
         {/* Decorative Green Glows */}
