@@ -16,7 +16,13 @@ import carWashRinse from '../assets/car_wash_rinse.png';
 import carWashFoamStep2 from '../assets/car_wash_foam_step2.jpg';
 import carWashBucket from '../assets/car_wash_bucket.png';
 import carWashDry from '../assets/after_detailing.png';
-import serviceVideo from '../assets/service_ video.mp4';
+import serviceVideo from '../assets/service_video.mp4';
+import video1 from '../assets/video_1.mp4';
+import video2 from '../assets/video_2.mp4';
+import video3 from '../assets/video_3.mp4';
+import video4 from '../assets/video_4.mp4';
+import video5 from '../assets/video_5.mp4';
+
 import { Link } from 'react-router-dom';
 import '../App.css';
 
@@ -181,11 +187,11 @@ function Services({ isDarkMode, toggleTheme }) {
                 className="shadow-lg border border-secondary border-opacity-20 rounded-0"
                 style={{ width: '100%', aspectRatio: '16/10', overflow: 'hidden' }}
               >
-                <img 
-                  src={carWashRinse} 
-                  alt="High-Pressure Rinse Process" 
+                <video 
+                  src={video1} 
                   className="w-100 h-100 d-block"
                   style={{ objectFit: 'cover' }}
+                  autoPlay loop muted playsInline
                 />
               </motion.div>
             </div>
@@ -228,11 +234,11 @@ function Services({ isDarkMode, toggleTheme }) {
                 className="shadow-lg border border-secondary border-opacity-20 rounded-0"
                 style={{ width: '100%', aspectRatio: '16/10', overflow: 'hidden' }}
               >
-                <img 
-                  src={carWashFoamStep2} 
-                  alt="Active Snow Foam Bath Process" 
+                <video 
+                  src={video2} 
                   className="w-100 h-100 d-block"
                   style={{ objectFit: 'cover' }}
+                  autoPlay loop muted playsInline
                 />
               </motion.div>
             </div>
@@ -275,11 +281,11 @@ function Services({ isDarkMode, toggleTheme }) {
                 className="shadow-lg border border-secondary border-opacity-20 rounded-0"
                 style={{ width: '100%', aspectRatio: '16/10', overflow: 'hidden' }}
               >
-                <img 
-                  src={carWashBucket} 
-                  alt="Two-Bucket Mitt Wash Process" 
+                <video 
+                  src={video3} 
                   className="w-100 h-100 d-block"
                   style={{ objectFit: 'cover' }}
+                  autoPlay loop muted playsInline
                 />
               </motion.div>
             </div>
@@ -322,11 +328,11 @@ function Services({ isDarkMode, toggleTheme }) {
                 className="shadow-lg border border-secondary border-opacity-20 rounded-0"
                 style={{ width: '100%', aspectRatio: '16/10', overflow: 'hidden' }}
               >
-                <img 
-                  src={carWashWheel} 
-                  alt="Alloy Wheel Deep Cleaning Process" 
+                <video 
+                  src={video4} 
                   className="w-100 h-100 d-block"
                   style={{ objectFit: 'cover' }}
+                  autoPlay loop muted playsInline
                 />
               </motion.div>
             </div>
@@ -369,11 +375,11 @@ function Services({ isDarkMode, toggleTheme }) {
                 className="shadow-lg border border-secondary border-opacity-20 rounded-0"
                 style={{ width: '100%', aspectRatio: '16/10', overflow: 'hidden' }}
               >
-                <img 
-                  src={carWashInterior} 
-                  alt="Interior Deep Vacuum Process" 
+                <video 
+                  src={video5} 
                   className="w-100 h-100 d-block"
                   style={{ objectFit: 'cover' }}
+                  autoPlay loop muted playsInline
                 />
               </motion.div>
             </div>
@@ -416,11 +422,11 @@ function Services({ isDarkMode, toggleTheme }) {
                 className="shadow-lg border border-secondary border-opacity-20 rounded-0"
                 style={{ width: '100%', aspectRatio: '16/10', overflow: 'hidden' }}
               >
-                <img 
-                  src={carWashDry} 
-                  alt="Microfiber Dry & Seal Process" 
+                <video 
+                  src={video3} 
                   className="w-100 h-100 d-block"
                   style={{ objectFit: 'cover' }}
+                  autoPlay loop muted playsInline
                 />
               </motion.div>
             </div>

@@ -13,6 +13,7 @@ import beforeDetailingImg from '../assets/before_detailing.png';
 import afterDetailingImg from '../assets/after_detailing.png';
 import cleanz24Technicians from '../assets/cleanz24_technicians.jpg';
 import firstVideo from '../assets/first_video.mp4';
+import neonCarRender from '../assets/neon_car_render.png';
 import { Link } from 'react-router-dom';
 import '../App.css';
 
@@ -190,62 +191,167 @@ function CarSpa({ isDarkMode, toggleTheme }) {
         </motion.div>
       </section>
 
-      {/* CORE BENEFITS SECTION WITH INTERACTIVE BEFORE/AFTER SLIDER */}
-      <section id="overview" className="py-5 bg-secondary-custom border-bottom" style={{ borderColor: 'var(--card-border)' }}>
-        <div className="container py-5">
-          <div className="row g-5 align-items-center">
-            {/* Left Side: Before/After interactive slider */}
-            <div className="col-lg-6">
-              <motion.div 
-                initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
-                className="mb-4 text-center text-lg-start"
-              >
-                <span className="text-uppercase tracking-widest text-brand-primary fw-bold small mb-2 d-block" style={{ letterSpacing: '2px' }}>
-                  Car Wash Demonstration
-                </span>
-                <h3 className="h2 fw-bold text-heading mb-4">DRAG SLIDER TO SEE RESULTS</h3>
-              </motion.div>
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}>
-                <BeforeAfterSlider />
-              </motion.div>
-            </div>
+      {/* 3-COLUMN CUSTOM LAYOUT SECTION */}
+      <section className="position-relative py-5" style={{ minHeight: '100vh', background: 'var(--bg-body)' }}>
+        {/* Decorative Green Glows */}
+        <div style={{ position: 'absolute', top: '-10%', left: '-5%', width: '40vw', height: '40vw', background: 'radial-gradient(circle, rgba(74,222,128,0.15) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', bottom: '-10%', right: '-5%', width: '40vw', height: '40vw', background: 'radial-gradient(circle, rgba(74,222,128,0.1) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }} />
 
-            {/* Right Side: Text & Core benefits */}
-            <div className="col-lg-6">
-              <div className="ps-lg-4">
-                <motion.span
-                  initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
-                  className="text-uppercase tracking-widest text-brand-primary fw-bold small mb-2 d-block" style={{ letterSpacing: '2px' }}>
-                  Elite Automotive Cleaning
-                </motion.span>
-                <motion.h2
-                  initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
-                  className="display-5 fw-bold text-heading mb-4" style={{ lineHeight: '1.2' }}>
-                  INDIA’S FINEST CAR WASH HUBS
-                </motion.h2>
-                <motion.p
-                  initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
-                  className="lead text-muted-custom fw-normal mb-5" style={{ fontSize: '1.1rem' }}>
-                  Trusted by passionate car owners. We operate high-tech washing bays engineered to clean, sanitize, and shine your vehicle.
-                </motion.p>
-                
-                <motion.div className="row g-4" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
-                  {featuresData.map((feature, idx) => (
-                    <motion.div className="col-sm-6" key={idx} variants={fadeUpVariant}>
-                      <div className="d-flex align-items-start gap-3">
-                        <div className="card-icon-wrapper flex-shrink-0 m-0" style={{ width: '45px', height: '45px', fontSize: '1.25rem' }}>
-                          {feature.icon}
-                        </div>
-                        <div>
-                          <h4 className="fw-bold h6 text-heading mb-2">{feature.title}</h4>
-                          <p className="text-muted-custom small mb-0" style={{ lineHeight: '1.5' }}>{feature.desc}</p>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </motion.div>
+        <div className="container-fluid px-4 px-xl-5 mt-5 pt-5 position-relative z-2">
+          {/* Main Title */}
+          <div className="text-center mb-5">
+            <h1 className="display-4 fw-black mb-3 text-gradient" style={{ letterSpacing: '2px' }}>
+              EXPERIENCE THE CLEANZ24 DIFFERENCE | CUSTOM DETAILED SOLUTIONS
+            </h1>
+          </div>
+
+          <div className="row g-4 align-items-stretch">
+            {/* COLUMN 1: LIVE STUDIO VISUALIZER */}
+            <div className="col-lg-5">
+              <div className="premium-card h-100 p-4 d-flex flex-column" style={{ background: 'rgba(11,28,17,0.6)', backdropFilter: 'blur(12px)', border: '1px solid rgba(74,222,128,0.2)' }}>
+                <h4 className="text-center text-brand-primary fw-bold mb-4" style={{ letterSpacing: '2px', fontSize: '1.1rem' }}>LIVE STUDIO DETAILED VISUALIZER</h4>
+                <div className="d-flex justify-content-center gap-3 mb-4">
+                  <button className="btn btn-glow btn-sm px-4">Ceramic Coating</button>
+                  <button className="btn btn-outline-primary-custom btn-sm px-4">Services</button>
+                  <button className="btn btn-outline-primary-custom btn-sm px-4">Overlays</button>
+                </div>
+                <div className="position-relative flex-grow-1 d-flex align-items-center justify-content-center rounded overflow-hidden" style={{ minHeight: '300px' }}>
+                  <img src={neonCarRender} alt="Car visualizer" className="img-fluid position-relative z-2 w-100" style={{ objectFit: 'contain' }} />
+                  {/* Badges Overlay */}
+                  <div className="position-absolute top-50 end-0 translate-middle-y z-3 d-flex flex-column gap-3 pe-3">
+                    <div className="text-center p-2 rounded-circle border border-primary d-flex flex-column align-items-center justify-content-center" style={{ width: '65px', height: '65px', background: 'rgba(5,13,8,0.8)' }}>
+                       <span className="d-block text-brand-primary" style={{ fontSize: '0.6rem', fontWeight: 'bold' }}>WHEEL</span>
+                       <span className="d-block text-white" style={{ fontSize: '0.55rem' }}>CERAMIC</span>
+                    </div>
+                    <div className="text-center p-2 rounded-circle border border-primary d-flex flex-column align-items-center justify-content-center" style={{ width: '65px', height: '65px', background: 'rgba(5,13,8,0.8)' }}>
+                       <span className="d-block text-brand-primary" style={{ fontSize: '0.6rem', fontWeight: 'bold' }}>PAINT</span>
+                       <span className="d-block text-white" style={{ fontSize: '0.55rem' }}>PROTECTION</span>
+                    </div>
+                    <div className="text-center p-2 rounded-circle border border-primary d-flex flex-column align-items-center justify-content-center" style={{ width: '65px', height: '65px', background: 'rgba(5,13,8,0.8)' }}>
+                       <span className="d-block text-brand-primary" style={{ fontSize: '0.6rem', fontWeight: 'bold' }}>INTERIOR</span>
+                       <span className="d-block text-white" style={{ fontSize: '0.55rem' }}>SHIELD</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="text-center mt-4">
+                  <h3 className="fw-bold text-white mb-1">VISUALIZE YOUR SHINE.</h3>
+                  <p className="text-muted-custom">10+ Custom Finishes.</p>
+                </div>
               </div>
             </div>
+
+            {/* COLUMN 2: ADVANCED PERSONALIZATION FORM */}
+            <div className="col-lg-4">
+              <div className="premium-card h-100 p-4" style={{ background: 'rgba(11,28,17,0.6)', backdropFilter: 'blur(12px)', border: '1px solid rgba(74,222,128,0.2)' }}>
+                <h4 className="text-center text-white fw-bold mb-4" style={{ letterSpacing: '2px', fontSize: '1.1rem' }}>ADVANCED PERSONALIZATION FORM</h4>
+                
+                <div className="bg-white rounded p-4" style={{ color: '#000' }}>
+                  <h5 className="fw-bold mb-3" style={{ color: '#000' }}>Tell Us About Your Ride</h5>
+                  
+                  <div className="mb-3">
+                    <label className="form-label fw-bold small text-muted">Car Make/Model</label>
+                    <select className="form-select bg-light border-0 py-2">
+                      <option>Car Make/Model</option>
+                      <option>Tesla Model 3</option>
+                      <option>BMW M3</option>
+                    </select>
+                  </div>
+
+                  <div className="mb-4">
+                    <label className="form-label fw-bold small text-muted d-flex justify-content-between">
+                      <span>Current Paint Condition</span>
+                    </label>
+                    <input type="range" className="form-range custom-green-range" min="1" max="10" defaultValue="5" />
+                    <div className="d-flex justify-content-between px-1 text-muted small" style={{ fontSize: '0.7rem' }}>
+                      <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+                    </div>
+                    
+                    <div className="d-flex gap-2 mt-3 overflow-hidden">
+                       <div style={{flex: 1, height:'30px', background:'#222', borderRadius:'4px', border: '2px solid var(--primary-color)'}}></div>
+                       <div style={{flex: 1, height:'30px', background:'#eee', borderRadius:'4px'}}></div>
+                       <div style={{flex: 1, height:'30px', background:'#900', borderRadius:'4px'}}></div>
+                       <div style={{flex: 1, height:'30px', background:'#246', borderRadius:'4px'}}></div>
+                       <div style={{flex: 1, height:'30px', background:'#666', borderRadius:'4px'}}></div>
+                    </div>
+                  </div>
+
+                  <div className="mb-4">
+                    <label className="form-label fw-bold small text-muted">Driving Habits</label>
+                    <div className="d-flex gap-2">
+                      <button className="btn btn-sm text-white flex-grow-1" style={{ background: '#198754' }}>Daily Commute</button>
+                      <button className="btn btn-sm btn-outline-secondary flex-grow-1">Weekend Use</button>
+                      <button className="btn btn-sm btn-outline-secondary flex-grow-1">Show Car</button>
+                    </div>
+                  </div>
+
+                  <div className="p-3 rounded" style={{ background: 'rgba(74,222,128,0.15)', border: '1px solid rgba(74,222,128,0.3)' }}>
+                    <h6 className="fw-bold text-dark mb-1">Recommended for You:</h6>
+                    <p className="small text-muted mb-2">Premier Quartz Guard + Interior Steam Sanitation</p>
+                    <div className="progress" style={{ height: '6px' }}>
+                      <div className="progress-bar bg-success" role="progressbar" style={{ width: '80%' }}></div>
+                    </div>
+                    <div className="text-end mt-1"><small className="text-muted" style={{fontSize: '0.7rem'}}>Progress</small></div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            {/* COLUMN 3: TRUST PROTOCOL & LOCAL COMMUNITY IMPACT */}
+            <div className="col-lg-3">
+              <div className="premium-card h-100 p-4" style={{ background: 'rgba(11,28,17,0.6)', backdropFilter: 'blur(12px)', border: '1px solid rgba(74,222,128,0.2)' }}>
+                <h4 className="text-center text-white fw-bold mb-4" style={{ letterSpacing: '1px', fontSize: '1rem', lineHeight: '1.4' }}>TRUST PROTOCOL &<br/>LOCAL COMMUNITY IMPACT</h4>
+                
+                <h6 className="text-brand-primary fw-bold mb-3 small">PROFESSIONAL & PROVEN</h6>
+                
+                {/* A */}
+                <div className="mb-4">
+                  <div className="d-flex align-items-center gap-2 mb-2">
+                    <span className="badge rounded-circle border border-primary text-primary" style={{width:'24px', height:'24px', display:'flex', alignItems:'center', justifyContent:'center'}}>A</span>
+                    <h6 className="fw-bold text-white mb-0 small">CERTIFIED MASTER DETAILERS</h6>
+                  </div>
+                  <div className="d-flex align-items-center gap-3 ps-4">
+                    <div className="text-center">
+                      <div className="rounded-circle bg-success text-white d-flex align-items-center justify-content-center mb-1 mx-auto" style={{width:'40px', height:'40px'}}>✓</div>
+                      <small className="text-muted-custom" style={{fontSize:'0.65rem'}}>Verified Badge</small>
+                    </div>
+                    <div className="text-center border p-2 rounded border-secondary flex-grow-1" style={{background: 'rgba(255,255,255,0.02)'}}>
+                      <img src={cleanz24Technicians} alt="Tech" className="rounded-circle mb-1 object-fit-cover" style={{width:'40px', height:'40px'}} />
+                      <div className="text-white" style={{fontSize:'0.7rem'}}>Rajiv K. - 12 Years Exp.</div>
+                      <div className="text-brand-primary" style={{fontSize:'0.6rem'}}>Certifications</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* B */}
+                <div className="mb-4">
+                  <div className="d-flex align-items-center gap-2 mb-2">
+                    <span className="badge rounded-circle border border-primary text-primary" style={{width:'24px', height:'24px', display:'flex', alignItems:'center', justifyContent:'center'}}>B</span>
+                    <h6 className="fw-bold text-white mb-0 small">ECO-SAFE PROTOCOLS</h6>
+                  </div>
+                  <p className="text-muted-custom ps-4 mb-0 small" style={{fontSize: '0.8rem'}}>100% Biodegradable Chemicals | Zero Water Waste</p>
+                </div>
+
+                {/* C */}
+                <div className="mb-4">
+                  <div className="d-flex align-items-center gap-2 mb-2">
+                    <span className="badge rounded-circle border border-primary text-primary" style={{width:'24px', height:'24px', display:'flex', alignItems:'center', justifyContent:'center'}}>C</span>
+                    <h6 className="fw-bold text-white mb-0 small">COMMUNITY IMPACT</h6>
+                  </div>
+                  <p className="text-muted-custom ps-4 mb-3 small" style={{fontSize: '0.8rem'}}>Trusted by 25+ local Faridabad fleets and businesses</p>
+                  <div className="d-flex justify-content-center gap-2 ps-4 flex-wrap">
+                    <div className="bg-white p-1 rounded d-flex align-items-center justify-content-center" style={{width:'45px', height:'35px'}}><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" style={{width:'20px'}}/></div>
+                    <div className="bg-white p-1 rounded d-flex align-items-center justify-content-center" style={{width:'45px', height:'35px'}}><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" style={{width:'20px'}}/></div>
+                    <div className="bg-white p-1 rounded d-flex align-items-center justify-content-center" style={{width:'45px', height:'35px'}}><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" style={{width:'20px'}}/></div>
+                  </div>
+                  <div className="text-center mt-3 ps-4">
+                    <span className="badge bg-success px-3 py-2">25+ Satisfied Clients</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
