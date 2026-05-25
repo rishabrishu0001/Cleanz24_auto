@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import logoImg from '../assets/logo3.png';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import lastVideo from '../assets/last_video.mp4';
 import '../App.css';
 
 function Franchise({ isDarkMode, toggleTheme }) {
@@ -62,7 +61,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
             zIndex: 0
           }}
         >
-          <source src={lastVideo} type="video/mp4" />
+          <source src="/last_video.mp4" type="video/mp4" />
         </video>
 
         {/* Global Dark Overlay */}
