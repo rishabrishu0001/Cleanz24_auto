@@ -190,42 +190,6 @@ function CarSpa({ isDarkMode, toggleTheme }) {
         </motion.div>
       </section>
 
-      {/* BEFORE & AFTER TRANSFORMATION SECTION */}
-      <section className="py-5 bg-secondary-custom border-bottom" style={{ borderColor: 'var(--card-border)' }}>
-        <div className="container py-5">
-          <div className="row align-items-center g-5">
-            <motion.div className="col-lg-5" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}>
-              <span className="text-uppercase text-brand-primary fw-bold small mb-2 d-block tracking-widest" style={{ letterSpacing: '3px' }}>
-                SEE THE DIFFERENCE
-              </span>
-              <h2 className="display-5 fw-bold text-heading mb-4">
-                TRANSFORMATION SHOWCASE
-              </h2>
-              <p className="text-muted-custom mb-4" style={{ lineHeight: '1.8' }}>
-                Witness the power of our premium detailing services. Drag the slider to see how we restore dull, scratched paint to a brilliant, mirror-like finish using our multi-stage polishing and ceramic coating process.
-              </p>
-              <ul className="list-unstyled text-muted-custom mb-0" style={{ lineHeight: '2.2', fontWeight: '500' }}>
-                <li className="d-flex align-items-center gap-2">
-                  <span className="text-brand-primary fw-bold">✓</span> Removes swirl marks and fine scratches.
-                </li>
-                <li className="d-flex align-items-center gap-2">
-                  <span className="text-brand-primary fw-bold">✓</span> Restores original factory gloss and depth.
-                </li>
-                <li className="d-flex align-items-center gap-2">
-                  <span className="text-brand-primary fw-bold">✓</span> Protects against UV rays and oxidation.
-                </li>
-              </ul>
-            </motion.div>
-            
-            <motion.div className="col-lg-7" initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-              <div className="shadow-lg rounded overflow-hidden" style={{ border: '1px solid rgba(74,222,128,0.2)' }}>
-                <BeforeAfterSlider />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       {/* 3-COLUMN CUSTOM LAYOUT SECTION */}
       <section className="position-relative py-5" style={{ minHeight: '100vh', background: 'var(--bg-body)' }}>
         {/* Decorative Green Glows */}
@@ -387,6 +351,42 @@ function CarSpa({ isDarkMode, toggleTheme }) {
               </div>
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* BEFORE & AFTER TRANSFORMATION SECTION */}
+      <section className="py-5 bg-secondary-custom border-bottom" style={{ borderColor: 'var(--card-border)' }}>
+        <div className="container py-5">
+          <div className="row align-items-center g-5">
+            <motion.div className="col-lg-5" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}>
+              <span className="text-uppercase text-brand-primary fw-bold small mb-2 d-block tracking-widest" style={{ letterSpacing: '3px' }}>
+                SEE THE DIFFERENCE
+              </span>
+              <h2 className="display-5 fw-bold text-heading mb-4">
+                TRANSFORMATION SHOWCASE
+              </h2>
+              <p className="text-muted-custom mb-4" style={{ lineHeight: '1.8' }}>
+                Witness the power of our premium detailing services. Drag the slider to see how we restore dull, scratched paint to a brilliant, mirror-like finish using our multi-stage polishing and ceramic coating process.
+              </p>
+              <ul className="list-unstyled text-muted-custom mb-0" style={{ lineHeight: '2.2', fontWeight: '500' }}>
+                <li className="d-flex align-items-center gap-2">
+                  <span className="text-brand-primary fw-bold">✓</span> Removes swirl marks and fine scratches.
+                </li>
+                <li className="d-flex align-items-center gap-2">
+                  <span className="text-brand-primary fw-bold">✓</span> Restores original factory gloss and depth.
+                </li>
+                <li className="d-flex align-items-center gap-2">
+                  <span className="text-brand-primary fw-bold">✓</span> Protects against UV rays and oxidation.
+                </li>
+              </ul>
+            </motion.div>
+            
+            <motion.div className="col-lg-7" initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
+              <div className="shadow-lg rounded overflow-hidden" style={{ border: '1px solid rgba(74,222,128,0.2)' }}>
+                <BeforeAfterSlider />
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
