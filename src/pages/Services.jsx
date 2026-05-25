@@ -16,13 +16,6 @@ import carWashRinse from '../assets/car_wash_rinse.png';
 import carWashFoamStep2 from '../assets/car_wash_foam_step2.jpg';
 import carWashBucket from '../assets/car_wash_bucket.png';
 import carWashDry from '../assets/after_detailing.png';
-import serviceVideo from '../assets/service_video.mp4';
-import video1 from '../assets/video_1.mp4';
-import video2 from '../assets/video_2.mp4';
-import video3 from '../assets/video_3.mp4';
-import video4 from '../assets/video_4.mp4';
-import video5 from '../assets/video_5.mp4';
-
 import { Link } from 'react-router-dom';
 import '../App.css';
 
@@ -69,7 +62,7 @@ function Services({ isDarkMode, toggleTheme }) {
             zIndex: 0
           }}
         >
-          <source src={serviceVideo} type="video/mp4" />
+          <source src="/service_video.mp4" type="video/mp4" />
         </video>
 
         {/* Global Dark Overlay */}
@@ -188,7 +181,7 @@ function Services({ isDarkMode, toggleTheme }) {
                 style={{ width: '100%', aspectRatio: '16/10', overflow: 'hidden' }}
               >
                 <video 
-                  src={video1} 
+                  src="/video_1.mp4" 
                   className="w-100 h-100 d-block"
                   style={{ objectFit: 'cover' }}
                   autoPlay loop muted playsInline
@@ -235,7 +228,7 @@ function Services({ isDarkMode, toggleTheme }) {
                 style={{ width: '100%', aspectRatio: '16/10', overflow: 'hidden' }}
               >
                 <video 
-                  src={video2} 
+                  src="/video_2.mp4" 
                   className="w-100 h-100 d-block"
                   style={{ objectFit: 'cover' }}
                   autoPlay loop muted playsInline
@@ -282,7 +275,7 @@ function Services({ isDarkMode, toggleTheme }) {
                 style={{ width: '100%', aspectRatio: '16/10', overflow: 'hidden' }}
               >
                 <video 
-                  src={video3} 
+                  src="/video_3.mp4" 
                   className="w-100 h-100 d-block"
                   style={{ objectFit: 'cover' }}
                   autoPlay loop muted playsInline
@@ -329,7 +322,7 @@ function Services({ isDarkMode, toggleTheme }) {
                 style={{ width: '100%', aspectRatio: '16/10', overflow: 'hidden' }}
               >
                 <video 
-                  src={video4} 
+                  src="/video_4.mp4" 
                   className="w-100 h-100 d-block"
                   style={{ objectFit: 'cover' }}
                   autoPlay loop muted playsInline
@@ -376,7 +369,7 @@ function Services({ isDarkMode, toggleTheme }) {
                 style={{ width: '100%', aspectRatio: '16/10', overflow: 'hidden' }}
               >
                 <video 
-                  src={video5} 
+                  src="/video_5.mp4" 
                   className="w-100 h-100 d-block"
                   style={{ objectFit: 'cover' }}
                   autoPlay loop muted playsInline
@@ -423,7 +416,7 @@ function Services({ isDarkMode, toggleTheme }) {
                 style={{ width: '100%', aspectRatio: '16/10', overflow: 'hidden' }}
               >
                 <video 
-                  src={video3} 
+                  src="/video_3.mp4" 
                   className="w-100 h-100 d-block"
                   style={{ objectFit: 'cover' }}
                   autoPlay loop muted playsInline

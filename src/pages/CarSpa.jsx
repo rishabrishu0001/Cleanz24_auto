@@ -12,7 +12,6 @@ import Footer from '../components/Footer';
 import beforeDetailingImg from '../assets/before_detailing.png';
 import afterDetailingImg from '../assets/after_detailing.png';
 import cleanz24Technicians from '../assets/cleanz24_technicians.jpg';
-import firstVideo from '../assets/first_video.mp4';
 import neonCarRender from '../assets/neon_car_render.png';
 import { Link } from 'react-router-dom';
 import '../App.css';
@@ -149,7 +148,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
             zIndex: 0
           }}
         >
-          <source src={firstVideo} type="video/mp4" />
+          <source src="/first_video.mp4" type="video/mp4" />
         </video>
 
         {/* Global Dark Overlay */}
