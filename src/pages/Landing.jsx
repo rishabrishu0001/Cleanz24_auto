@@ -409,6 +409,7 @@ function Landing() {
           .split-panel {
             position: relative !important;
             height: 50vh !important;
+            min-height: 380px !important; /* Prevent content clipping on smaller screens */
             clip-path: none !important;
             width: 100% !important;
           }
@@ -423,7 +424,7 @@ function Landing() {
             transform: none !important;
             padding: 1.5rem !important;
             text-align: center !important;
-            margin: 40px auto 0 auto !important; /* Push down to clear mobile header */
+            margin: 60px auto 0 auto !important; /* Push down to clear mobile header */
           }
           .carspa-content-wrapper {
             transform: none !important;
@@ -431,6 +432,29 @@ function Landing() {
             text-align: center !important;
             margin: 0 auto !important;
           }
+          
+          /* Scale down typography & icons for mobile */
+          .landing-content h2 {
+            font-size: 2.2rem !important; /* Smaller display title */
+            margin-bottom: 0.5rem !important;
+          }
+          .landing-content p {
+            font-size: 0.85rem !important; /* Tighter body text */
+            margin-bottom: 1rem !important;
+            padding: 0 10px;
+          }
+          .landing-icon-wrap {
+            margin-bottom: 0.5rem !important;
+          }
+          .landing-icon-wrap svg {
+            width: 48px !important;
+            height: 48px !important;
+          }
+          .btn-portal {
+            padding: 10px 30px !important; /* Smaller button padding */
+            font-size: 0.78rem !important;
+          }
+          
           .laundry-panel:hover .laundry-content-wrapper,
           .carspa-panel:hover .carspa-content-wrapper {
             transform: scale(1.02) !important;
