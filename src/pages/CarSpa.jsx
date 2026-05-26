@@ -95,6 +95,25 @@ function CarSpa({ isDarkMode, toggleTheme }) {
   const [openFaqIndex, setOpenFaqIndex] = useState(-1);
   const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
+  
+  // Interactive Visualizer State
+  const [selectedColor, setSelectedColor] = useState('Emerald Glow');
+  const [selectedVisualizerOption, setSelectedVisualizerOption] = useState('Ceramic');
+  const [activeHotspot, setActiveHotspot] = useState(null);
+
+  // Dynamic Personalization Form State
+  const [carType, setCarType] = useState('Sedan');
+  const [paintCondition, setPaintCondition] = useState(5);
+  const [drivingHabit, setDrivingHabit] = useState('Daily Commute');
+
+  // Booking Form State
+  const [bookingSubmitted, setBookingSubmitted] = useState(false);
+  const [bookingData, setBookingData] = useState({
+    name: '',
+    mobile: '',
+    address: '',
+    service: 'Premium Wash & Vacuum'
+  });
 
   const nextTestimonial = () => {
     setCurrentTestimonialIndex((prev) => (prev + 1) % testimonialsData.length);
@@ -108,14 +127,24 @@ function CarSpa({ isDarkMode, toggleTheme }) {
     setOpenFaqIndex(openFaqIndex === index ? -1 : index);
   };
 
+  const handleBookingInputChange = (e) => {
+    const { id, value } = e.target;
+    setBookingData(prev => ({ ...prev, [id]: value }));
+  };
+
+  const handleBookingSubmit = (e) => {
+    e.preventDefault();
+    setBookingSubmitted(true);
+  };
+
   const fadeUpVariant = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
   const staggerContainer = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
+    visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
   };
 
   // Filter stores based on search query
@@ -124,6 +153,47 @@ function CarSpa({ isDarkMode, toggleTheme }) {
     store.address.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  // Interactive Visualizer Colors configuration
+  const visualizerColors = [
+    { name: 'Emerald Glow', colorCode: '#00C96D', filter: 'hue-rotate(60deg) saturate(1.4) brightness(1.05)' },
+    { name: 'Liquid Gold', colorCode: '#D4AF37', filter: 'hue-rotate(20deg) saturate(1.8) brightness(1.15)' },
+    { name: 'Cobalt Shield', colorCode: '#3182CE', filter: 'hue-rotate(185deg) saturate(1.6) brightness(1.0)' },
+    { name: 'Ruby Coating', colorCode: '#E53E3E', filter: 'hue-rotate(320deg) saturate(1.5) brightness(1.0)' },
+    { name: 'Stealth Matte', colorCode: '#4A5568', filter: 'grayscale(0.9) brightness(0.75)' }
+  ];
+
+  const currentFilter = visualizerColors.find(c => c.name === selectedColor)?.filter || '';
+
+  // Advanced Personalization Calculator Formula
+  let recommendationTitle = "";
+  let recommendationPrice = "";
+  let recommendationDesc = "";
+  let progressScore = 50;
+
+  if (paintCondition <= 3) {
+    recommendationTitle = "Eco Foam Wash + Wax Sealant";
+    recommendationPrice = "₹499 - ₹799";
+    recommendationDesc = "Recommended for light surface dirt and dust protection. Perfect for quick weekly washes.";
+    progressScore = 40;
+  } else if (paintCondition <= 7) {
+    if (drivingHabit === 'Daily Commute') {
+      recommendationTitle = "Premium Wash & Vacuum + Hand Wax";
+      recommendationPrice = "₹999 - ₹1,499";
+      recommendationDesc = "Restores high gloss, deep vacuum cleans interior cabin, & eliminates light road contaminants.";
+      progressScore = 75;
+    } else {
+      recommendationTitle = "Ultra Polish & Wash + Ceramic spray";
+      recommendationPrice = "₹1,499 - ₹2,599";
+      recommendationDesc = "Includes machine polishing to erase light swirls, finished with SiO2 hydrophobic spray protection.";
+      progressScore = 88;
+    }
+  } else {
+    recommendationTitle = "Ceramic Shield Wash + Paint Correction";
+    recommendationPrice = "₹2,499 - ₹3,999";
+    recommendationDesc = "Ultimate detail clean. Clay bar decontamination, DA machine polishing, SiO2 ceramic coat lock.";
+    progressScore = 98;
+  }
+
   return (
     <div className="d-flex flex-column min-vh-100 bg-primary-custom bg-carbon" id="home" style={{ overflowX: 'hidden' }}>
 
@@ -131,7 +201,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
       <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
 
       {/* CINEMATIC HERO SECTION */}
-      <section className="hero-section position-relative text-center overflow-hidden" style={{ minHeight: '600px' }}>
+      <section className="hero-section position-relative text-center overflow-hidden" style={{ minHeight: '85vh', display: 'flex', alignItems: 'center' }}>
         {/* Cinematic Video Background */}
         <video 
           autoPlay 
@@ -159,7 +229,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
             left: 0,
             width: '100%',
             height: '100%',
-            backgroundColor: 'rgba(0, 0, 0, 0.65)',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
             zIndex: 1
           }}
         />
@@ -176,15 +246,15 @@ function CarSpa({ isDarkMode, toggleTheme }) {
           <motion.h1 variants={fadeUpVariant} className="display-1 fw-black mb-4 text-gradient" style={{ lineHeight: '1.1', fontWeight: 900 }}>
             RESTORE. PROTECT. <br /> MAINTAIN.
           </motion.h1>
-          <motion.p variants={fadeUpVariant} className="lead text-white mb-5 mx-auto" style={{ maxWidth: '650px', fontSize: '1.15rem' }}>
-            Experience professional eco-friendly foam washes & high-gloss ceramic shield protection.
+          <motion.p variants={fadeUpVariant} className="lead text-white mb-5 mx-auto" style={{ maxWidth: '650px', fontSize: '1.1rem', opacity: 0.95 }}>
+            Experience professional paint protection coatings, high-gloss graphene shields & eco-friendly foam washes.
           </motion.p>
           <motion.div variants={fadeUpVariant} className="d-flex gap-3 justify-content-center flex-wrap">
-            <a href="#book" className="btn btn-glow btn-lg rounded-0 px-5 py-3 fw-bold shadow-lg text-decoration-none" onClick={(e) => handleSmoothScroll(e, '#book')}>
+            <a href="#book" className="btn btn-glow btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg text-decoration-none" onClick={(e) => handleSmoothScroll(e, '#book')}>
               Book Appointment
             </a>
-            <Link to="/services" className="btn btn-outline-primary-custom btn-lg rounded-0 px-5 py-3 fw-bold text-decoration-none">
-              View Pricing
+            <Link to="/services" className="btn btn-outline-primary-custom btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none">
+              View Pricing Matrix
             </Link>
           </motion.div>
         </motion.div>
@@ -192,105 +262,225 @@ function CarSpa({ isDarkMode, toggleTheme }) {
 
       {/* 3-COLUMN CUSTOM LAYOUT SECTION */}
       <section className="position-relative py-5" style={{ minHeight: '100vh', background: 'var(--bg-body)' }}>
-        {/* Decorative Green Glows */}
-        <div style={{ position: 'absolute', top: '-10%', left: '-5%', width: '40vw', height: '40vw', background: 'radial-gradient(circle, rgba(74,222,128,0.15) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', bottom: '-10%', right: '-5%', width: '40vw', height: '40vw', background: 'radial-gradient(circle, rgba(74,222,128,0.1) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }} />
+        {/* Decorative Green/Gold Glows */}
+        <div style={{ position: 'absolute', top: '-10%', left: '-5%', width: '40vw', height: '40vw', background: 'radial-gradient(circle, rgba(0,201,109,0.1) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', bottom: '-10%', right: '-5%', width: '40vw', height: '40vw', background: 'radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }} />
 
-        <div className="container-fluid px-4 px-xl-5 mt-5 pt-5 position-relative z-2">
+        <div className="container-fluid px-4 px-xl-5 mt-5 pt-3 position-relative z-2">
           {/* Main Title */}
           <div className="text-center mb-5">
+            <span className="text-uppercase text-brand-primary fw-bold small mb-2 d-block tracking-widest" style={{ letterSpacing: '3px' }}>
+              INTERACTIVE SUITE
+            </span>
             <h1 className="display-4 fw-black mb-3 text-gradient" style={{ letterSpacing: '2px' }}>
-              EXPERIENCE THE CLEANZ24 DIFFERENCE | CUSTOM DETAILED SOLUTIONS
+              EXPERIENCE THE CLEANZ24 DIFFERENCE
             </h1>
+            <p className="text-muted-custom">Interact with our visualizer and customized recommendation matrix below.</p>
           </div>
 
           <div className="row g-4 align-items-stretch">
+            
             {/* COLUMN 1: LIVE STUDIO VISUALIZER */}
             <div className="col-lg-5">
-              <div className="premium-card h-100 p-4 d-flex flex-column" style={{ background: 'rgba(11,28,17,0.6)', backdropFilter: 'blur(12px)', border: '1px solid rgba(74,222,128,0.2)' }}>
-                <h4 className="text-center text-brand-primary fw-bold mb-4" style={{ letterSpacing: '2px', fontSize: '1.1rem' }}>LIVE STUDIO DETAILED VISUALIZER</h4>
-                <div className="d-flex justify-content-center gap-3 mb-4">
-                  <button className="btn btn-glow btn-sm px-4">Ceramic Coating</button>
-                  <button className="btn btn-outline-primary-custom btn-sm px-4">Services</button>
-                  <button className="btn btn-outline-primary-custom btn-sm px-4">Overlays</button>
+              <div className="premium-card h-100 p-4 d-flex flex-column" style={{ background: 'rgba(10,26,16,0.6)', backdropFilter: 'blur(12px)', border: '1px solid var(--card-border)' }}>
+                <h4 className="text-center text-brand-primary fw-bold mb-4" style={{ letterSpacing: '2px', fontSize: '1.1rem' }}>LIVE STUDIO VISUALIZER</h4>
+                
+                <div className="d-flex justify-content-center gap-2 mb-4 flex-wrap">
+                  {['Ceramic', 'PPF Matte', 'DNA Coating'].map((opt) => (
+                    <button 
+                      key={opt}
+                      onClick={() => setSelectedVisualizerOption(opt)}
+                      className={`btn btn-sm px-3 rounded-pill fw-bold ${selectedVisualizerOption === opt ? 'btn-glow border border-success' : 'btn-outline-primary-custom'}`}
+                    >
+                      {opt}
+                    </button>
+                  ))}
                 </div>
-                <div className="position-relative flex-grow-1 d-flex align-items-center justify-content-center rounded overflow-hidden" style={{ minHeight: '300px' }}>
-                  <img src={neonCarRender} alt="Car visualizer" className="img-fluid position-relative z-2 w-100" style={{ objectFit: 'contain' }} />
-                  {/* Badges Overlay */}
+
+                <div className="position-relative flex-grow-1 d-flex align-items-center justify-content-center rounded overflow-hidden" style={{ minHeight: '300px', background: 'rgba(0,0,0,0.3)' }}>
+                  {/* Car Image with Dynamic CSS Filter */}
+                  <img 
+                    src={neonCarRender} 
+                    alt="Car visualizer render" 
+                    className="img-fluid position-relative z-2 w-100" 
+                    style={{ 
+                      objectFit: 'contain',
+                      filter: currentFilter,
+                      transition: 'filter 0.5s ease-in-out'
+                    }} 
+                  />
+                  
+                  {/* Interactive Hotspots Overlay */}
                   <div className="position-absolute top-50 end-0 translate-middle-y z-3 d-flex flex-column gap-3 pe-3">
-                    <div className="text-center p-2 rounded-circle border border-primary d-flex flex-column align-items-center justify-content-center" style={{ width: '65px', height: '65px', background: 'rgba(5,13,8,0.8)' }}>
-                       <span className="d-block text-brand-primary" style={{ fontSize: '0.6rem', fontWeight: 'bold' }}>WHEEL</span>
-                       <span className="d-block text-white" style={{ fontSize: '0.55rem' }}>CERAMIC</span>
-                    </div>
-                    <div className="text-center p-2 rounded-circle border border-primary d-flex flex-column align-items-center justify-content-center" style={{ width: '65px', height: '65px', background: 'rgba(5,13,8,0.8)' }}>
-                       <span className="d-block text-brand-primary" style={{ fontSize: '0.6rem', fontWeight: 'bold' }}>PAINT</span>
-                       <span className="d-block text-white" style={{ fontSize: '0.55rem' }}>PROTECTION</span>
-                    </div>
-                    <div className="text-center p-2 rounded-circle border border-primary d-flex flex-column align-items-center justify-content-center" style={{ width: '65px', height: '65px', background: 'rgba(5,13,8,0.8)' }}>
-                       <span className="d-block text-brand-primary" style={{ fontSize: '0.6rem', fontWeight: 'bold' }}>INTERIOR</span>
-                       <span className="d-block text-white" style={{ fontSize: '0.55rem' }}>SHIELD</span>
-                    </div>
+                    {[
+                      { key: 'wheel', label: 'WHEEL', desc: 'Ceramic Caliper Coat' },
+                      { key: 'paint', label: 'PAINT', desc: '10H DNA Protection' },
+                      { key: 'interior', label: 'CABIN', desc: 'Anti-Bacterial Shield' }
+                    ].map((spot) => (
+                      <div 
+                        key={spot.key}
+                        onClick={() => setActiveHotspot(activeHotspot === spot.key ? null : spot.key)}
+                        className={`text-center p-2 rounded-circle border d-flex flex-column align-items-center justify-content-center cursor-pointer`}
+                        style={{ 
+                          width: '65px', 
+                          height: '65px', 
+                          background: 'rgba(5,13,8,0.85)',
+                          borderColor: activeHotspot === spot.key ? 'var(--accent-color)' : 'var(--primary-color)',
+                          boxShadow: activeHotspot === spot.key ? '0 0 15px var(--accent-color)' : 'none',
+                          cursor: 'pointer',
+                          transition: 'all 0.3s ease'
+                        }}
+                      >
+                         <span className="d-block fw-bold text-uppercase" style={{ fontSize: '0.55rem', color: activeHotspot === spot.key ? 'var(--accent-color)' : 'var(--primary-color)' }}>{spot.label}</span>
+                         <span className="d-block text-white" style={{ fontSize: '0.45rem', marginTop: '1px' }}>INFO</span>
+                      </div>
+                    ))}
                   </div>
+
+                  {/* Hotspot details popover */}
+                  <AnimatePresence>
+                    {activeHotspot && (
+                      <motion.div 
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        className="position-absolute bottom-0 start-0 w-100 p-3 bg-black bg-opacity-80 border-top text-start z-3"
+                        style={{ borderColor: 'var(--accent-color)' }}
+                      >
+                        <h6 className="fw-bold text-uppercase mb-1" style={{ color: 'var(--accent-color)', fontSize: '0.78rem' }}>
+                          {activeHotspot === 'wheel' ? 'Wheel Detailing Protocol' : activeHotspot === 'paint' ? 'Paint Restoration Protocol' : 'Interior Sanitation Protocol'}
+                        </h6>
+                        <p className="text-muted-custom mb-0 small" style={{ fontSize: '0.7rem', lineHeight: '1.4' }}>
+                          {activeHotspot === 'wheel' 
+                            ? 'Dissolves bonded metallic brake dust. Clay decontaminates the barrel, finished with a 200°C heat-resistant SiO2 caliper coat.'
+                            : activeHotspot === 'paint'
+                            ? 'Decontaminates micro-pores using soft clay blocks, applies DNA Nano Graphene compound, and locks it with UV curing lamps.'
+                            : 'Cabin steam sterilization killing 99.9% pathogens, vacuum extraction on fabric/leather, finished with pH-balanced conditioners.'}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
-                <div className="text-center mt-4">
-                  <h3 className="fw-bold text-white mb-1">VISUALIZE YOUR SHINE.</h3>
-                  <p className="text-muted-custom">10+ Custom Finishes.</p>
+
+                {/* Color swatches selector */}
+                <div className="mt-4 text-center">
+                  <h6 className="fw-bold text-white small text-uppercase tracking-wider mb-2">Select Protection Coating Tone</h6>
+                  <div className="d-flex justify-content-center gap-2 mb-3">
+                    {visualizerColors.map((tone) => (
+                      <button
+                        key={tone.name}
+                        onClick={() => setSelectedColor(tone.name)}
+                        className="rounded-circle border border-secondary"
+                        style={{
+                          width: '25px',
+                          height: '25px',
+                          backgroundColor: tone.colorCode,
+                          boxShadow: selectedColor === tone.name ? '0 0 10px rgba(255,255,255,0.8)' : 'none',
+                          border: selectedColor === tone.name ? '2px solid white !important' : '1px solid rgba(255,255,255,0.2)',
+                          padding: 0,
+                          cursor: 'pointer',
+                          transition: 'all 0.3s ease'
+                        }}
+                        title={tone.name}
+                      />
+                    ))}
+                  </div>
+                  <h3 className="fw-bold text-white h5 mb-1">{selectedColor} Finish</h3>
+                  <p className="text-muted-custom small mb-0">Protective overlay: {selectedVisualizerOption}</p>
                 </div>
               </div>
             </div>
 
             {/* COLUMN 2: ADVANCED PERSONALIZATION FORM */}
             <div className="col-lg-4">
-              <div className="premium-card h-100 p-4" style={{ background: 'rgba(11,28,17,0.6)', backdropFilter: 'blur(12px)', border: '1px solid rgba(74,222,128,0.2)' }}>
-                <h4 className="text-center text-white fw-bold mb-4" style={{ letterSpacing: '2px', fontSize: '1.1rem' }}>ADVANCED PERSONALIZATION FORM</h4>
+              <div className="premium-card h-100 p-4" style={{ background: 'rgba(10,26,16,0.6)', backdropFilter: 'blur(12px)', border: '1px solid var(--card-border)' }}>
+                <h4 className="text-center text-white fw-bold mb-4" style={{ letterSpacing: '2px', fontSize: '1.1rem' }}>DYNAMIC PRICING ESTIMATOR</h4>
                 
-                <div className="bg-white rounded p-4" style={{ color: '#000' }}>
-                  <h5 className="fw-bold mb-3" style={{ color: '#000' }}>Tell Us About Your Ride</h5>
+                <div className="bg-white rounded p-4 text-dark" style={{ color: '#000' }}>
+                  <h5 className="fw-bold mb-3 small text-uppercase" style={{ color: '#000', letterSpacing: '1px' }}>Calculate Treatment</h5>
                   
                   <div className="mb-3">
-                    <label className="form-label fw-bold small text-muted">Car Make/Model</label>
-                    <select className="form-select bg-light border-0 py-2">
-                      <option>Car Make/Model</option>
-                      <option>Tesla Model 3</option>
-                      <option>BMW M3</option>
+                    <label className="form-label fw-bold small text-muted text-uppercase" style={{ fontSize: '0.68rem' }}>Vehicle Size Class</label>
+                    <select 
+                      className="form-select bg-light border-0 py-2 small"
+                      value={carType}
+                      onChange={(e) => setCarType(e.target.value)}
+                    >
+                      <option value="Hatchback">Hatchback Class</option>
+                      <option value="Sedan">Sedan Class</option>
+                      <option value="SUV">SUV Class</option>
+                      <option value="Luxury">Luxury / Premium</option>
                     </select>
                   </div>
 
                   <div className="mb-4">
-                    <label className="form-label fw-bold small text-muted d-flex justify-content-between">
-                      <span>Current Paint Condition</span>
+                    <label className="form-label fw-bold small text-muted d-flex justify-content-between text-uppercase" style={{ fontSize: '0.68rem' }}>
+                      <span>Current Paint Swirl/Scratch Rating</span>
+                      <span className="text-success fw-bold">Level {paintCondition}/10</span>
                     </label>
-                    <input type="range" className="form-range custom-green-range" min="1" max="10" defaultValue="5" />
-                    <div className="d-flex justify-content-between px-1 text-muted small" style={{ fontSize: '0.7rem' }}>
-                      <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
-                    </div>
-                    
-                    <div className="d-flex gap-2 mt-3 overflow-hidden">
-                       <div style={{flex: 1, height:'30px', background:'#222', borderRadius:'4px', border: '2px solid var(--primary-color)'}}></div>
-                       <div style={{flex: 1, height:'30px', background:'#eee', borderRadius:'4px'}}></div>
-                       <div style={{flex: 1, height:'30px', background:'#900', borderRadius:'4px'}}></div>
-                       <div style={{flex: 1, height:'30px', background:'#246', borderRadius:'4px'}}></div>
-                       <div style={{flex: 1, height:'30px', background:'#666', borderRadius:'4px'}}></div>
+                    <input 
+                      type="range" 
+                      className="form-range custom-green-range" 
+                      min="1" 
+                      max="10" 
+                      value={paintCondition}
+                      onChange={(e) => setPaintCondition(Number(e.target.value))}
+                    />
+                    <div className="d-flex justify-content-between px-1 text-muted small" style={{ fontSize: '0.65rem' }}>
+                      <span>New Paint</span><span>Swirled</span><span>Scratched</span><span>Dull/Oxidized</span>
                     </div>
                   </div>
 
                   <div className="mb-4">
-                    <label className="form-label fw-bold small text-muted">Driving Habits</label>
+                    <label className="form-label fw-bold small text-muted text-uppercase" style={{ fontSize: '0.68rem' }}>Driving Exposure</label>
                     <div className="d-flex gap-2">
-                      <button className="btn btn-sm text-white flex-grow-1" style={{ background: '#198754' }}>Daily Commute</button>
-                      <button className="btn btn-sm btn-outline-secondary flex-grow-1">Weekend Use</button>
-                      <button className="btn btn-sm btn-outline-secondary flex-grow-1">Show Car</button>
+                      {['Daily Commute', 'Weekend Use', 'Show Car'].map((habit) => (
+                        <button 
+                          key={habit}
+                          type="button"
+                          onClick={() => setDrivingHabit(habit)}
+                          className={`btn btn-sm flex-grow-1 py-2 ${drivingHabit === habit ? 'btn-success text-white' : 'btn-outline-secondary'}`}
+                          style={{ fontSize: '0.72rem', fontWeight: 600 }}
+                        >
+                          {habit}
+                        </button>
+                      ))}
                     </div>
                   </div>
 
-                  <div className="p-3 rounded" style={{ background: 'rgba(74,222,128,0.15)', border: '1px solid rgba(74,222,128,0.3)' }}>
-                    <h6 className="fw-bold text-dark mb-1">Recommended for You:</h6>
-                    <p className="small text-muted mb-2">Premier Quartz Guard + Interior Steam Sanitation</p>
-                    <div className="progress" style={{ height: '6px' }}>
-                      <div className="progress-bar bg-success" role="progressbar" style={{ width: '80%' }}></div>
+                  <div className="p-3 rounded" style={{ background: 'rgba(0,201,109,0.08)', border: '1px solid rgba(0,201,109,0.18)' }}>
+                    <h6 className="fw-bold text-dark mb-1 small text-uppercase" style={{ fontSize: '0.7rem', color: '#111' }}>Recommended Package:</h6>
+                    <p className="small text-muted mb-2 fw-semibold" style={{ color: '#222' }}>{recommendationTitle}</p>
+                    
+                    <div className="d-flex justify-content-between align-items-center mb-2">
+                      <span className="small text-muted font-normal">Estimated price:</span>
+                      <span className="fw-bold text-success" style={{ fontSize: '1rem' }}>{recommendationPrice}</span>
                     </div>
-                    <div className="text-end mt-1"><small className="text-muted" style={{fontSize: '0.7rem'}}>Progress</small></div>
+
+                    <div className="progress bg-dark bg-opacity-10" style={{ height: '6px' }}>
+                      <div 
+                        className="progress-bar bg-success" 
+                        role="progressbar" 
+                        style={{ width: `${progressScore}%`, transition: 'width 0.4s ease' }}
+                      />
+                    </div>
+                    <div className="d-flex justify-content-between mt-1" style={{fontSize: '0.65rem'}}>
+                      <span className="text-muted">Algorithm Match Score</span>
+                      <span className="text-muted fw-bold">{progressScore}% Match</span>
+                    </div>
                   </div>
+
+                  <a 
+                    href="#book" 
+                    className="btn btn-dark w-100 py-3 mt-3 fw-bold text-white text-uppercase rounded"
+                    style={{ fontSize: '0.8rem', letterSpacing: '1px' }}
+                    onClick={(e) => {
+                      setBookingData(prev => ({ ...prev, service: recommendationTitle }));
+                      handleSmoothScroll(e, '#book');
+                    }}
+                  >
+                    Select Recommended Wash
+                  </a>
 
                 </div>
               </div>
@@ -298,53 +488,62 @@ function CarSpa({ isDarkMode, toggleTheme }) {
 
             {/* COLUMN 3: TRUST PROTOCOL & LOCAL COMMUNITY IMPACT */}
             <div className="col-lg-3">
-              <div className="premium-card h-100 p-4" style={{ background: 'rgba(11,28,17,0.6)', backdropFilter: 'blur(12px)', border: '1px solid rgba(74,222,128,0.2)' }}>
-                <h4 className="text-center text-white fw-bold mb-4" style={{ letterSpacing: '1px', fontSize: '1rem', lineHeight: '1.4' }}>TRUST PROTOCOL &<br/>LOCAL COMMUNITY IMPACT</h4>
+              <div className="premium-card h-100 p-4" style={{ background: 'rgba(10,26,16,0.6)', backdropFilter: 'blur(12px)', border: '1px solid var(--card-border)' }}>
+                <h4 className="text-center text-white fw-bold mb-4" style={{ letterSpacing: '1px', fontSize: '1rem', lineHeight: '1.4' }}>TRUST PROTOCOL & COMMUNITY</h4>
                 
-                <h6 className="text-brand-primary fw-bold mb-3 small">PROFESSIONAL & PROVEN</h6>
+                <h6 className="text-brand-primary fw-bold mb-3 small">SAFETY STANDARDS</h6>
                 
-                {/* A */}
+                {/* Certified Master Detailers */}
                 <div className="mb-4">
                   <div className="d-flex align-items-center gap-2 mb-2">
-                    <span className="badge rounded-circle border border-primary text-primary" style={{width:'24px', height:'24px', display:'flex', alignItems:'center', justifyContent:'center'}}>A</span>
-                    <h6 className="fw-bold text-white mb-0 small">CERTIFIED MASTER DETAILERS</h6>
+                    <span className="badge rounded-circle border border-primary text-primary" style={{width:'22px', height:'22px', display:'flex', alignItems:'center', justifyContent:'center', fontSize: '0.7rem'}}>A</span>
+                    <h6 className="fw-bold text-white mb-0 small" style={{ fontSize: '0.78rem' }}>MASTER DETAILERS</h6>
                   </div>
-                  <div className="d-flex align-items-center gap-3 ps-4">
-                    <div className="text-center">
-                      <div className="rounded-circle bg-success text-white d-flex align-items-center justify-content-center mb-1 mx-auto" style={{width:'40px', height:'40px'}}>✓</div>
-                      <small className="text-muted-custom" style={{fontSize:'0.65rem'}}>Verified Badge</small>
-                    </div>
-                    <div className="text-center border p-2 rounded border-secondary flex-grow-1" style={{background: 'rgba(255,255,255,0.02)'}}>
-                      <img src={cleanz24Technicians} alt="Tech" className="rounded-circle mb-1 object-fit-cover" style={{width:'40px', height:'40px'}} />
-                      <div className="text-white" style={{fontSize:'0.7rem'}}>Rajiv K. - 12 Years Exp.</div>
-                      <div className="text-brand-primary" style={{fontSize:'0.6rem'}}>Certifications</div>
+                  <div className="d-flex align-items-center gap-2 ps-4">
+                    <div className="text-center border p-2 rounded border-secondary flex-grow-1" style={{background: 'rgba(255,255,255,0.02)', borderColor: 'var(--card-border)'}}>
+                      <div className="text-white fw-bold" style={{fontSize:'0.7rem'}}>Rajiv K. • Lead Technician</div>
+                      <div className="text-brand-primary" style={{fontSize:'0.65rem'}}>12 Years Exp • Certified Master</div>
                     </div>
                   </div>
                 </div>
 
-                {/* B */}
+                {/* Eco Safe */}
                 <div className="mb-4">
                   <div className="d-flex align-items-center gap-2 mb-2">
-                    <span className="badge rounded-circle border border-primary text-primary" style={{width:'24px', height:'24px', display:'flex', alignItems:'center', justifyContent:'center'}}>B</span>
-                    <h6 className="fw-bold text-white mb-0 small">ECO-SAFE PROTOCOLS</h6>
+                    <span className="badge rounded-circle border border-primary text-primary" style={{width:'22px', height:'22px', display:'flex', alignItems:'center', justifyContent:'center', fontSize: '0.7rem'}}>B</span>
+                    <h6 className="fw-bold text-white mb-0 small" style={{ fontSize: '0.78rem' }}>ECO-SAFE PROTOCOLS</h6>
                   </div>
-                  <p className="text-muted-custom ps-4 mb-0 small" style={{fontSize: '0.8rem'}}>100% Biodegradable Chemicals | Zero Water Waste</p>
+                  <p className="text-muted-custom ps-4 mb-0 small" style={{fontSize: '0.78rem', lineHeight: '1.5' }}>
+                    100% Biodegradable shampoos. Water scaling recycling technology to conserve 80% utility waste.
+                  </p>
                 </div>
 
-                {/* C */}
+                {/* Certifications row */}
                 <div className="mb-4">
                   <div className="d-flex align-items-center gap-2 mb-2">
-                    <span className="badge rounded-circle border border-primary text-primary" style={{width:'24px', height:'24px', display:'flex', alignItems:'center', justifyContent:'center'}}>C</span>
-                    <h6 className="fw-bold text-white mb-0 small">COMMUNITY IMPACT</h6>
+                    <span className="badge rounded-circle border border-primary text-primary" style={{width:'22px', height:'22px', display:'flex', alignItems:'center', justifyContent:'center', fontSize: '0.7rem'}}>C</span>
+                    <h6 className="fw-bold text-white mb-0 small" style={{ fontSize: '0.78rem' }}>ISO ACCREDITATION</h6>
                   </div>
-                  <p className="text-muted-custom ps-4 mb-3 small" style={{fontSize: '0.8rem'}}>Trusted by 25+ local Faridabad fleets and businesses</p>
-                  <div className="d-flex justify-content-center gap-2 ps-4 flex-wrap">
-                    <div className="bg-white p-1 rounded d-flex align-items-center justify-content-center" style={{width:'45px', height:'35px'}}><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" style={{width:'20px'}}/></div>
-                    <div className="bg-white p-1 rounded d-flex align-items-center justify-content-center" style={{width:'45px', height:'35px'}}><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" style={{width:'20px'}}/></div>
-                    <div className="bg-white p-1 rounded d-flex align-items-center justify-content-center" style={{width:'45px', height:'35px'}}><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" style={{width:'20px'}}/></div>
+                  
+                  {/* Custom certification rows */}
+                  <div className="ps-4">
+                    <div className="d-flex flex-column gap-2">
+                      <div className="d-flex align-items-center gap-2 border border-secondary border-opacity-10 p-2 bg-black bg-opacity-25" style={{ borderRadius: '6px' }}>
+                        <span className="text-success small">✔</span>
+                        <div className="small" style={{ fontSize: '0.7rem' }}>
+                          <strong className="text-white">ISO 9001:2015</strong> Certified Studio Network
+                        </div>
+                      </div>
+                      <div className="d-flex align-items-center gap-2 border border-secondary border-opacity-10 p-2 bg-black bg-opacity-25" style={{ borderRadius: '6px' }}>
+                        <span className="text-success small">✔</span>
+                        <div className="small" style={{ fontSize: '0.7rem' }}>
+                          <strong className="text-white">Google Verified</strong>detailing network
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div className="text-center mt-3 ps-4">
-                    <span className="badge bg-success px-3 py-2">25+ Satisfied Clients</span>
+                    <span className="badge bg-success px-3 py-2 rounded-pill" style={{ fontSize: '0.7rem', fontWeight: 600 }}>10,000+ VEHICLES DETAILED</span>
                   </div>
                 </div>
 
@@ -383,7 +582,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
             </motion.div>
             
             <motion.div className="col-lg-7" initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-              <div className="shadow-lg rounded overflow-hidden" style={{ border: '1px solid rgba(74,222,128,0.2)' }}>
+              <div className="shadow-lg rounded overflow-hidden" style={{ border: '1px solid rgba(0, 201, 109, 0.2)' }}>
                 <BeforeAfterSlider />
               </div>
             </motion.div>
@@ -409,7 +608,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                   alt="Cleanz24 Professional Wash Team" 
                   className="w-100 h-100 object-fit-cover"
                 />
-                <div className="position-absolute bottom-0 start-0 w-100 bg-danger text-white p-3 fw-bold small text-uppercase tracking-wider text-center" style={{ letterSpacing: '1px' }}>
+                <div className="position-absolute bottom-0 start-0 w-100 bg-success text-white p-3 fw-bold small text-uppercase tracking-wider text-center" style={{ letterSpacing: '1px' }}>
                   Our Insured & Certified Wash Crew
                 </div>
               </motion.div>
@@ -426,7 +625,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                 </span>
                 <h2 className="display-5 fw-bold text-heading mb-4">MEET YOUR WASH CHAMPIONS</h2>
                 <p className="text-muted-custom mb-4" style={{ lineHeight: '1.8' }}>
-                  Our professional technicians are certified in paint-safe washing technology. Wearing our iconic red & black Cleanz24 uniforms, they ensure a thorough, scratch-free wash using high-tech equipment and premium pH-neutral cleaning solutions.
+                  Our professional technicians are certified in paint-safe washing technology. Wearing our iconic Cleanz24 uniforms, they ensure a thorough, scratch-free wash using high-tech equipment and premium pH-neutral cleaning solutions.
                 </p>
                 <ul className="list-unstyled text-muted-custom mb-0" style={{ lineHeight: '2.2', fontWeight: '500' }}>
                   <li className="d-flex align-items-center gap-2">
@@ -456,10 +655,10 @@ function CarSpa({ isDarkMode, toggleTheme }) {
             We provide specialized Foam & Pressure Washing, Deep Interior Detailing Wash, and Ceramic Wax Protective Coatings. Each wash is optimized for size class and executed using scratch-free active foam technology.
           </p>
           <div className="d-flex justify-content-center gap-3 flex-wrap">
-            <Link to="/services" className="btn btn-glow btn-lg rounded-0 px-5 py-3 fw-bold">
+            <Link to="/services" className="btn btn-glow btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none">
               View Packages & Detailed Process
             </Link>
-            <a href="#book" className="btn btn-outline-primary-custom btn-lg rounded-0 px-5 py-3 fw-bold text-decoration-none" onClick={(e) => handleSmoothScroll(e, '#book')}>
+            <a href="#book" className="btn btn-outline-primary-custom btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none" onClick={(e) => handleSmoothScroll(e, '#book')}>
               Book Appointment
             </a>
           </div>
@@ -496,13 +695,13 @@ function CarSpa({ isDarkMode, toggleTheme }) {
               &#10095;
             </button>
 
-            <div className="testimonial-box p-4 p-md-5 mb-4 position-relative">
+            <div className="testimonial-box p-4 p-md-5 mb-4 position-relative" style={{ borderRadius: '12px' }}>
               <AnimatePresence mode="wait">
                 <motion.p
                   key={currentTestimonialIndex}
-                  initial={{ opacity: 0, x: 50 }}
+                  initial={{ opacity: 0, x: 30 }}
                   animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -50 }}
+                  exit={{ opacity: 0, x: -30 }}
                   transition={{ duration: 0.4, ease: "easeInOut" }}
                   className="testimonial-text mb-0 fw-bold w-100 text-center"
                 >
@@ -522,15 +721,16 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                   transition={{ duration: 0.4, ease: "easeInOut" }}
                   className="d-flex align-items-center"
                 >
-                  <img
-                    src={testimonialsData[currentTestimonialIndex].image}
-                    alt={testimonialsData[currentTestimonialIndex].name}
-                    className="rounded-circle me-3 border border-secondary"
-                    style={{ width: '60px', height: '60px', objectFit: 'cover' }}
-                  />
+                  {/* Initials-based colored avatar instead of pravatar.cc */}
+                  <div className="success-story-avatar me-3" style={{ background: 'var(--gradient-primary)', width: '55px', height: '55px', borderRadius: '50%', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '1.1rem' }}>
+                    {testimonialsData[currentTestimonialIndex].initials}
+                  </div>
                   <div className="text-start">
                     <h6 className="fw-bold mb-0 text-heading">{testimonialsData[currentTestimonialIndex].name}</h6>
                     <small className="text-muted-custom" style={{ fontSize: '0.85rem' }}>{testimonialsData[currentTestimonialIndex].role}</small>
+                    <div className="text-warning text-xs mt-1" style={{ fontSize: '0.75rem' }}>
+                      ★★★★★ <span className="text-muted-custom" style={{ fontSize: '0.7rem' }}>• Google Verified</span>
+                    </div>
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -570,7 +770,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <button className="btn btn-glow rounded-0 px-4 fw-bold" onClick={() => setSearchQuery('Bangalore')}>
+            <button className="btn btn-glow rounded-0 px-4 fw-bold text-uppercase" onClick={() => setSearchQuery('Bangalore')}>
               BANGALORE
             </button>
           </motion.div>
@@ -613,7 +813,8 @@ function CarSpa({ isDarkMode, toggleTheme }) {
           <div className="row align-items-center g-5">
             <motion.div className="col-lg-6" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}>
               <h2 className="display-4 fw-bold mb-4 text-gradient">READY FOR THE ULTIMATE SHINE?</h2>
-              <div className="row text-center mb-5 g-3 bg-secondary-custom rounded-0 py-4 mx-0 shadow-sm" style={{ border: '1px solid var(--card-border)' }}>
+              
+              <div className="row text-center mb-5 g-3 bg-secondary-custom rounded-0 py-4 mx-0 shadow-sm" style={{ border: '1px solid var(--card-border)', borderRadius: '12px' }}>
                 <div className="col-4 border-end" style={{ borderColor: 'var(--card-border)' }}>
                   <h3 className="fw-bold mb-0 text-brand-primary">70+</h3>
                   <small className="text-uppercase tracking-wider text-muted-custom small" style={{ fontSize: '0.75rem' }}>Wash Bays</small>
@@ -627,6 +828,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                   <small className="text-uppercase tracking-wider text-muted-custom small" style={{ fontSize: '0.75rem' }}>States</small>
                 </div>
               </div>
+
               <div className="custom-faq-wrapper mt-4">
                 <h4 className="fw-bold mb-4 text-heading">FREQUENTLY ASKED QUESTIONS</h4>
                 {faqsData.map((item, index) => {
@@ -645,29 +847,96 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                 })}
               </div>
             </motion.div>
+            
             <motion.div className="col-lg-6" initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-              <div className="card bg-secondary-custom shadow-sm rounded-0 overflow-hidden" style={{ border: '1px solid var(--card-border)' }}>
+              <div className="card bg-secondary-custom shadow-lg rounded-0 overflow-hidden" style={{ border: '1px solid var(--card-border)', borderRadius: '12px' }}>
                 <div className="card-body p-4 p-md-5 position-relative">
                   <div className="position-absolute top-0 end-0 p-3 opacity-25" style={{ fontSize: '4rem' }}>📅</div>
                   <h3 className="card-title fw-bold mb-2 text-heading position-relative z-1">Schedule Car Wash</h3>
                   <p className="card-text text-muted-custom small mb-4 position-relative z-1">Complimentary safe pickup and transit drop operations valid across all registered hubs.</p>
-                  <form onSubmit={(e) => { e.preventDefault(); alert("Booking Submitted! Our team will contact you shortly."); }} className="position-relative z-1">
-                    <div className="mb-3">
-                      <label htmlFor="name" className="form-label fw-bold small text-uppercase text-muted-custom">Name *</label>
-                      <input type="text" className="form-control py-3 rounded-0" id="name" placeholder="Enter full name" required />
+                  
+                  {bookingSubmitted ? (
+                    <div className="text-center py-5 position-relative z-1">
+                      <div className="display-1 text-success mb-3">
+                        <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                      </div>
+                      <h4 className="fw-bold text-heading mb-2">Booking Submitted!</h4>
+                      <p className="text-muted-custom">Thank you, {bookingData.name}. Our concierge service representative will contact you shortly to coordinate slot timing.</p>
+                      <div className="p-3 bg-primary-custom rounded border border-success border-opacity-20 text-start mt-4 mb-3">
+                        <small className="text-muted-custom">
+                          Selected Treatment: <strong>{bookingData.service}</strong><br />
+                          Contact Number: <strong>{bookingData.mobile}</strong><br />
+                          Pickup Address: <strong>{bookingData.address}</strong>
+                        </small>
+                      </div>
+                      <button className="btn btn-outline-primary-custom px-4 py-2 mt-3" onClick={() => setBookingSubmitted(false)}>Schedule Another Wash</button>
                     </div>
-                    <div className="mb-3">
-                      <label htmlFor="mobile" className="form-label fw-bold small text-uppercase text-muted-custom">Mobile Number *</label>
-                      <input type="tel" className="form-control py-3 rounded-0" id="mobile" placeholder="Enter mobile contact" required />
-                    </div>
-                    <div className="mb-4">
-                      <label htmlFor="address" className="form-label fw-bold small text-uppercase text-muted-custom">Address *</label>
-                      <textarea className="form-control rounded-0" id="address" rows="3" placeholder="Enter location details" required></textarea>
-                    </div>
-                    <div className="d-grid">
-                      <button type="submit" className="btn btn-primary btn-lg rounded-0 fw-bold btn-glow py-3">Submit Wash Booking</button>
-                    </div>
-                  </form>
+                  ) : (
+                    <form onSubmit={handleBookingSubmit} className="position-relative z-1">
+                      <div className="mb-3">
+                        <label htmlFor="name" className="form-label fw-bold small text-uppercase text-muted-custom">Name *</label>
+                        <input 
+                          type="text" 
+                          className="form-control py-3 rounded-0" 
+                          id="name" 
+                          placeholder="Enter full name" 
+                          required 
+                          value={bookingData.name}
+                          onChange={handleBookingInputChange}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="mobile" className="form-label fw-bold small text-uppercase text-muted-custom">Mobile Number *</label>
+                        <input 
+                          type="tel" 
+                          className="form-control py-3 rounded-0" 
+                          id="mobile" 
+                          placeholder="Enter mobile contact" 
+                          required 
+                          value={bookingData.mobile}
+                          onChange={handleBookingInputChange}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="service" className="form-label fw-bold small text-uppercase text-muted-custom">Service Package *</label>
+                        <select 
+                          className="form-control py-3 rounded-0" 
+                          id="service" 
+                          value={bookingData.service}
+                          onChange={handleBookingInputChange}
+                        >
+                          <option>Eco Foam Wash</option>
+                          <option>Premium Wash & Vacuum</option>
+                          <option>Ultra Polish & Wash</option>
+                          <option>Ceramic Shield Wash</option>
+                        </select>
+                      </div>
+                      <div className="mb-4">
+                        <label htmlFor="address" className="form-label fw-bold small text-uppercase text-muted-custom">Address *</label>
+                        <textarea 
+                          className="form-control rounded-0" 
+                          id="address" 
+                          rows="3" 
+                          placeholder="Enter location details" 
+                          required
+                          value={bookingData.address}
+                          onChange={handleBookingInputChange}
+                        ></textarea>
+                      </div>
+                      <div className="d-grid">
+                        <button type="submit" className="btn btn-primary btn-lg rounded-0 fw-bold btn-glow py-3">Submit Wash Booking</button>
+                      </div>
+                      <div className="d-flex justify-content-between mt-3 text-muted-custom text-center" style={{ fontSize: '0.72rem' }}>
+                        <span>🔒 Secure Submission</span>
+                        <span>•</span>
+                        <span>🚘 432 Bookings This Month</span>
+                        <span>•</span>
+                        <span>🛡️ Insured Transit</span>
+                      </div>
+                    </form>
+                  )}
                 </div>
               </div>
             </motion.div>

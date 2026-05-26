@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import logoImg from '../assets/logo3.png';
-import afterDetailingImg from '../assets/after_detailing.png';
+import logoImg from '../assets/logo2.jpeg';
 import '../App.css';
 
 function Landing() {
@@ -32,7 +31,7 @@ function Landing() {
     setSparks(sparkArray);
   }, []);
 
-  // Diagonal clip path values
+  // Diagonal clip path values 
   let leftClip = "polygon(0 0, 52% 0, 48% 100%, 0 100%)";
   let rightClip = "polygon(52% 0, 100% 0, 100% 100%, 48% 100%)";
   let dividerClip = "polygon(calc(52% - 2px) 0, calc(52% + 2px) 0, calc(48% + 2px) 100%, calc(48% - 2px) 100%)";
@@ -50,6 +49,16 @@ function Landing() {
   return (
     <div className="landing-container bg-black min-vh-100 position-relative overflow-hidden w-100">
       
+      {/* Central Glassmorphic Badge / Logo Overlay (Hidden on Mobile) */}
+      <div className="landing-center-badge d-none d-md-flex">
+        <div className="center-badge-blur" />
+        <div className="center-badge-content text-center">
+          <img src={logoImg} alt="Cleanz24 Logo" className="landing-center-logo img-fluid mb-2" />
+          <div className="center-badge-divider" />
+          <div className="center-badge-tagline">INDIA'S PREMIUM SERVICE NETWORK</div>
+          <div className="center-badge-trust">Trusted Across 21 States • 100+ Franchise Locations</div>
+        </div>
+      </div>
 
       {/* Dynamic Midline neon separator */}
       <div 
@@ -64,11 +73,11 @@ function Landing() {
           zIndex: 4,
           clipPath: dividerClip,
           transition: 'clip-path 0.7s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s ease, filter 0.4s ease',
-          backgroundColor: hoveredSide === 'laundry' ? '#00e281' : hoveredSide === 'car-spa' ? '#ff0d1b' : 'rgba(255,255,255,0.15)',
+          backgroundColor: hoveredSide === 'laundry' ? '#00C96D' : hoveredSide === 'car-spa' ? '#D4AF37' : 'rgba(255,255,255,0.15)',
           filter: hoveredSide === 'laundry' 
-            ? 'drop-shadow(0 0 8px #00e281) drop-shadow(0 0 15px #00e281)' 
+            ? 'drop-shadow(0 0 10px #00C96D) drop-shadow(0 0 25px #00C96D)' 
             : hoveredSide === 'car-spa' 
-            ? 'drop-shadow(0 0 8px #ff0d1b) drop-shadow(0 0 15px #ff0d1b)' 
+            ? 'drop-shadow(0 0 10px #D4AF37) drop-shadow(0 0 25px #D4AF37)' 
             : 'none'
         }}
       />
@@ -83,7 +92,7 @@ function Landing() {
             clipPath: leftClip,
             transition: 'clip-path 0.7s cubic-bezier(0.25, 0.8, 0.25, 1)',
             zIndex: 1,
-            background: 'radial-gradient(circle at 30% 50%, rgba(0, 226, 129, 0.25) 0%, rgba(0, 20, 10, 0.95) 80%)'
+            background: 'radial-gradient(circle at 30% 50%, rgba(0, 201, 109, 0.22) 0%, rgba(3, 10, 6, 0.98) 80%)'
           }}
           onMouseEnter={() => setHoveredSide('laundry')}
           onMouseLeave={() => setHoveredSide(null)}
@@ -106,14 +115,25 @@ function Landing() {
           </div>
 
           <div className="landing-content laundry-content-wrapper z-2">
-            <div className="landing-icon-wrap mb-4 display-3" style={{ textShadow: '0 0 20px rgba(0, 226, 129, 0.3)' }}>🧺</div>
+            {/* Premium Laundry SVG Icon */}
+            <div className="landing-icon-wrap mb-4" style={{ filter: 'drop-shadow(0 0 12px rgba(0, 201, 109, 0.45))' }}>
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#00C96D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7" />
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 10a2 2 0 0 0-2 2" />
+                <path d="M18 19v-4" />
+                <path d="M15 16h6" />
+                <path d="M7 8h.01" />
+                <path d="M11 8h.01" />
+              </svg>
+            </div>
             <h2 className="display-4 fw-black text-uppercase tracking-wide font-oswald text-white mb-3">
-              PREMIER <br /><span style={{ color: '#00e281' }}>LAUNDRY</span>
+              PREMIER <br /><span style={{ color: '#00C96D' }}>LAUNDRY</span>
             </h2>
-            <p className="text-white-50 lead fw-light mb-4" style={{ fontSize: '1rem', lineHeight: '1.6' }}>
-              Expert garment care, chemical dry cleaning, and fabric restoration services.
+            <p className="text-white-50 lead fw-light mb-4" style={{ fontSize: '0.95rem', lineHeight: '1.6' }}>
+              Expert garment care, chemical dry cleaning, and fabric restoration services with door-to-door convenience.
             </p>
-            <span className="btn-portal btn-laundry text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border" style={{ borderColor: '#00e281' }}>
+            <span className="btn-portal btn-laundry text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border" style={{ borderColor: '#00C96D' }}>
               ENTER LAUNDRY
             </span>
           </div>
@@ -127,7 +147,7 @@ function Landing() {
             clipPath: rightClip,
             transition: 'clip-path 0.7s cubic-bezier(0.25, 0.8, 0.25, 1)',
             zIndex: 2,
-            background: `radial-gradient(circle at 70% 50%, rgba(217, 4, 41, 0.25) 0%, rgba(5, 5, 5, 0.98) 85%), linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.55)), url(${afterDetailingImg}) center/cover no-repeat`
+            background: 'radial-gradient(circle at 70% 50%, rgba(212, 175, 55, 0.22) 0%, rgba(6, 13, 9, 0.98) 80%)'
           }}
           onMouseEnter={() => setHoveredSide('car-spa')}
           onMouseLeave={() => setHoveredSide(null)}
@@ -149,23 +169,41 @@ function Landing() {
             ))}
           </div>
 
-          {/* Carbon grid overlay */}
-          <div className="carbon-mesh-overlay position-absolute w-100 h-100 top-0 start-0 opacity-10 pointer-events-none" />
-
           <div className="landing-content carspa-content-wrapper z-2">
-            <div className="landing-icon-wrap mb-4 display-3" style={{ textShadow: '0 0 20px rgba(255, 13, 27, 0.3)' }}>🚘</div>
+            {/* Premium Car Detailing SVG Icon */}
+            <div className="landing-icon-wrap mb-4" style={{ filter: 'drop-shadow(0 0 12px rgba(212, 175, 55, 0.45))' }}>
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" />
+                <circle cx="7" cy="17" r="2" />
+                <path d="M9 17h6" />
+                <circle cx="17" cy="17" r="2" />
+                <path d="M13 10h3" />
+                <path d="M5 10h4" />
+                <path d="M12 4v2" />
+                <path d="M19 4l-1.5 1.5" />
+                <path d="M5 4l1.5 1.5" />
+              </svg>
+            </div>
             <h2 className="display-4 fw-black text-uppercase tracking-wide font-oswald text-white mb-3">
-              CAR <br /><span className="text-danger">SPA</span>
+              CAR <br /><span style={{ color: '#D4AF37' }}>SPA</span>
             </h2>
-            <p className="text-white-50 lead fw-light mb-4" style={{ fontSize: '1rem', lineHeight: '1.6' }}>
-              Advanced paint protection film (PPF), 10H DNA Graphene, & detail restoration.
+            <p className="text-white-50 lead fw-light mb-4" style={{ fontSize: '0.95rem', lineHeight: '1.6' }}>
+              Advanced paint protection film (PPF), 10H DNA Graphene coatings, & premium detail wash restoration.
             </p>
-            <span className="btn-portal btn-carspa text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border border-danger">
+            <span className="btn-portal btn-carspa text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border" style={{ borderColor: '#D4AF37' }}>
               ENTER CAR SPA
             </span>
           </div>
         </Link>
 
+      </div>
+
+      {/* Mobile Center Header (Visible only on mobile) */}
+      <div className="mobile-landing-header d-block d-md-none text-center w-100 py-3 position-absolute top-0 start-0 z-3 bg-black bg-opacity-70 border-bottom border-secondary border-opacity-20">
+        <img src={logoImg} alt="Cleanz24 Logo" style={{ height: '40px' }} />
+        <div style={{ fontSize: '0.65rem', color: '#D4AF37', letterSpacing: '2px', fontWeight: 'bold', marginTop: '2px' }}>
+          INDIA'S PREMIUM SERVICE NETWORK
+        </div>
       </div>
 
       <style>{`
@@ -184,8 +222,8 @@ function Landing() {
         .spark {
           position: absolute;
           bottom: -15px;
-          background-color: #ff0d1b;
-          box-shadow: 0 0 6px #ff0d1b, 0 0 12px #ff0d1b;
+          background-color: #D4AF37;
+          box-shadow: 0 0 6px #D4AF37, 0 0 12px #D4AF37;
           border-radius: 50%;
           animation: flyUp 6s infinite linear;
           pointer-events: none;
@@ -215,6 +253,66 @@ function Landing() {
           100% { transform: translateY(-110vh) translateX(30px) scale(0.3); opacity: 0; }
         }
 
+        /* Central Glassmorphic Badge Styling */
+        .landing-center-badge {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 320px;
+          height: 320px;
+          border-radius: 50%;
+          z-index: 5;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          pointer-events: none;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+          overflow: hidden;
+        }
+        .center-badge-blur {
+          position: absolute;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background: rgba(10, 15, 13, 0.65);
+          backdrop-filter: blur(15px);
+          -webkit-backdrop-filter: blur(15px);
+          z-index: 1;
+        }
+        .center-badge-content {
+          position: relative;
+          z-index: 2;
+          padding: 1.5rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .landing-center-logo {
+          max-height: 55px;
+          object-fit: contain;
+        }
+        .center-badge-divider {
+          width: 50px;
+          height: 2px;
+          background: linear-gradient(90deg, #00C96D, #D4AF37);
+          margin: 12px 0;
+        }
+        .center-badge-tagline {
+          font-family: 'Oswald', sans-serif;
+          font-size: 0.7rem;
+          color: #D4AF37;
+          letter-spacing: 2px;
+          font-weight: 800;
+        }
+        .center-badge-trust {
+          font-size: 0.58rem;
+          color: rgba(255, 255, 255, 0.45);
+          margin-top: 4px;
+          font-weight: 500;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+        }
+
         .btn-portal {
           display: inline-block;
           letter-spacing: 2px;
@@ -224,26 +322,26 @@ function Landing() {
         }
 
         .btn-laundry {
-          background: rgba(0, 226, 129, 0.15);
-          color: #00e281 !important;
+          background: rgba(0, 201, 109, 0.1);
+          color: #00C96D !important;
           border-radius: 50px !important;
         }
         .btn-laundry:hover {
-          background: #00e281;
+          background: #00C96D;
           color: #000 !important;
-          box-shadow: 0 0 20px rgba(0, 226, 129, 0.5) !important;
+          box-shadow: 0 0 25px rgba(0, 201, 109, 0.45) !important;
           transform: translateY(-2px);
         }
 
         .btn-carspa {
-          background: rgba(217, 4, 41, 0.2);
-          color: #ff0d1b !important;
+          background: rgba(212, 175, 55, 0.1);
+          color: #D4AF37 !important;
           border-radius: 50px !important;
         }
         .btn-carspa:hover {
-          background: #ff0d1b;
-          color: #fff !important;
-          box-shadow: 0 0 20px rgba(255, 13, 27, 0.5) !important;
+          background: #D4AF37;
+          color: #000 !important;
+          box-shadow: 0 0 25px rgba(212, 175, 55, 0.45) !important;
           transform: translateY(-2px);
         }
 
@@ -287,13 +385,13 @@ function Landing() {
         @media (min-width: 768px) {
           .laundry-content-wrapper {
             position: absolute !important;
-            left: 25% !important;
+            left: 23% !important;
             top: 50% !important;
             transform: translate(-50%, -50%) !important;
           }
           .carspa-content-wrapper {
             position: absolute !important;
-            left: 75% !important;
+            left: 77% !important;
             top: 50% !important;
             transform: translate(-50%, -50%) !important;
           }
@@ -315,14 +413,11 @@ function Landing() {
             width: 100% !important;
           }
           .laundry-panel {
-            background: radial-gradient(circle at center, rgba(0, 226, 129, 0.25) 0%, rgba(0, 20, 10, 0.98) 100%) !important;
+            background: radial-gradient(circle at center, rgba(0, 201, 109, 0.22) 0%, rgba(3, 10, 6, 0.99) 100%) !important;
+            padding-top: 60px; /* Space for mobile header */
           }
           .carspa-panel {
-            background: radial-gradient(circle at center, rgba(217, 4, 41, 0.3) 0%, rgba(5, 5, 5, 0.99) 100%), linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.6)), url(${afterDetailingImg}) center/cover no-repeat !important;
-          }
-          .landing-logo-container {
-            top: 15px !important;
-            transform: scale(0.8) translateX(-62.5%);
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.22) 0%, rgba(6, 13, 9, 0.99) 100%) !important;
           }
           .laundry-content-wrapper,
           .carspa-content-wrapper {

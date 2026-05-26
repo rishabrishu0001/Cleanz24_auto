@@ -4,6 +4,12 @@ import { Link } from 'react-router-dom';
 import logoImg from '../assets/logo3.png';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { 
+  statsCounterData, 
+  franchiseSuccessStories, 
+  franchiseJourneySteps, 
+  roiProjections 
+} from '../data';
 import '../App.css';
 
 function Franchise({ isDarkMode, toggleTheme }) {
@@ -17,6 +23,9 @@ function Franchise({ isDarkMode, toggleTheme }) {
     message: ''
   });
 
+  const [selectedModel, setSelectedModel] = useState('Premium Studio');
+  const [hoveredTimelineStep, setHoveredTimelineStep] = useState(null);
+
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormData((prev) => ({ ...prev, [id]: value }));
@@ -28,23 +37,23 @@ function Franchise({ isDarkMode, toggleTheme }) {
   };
 
   const fadeUpVariant = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
   const staggerContainer = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
+    visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
   };
 
   return (
     <div className="d-flex flex-column min-vh-100 bg-primary-custom bg-carbon" style={{ overflowX: 'hidden' }}>
       
-      {/* 1. GLOBAL HEADER */}
+      {/* GLOBAL HEADER */}
       <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
 
-      {/* 2. HERO SECTION */}
-      <section className="hero-section position-relative text-center overflow-hidden d-flex flex-column justify-content-center" style={{ height: '100vh', backgroundImage: 'none', backgroundColor: '#000' }}>
+      {/* HERO SECTION */}
+      <section className="hero-section position-relative text-center overflow-hidden d-flex flex-column justify-content-center" style={{ height: '90vh', backgroundImage: 'none', backgroundColor: '#000' }}>
         {/* Cinematic Video Background */}
         <video 
           autoPlay 
@@ -72,7 +81,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
             left: 0,
             width: '100%',
             height: '100%',
-            backgroundColor: 'rgba(0, 0, 0, 0.65)',
+            backgroundColor: 'rgba(0, 0, 0, 0.72)',
             zIndex: 1
           }}
         />
@@ -83,24 +92,61 @@ function Franchise({ isDarkMode, toggleTheme }) {
           animate="visible"
           variants={staggerContainer}
         >
-          <motion.span variants={fadeUpVariant} className="text-uppercase tracking-widest text-brand-primary fw-bold small mb-3 d-block" style={{ letterSpacing: '4px' }}>
+          {/* Urgency/Fomo Banner */}
+          <motion.div variants={fadeUpVariant} className="mb-4">
+            <span className="urgency-banner">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="me-1">
+                <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+                <line x1="12" y1="9" x2="12" y2="13" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+              </svg>
+              LIMITED TERRITORIES OPEN FOR 2026 — APPLY NOW
+            </span>
+          </motion.div>
+
+          <motion.span variants={fadeUpVariant} className="text-uppercase tracking-widest text-brand-primary fw-bold small mb-2 d-block" style={{ letterSpacing: '4px' }}>
             PARTNER WITH INDIA'S ELITE
           </motion.span>
+          
           <motion.h1 variants={fadeUpVariant} className="display-2 fw-black mb-4 text-gradient" style={{ lineHeight: '1.1', fontWeight: 900 }}>
             CLEANZ24 FRANCHISE <br /> OPPORTUNITY
           </motion.h1>
-          <motion.p variants={fadeUpVariant} className="lead text-white mb-5 mx-auto" style={{ maxWidth: '650px', fontSize: '1.15rem' }}>
-            Join the fastest-growing premium automotive wash network. Invest in a high-return, technology-driven washing studio model.
+          
+          <motion.p variants={fadeUpVariant} className="lead text-white mb-5 mx-auto" style={{ maxWidth: '650px', fontSize: '1.1rem', opacity: 0.95 }}>
+            Join the fastest-growing premium automotive wash network. Leverage our 100+ active laundry franchise footprint to capture the booming B2C premium car care segment.
           </motion.p>
-          <motion.div variants={fadeUpVariant}>
-            <a href="#models" className="btn btn-glow btn-lg rounded-0 px-5 py-3 fw-bold shadow-lg">
-              Explore Investment Models
+          
+          <motion.div variants={fadeUpVariant} className="d-flex gap-3 justify-content-center flex-wrap">
+            <a href="#calculator" className="btn btn-glow btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg text-decoration-none">
+              Interactive ROI Calculator
+            </a>
+            <a href="#inquiry" className="btn btn-outline-primary-custom btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none">
+              Apply For Franchise
             </a>
           </motion.div>
         </motion.div>
       </section>
 
-      {/* 3. CORE BENEFITS */}
+      {/* STATS COUNTDOWN PANEL */}
+      <section className="py-4 bg-secondary-custom border-bottom border-top" style={{ borderColor: 'var(--card-border)' }}>
+        <div className="container">
+          <div className="row g-4 text-center">
+            {statsCounterData.map((stat, index) => (
+              <div className="col-md-3 col-6" key={index}>
+                <div className="p-2">
+                  <div className="fs-3 mb-1">{stat.icon}</div>
+                  <h3 className="fw-bold mb-0 text-heading display-6" style={{ color: index === 0 ? 'var(--accent-color)' : 'var(--primary-color)' }}>
+                    {stat.value}{stat.suffix}
+                  </h3>
+                  <small className="text-uppercase tracking-wider text-muted-custom small" style={{ fontSize: '0.72rem', letterSpacing: '1px' }}>{stat.label}</small>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CORE BENEFITS */}
       <section className="py-5 bg-secondary-custom border-bottom" style={{ borderColor: 'var(--card-border)' }}>
         <div className="container py-5">
           <div className="text-center mx-auto mb-5" style={{ maxWidth: '700px' }}>
@@ -114,37 +160,59 @@ function Franchise({ isDarkMode, toggleTheme }) {
           <div className="row g-4">
             <div className="col-md-3 col-sm-6">
               <div className="card h-100 p-4 premium-card text-center">
-                <div className="card-icon-wrapper mx-auto">📈</div>
+                <div className="card-icon-wrapper mx-auto mb-3" style={{ background: 'rgba(0, 201, 109, 0.08)', border: '1px solid rgba(0, 201, 109, 0.2)', width: '55px', height: '55px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%' }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="12" y1="1" x2="12" y2="23" />
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                  </svg>
+                </div>
                 <h4 className="fw-bold h5 text-heading mb-2">High Profit Margin</h4>
                 <p className="text-muted-custom small mb-0">Up to 40% net operational profitability margins on express washes, vacuuming, and polish packages.</p>
               </div>
             </div>
             <div className="col-md-3 col-sm-6">
               <div className="card h-100 p-4 premium-card text-center">
-                <div className="card-icon-wrapper mx-auto">⏳</div>
+                <div className="card-icon-wrapper mx-auto mb-3" style={{ background: 'rgba(0, 201, 109, 0.08)', border: '1px solid rgba(0, 201, 109, 0.2)', width: '55px', height: '55px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%' }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                </div>
                 <h4 className="fw-bold h5 text-heading mb-2">Fast Payback</h4>
-                <p className="text-muted-custom small mb-0">Average investment return timeframe (ROI) ranges from 12 to 18 months based on site audits.</p>
+                <p className="text-muted-custom small mb-0">Average investment return timeframe (ROI) ranges from 12 to 18 months based on site audit feasibility studies.</p>
               </div>
             </div>
             <div className="col-md-3 col-sm-6">
               <div className="card h-100 p-4 premium-card text-center">
-                <div className="card-icon-wrapper mx-auto">📦</div>
+                <div className="card-icon-wrapper mx-auto mb-3" style={{ background: 'rgba(0, 201, 109, 0.08)', border: '1px solid rgba(0, 201, 109, 0.2)', width: '55px', height: '55px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%' }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                    <line x1="12" y1="22.08" x2="12" y2="12" />
+                  </svg>
+                </div>
                 <h4 className="fw-bold h5 text-heading mb-2">Direct Supply</h4>
-                <p className="text-muted-custom small mb-0">Direct supply of proprietary eco shampoos, active foam solutions, and premium wax sealants.</p>
+                <p className="text-muted-custom small mb-0">Direct centralized supply of proprietary eco shampoos, active foam solutions, and premium wax sealants.</p>
               </div>
             </div>
             <div className="col-md-3 col-sm-6">
               <div className="card h-100 p-4 premium-card text-center">
-                <div className="card-icon-wrapper mx-auto">💻</div>
+                <div className="card-icon-wrapper mx-auto mb-3" style={{ background: 'rgba(0, 201, 109, 0.08)', border: '1px solid rgba(0, 201, 109, 0.2)', width: '55px', height: '55px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%' }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                    <line x1="8" y1="21" x2="16" y2="21" />
+                    <line x1="12" y1="17" x2="12" y2="21" />
+                  </svg>
+                </div>
                 <h4 className="fw-bold h5 text-heading mb-2">CRM Automation</h4>
-                <p className="text-muted-custom small mb-0">Automated mobile application bookings, billing analytics, and targeted lead generation.</p>
+                <p className="text-muted-custom small mb-0">Automated mobile application bookings, customer billing analytics, and targeted digital lead generation.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 4. DETAILED FRANCHISE MODELS */}
+      {/* DETAILED FRANCHISE MODELS */}
       <section id="models" className="py-5 bg-primary-custom">
         <div className="container py-5 text-center">
           <span className="text-uppercase text-brand-primary fw-bold small mb-2 d-block tracking-widest" style={{ letterSpacing: '3px' }}>
@@ -196,7 +264,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
                   <li>Premium Microfiber cloth kit & basic compound compounds</li>
                   <li>Best for: High-density suburban startups</li>
                 </ul>
-                <a href="#inquiry" className="btn btn-outline-primary-custom w-100 py-3 mt-auto">Inquire Express</a>
+                <a href="#inquiry" className="btn btn-outline-primary-custom w-100 py-3 mt-auto rounded-0" onClick={() => { setFormData(prev => ({...prev, budget: 'Express Hub (₹10-12 Lacs)'})) }}>Inquire Express</a>
               </div>
             </div>
 
@@ -240,7 +308,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
                   <li>Upholstery Cleaner & Tornador Blow Gun</li>
                   <li>Best for: Major urban centers with premium demand</li>
                 </ul>
-                <a href="#inquiry" className="btn btn-glow w-100 py-3 mt-auto">Inquire Premium</a>
+                <a href="#inquiry" className="btn btn-glow w-100 py-3 mt-auto rounded-0" onClick={() => { setFormData(prev => ({...prev, budget: 'Premium Studio (₹20-25 Lacs)'})) }}>Inquire Premium</a>
               </div>
             </div>
 
@@ -284,7 +352,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
                   <li>Hydraulic scissor lift for coatings</li>
                   <li>Best for: Mega cities & luxury dealership tie-ups</li>
                 </ul>
-                <a href="#inquiry" className="btn btn-outline-primary-custom w-100 py-3 mt-auto">Inquire Elite</a>
+                <a href="#inquiry" className="btn btn-outline-primary-custom w-100 py-3 mt-auto rounded-0" onClick={() => { setFormData(prev => ({...prev, budget: 'Elite Mega Hub (₹40+ Lacs)'})) }}>Inquire Elite</a>
               </div>
             </div>
 
@@ -292,7 +360,143 @@ function Franchise({ isDarkMode, toggleTheme }) {
         </div>
       </section>
 
-      {/* NEW: WHY CLEANZ24 & PROPERTY REQUIREMENTS */}
+      {/* NEW: INTERACTIVE ROI PROJECTION CALCULATOR */}
+      <section id="calculator" className="py-5 bg-secondary-custom border-top border-bottom" style={{ borderColor: 'var(--card-border)' }}>
+        <div className="container py-5">
+          <div className="text-center mx-auto mb-5" style={{ maxWidth: '700px' }}>
+            <span className="text-uppercase text-brand-primary fw-bold small mb-2 d-block tracking-widest" style={{ letterSpacing: '3px' }}>
+              REVENUE CALCULATOR
+            </span>
+            <h2 className="display-5 fw-bold text-heading">FINANCIAL PROJECTIONS</h2>
+            <p className="text-muted-custom">Toggle between the franchise models below to calculate capital investment structure and projected return-on-investment parameters.</p>
+          </div>
+
+          <div className="roi-calculator mx-auto" style={{ maxWidth: '950px' }}>
+            {/* Model Select Buttons */}
+            <div className="d-flex justify-content-center gap-2 mb-5 flex-wrap">
+              {Object.keys(roiProjections).map((model) => (
+                <button
+                  key={model}
+                  onClick={() => setSelectedModel(model)}
+                  className={`btn rounded-pill px-4 py-2 text-uppercase fw-bold small ${selectedModel === model ? 'btn-glow border border-success' : 'btn-outline-secondary text-white'}`}
+                >
+                  {model}
+                </button>
+              ))}
+            </div>
+
+            <div className="row g-4 align-items-center">
+              <div className="col-md-6">
+                <h4 className="fw-bold text-heading mb-4 pb-2 border-bottom border-secondary border-opacity-10 d-flex justify-content-between">
+                  <span>{selectedModel} Parameters</span>
+                  <span className="text-brand-primary" style={{ fontSize: '0.85rem' }}>{roiProjections[selectedModel].margin} NET MARGIN</span>
+                </h4>
+                
+                <div className="mb-4">
+                  <div className="d-flex justify-content-between small fw-bold mb-2">
+                    <span className="text-muted-custom">Initial Setup Investment</span>
+                    <span className="text-white">{roiProjections[selectedModel].investment}</span>
+                  </div>
+                  <div className="progress bg-dark" style={{ height: '6px' }}>
+                    <div className="progress-bar bg-warning" role="progressbar" style={{ width: selectedModel === 'Express Hub' ? '30%' : selectedModel === 'Premium Studio' ? '60%' : '100%' }}></div>
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <div className="d-flex justify-content-between small fw-bold mb-2">
+                    <span className="text-muted-custom">Projected Monthly Revenue</span>
+                    <span className="text-white">{roiProjections[selectedModel].monthlyRevenue}</span>
+                  </div>
+                  <div className="progress bg-dark" style={{ height: '6px' }}>
+                    <div className="progress-bar bg-success" role="progressbar" style={{ width: selectedModel === 'Express Hub' ? '30%' : selectedModel === 'Premium Studio' ? '60%' : '100%' }}></div>
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <div className="d-flex justify-content-between small fw-bold mb-2">
+                    <span className="text-muted-custom">Daily Intake Capacity</span>
+                    <span className="text-white">{roiProjections[selectedModel].carsPerDay} Cars / Day</span>
+                  </div>
+                  <div className="progress bg-dark" style={{ height: '6px' }}>
+                    <div className="progress-bar bg-info" role="progressbar" style={{ width: selectedModel === 'Express Hub' ? '35%' : selectedModel === 'Premium Studio' ? '60%' : '100%' }}></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-md-6">
+                <div className="row g-3">
+                  <div className="col-6">
+                    <div className="roi-result-card h-100">
+                      <div className="small text-muted-custom mb-1 fw-bold text-uppercase" style={{ fontSize: '0.65rem', letterSpacing: '0.5px' }}>Projected Net Profit</div>
+                      <div className="roi-result-value">{roiProjections[selectedModel].monthlyProfit}</div>
+                      <div className="text-xs text-muted-custom mt-1" style={{ fontSize: '0.7rem' }}>Per Month</div>
+                    </div>
+                  </div>
+
+                  <div className="col-6">
+                    <div className="roi-result-card h-100" style={{ borderColor: 'rgba(212, 175, 55, 0.25)', background: 'rgba(212, 175, 55, 0.05)' }}>
+                      <div className="small text-muted-custom mb-1 fw-bold text-uppercase" style={{ fontSize: '0.65rem', letterSpacing: '0.5px' }}>Break-Even Period</div>
+                      <div className="roi-result-value" style={{ color: 'var(--accent-color)' }}>{roiProjections[selectedModel].breakeven}</div>
+                      <div className="text-xs text-muted-custom mt-1" style={{ fontSize: '0.7rem' }}>Avg. Site Audit</div>
+                    </div>
+                  </div>
+                  
+                  <div className="col-12 mt-3">
+                    <div className="p-3 bg-primary-custom border border-secondary border-opacity-10 rounded text-start">
+                      <h6 className="fw-bold text-heading small mb-2 d-flex align-items-center gap-2">
+                        <span className="text-success">✔</span> PROPRIETARY AUTOMATED FLOWS
+                      </h6>
+                      <p className="text-muted-custom mb-0 small" style={{ fontSize: '0.78rem', lineHeight: '1.5' }}>
+                        Operational numbers are optimized via our cloud CRM portal. Valet pickup routes, chemicals intake, and utility recycling protocols are automated to preserve the 40% margin.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* NEW: FRANCHISE JOURNEY TIMELINE */}
+      <section className="py-5 bg-primary-custom border-bottom">
+        <div className="container py-5">
+          <div className="text-center mx-auto mb-5" style={{ maxWidth: '700px' }}>
+            <span className="text-uppercase text-brand-primary fw-bold small mb-2 d-block tracking-widest" style={{ letterSpacing: '3px' }}>
+              THE TIMELINE
+            </span>
+            <h2 className="display-5 fw-bold text-heading">YOUR EXPANSION JOURNEY</h2>
+            <p className="text-muted-custom">5 sequential stages to get your premium car detailing studio operational.</p>
+          </div>
+
+          <div className="franchise-timeline mx-auto mt-4" style={{ maxWidth: '1000px' }}>
+            {/* Visual connected line */}
+            <div 
+              className="franchise-timeline-progress d-none d-md-block"
+              style={{
+                width: hoveredTimelineStep !== null ? `${(hoveredTimelineStep / 4) * 80}%` : '80%'
+              }}
+            />
+
+            {franchiseJourneySteps.map((item, idx) => (
+              <div 
+                className={`timeline-step ${hoveredTimelineStep === idx || (hoveredTimelineStep === null) ? 'active' : ''}`}
+                key={idx}
+                onMouseEnter={() => setHoveredTimelineStep(idx)}
+                onMouseLeave={() => setHoveredTimelineStep(null)}
+              >
+                <div className="timeline-step-icon">
+                  {item.icon}
+                </div>
+                <h4 className="timeline-step-title">{item.title}</h4>
+                <p className="timeline-step-desc">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHY CLEANZ24 & PROPERTY REQUIREMENTS */}
       <section className="py-5 bg-secondary-custom border-top border-bottom" style={{ borderColor: 'var(--card-border)' }}>
         <div className="container py-5">
           
@@ -308,7 +512,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
               
               <div className="row g-4 text-start">
                 <div className="col-md-4">
-                  <div className="p-4 bg-primary-custom border border-secondary border-opacity-10 h-100">
+                  <div className="p-4 bg-primary-custom border border-secondary border-opacity-10 h-100" style={{ borderRadius: '12px' }}>
                     <h4 className="fw-bold h5 text-heading mb-3" style={{ borderLeft: '3px solid var(--primary-color)', paddingLeft: '10px' }}>
                       The Lineage
                     </h4>
@@ -319,9 +523,9 @@ function Franchise({ isDarkMode, toggleTheme }) {
                 </div>
                 
                 <div className="col-md-4">
-                  <div className="p-4 bg-primary-custom border border-secondary border-opacity-10 h-100">
+                  <div className="p-4 bg-primary-custom border border-secondary border-opacity-10 h-100" style={{ borderRadius: '12px' }}>
                     <h4 className="fw-bold h5 text-heading mb-3" style={{ borderLeft: '3px solid var(--primary-color)', paddingLeft: '10px' }}>
-                      Our Obsession with Quality
+                      Obsession with Quality
                     </h4>
                     <p className="text-muted-custom small mb-0" style={{ lineHeight: '1.6', textAlign: 'justify' }}>
                       We believe every vehicle needs to be treated with utmost care. Be it a Hatchback, a Sedan, an SUV, or a Luxury supercar, trust us for uncompromising and superior treatment. We bring you a wide range of car care products from the best global brands at the best car wash franchise cost.
@@ -330,12 +534,12 @@ function Franchise({ isDarkMode, toggleTheme }) {
                 </div>
 
                 <div className="col-md-4">
-                  <div className="p-4 bg-primary-custom border border-secondary border-opacity-10 h-100">
+                  <div className="p-4 bg-primary-custom border border-secondary border-opacity-10 h-100" style={{ borderRadius: '12px' }}>
                     <h4 className="fw-bold h5 text-heading mb-3" style={{ borderLeft: '3px solid var(--primary-color)', paddingLeft: '10px' }}>
                       The Experience
                     </h4>
                     <p className="text-muted-custom small mb-0" style={{ lineHeight: '1.6', textAlign: 'justify' }}>
-                      Blending experience with innovation and technology, our products and methods go beyond ultimate presentation and superior protection. In a competitive world, creating a never-lasting impression is vital for building long-term business relationships, and that remains our core focus.
+                      Blending experience with innovation and technology, our products and methods go beyond ultimate presentation and superior protection. In a competitive world, creating an ever-lasting impression is vital for building long-term business relationships, and that remains our core focus.
                     </p>
                   </div>
                 </div>
@@ -361,7 +565,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
             <div className="col-lg-3 col-sm-6">
               <div className="property-req-card">
                 <div className="property-req-icon-wrapper">
-                  <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                     <rect x="2" y="3" width="20" height="18" rx="2" />
                     <path d="M6 10h12v7H6z" />
                     <path d="M9 13h6" />
@@ -381,7 +585,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
             <div className="col-lg-3 col-sm-6">
               <div className="property-req-card">
                 <div className="property-req-icon-wrapper">
-                  <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                     <circle cx="12" cy="10" r="3" />
                     <path d="M8 10h8" />
@@ -398,7 +602,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
             <div className="col-lg-3 col-sm-6">
               <div className="property-req-card">
                 <div className="property-req-icon-wrapper">
-                  <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                     <path d="M3 3h18v18H3z" />
                     <path d="M3 9h18" />
                     <path d="M9 21V9h6v12" />
@@ -417,7 +621,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
             <div className="col-lg-3 col-sm-6">
               <div className="property-req-card">
                 <div className="property-req-icon-wrapper">
-                  <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                     <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                   </svg>
                 </div>
@@ -433,7 +637,48 @@ function Franchise({ isDarkMode, toggleTheme }) {
         </div>
       </section>
 
-      {/* 5. INQUIRY FORM */}
+      {/* NEW: FRANCHISE SUCCESS STORIES */}
+      <section className="py-5 bg-primary-custom border-bottom">
+        <div className="container py-5 text-center">
+          <span className="text-uppercase text-brand-primary fw-bold small mb-2 d-block tracking-widest" style={{ letterSpacing: '3px' }}>
+            INVESTOR SUCCESS
+          </span>
+          <h2 className="display-5 fw-bold text-heading mb-4">SUCCESS STORIES FROM THE PAN-INDIA NETWORK</h2>
+          <p className="text-muted-custom mb-5 mx-auto" style={{ maxWidth: '650px' }}>
+            Hear from our active franchise owners who leveraged our branding, CRM dashboard, and chemical lines to build profitable car spa centers.
+          </p>
+
+          <div className="row g-4 justify-content-center">
+            {franchiseSuccessStories.map((story, idx) => (
+              <div className="col-lg-4 col-md-6 text-start" key={idx}>
+                <div className="success-story-card h-100 p-4 d-flex flex-column">
+                  <div className="d-flex align-items-center gap-3 mb-4">
+                    <div className="success-story-avatar">
+                      {story.initials}
+                    </div>
+                    <div>
+                      <h5 className="fw-bold text-heading mb-0 small">{story.name}</h5>
+                      <div className="text-muted-custom text-xs" style={{ fontSize: '0.75rem' }}>{story.city}</div>
+                      <span className="badge bg-success py-1 px-2 mt-1" style={{ fontSize: '0.65rem', fontWeight: 600 }}>✓ VERIFIED OWNER</span>
+                    </div>
+                  </div>
+                  
+                  <p className="text-muted-custom italic small mb-4 flex-grow-1" style={{ lineHeight: '1.6', fontStyle: 'italic' }}>
+                    "{story.quote}"
+                  </p>
+
+                  <div className="pt-3 border-top border-secondary border-opacity-10 d-flex justify-content-between align-items-center mt-auto">
+                    <span className="small text-muted-custom fw-semibold">{story.model}</span>
+                    <span className="fw-bold text-brand-primary" style={{ fontSize: '0.9rem' }}>{story.milestone}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* INQUIRY FORM */}
       <section id="inquiry" className="py-5 bg-secondary-custom border-top" style={{ borderColor: 'var(--card-border)' }}>
         <div className="container py-5">
           <div className="row align-items-center g-5">
@@ -444,27 +689,36 @@ function Franchise({ isDarkMode, toggleTheme }) {
               <h2 className="display-4 fw-bold mb-4 text-gradient">FRANCHISE INQUIRY FORM</h2>
               <p className="lead text-muted-custom mb-4">Complete the form details and our business development expansion managers will contact you within 24 hours with custom location analysis blueprints.</p>
               
-              <div className="p-4 bg-primary-custom border border-secondary mb-4">
-                <h5 className="fw-bold text-heading mb-3">Support We Provide:</h5>
-                <ul className="list-unstyled mb-0">
-                  <li className="mb-2">🛠️ Full workshop layout architecture designs</li>
-                  <li className="mb-2">🎓 Technical training academy for washing technicians</li>
-                  <li className="mb-2">📣 Brand launches & digital marketing leads</li>
-                  <li>📦 Chemical inventory & hardware tools setups</li>
+              <div className="p-4 bg-primary-custom border border-secondary border-opacity-10 mb-4" style={{ borderRadius: '12px' }}>
+                <h5 className="fw-bold text-heading mb-3">Comprehensive Launch Support:</h5>
+                <ul className="list-unstyled mb-0 small text-muted-custom" style={{ lineHeight: '2' }}>
+                  <li className="mb-2"><span className="text-brand-primary me-2">✔</span> Full workshop layout architecture designs</li>
+                  <li className="mb-2"><span className="text-brand-primary me-2">✔</span> Technical training academy certification for wash technicians</li>
+                  <li className="mb-2"><span className="text-brand-primary me-2">✔</span> Local brand launch campaigns & target digital lead streams</li>
+                  <li><span className="text-brand-primary me-2">✔</span> Specialized chemical inventory & hardware setup packages</li>
                 </ul>
               </div>
             </div>
 
             <div className="col-lg-6">
-              <div className="card bg-primary-custom shadow-sm rounded-0 overflow-hidden" style={{ border: '1px solid var(--card-border)' }}>
+              <div className="card bg-primary-custom shadow-lg rounded-0 overflow-hidden" style={{ border: '1px solid var(--card-border)', borderRadius: '12px' }}>
                 <div className="card-body p-4 p-md-5">
-                  <h3 className="card-title fw-bold mb-4 text-heading">Franchise Request</h3>
+                  <h3 className="card-title fw-bold mb-4 text-heading">Apply For Territory</h3>
                   
                   {formSubmitted ? (
                     <div className="text-center py-5">
-                      <div className="display-1 text-success mb-3">✓</div>
+                      <div className="display-1 text-success mb-3">
+                        <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                      </div>
                       <h4 className="fw-bold text-heading mb-2">Application Received!</h4>
-                      <p className="text-muted-custom">Thank you, {formData.name}. Our expansion representative will call you shortly at {formData.phone}.</p>
+                      <p className="text-muted-custom">Thank you, {formData.name}. Our expansion representative will call you within 24 hours at <strong className="text-white">{formData.phone}</strong>.</p>
+                      <div className="p-3 bg-secondary-custom rounded border border-success border-opacity-20 text-start mt-4 mb-3">
+                        <small className="text-muted-custom">
+                          Our location audit team has cataloged your requested territory: <strong>{formData.location}</strong>. We are checking slot availability and will email matching setup blueprints to <strong>{formData.email}</strong>.
+                        </small>
+                      </div>
                       <button className="btn btn-outline-primary-custom px-4 py-2 mt-3" onClick={() => setFormSubmitted(false)}>Submit Another Inquiry</button>
                     </div>
                   ) : (
@@ -473,7 +727,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
                         <label htmlFor="name" className="form-label fw-bold small text-uppercase text-muted-custom">Full Name *</label>
                         <input 
                           type="text" 
-                          className="form-control py-3" 
+                          className="form-control py-3 rounded-0" 
                           id="name" 
                           placeholder="Enter your name" 
                           required 
@@ -486,7 +740,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
                           <label htmlFor="email" className="form-label fw-bold small text-uppercase text-muted-custom">Email Address *</label>
                           <input 
                             type="email" 
-                            className="form-control py-3" 
+                            className="form-control py-3 rounded-0" 
                             id="email" 
                             placeholder="Enter email" 
                             required 
@@ -498,7 +752,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
                           <label htmlFor="phone" className="form-label fw-bold small text-uppercase text-muted-custom">Phone Number *</label>
                           <input 
                             type="tel" 
-                            className="form-control py-3" 
+                            className="form-control py-3 rounded-0" 
                             id="phone" 
                             placeholder="Enter phone contact" 
                             required 
@@ -511,7 +765,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
                         <label htmlFor="location" className="form-label fw-bold small text-uppercase text-muted-custom">Proposed Location (City/State) *</label>
                         <input 
                           type="text" 
-                          className="form-control py-3" 
+                          className="form-control py-3 rounded-0" 
                           id="location" 
                           placeholder="e.g. Bangalore, Karnataka" 
                           required 
@@ -522,7 +776,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
                       <div className="mb-3">
                         <label htmlFor="budget" className="form-label fw-bold small text-uppercase text-muted-custom">Investment Budget tier *</label>
                         <select 
-                          className="form-control py-3" 
+                          className="form-control py-3 rounded-0" 
                           id="budget" 
                           value={formData.budget}
                           onChange={handleInputChange}
@@ -535,7 +789,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
                       <div className="mb-4">
                         <label htmlFor="message" className="form-label fw-bold small text-uppercase text-muted-custom">Message Details</label>
                         <textarea 
-                          className="form-control" 
+                          className="form-control rounded-0" 
                           id="message" 
                           rows="3" 
                           placeholder="Tell us about your business background or space details (optional)"
@@ -543,8 +797,29 @@ function Franchise({ isDarkMode, toggleTheme }) {
                           onChange={handleInputChange}
                         ></textarea>
                       </div>
-                      <div className="d-grid">
+
+                      <div className="d-grid gap-2">
                         <button type="submit" className="btn btn-primary btn-lg rounded-0 fw-bold btn-glow py-3">Submit Franchise Request</button>
+                        <div className="text-center text-muted-custom small my-1">OR</div>
+                        <a 
+                          href={`https://wa.me/919138004800?text=Hi,%20I'm%20interested%20in%20a%20Cleanz24%20Wash%20Studio%20Franchise%20model.%20Please%20send%20details.`} 
+                          target="_blank" 
+                          rel="noreferrer" 
+                          className="btn btn-outline-success btn-lg rounded-0 fw-bold py-3 d-flex align-items-center justify-content-center gap-2"
+                        >
+                          <svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor">
+                            <path d="M16 2.5C8.5 2.5 2.5 8.5 2.5 16c0 2.4.6 4.7 1.8 6.7L2.5 29.5l7-1.8c2 .1 4.1 1.8 6.5 1.8 7.5 0 13.5-6 13.5-13.5S23.5 2.5 16 2.5zm0 22.5c-2 0-4-.5-5.7-1.5l-.4-.2-4.2 1.1 1.1-4.1-.3-.4C5.5 18.2 5 16.1 5 14c0-6.1 5-11 11-11s11 4.9 11 11-4.9 11-11 11zm6-7.8c-.3-.2-2-.1-2.3-.8-.3-.7-.3-1.3-.4-1.4-.2-.2-.5-.2-.8 0-.3.3-1.3 1.3-1.5 1.5-.2.2-.4.2-.7 0-.3-.2-1.4-.5-2.6-1.6-1-1-1.3-1.3-1.5-1.5-.2-.2 0-.3.1-.4.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.2-.4-1-.5-1.4-.1-.4-.2-.3-.3-.3h-.3c-.1 0-.3 0-.5.2-.2.2-.8.8-.8 1.9 0 1.1.8 2.2.9 2.3.1.2 1.6 2.4 3.8 3.4 1.7.8 2.3.9 3.1.8.8-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.6-.4z" />
+                          </svg>
+                          Quick Inquiry via WhatsApp
+                        </a>
+                      </div>
+
+                      <div className="d-flex justify-content-center gap-3 mt-4 text-muted-custom text-center" style={{ fontSize: '0.75rem' }}>
+                        <span>🔒 SSL Secured</span>
+                        <span>•</span>
+                        <span>🛡️ Zero Hidden Costs</span>
+                        <span>•</span>
+                        <span>📝 Free Layout Plan</span>
                       </div>
                     </form>
                   )}

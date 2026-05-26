@@ -29,13 +29,13 @@ function Services({ isDarkMode, toggleTheme }) {
   };
 
   const fadeUpVariant = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
   const staggerContainer = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
+    visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
   };
 
   return (
@@ -45,7 +45,7 @@ function Services({ isDarkMode, toggleTheme }) {
       <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
 
       {/* HERO SECTION */}
-      <section className="hero-section position-relative text-center overflow-hidden" style={{ backgroundImage: 'none', backgroundColor: '#000', minHeight: '600px' }}>
+      <section className="hero-section position-relative text-center overflow-hidden" style={{ backgroundImage: 'none', backgroundColor: '#000', minHeight: '55vh', display: 'flex', alignItems: 'center' }}>
         {/* Cinematic Video Background */}
         <video 
           autoPlay 
@@ -73,7 +73,7 @@ function Services({ isDarkMode, toggleTheme }) {
             left: 0,
             width: '100%',
             height: '100%',
-            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            backgroundColor: 'rgba(0, 0, 0, 0.72)',
             zIndex: 1
           }}
         />
@@ -90,14 +90,14 @@ function Services({ isDarkMode, toggleTheme }) {
           <motion.h1 variants={fadeUpVariant} className="display-1 fw-black mb-4 text-gradient" style={{ lineHeight: '1.1', fontWeight: 900 }}>
             SERVICES & CAPABILITIES
           </motion.h1>
-          <motion.p variants={fadeUpVariant} className="lead text-white mb-5 mx-auto" style={{ maxWidth: '650px', fontSize: '1.15rem' }}>
+          <motion.p variants={fadeUpVariant} className="lead text-white mb-5 mx-auto" style={{ maxWidth: '650px', fontSize: '1.1rem', opacity: 0.95 }}>
             Experience eco-friendly active foam washing, deep interior vacuuming, and premium ceramic wax protective coats.
           </motion.p>
         </motion.div>
       </section>
 
       {/* SIGNATURE SERVICES */}
-      <section id="services" className="py-5" style={{ backgroundColor: isDarkMode ? '#111' : 'var(--bg-section-alt)' }}>
+      <section id="services" className="py-5" style={{ backgroundColor: isDarkMode ? '#0A1A10' : 'var(--bg-section-alt)' }}>
         <div className="container text-center py-5">
           <motion.span
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
@@ -106,7 +106,7 @@ function Services({ isDarkMode, toggleTheme }) {
           </motion.span>
           <motion.h2
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
-            className="display-5 fw-bold mb-3 text-heading">OUR WORKSHOPS CAPABILITIES</motion.h2>
+            className="display-5 fw-bold mb-3 text-heading">OUR DETAILED CAPABILITIES</motion.h2>
           <motion.p
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
             className="text-muted-custom mb-5 mx-auto" style={{ maxWidth: '600px' }}>
@@ -341,7 +341,7 @@ function Services({ isDarkMode, toggleTheme }) {
                 </span>
                 <h3 className="display-6 fw-bold text-heading mb-3">ALLOY WHEEL & RIM DEEP CLEANING</h3>
                 <p className="text-muted-custom mb-4" style={{ lineHeight: '1.8' }}>
-                  Road grime and metallic brake dust bond to alloy wheels at high temperatures. Our specialized process utilizes acid-free active cleaning foam that turns purple as it binds and dissolves metallic iron contaminants. Using soft microfiber detailing brushes, our technicians carefully agitate and deep clean all spokes, barrels, and brake calipers before a final high-pressure water spray rinse.
+                  Road grime and metallic brake dust bond to alloy wheels at high temperatures. Our specialized process utilizes acid-free active cleaning foam that turns purple as it binds and dissolves metallic contaminants. Using soft microfiber detailing brushes, our technicians carefully agitate and deep clean all spokes, barrels, and brake calipers before a final high-pressure water spray rinse.
                 </p>
                 <div className="d-flex gap-3">
                   <div className="p-3 bg-secondary-custom border" style={{ borderColor: 'var(--card-border)', flex: 1 }}>
@@ -404,7 +404,7 @@ function Services({ isDarkMode, toggleTheme }) {
             </div>
           </div>
 
-          {/* MICROFIBER DRY & SEAL SPOTLIGHT */}
+          {/* MICROFIBER DRY & SEAL SPOTLIGHT (FIXED VIDEO DUPED IN STEP 03) */}
           <div className="row g-5 align-items-center mt-5 pt-4 border-top" style={{ borderColor: 'var(--card-border)' }}>
             <div className="col-lg-7">
               <motion.div
@@ -415,8 +415,9 @@ function Services({ isDarkMode, toggleTheme }) {
                 className="shadow-lg border border-secondary border-opacity-20 rounded-0"
                 style={{ width: '100%', aspectRatio: '16/10', overflow: 'hidden' }}
               >
+                {/* Fixed: Replaced video_3.mp4 duplicate with first_video.mp4 for final detailing shine */}
                 <video 
-                  src="/video_3.mp4" 
+                  src="/first_video.mp4" 
                   className="w-100 h-100 d-block"
                   style={{ objectFit: 'cover' }}
                   autoPlay loop muted playsInline
@@ -476,7 +477,7 @@ function Services({ isDarkMode, toggleTheme }) {
               {Object.keys(pricingPackagesData).map((type) => (
                 <button
                   key={type}
-                  className={`pricing-tab-btn ${selectedVehicleType === type ? 'active' : ''}`}
+                  className={`pricing-tab-btn text-uppercase ${selectedVehicleType === type ? 'active' : ''}`}
                   onClick={() => setSelectedVehicleType(type)}
                 >
                   {type}
@@ -493,7 +494,15 @@ function Services({ isDarkMode, toggleTheme }) {
           >
             {pricingPackagesData[selectedVehicleType].map((pkg, idx) => (
               <motion.div className="col-lg-3 col-md-6" key={idx} variants={fadeUpVariant} layout>
-                <div className={`card package-card p-4 h-100 d-flex flex-column ${pkg.name.includes('Ceramic Shield') ? 'highlighted' : ''}`}>
+                <div className={`card package-card p-4 h-100 d-flex flex-column ${pkg.popular ? 'border border-success' : ''} ${pkg.name.includes('Ceramic Shield') ? 'highlighted' : ''}`}>
+                  
+                  {/* Recommended/Popular Badge */}
+                  {pkg.popular && (
+                    <span className="badge bg-success text-white text-uppercase tracking-widest fw-bold mb-2 align-self-start" style={{ fontSize: '0.62rem', padding: '5px 10px', letterSpacing: '1px' }}>
+                      RECOMMENDED
+                    </span>
+                  )}
+                  
                   <h3 className="fw-bold h5 text-heading mb-1 text-start">{pkg.name}</h3>
                   <span className="text-uppercase tracking-widest text-muted-custom text-start small mb-3" style={{ fontSize: '0.72rem', letterSpacing: '1.5px', display: 'block' }}>
                     {pkg.layers} / {pkg.warranty}
@@ -505,9 +514,28 @@ function Services({ isDarkMode, toggleTheme }) {
                       <li key={sIdx}>{srv}</li>
                     ))}
                   </ul>
-                  <Link to="/book" className="btn btn-glow w-100 py-3 mt-auto text-decoration-none text-center">
-                    Book Package
-                  </Link>
+
+                  {/* Dual Call To Action Buttons: Book Portal + WhatsApp Booking */}
+                  <div className="d-flex gap-2 mt-auto">
+                    <Link 
+                      to="/book" 
+                      className="btn btn-glow flex-grow-1 py-3 text-decoration-none text-center" 
+                      style={{ fontSize: '0.78rem', letterSpacing: '0.5px' }}
+                    >
+                      Book Slot
+                    </Link>
+                    <a 
+                      href={`https://wa.me/919138004800?text=Hi,%20I'd%20like%20to%20schedule%20a%20${encodeURIComponent(pkg.name)}%20package%20(Price:%20${pkg.price})%20for%20my%20${selectedVehicleType}.%20Please%20verify%20slot%20availability.`} 
+                      target="_blank" 
+                      rel="noreferrer" 
+                      className="btn btn-outline-success px-3 d-flex align-items-center justify-content-center"
+                      title="Book via WhatsApp"
+                    >
+                      <svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor">
+                        <path d="M16 2.5C8.5 2.5 2.5 8.5 2.5 16c0 2.4.6 4.7 1.8 6.7L2.5 29.5l7-1.8c2 .1 4.1 1.8 6.5 1.8 7.5 0 13.5-6 13.5-13.5S23.5 2.5 16 2.5zm0 22.5c-2 0-4-.5-5.7-1.5l-.4-.2-4.2 1.1 1.1-4.1-.3-.4C5.5 18.2 5 16.1 5 14c0-6.1 5-11 11-11s11 4.9 11 11-4.9 11-11 11zm6-7.8c-.3-.2-2-.1-2.3-.8-.3-.7-.3-1.3-.4-1.4-.2-.2-.5-.2-.8 0-.3.3-1.3 1.3-1.5 1.5-.2.2-.4.2-.7 0-.3-.2-1.4-.5-2.6-1.6-1-1-1.3-1.3-1.5-1.5-.2-.2 0-.3.1-.4.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.2-.4-1-.5-1.4-.1-.4-.2-.3-.3-.3h-.3c-.1 0-.3 0-.5.2-.2.2-.8.8-.8 1.9 0 1.1.8 2.2.9 2.3.1.2 1.6 2.4 3.8 3.4 1.7.8 2.3.9 3.1.8.8-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.6-.4z" />
+                      </svg>
+                    </a>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -524,7 +552,7 @@ function Services({ isDarkMode, toggleTheme }) {
             </span>
             <h2 className="display-5 fw-bold mb-3 text-heading">FREQUENTLY ASKED QUESTIONS</h2>
             <p className="lead text-muted-custom" style={{ fontSize: '1.05rem' }}>
-              Clear answers regarding water scaling, ceramic prep treatments, and valet transit safety.
+              Clear answers regarding water scaling, prep treatments, and valet transit safety.
             </p>
           </motion.div>
 
@@ -557,7 +585,7 @@ function Services({ isDarkMode, toggleTheme }) {
           <p className="text-muted-custom mb-5 mx-auto" style={{ maxWidth: '600px', lineHeight: '1.8' }}>
             Schedule your professional active foam wash today. We provide safe valet pickup and delivery.
           </p>
-          <Link to="/book" className="btn btn-glow btn-lg rounded-0 px-5 py-3 fw-bold">
+          <Link to="/book" className="btn btn-glow btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none">
             Book Appointment Now
           </Link>
         </div>
