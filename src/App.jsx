@@ -8,6 +8,7 @@ import Franchise from './pages/Franchise';
 import Services from './pages/Services';
 import Book from './pages/Book';
 import { Link } from 'react-router-dom';
+import FloatingActions from './components/FloatingActions';
 
 // 404 Page
 function NotFound() {
@@ -79,6 +80,7 @@ function App() {
     <Router>
       <ScrollToTop />
       <AnimatedRoutes isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
+      <FloatingActions />
     </Router>
   );
 }

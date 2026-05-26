@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { faqsData, storesData } from '../data';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -20,13 +21,57 @@ function Book({ isDarkMode, toggleTheme }) {
     address: ''
   });
 
+  // Form validation errors state
+  const [formErrors, setFormErrors] = useState({});
+
+  const validateField = (id, value) => {
+    const errors = { ...formErrors };
+
+    if (id === 'mobile') {
+      const digitsOnly = value.replace(/\D/g, '');
+      if (value && digitsOnly.length !== 10) {
+        errors.mobile = 'Please enter a valid 10-digit mobile number';
+      } else {
+        delete errors.mobile;
+      }
+    }
+
+    if (id === 'name') {
+      if (value && value.trim().length < 2) {
+        errors.name = 'Name must be at least 2 characters';
+      } else {
+        delete errors.name;
+      }
+    }
+
+    setFormErrors(errors);
+  };
+
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormData(prev => ({ ...prev, [id]: value }));
+    validateField(id, value);
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
+    // Final validation before submit
+    const errors = {};
+    const mobileDigits = formData.mobile.replace(/\D/g, '');
+    if (mobileDigits.length !== 10) {
+      errors.mobile = 'Please enter a valid 10-digit mobile number';
+    }
+    if (formData.name.trim().length < 2) {
+      errors.name = 'Name must be at least 2 characters';
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+
+    setFormErrors({});
     setFormSubmitted(true);
   };
 
@@ -56,8 +101,89 @@ function Book({ isDarkMode, toggleTheme }) {
       {/* NAVBAR */}
       <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
 
+      {/* CINEMATIC HERO SECTION */}
+      <section className="hero-section position-relative text-center overflow-hidden" style={{ minHeight: '65vh', display: 'flex', alignItems: 'center' }}>
+        {/* Animated Gradient Mesh Background */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            background: 'linear-gradient(135deg, rgba(0,10,5,1) 0%, rgba(0,30,15,1) 25%, rgba(0,50,25,1) 50%, rgba(0,20,10,1) 75%, rgba(0,10,5,1) 100%)',
+            zIndex: 0
+          }}
+        />
+        {/* Emerald Glow Orb */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '20%',
+            left: '15%',
+            width: '40vw',
+            height: '40vw',
+            background: 'radial-gradient(circle, rgba(0,201,109,0.15) 0%, transparent 70%)',
+            zIndex: 0,
+            pointerEvents: 'none',
+            animation: 'pulse 4s ease-in-out infinite alternate'
+          }}
+        />
+        {/* Gold Accent Orb */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '10%',
+            right: '10%',
+            width: '35vw',
+            height: '35vw',
+            background: 'radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%)',
+            zIndex: 0,
+            pointerEvents: 'none',
+            animation: 'pulse 5s ease-in-out infinite alternate-reverse'
+          }}
+        />
+        {/* Dark Overlay */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            zIndex: 1
+          }}
+        />
+
+        <motion.div
+          className="container mt-5 position-relative z-2"
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+        >
+          <motion.span variants={fadeUpVariant} className="text-uppercase tracking-widest text-brand-primary fw-bold small mb-3 d-block" style={{ letterSpacing: '4px' }}>
+            PREMIUM CAR SPA EXPERIENCE
+          </motion.span>
+          <motion.h1 variants={fadeUpVariant} className="display-1 fw-black mb-4 text-gradient" style={{ lineHeight: '1.1', fontWeight: 900 }}>
+            BOOK YOUR <br /> APPOINTMENT
+          </motion.h1>
+          <motion.p variants={fadeUpVariant} className="lead text-white mb-5 mx-auto" style={{ maxWidth: '650px', fontSize: '1.1rem', opacity: 0.95 }}>
+            Premium Car Spa Experience — Doorstep Service Available
+          </motion.p>
+          <motion.div variants={fadeUpVariant} className="d-flex gap-3 justify-content-center flex-wrap">
+            <a href="#book" className="btn btn-glow btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg text-decoration-none">
+              Reserve Your Slot
+            </a>
+            <Link to="/services" className="btn btn-outline-primary-custom btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none">
+              View Pricing Matrix
+            </Link>
+          </motion.div>
+        </motion.div>
+      </section>
+
       {/* CONVERTING LEAD FORM CARD */}
-      <section id="book" className="py-5 mt-5 bg-primary-custom">
+      <section id="book" className="py-5 bg-primary-custom">
         <div className="container py-5">
           <div className="row align-items-center g-5">
             <motion.div className="col-lg-6" initial="hidden" animate="visible" variants={fadeUpVariant}>
@@ -129,31 +255,38 @@ function Book({ isDarkMode, toggleTheme }) {
                       <button className="btn btn-outline-primary-custom px-4 py-2 mt-3" onClick={() => setFormSubmitted(false)}>Schedule Another Appointment</button>
                     </div>
                   ) : (
-                    <form onSubmit={handleFormSubmit} className="position-relative z-1">
+                    <form onSubmit={handleFormSubmit} className="position-relative z-1" noValidate>
                       <div className="mb-3">
                         <label htmlFor="name" className="form-label fw-bold small text-uppercase text-muted-custom">Full Name *</label>
                         <input 
                           type="text" 
-                          className="form-control py-3 rounded-0" 
+                          className={`form-control py-3 rounded-0 ${formErrors.name ? 'border-danger' : ''}`}
                           id="name" 
                           placeholder="Enter your name" 
                           required 
                           value={formData.name}
                           onChange={handleInputChange}
                         />
+                        {formErrors.name && (
+                          <small className="d-block mt-1" style={{ color: '#ff4d4d', fontSize: '0.78rem' }}>{formErrors.name}</small>
+                        )}
                       </div>
                       
                       <div className="mb-3">
                         <label htmlFor="mobile" className="form-label fw-bold small text-uppercase text-muted-custom">Mobile Number *</label>
                         <input 
                           type="tel" 
-                          className="form-control py-3 rounded-0" 
+                          className={`form-control py-3 rounded-0 ${formErrors.mobile ? 'border-danger' : ''}`}
                           id="mobile" 
-                          placeholder="Enter mobile contact" 
+                          placeholder="Enter 10-digit mobile number" 
                           required 
                           value={formData.mobile}
                           onChange={handleInputChange}
+                          maxLength={15}
                         />
+                        {formErrors.mobile && (
+                          <small className="d-block mt-1" style={{ color: '#ff4d4d', fontSize: '0.78rem' }}>{formErrors.mobile}</small>
+                        )}
                       </div>
 
                       <div className="mb-3">
@@ -246,14 +379,16 @@ function Book({ isDarkMode, toggleTheme }) {
       {/* STORES LOCATOR SECTION */}
       <section id="stores" className="py-5 bg-secondary-custom position-relative border-top" style={{ borderColor: 'var(--card-border)' }}>
         <div className="container py-5 text-center">
-          <span className="text-uppercase text-brand-primary fw-bold small mb-2 d-block tracking-widest" style={{ letterSpacing: '2px' }}>
+          <motion.span
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
+            className="text-uppercase text-brand-primary fw-bold small mb-2 d-block tracking-widest" style={{ letterSpacing: '2px' }}>
             FIND HUBS
-          </span>
+          </motion.span>
           <h2 className="display-5 fw-bold text-heading mb-4 text-gradient">
             CLEANZ24 HUBS NEAR YOU
           </h2>
           
-          <div className="store-search-container mb-5">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant} className="store-search-container mb-5">
             <input 
               type="text" 
               className="form-control store-search-input py-3" 
@@ -264,12 +399,12 @@ function Book({ isDarkMode, toggleTheme }) {
             <button className="btn btn-glow rounded-0 px-4 fw-bold text-uppercase" onClick={() => setSearchQuery('Bangalore')}>
               BANGALORE
             </button>
-          </div>
+          </motion.div>
 
-          <div className="row g-4 justify-content-center mb-5">
+          <motion.div className="row g-4 justify-content-center mb-5" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
             {filteredStores.length > 0 ? (
               filteredStores.map((store) => (
-                <div className="col-lg-4 col-md-6" key={store.id}>
+                <motion.div className="col-lg-4 col-md-6" key={store.id} variants={fadeUpVariant}>
                   <div className="premium-card store-card h-100 text-start">
                     <h4 className="text-heading fw-bold mb-2">{store.name}</h4>
                     <p className="store-address text-muted-custom small mb-4">{store.address}</p>
@@ -282,23 +417,25 @@ function Book({ isDarkMode, toggleTheme }) {
                     </div>
                     <div className="store-btn-grid d-flex flex-wrap gap-2">
                       <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store.name + ' ' + store.address)}`} target="_blank" rel="noreferrer" className="store-btn btn btn-outline-secondary btn-sm flex-grow-1 text-center text-decoration-none">Directions</a>
+                      <Link to="/services" className="store-btn btn btn-outline-secondary btn-sm flex-grow-1 text-center text-decoration-none">Check Pricing</Link>
                       <a href="tel:+919138004800" className="store-btn btn btn-outline-secondary btn-sm flex-grow-1 text-center text-decoration-none">Call Now</a>
                       <a href="https://wa.me/919138004800" target="_blank" rel="noreferrer" className="store-btn btn btn-outline-secondary btn-sm flex-grow-1 text-center text-decoration-none">WhatsApp</a>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))
             ) : (
               <div className="col-12 py-4">
                 <p className="text-muted-custom">No detailing hubs found matching your search.</p>
               </div>
             )}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* FOOTER */}
       <Footer />
+
     </div>
   );
 }

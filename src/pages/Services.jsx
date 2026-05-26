@@ -11,11 +11,7 @@ import Footer from '../components/Footer';
 import carWashFoam from '../assets/car_wash_foam.png';
 import carWashInterior from '../assets/car_wash_interior.png';
 import carWashSpray from '../assets/car_wash_spray.png';
-import carWashWheel from '../assets/car_wash_wheel.png';
-import carWashRinse from '../assets/car_wash_rinse.png';
-import carWashFoamStep2 from '../assets/car_wash_foam_step2.jpg';
-import carWashBucket from '../assets/car_wash_bucket.png';
-import carWashDry from '../assets/after_detailing.png';
+
 import { Link } from 'react-router-dom';
 import '../App.css';
 
@@ -415,9 +411,9 @@ function Services({ isDarkMode, toggleTheme }) {
                 className="shadow-lg border border-secondary border-opacity-20 rounded-0"
                 style={{ width: '100%', aspectRatio: '16/10', overflow: 'hidden' }}
               >
-                {/* Fixed: Replaced video_3.mp4 duplicate with first_video.mp4 for final detailing shine */}
+                {/* TODO: Replace with a dedicated Step 06 video when available (currently uses video_6.mp4) */}
                 <video 
-                  src="/first_video.mp4" 
+                  src="/video_6.mp4" 
                   className="w-100 h-100 d-block"
                   style={{ objectFit: 'cover' }}
                   autoPlay loop muted playsInline

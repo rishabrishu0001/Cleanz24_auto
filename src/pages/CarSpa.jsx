@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   testimonialsData, 
-  featuresData, 
   faqsData, 
   storesData
 } from '../data';
@@ -108,9 +107,12 @@ function CarSpa({ isDarkMode, toggleTheme }) {
 
   // Booking Form State
   const [bookingSubmitted, setBookingSubmitted] = useState(false);
+  const [mobileError, setMobileError] = useState('');
   const [bookingData, setBookingData] = useState({
     name: '',
     mobile: '',
+    date: '',
+    time: '',
     address: '',
     service: 'Premium Wash & Vacuum'
   });
@@ -134,6 +136,13 @@ function CarSpa({ isDarkMode, toggleTheme }) {
 
   const handleBookingSubmit = (e) => {
     e.preventDefault();
+    // Validate mobile number (10 digits)
+    const phoneRegex = /^[6-9]\d{9}$/;
+    if (!phoneRegex.test(bookingData.mobile)) {
+      setMobileError('Please enter a valid 10-digit mobile number');
+      return;
+    }
+    setMobileError('');
     setBookingSubmitted(true);
   };
 
@@ -868,6 +877,8 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                         <small className="text-muted-custom">
                           Selected Treatment: <strong>{bookingData.service}</strong><br />
                           Contact Number: <strong>{bookingData.mobile}</strong><br />
+                          {bookingData.date && <>Preferred Date: <strong>{bookingData.date}</strong><br /></>}
+                          {bookingData.time && <>Preferred Time: <strong>{bookingData.time}</strong><br /></>}
                           Pickup Address: <strong>{bookingData.address}</strong>
                         </small>
                       </div>
@@ -891,13 +902,19 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                         <label htmlFor="mobile" className="form-label fw-bold small text-uppercase text-muted-custom">Mobile Number *</label>
                         <input 
                           type="tel" 
-                          className="form-control py-3 rounded-0" 
+                          className={`form-control py-3 rounded-0 ${mobileError ? 'border-danger' : ''}`}
                           id="mobile" 
-                          placeholder="Enter mobile contact" 
+                          placeholder="Enter 10-digit mobile number" 
                           required 
+                          maxLength={10}
                           value={bookingData.mobile}
-                          onChange={handleBookingInputChange}
+                          onChange={(e) => {
+                            const val = e.target.value.replace(/\D/g, '');
+                            setBookingData(prev => ({ ...prev, mobile: val }));
+                            if (mobileError) setMobileError('');
+                          }}
                         />
+                        {mobileError && <small className="text-danger d-block mt-1">{mobileError}</small>}
                       </div>
                       <div className="mb-3">
                         <label htmlFor="service" className="form-label fw-bold small text-uppercase text-muted-custom">Service Package *</label>
@@ -912,6 +929,29 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                           <option>Ultra Polish & Wash</option>
                           <option>Ceramic Shield Wash</option>
                         </select>
+                      </div>
+                      <div className="row g-3 mb-3">
+                        <div className="col-6">
+                          <label htmlFor="date" className="form-label fw-bold small text-uppercase text-muted-custom">Preferred Date</label>
+                          <input 
+                            type="date" 
+                            className="form-control py-3 rounded-0" 
+                            id="date" 
+                            value={bookingData.date}
+                            onChange={handleBookingInputChange}
+                            min={new Date().toISOString().split('T')[0]}
+                          />
+                        </div>
+                        <div className="col-6">
+                          <label htmlFor="time" className="form-label fw-bold small text-uppercase text-muted-custom">Preferred Time</label>
+                          <input 
+                            type="time" 
+                            className="form-control py-3 rounded-0" 
+                            id="time" 
+                            value={bookingData.time}
+                            onChange={handleBookingInputChange}
+                          />
+                        </div>
                       </div>
                       <div className="mb-4">
                         <label htmlFor="address" className="form-label fw-bold small text-uppercase text-muted-custom">Address *</label>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import logoImg from '../assets/logo3.png';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { 
@@ -22,6 +21,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
     budget: 'Premium Studio (₹20-25 Lacs)',
     message: ''
   });
+  const [formErrors, setFormErrors] = useState({});
 
   const [selectedModel, setSelectedModel] = useState('Premium Studio');
   const [hoveredTimelineStep, setHoveredTimelineStep] = useState(null);
@@ -31,9 +31,40 @@ function Franchise({ isDarkMode, toggleTheme }) {
     setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
+  const validateForm = () => {
+    const errors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^\d{10}$/;
+
+    if (!emailRegex.test(formData.email)) {
+      errors.email = 'Please enter a valid email address';
+    }
+    if (!phoneRegex.test(formData.phone.replace(/[\s-]/g, ''))) {
+      errors.phone = 'Please enter a valid 10-digit phone number';
+    }
+    return errors;
+  };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    setFormSubmitted(true);
+    const errors = validateForm();
+    setFormErrors(errors);
+    if (Object.keys(errors).length === 0) {
+      setFormSubmitted(true);
+    }
+  };
+
+  const scrollToCalculator = () => {
+    const el = document.getElementById('calculator');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleModelInquiry = (modelKey, budgetLabel) => {
+    setSelectedModel(modelKey);
+    setFormData(prev => ({ ...prev, budget: budgetLabel }));
+    setTimeout(() => {
+      scrollToCalculator();
+    }, 100);
   };
 
   const fadeUpVariant = {
@@ -117,9 +148,9 @@ function Franchise({ isDarkMode, toggleTheme }) {
           </motion.p>
           
           <motion.div variants={fadeUpVariant} className="d-flex gap-3 justify-content-center flex-wrap">
-            <a href="#calculator" className="btn btn-glow btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg text-decoration-none">
+            <button onClick={scrollToCalculator} className="btn btn-glow btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg text-decoration-none" style={{ cursor: 'pointer' }}>
               Interactive ROI Calculator
-            </a>
+            </button>
             <a href="#inquiry" className="btn btn-outline-primary-custom btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none">
               Apply For Franchise
             </a>
@@ -264,7 +295,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
                   <li>Premium Microfiber cloth kit & basic compound compounds</li>
                   <li>Best for: High-density suburban startups</li>
                 </ul>
-                <a href="#inquiry" className="btn btn-outline-primary-custom w-100 py-3 mt-auto rounded-0" onClick={() => { setFormData(prev => ({...prev, budget: 'Express Hub (₹10-12 Lacs)'})) }}>Inquire Express</a>
+                <button className="btn btn-outline-primary-custom w-100 py-3 mt-auto rounded-0" onClick={() => handleModelInquiry('Express Hub', 'Express Hub (₹10-12 Lacs)')}>Inquire Express</button>
               </div>
             </div>
 
@@ -308,7 +339,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
                   <li>Upholstery Cleaner & Tornador Blow Gun</li>
                   <li>Best for: Major urban centers with premium demand</li>
                 </ul>
-                <a href="#inquiry" className="btn btn-glow w-100 py-3 mt-auto rounded-0" onClick={() => { setFormData(prev => ({...prev, budget: 'Premium Studio (₹20-25 Lacs)'})) }}>Inquire Premium</a>
+                <button className="btn btn-glow w-100 py-3 mt-auto rounded-0" onClick={() => handleModelInquiry('Premium Studio', 'Premium Studio (₹20-25 Lacs)')}>Inquire Premium</button>
               </div>
             </div>
 
@@ -352,7 +383,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
                   <li>Hydraulic scissor lift for coatings</li>
                   <li>Best for: Mega cities & luxury dealership tie-ups</li>
                 </ul>
-                <a href="#inquiry" className="btn btn-outline-primary-custom w-100 py-3 mt-auto rounded-0" onClick={() => { setFormData(prev => ({...prev, budget: 'Elite Mega Hub (₹40+ Lacs)'})) }}>Inquire Elite</a>
+                <button className="btn btn-outline-primary-custom w-100 py-3 mt-auto rounded-0" onClick={() => handleModelInquiry('Elite Mega Hub', 'Elite Mega Hub (₹40+ Lacs)')}>Inquire Elite</button>
               </div>
             </div>
 
@@ -740,25 +771,27 @@ function Franchise({ isDarkMode, toggleTheme }) {
                           <label htmlFor="email" className="form-label fw-bold small text-uppercase text-muted-custom">Email Address *</label>
                           <input 
                             type="email" 
-                            className="form-control py-3 rounded-0" 
+                            className={`form-control py-3 rounded-0${formErrors.email ? ' is-invalid' : ''}`} 
                             id="email" 
                             placeholder="Enter email" 
                             required 
                             value={formData.email}
-                            onChange={handleInputChange}
+                            onChange={(e) => { handleInputChange(e); setFormErrors(prev => ({ ...prev, email: '' })); }}
                           />
+                          {formErrors.email && <div className="invalid-feedback d-block" style={{ fontSize: '0.78rem' }}>{formErrors.email}</div>}
                         </div>
                         <div className="col-md-6">
                           <label htmlFor="phone" className="form-label fw-bold small text-uppercase text-muted-custom">Phone Number *</label>
                           <input 
                             type="tel" 
-                            className="form-control py-3 rounded-0" 
+                            className={`form-control py-3 rounded-0${formErrors.phone ? ' is-invalid' : ''}`} 
                             id="phone" 
-                            placeholder="Enter phone contact" 
+                            placeholder="Enter 10-digit phone number" 
                             required 
                             value={formData.phone}
-                            onChange={handleInputChange}
+                            onChange={(e) => { handleInputChange(e); setFormErrors(prev => ({ ...prev, phone: '' })); }}
                           />
+                          {formErrors.phone && <div className="invalid-feedback d-block" style={{ fontSize: '0.78rem' }}>{formErrors.phone}</div>}
                         </div>
                       </div>
                       <div className="mb-3">
@@ -832,6 +865,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
 
       {/* FOOTER */}
       <Footer />
+
 
     </div>
   );
