@@ -85,8 +85,7 @@ function Landing() {
       <div className="d-flex flex-column flex-md-row min-vh-100 w-100 position-relative">
         
         {/* 1. LAUNDRY SIDE */}
-        <a 
-          href="https://www.cleanz24.com" 
+        <div 
           className="split-panel laundry-panel position-absolute top-0 start-0 w-100 h-100 text-decoration-none text-white overflow-hidden d-flex align-items-center justify-content-center"
           style={{
             clipPath: leftClip,
@@ -133,15 +132,14 @@ function Landing() {
             <p className="lead fw-light mb-4 text-light-custom" style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'rgba(255, 255, 255, 0.78)' }}>
               Expert garment care, chemical dry cleaning, and fabric restoration services with door-to-door convenience.
             </p>
-            <span className="btn-portal btn-laundry text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border" style={{ borderColor: '#00C96D' }}>
+            <a href="https://www.cleanz24.com" className="btn-portal btn-laundry text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border text-decoration-none" style={{ borderColor: '#00C96D', display: 'inline-block' }}>
               ENTER LAUNDRY
-            </span>
+            </a>
           </div>
-        </a>
+        </div>
 
         {/* 2. CAR SPA SIDE */}
-        <Link 
-          to="/car-spa" 
+        <div 
           className="split-panel carspa-panel position-absolute top-0 start-0 w-100 h-100 text-decoration-none text-white overflow-hidden d-flex align-items-center justify-content-center"
           style={{
             clipPath: rightClip,
@@ -190,11 +188,11 @@ function Landing() {
             <p className="lead fw-light mb-4 text-light-custom" style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'rgba(255, 255, 255, 0.78)' }}>
               Advanced paint protection film (PPF), 10H DNA Graphene coatings, & premium detail wash restoration.
             </p>
-            <span className="btn-portal btn-carspa text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border" style={{ borderColor: '#D4AF37' }}>
+            <Link to="/car-spa" className="btn-portal btn-carspa text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border text-decoration-none" style={{ borderColor: '#D4AF37', display: 'inline-block' }}>
               ENTER CAR SPA
-            </span>
+            </Link>
           </div>
-        </Link>
+        </div>
 
       </div>
 
