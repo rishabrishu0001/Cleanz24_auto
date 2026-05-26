@@ -130,7 +130,7 @@ function Landing() {
             <h2 className="display-4 fw-black text-uppercase tracking-wide font-oswald text-white mb-3">
               PREMIER <br /><span style={{ color: '#00C96D' }}>LAUNDRY</span>
             </h2>
-            <p className="text-white-50 lead fw-light mb-4" style={{ fontSize: '0.95rem', lineHeight: '1.6' }}>
+            <p className="lead fw-light mb-4 text-light-custom" style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'rgba(255, 255, 255, 0.78)' }}>
               Expert garment care, chemical dry cleaning, and fabric restoration services with door-to-door convenience.
             </p>
             <span className="btn-portal btn-laundry text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border" style={{ borderColor: '#00C96D' }}>
@@ -187,7 +187,7 @@ function Landing() {
             <h2 className="display-4 fw-black text-uppercase tracking-wide font-oswald text-white mb-3">
               CAR <br /><span style={{ color: '#D4AF37' }}>SPA</span>
             </h2>
-            <p className="text-white-50 lead fw-light mb-4" style={{ fontSize: '0.95rem', lineHeight: '1.6' }}>
+            <p className="lead fw-light mb-4 text-light-custom" style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'rgba(255, 255, 255, 0.78)' }}>
               Advanced paint protection film (PPF), 10H DNA Graphene coatings, & premium detail wash restoration.
             </p>
             <span className="btn-portal btn-carspa text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border" style={{ borderColor: '#D4AF37' }}>
@@ -414,21 +414,38 @@ function Landing() {
           }
           .laundry-panel {
             background: radial-gradient(circle at center, rgba(0, 201, 109, 0.22) 0%, rgba(3, 10, 6, 0.99) 100%) !important;
-            padding-top: 60px; /* Space for mobile header */
+            padding-top: 40px;
           }
           .carspa-panel {
             background: radial-gradient(circle at center, rgba(212, 175, 55, 0.22) 0%, rgba(6, 13, 9, 0.99) 100%) !important;
           }
-          .laundry-content-wrapper,
+          .laundry-content-wrapper {
+            transform: none !important;
+            padding: 1.5rem !important;
+            text-align: center !important;
+            margin: 40px auto 0 auto !important; /* Push down to clear mobile header */
+          }
           .carspa-content-wrapper {
             transform: none !important;
             padding: 1.5rem !important;
             text-align: center !important;
-            margin: 0 auto;
+            margin: 0 auto !important;
           }
           .laundry-panel:hover .laundry-content-wrapper,
           .carspa-panel:hover .carspa-content-wrapper {
             transform: scale(1.02) !important;
+          }
+          .btn-laundry {
+            background: #00C96D !important;
+            color: #000000 !important;
+            font-weight: 800 !important;
+            box-shadow: 0 4px 15px rgba(0, 201, 109, 0.3) !important;
+          }
+          .btn-carspa {
+            background: #D4AF37 !important;
+            color: #000000 !important;
+            font-weight: 800 !important;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3) !important;
           }
         }
       `}</style>
