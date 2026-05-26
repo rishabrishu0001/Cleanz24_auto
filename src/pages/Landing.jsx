@@ -97,7 +97,7 @@ function Landing() {
           onMouseLeave={() => setHoveredSide(null)}
         >
           {/* Animated Water Bubbles */}
-          <div className="particles-layer position-absolute w-100 h-100 top-0 start-0 overflow-hidden">
+          <div className="particles-layer position-absolute w-100 h-100 top-0 start-0 overflow-hidden" style={{ pointerEvents: 'none' }}>
             {bubbles.map((b) => (
               <div 
                 key={b.id} 
@@ -132,7 +132,7 @@ function Landing() {
             <p className="lead fw-light mb-4 text-light-custom" style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'rgba(255, 255, 255, 0.78)' }}>
               Expert garment care, chemical dry cleaning, and fabric restoration services with door-to-door convenience.
             </p>
-            <a href="https://www.cleanz24.com" className="btn-portal btn-laundry text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border text-decoration-none" style={{ borderColor: '#00C96D', display: 'inline-block' }}>
+            <a href="https://www.cleanz24.com" className="btn-portal btn-laundry text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border text-decoration-none position-relative" style={{ borderColor: '#00C96D', display: 'inline-block', zIndex: 20 }}>
               ENTER LAUNDRY
             </a>
           </div>
@@ -151,7 +151,7 @@ function Landing() {
           onMouseLeave={() => setHoveredSide(null)}
         >
           {/* Animated Sparks */}
-          <div className="particles-layer position-absolute w-100 h-100 top-0 start-0 overflow-hidden">
+          <div className="particles-layer position-absolute w-100 h-100 top-0 start-0 overflow-hidden" style={{ pointerEvents: 'none' }}>
             {sparks.map((s) => (
               <div 
                 key={s.id} 
@@ -188,7 +188,7 @@ function Landing() {
             <p className="lead fw-light mb-4 text-light-custom" style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'rgba(255, 255, 255, 0.78)' }}>
               Advanced paint protection film (PPF), 10H DNA Graphene coatings, & premium detail wash restoration.
             </p>
-            <Link to="/car-spa" className="btn-portal btn-carspa text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border text-decoration-none" style={{ borderColor: '#D4AF37', display: 'inline-block' }}>
+            <Link to="/car-spa" className="btn-portal btn-carspa text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border text-decoration-none position-relative" style={{ borderColor: '#D4AF37', display: 'inline-block', zIndex: 20 }}>
               ENTER CAR SPA
             </Link>
           </div>
