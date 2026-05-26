@@ -71,6 +71,7 @@ function Landing() {
           right: 0,
           width: '100%',
           zIndex: 4,
+          pointerEvents: 'none',
           clipPath: dividerClip,
           transition: 'clip-path 0.7s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s ease, filter 0.4s ease',
           backgroundColor: hoveredSide === 'laundry' ? '#00C96D' : hoveredSide === 'car-spa' ? '#D4AF37' : 'rgba(255,255,255,0.15)',
@@ -90,7 +91,7 @@ function Landing() {
           style={{
             clipPath: leftClip,
             transition: 'clip-path 0.7s cubic-bezier(0.25, 0.8, 0.25, 1)',
-            zIndex: 1,
+            zIndex: hoveredSide === 'laundry' ? 10 : 1,
             background: 'radial-gradient(circle at 30% 50%, rgba(0, 201, 109, 0.22) 0%, rgba(3, 10, 6, 0.98) 80%)'
           }}
           onMouseEnter={() => setHoveredSide('laundry')}
@@ -144,7 +145,7 @@ function Landing() {
           style={{
             clipPath: rightClip,
             transition: 'clip-path 0.7s cubic-bezier(0.25, 0.8, 0.25, 1)',
-            zIndex: 2,
+            zIndex: hoveredSide === 'car-spa' ? 10 : 2,
             background: 'radial-gradient(circle at 70% 50%, rgba(212, 175, 55, 0.22) 0%, rgba(6, 13, 9, 0.98) 80%)'
           }}
           onMouseEnter={() => setHoveredSide('car-spa')}
@@ -410,6 +411,7 @@ function Landing() {
             min-height: 380px !important; /* Prevent content clipping on smaller screens */
             clip-path: none !important;
             width: 100% !important;
+            overflow: visible !important; /* Ensure buttons don't get clipped on smaller viewports */
           }
           .laundry-panel {
             background: radial-gradient(circle at center, rgba(0, 201, 109, 0.22) 0%, rgba(3, 10, 6, 0.99) 100%) !important;
