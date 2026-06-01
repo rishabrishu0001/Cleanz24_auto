@@ -1,21 +1,40 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { faqsData, storesData } from '../data';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import '../App.css';
+import { Link, useLocation } from 'react-router-dom';
+import { faqsData, storesData } from '../../data';
+import '../../styles/carSpa.css';
 
 function Book({ isDarkMode, toggleTheme }) {
   const [openFaqIndex, setOpenFaqIndex] = useState(-1);
   const [searchQuery, setSearchQuery] = useState('');
   
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const packageQuery = queryParams.get('package');
+  
+  const defaultServices = [
+    'Eco Foam Wash',
+    'Premium Wash & Vacuum',
+    'Ultra Polish & Wash',
+    'Ceramic Shield Wash',
+    'CRYSTAL SHIELD',
+    'VELVET TOUCH',
+    'PEARL RADIANCE',
+    'OBSIDIAN ELITE',
+    'PLATINUM REVIVAL'
+  ];
+
+  // Find matching service case-insensitively
+  const matchedService = defaultServices.find(
+    s => s.toLowerCase() === packageQuery?.toLowerCase()
+  ) || 'Premium Wash & Vacuum';
+
   // Form state
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     mobile: '',
-    service: 'Premium Wash & Vacuum',
+    service: matchedService,
     date: '',
     time: '',
     address: ''
@@ -99,8 +118,6 @@ function Book({ isDarkMode, toggleTheme }) {
     <div className="d-flex flex-column min-vh-100 bg-primary-custom bg-carbon" style={{ overflowX: 'hidden' }}>
       
       {/* NAVBAR */}
-      <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
-
       {/* CINEMATIC HERO SECTION */}
       <section className="hero-section position-relative text-center overflow-hidden" style={{ minHeight: '65vh', display: 'flex', alignItems: 'center' }}>
         {/* Animated Gradient Mesh Background */}
@@ -175,7 +192,7 @@ function Book({ isDarkMode, toggleTheme }) {
             <a href="#book" className="btn btn-glow btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg text-decoration-none">
               Reserve Your Slot
             </a>
-            <Link to="/services" className="btn btn-outline-primary-custom btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none">
+            <Link to="/car-spa/services" className="btn btn-outline-primary-custom btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none">
               View Pricing Matrix
             </Link>
           </motion.div>
@@ -192,7 +209,7 @@ function Book({ isDarkMode, toggleTheme }) {
               </span>
               <h1 className="display-4 fw-bold mb-4 text-gradient">READY FOR THE ULTIMATE SHINE?</h1>
               
-              <div className="row text-center mb-5 g-3 bg-secondary-custom rounded-0 py-4 mx-0 shadow-sm" style={{ border: '1px solid var(--card-border)', borderRadius: '12px' }}>
+              <div className="row text-center mb-1 g-3 bg-secondary-custom rounded-0 py-4 mx-0 shadow-sm" style={{ border: '1px solid var(--card-border)', borderRadius: '12px' }}>
                 <div className="col-4 border-end" style={{ borderColor: 'var(--card-border)' }}>
                   <h3 className="fw-bold mb-0 text-brand-primary">70+</h3>
                   <small className="text-uppercase tracking-wider text-muted-custom small" style={{ fontSize: '0.75rem' }}>Wash Bays</small>
@@ -205,6 +222,16 @@ function Book({ isDarkMode, toggleTheme }) {
                   <h3 className="fw-bold mb-0 text-brand-primary">21</h3>
                   <small className="text-uppercase tracking-wider text-muted-custom small" style={{ fontSize: '0.75rem' }}>States</small>
                 </div>
+              </div>
+
+              {/* Car Washing Image */}
+              <div className="d-flex justify-content-center mt-0 mb-4">
+                <img
+                  src="/carwashing_transparent.png"
+                  alt="Car Wash Detailing"
+                  className="img-fluid"
+                  style={{ width: '100%', maxWidth: '380px', height: 'auto' }}
+                />
               </div>
 
               <div className="custom-faq-wrapper mt-4">
@@ -297,10 +324,19 @@ function Book({ isDarkMode, toggleTheme }) {
                           value={formData.service}
                           onChange={handleInputChange}
                         >
-                          <option>Eco Foam Wash</option>
-                          <option>Premium Wash & Vacuum</option>
-                          <option>Ultra Polish & Wash</option>
-                          <option>Ceramic Shield Wash</option>
+                          <optgroup label="Standard Services" style={{ backgroundColor: 'var(--secondary-bg)' }}>
+                            <option>Eco Foam Wash</option>
+                            <option>Premium Wash & Vacuum</option>
+                            <option>Ultra Polish & Wash</option>
+                            <option>Ceramic Shield Wash</option>
+                          </optgroup>
+                          <optgroup label="Detailing Suites / Packages" style={{ backgroundColor: 'var(--secondary-bg)' }}>
+                            <option>CRYSTAL SHIELD</option>
+                            <option>VELVET TOUCH</option>
+                            <option>PEARL RADIANCE</option>
+                            <option>OBSIDIAN ELITE</option>
+                            <option>PLATINUM REVIVAL</option>
+                          </optgroup>
                         </select>
                       </div>
 
@@ -417,7 +453,7 @@ function Book({ isDarkMode, toggleTheme }) {
                     </div>
                     <div className="store-btn-grid d-flex flex-wrap gap-2">
                       <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store.name + ' ' + store.address)}`} target="_blank" rel="noreferrer" className="store-btn btn btn-outline-secondary btn-sm flex-grow-1 text-center text-decoration-none">Directions</a>
-                      <Link to="/services" className="store-btn btn btn-outline-secondary btn-sm flex-grow-1 text-center text-decoration-none">Check Pricing</Link>
+                      <Link to="/car-spa/services" className="store-btn btn btn-outline-secondary btn-sm flex-grow-1 text-center text-decoration-none">Check Pricing</Link>
                       <a href="tel:+919138004800" className="store-btn btn btn-outline-secondary btn-sm flex-grow-1 text-center text-decoration-none">Call Now</a>
                       <a href="https://wa.me/919138004800" target="_blank" rel="noreferrer" className="store-btn btn btn-outline-secondary btn-sm flex-grow-1 text-center text-decoration-none">WhatsApp</a>
                     </div>
@@ -434,8 +470,6 @@ function Book({ isDarkMode, toggleTheme }) {
       </section>
 
       {/* FOOTER */}
-      <Footer />
-
     </div>
   );
 }

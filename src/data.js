@@ -60,20 +60,35 @@ export const featuresData = [
 //  SERVICES
 // ═══════════════════════════════════════════════════
 export const servicesData = [
+  {
+    icon: '🚿',
+    title: 'Exterior Pressure Washing',
+    desc: 'Professional high-pressure exterior cleaning that removes tough dirt, mud, road grime, and contaminants safely. Deep-cleans wheels, tyres, bumpers, side panels, and underbody without damaging paintwork.',
+    fullDescription: 'Give your car a fresh, clean, and showroom-like appearance with our professional Exterior Pressure Washing Service. At Cleanz24 – The Car Spa Studio, we use advanced high-pressure cleaning technology to remove tough dirt, mud, dust, road grime, and harmful contaminants from your vehicle\'s exterior safely and effectively. Our trained experts ensure deep cleaning of every corner including wheels, tyres, bumpers, side panels, and underbody areas without damaging the paint surface. Using premium-quality shampoos and modern equipment, we restore the shine and cleanliness your car deserves.',
+    highlights: [
+      'Removes Stubborn Dirt & Road Deposits',
+      'Improves Overall Vehicle Hygiene',
+      'Gives a Fresh & Premium Finish',
+      'Enhances Vehicle Appearance'
+    ]
+  },
   { 
     icon: '💦', 
     title: 'Foam & Pressure Wash', 
-    desc: 'Our standard wash package. High-pressure pre-rinse, dense snow foam bath, micro-fiber hand wash agitation, and complete air-blow drying with tire dressing.' 
+    desc: 'Our standard wash package. High-pressure pre-rinse, dense snow foam bath, micro-fiber hand wash agitation, and complete air-blow drying with tire dressing.',
+    highlights: []
   },
   { 
     icon: '✨', 
     title: 'Deep Clean Detailing Wash', 
-    desc: 'Complete interior and exterior overhaul. Includes underbody washing, engine bay dressing, interior steam cleaning, full vacuuming, and console sanitization.' 
+    desc: 'Complete interior and exterior overhaul. Includes underbody washing, engine bay dressing, interior steam cleaning, full vacuuming, and console sanitization.',
+    highlights: []
   },
   { 
     icon: '💎', 
     title: 'Ceramic Wax Protective Wash', 
-    desc: 'Ultimate washing combined with premium paint protection. Clay-bar paint prep followed by advanced spray-on ceramic liquid sealant for lasting water beading and shine.' 
+    desc: 'Ultimate washing combined with premium paint protection. Clay-bar paint prep followed by advanced spray-on ceramic liquid sealant for lasting water beading and shine.',
+    highlights: []
   }
 ];
 

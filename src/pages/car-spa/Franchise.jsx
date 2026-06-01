@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import { 
   statsCounterData, 
   franchiseSuccessStories, 
   franchiseJourneySteps, 
   roiProjections 
-} from '../data';
-import '../App.css';
+} from '../../data';
+import '../../styles/carSpa.css';
 
 function Franchise({ isDarkMode, toggleTheme }) {
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -79,12 +77,8 @@ function Franchise({ isDarkMode, toggleTheme }) {
 
   return (
     <div className="d-flex flex-column min-vh-100 bg-primary-custom bg-carbon" style={{ overflowX: 'hidden' }}>
-      
-      {/* GLOBAL HEADER */}
-      <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
-
       {/* HERO SECTION */}
-      <section className="hero-section position-relative text-center overflow-hidden d-flex flex-column justify-content-center" style={{ height: '90vh', backgroundImage: 'none', backgroundColor: '#000' }}>
+      <section className="hero-section position-relative text-center overflow-hidden d-flex flex-column justify-content-center" style={{ height: '100vh', backgroundImage: 'none', backgroundColor: '#000' }}>
         {/* Cinematic Video Background */}
         <video 
           autoPlay 
@@ -864,9 +858,6 @@ function Franchise({ isDarkMode, toggleTheme }) {
       </section>
 
       {/* FOOTER */}
-      <Footer />
-
-
     </div>
   );
 }

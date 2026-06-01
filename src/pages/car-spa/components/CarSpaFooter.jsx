@@ -1,10 +1,10 @@
 import React from 'react';
-import logoImg from '../assets/logo3.jpeg';
+import logoImg from '../../../assets/logo3.jpeg';
 import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <footer className="footer-custom pt-5 pb-4 mt-auto">
+    <footer className="custom-footer pt-5 pb-4 mt-auto">
       <div className="container pt-3">
 
         {/* Main Footer Grid */}
@@ -14,7 +14,7 @@ export default function Footer() {
           <div className="col-lg-4 mb-4 mb-lg-0">
             <Link className="navbar-brand d-flex align-items-center mb-4 text-decoration-none" to="/car-spa">
               <img src={logoImg} alt="Cleanz24" height={60} className="me-2" />
-              <span className="fw-bold tracking-widest text-heading h5 mb-0" style={{ letterSpacing: '2px' }}>CLEANZ24</span>
+              {/* <span className="fw-bold tracking-widest text-heading h5 mb-0" style={{ letterSpacing: '2px' }}>CLEANZ24</span> */}
             </Link>
             <p className="text-muted-custom pe-lg-3 mb-4" style={{ fontSize: '0.9rem', lineHeight: '1.7' }}>
               India's premium automotive car spa & wash studio network. Backed by 100+ franchise locations nationwide. Professional eco-friendly foam wash, ceramic coating & detailing.
@@ -42,9 +42,9 @@ export default function Footer() {
             <h4 className="h6 fw-bold mb-4 position-relative pb-2 footer-heading text-heading">Quick Links</h4>
             <ul className="list-unstyled footer-links">
               <li><Link to="/car-spa" className="text-muted-custom text-decoration-none hover-brand">Home</Link></li>
-              <li><Link to="/services" className="text-muted-custom text-decoration-none hover-brand">Services</Link></li>
-              <li><Link to="/book" className="text-muted-custom text-decoration-none hover-brand">Book Now</Link></li>
-              <li><Link to="/franchise" className="text-muted-custom text-decoration-none hover-brand">Franchise</Link></li>
+              <li><Link to="/car-spa/services" className="text-muted-custom text-decoration-none hover-brand">Services</Link></li>
+              <li><Link to="/car-spa/book" className="text-muted-custom text-decoration-none hover-brand">Book Now</Link></li>
+              <li><Link to="/car-spa/franchise" className="text-muted-custom text-decoration-none hover-brand">Franchise</Link></li>
             </ul>
           </div>
 
@@ -52,9 +52,9 @@ export default function Footer() {
           <div className="col-lg-2 col-md-4 col-6">
             <h4 className="h6 fw-bold mb-4 position-relative pb-2 footer-heading text-heading">Services</h4>
             <ul className="list-unstyled footer-links">
-              <li><Link to="/services" className="text-muted-custom text-decoration-none hover-brand">Foam & Pressure Wash</Link></li>
-              <li><Link to="/services" className="text-muted-custom text-decoration-none hover-brand">Deep Detailing</Link></li>
-              <li><Link to="/services" className="text-muted-custom text-decoration-none hover-brand">Ceramic Coating</Link></li>
+              <li><Link to="/car-spa/services" className="text-muted-custom text-decoration-none hover-brand">Foam & Pressure Wash</Link></li>
+              <li><Link to="/car-spa/services" className="text-muted-custom text-decoration-none hover-brand">Deep Detailing</Link></li>
+              <li><Link to="/car-spa/services" className="text-muted-custom text-decoration-none hover-brand">Ceramic Coating</Link></li>
               <li><a href="https://www.cleanz24.com" target="_blank" rel="noreferrer" className="text-muted-custom text-decoration-none hover-brand">Laundry Services</a></li>
             </ul>
           </div>

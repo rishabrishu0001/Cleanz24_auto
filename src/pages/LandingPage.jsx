@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import logoImg from '../assets/logo2.jpeg';
-import '../App.css';
+import '../styles/carSpa.css';
 
 function Landing() {
   const [hoveredSide, setHoveredSide] = useState(null); // 'laundry' | 'car-spa' | null
@@ -133,9 +133,9 @@ function Landing() {
             <p className="lead fw-light mb-4 text-light-custom" style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'rgba(255, 255, 255, 0.78)' }}>
               Expert garment care, chemical dry cleaning, and fabric restoration services with door-to-door convenience.
             </p>
-            <a href="https://www.cleanz24.com" className="btn-portal btn-laundry text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border text-decoration-none position-relative" style={{ borderColor: '#00C96D', display: 'inline-block', zIndex: 20 }}>
+            <Link to="/laundry" className="btn-portal btn-laundry text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border text-decoration-none position-relative" style={{ borderColor: '#00C96D', display: 'inline-block', zIndex: 20 }}>
               ENTER LAUNDRY
-            </a>
+            </Link>
           </div>
         </div>
 

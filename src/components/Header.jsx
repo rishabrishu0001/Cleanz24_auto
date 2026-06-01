@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import logoImg from '../assets/logo3.png';
+import logoImg from '../assets/logo3.jpeg';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function Header({ isDarkMode, toggleTheme }) {

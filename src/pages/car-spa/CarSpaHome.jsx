@@ -4,16 +4,14 @@ import {
   testimonialsData, 
   faqsData, 
   storesData
-} from '../data';
-import { handleSmoothScroll } from '../utils';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import beforeDetailingImg from '../assets/before_detailing.png';
-import afterDetailingImg from '../assets/after_detailing.png';
-import cleanz24Technicians from '../assets/cleanz24_technicians.jpg';
-import neonCarRender from '../assets/neon_car_render.png';
-import { Link } from 'react-router-dom';
-import '../App.css';
+} from '../../data';
+import { handleSmoothScroll } from '../../utils';
+import beforeDetailingImg from '../../assets/before_detailing.png';
+import afterDetailingImg from '../../assets/after_detailing.png';
+import cleanz24Technicians from '../../assets/cleanz24_technicians.jpg';
+import neonCarRender from '../../assets/neon_car_render.png';
+import { Link, useLocation } from 'react-router-dom';
+import '../../styles/carSpa.css';
 
 // 1. BEFORE/AFTER SLIDER COMPONENT
 function BeforeAfterSlider() {
@@ -91,9 +89,25 @@ function BeforeAfterSlider() {
 
 // 2. MAIN CAR SPA PAGE
 function CarSpa({ isDarkMode, toggleTheme }) {
+  const location = useLocation();
   const [openFaqIndex, setOpenFaqIndex] = useState(-1);
   const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    if (location.hash) {
+      const targetSection = document.querySelector(location.hash);
+      if (targetSection) {
+        setTimeout(() => {
+          const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - 100;
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }, 150);
+      }
+    }
+  }, [location.hash]);
   
   // Interactive Visualizer State
   const [selectedColor, setSelectedColor] = useState('Emerald Glow');
@@ -205,18 +219,15 @@ function CarSpa({ isDarkMode, toggleTheme }) {
 
   return (
     <div className="d-flex flex-column min-vh-100 bg-primary-custom bg-carbon" id="home" style={{ overflowX: 'hidden' }}>
-
-      {/* FULL WIDTH NAVIGATION BAR */}
-      <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
-
       {/* CINEMATIC HERO SECTION */}
-      <section className="hero-section position-relative text-center overflow-hidden" style={{ minHeight: '85vh', display: 'flex', alignItems: 'center' }}>
+      <section className="hero-section position-relative text-center overflow-hidden" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
         {/* Cinematic Video Background */}
         <video 
           autoPlay 
           loop 
           muted 
           playsInline
+          preload="none"
           style={{
             position: 'absolute',
             top: 0,
@@ -262,7 +273,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
             <a href="#book" className="btn btn-glow btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg text-decoration-none" onClick={(e) => handleSmoothScroll(e, '#book')}>
               Book Appointment
             </a>
-            <Link to="/services" className="btn btn-outline-primary-custom btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none">
+            <Link to="/car-spa/services" className="btn btn-outline-primary-custom btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none">
               View Pricing Matrix
             </Link>
           </motion.div>
@@ -609,13 +620,14 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="position-relative overflow-hidden shadow-lg border border-secondary border-opacity-20"
-                style={{ width: '100%', aspectRatio: '2/1' }}
+                className="position-relative overflow-hidden shadow-lg"
+                style={{ width: '100%', aspectRatio: '4/3' }}
               >
-                <img 
-                  src={cleanz24Technicians} 
-                  alt="Cleanz24 Professional Wash Team" 
-                  className="w-100 h-100 object-fit-cover"
+                <img
+                  src={cleanz24Technicians}
+                  alt="Cleanz24 certified wash crew technicians"
+                  className="w-100 h-100"
+                  style={{ objectFit: 'cover' }}
                 />
                 <div className="position-absolute bottom-0 start-0 w-100 bg-success text-white p-3 fw-bold small text-uppercase tracking-wider text-center" style={{ letterSpacing: '1px' }}>
                   Our Insured & Certified Wash Crew
@@ -660,11 +672,23 @@ function CarSpa({ isDarkMode, toggleTheme }) {
             OUR CAPABILITIES
           </span>
           <h2 className="display-5 fw-bold text-heading mb-4">EXPLORE OUR WASH PACKAGES</h2>
-          <p className="text-muted-custom mb-5 mx-auto" style={{ maxWidth: '650px', lineHeight: '1.8' }}>
+          <p className="text-muted-custom mb-1 mx-auto" style={{ maxWidth: '650px', lineHeight: '1.8' }}>
             We provide specialized Foam & Pressure Washing, Deep Interior Detailing Wash, and Ceramic Wax Protective Coatings. Each wash is optimized for size class and executed using scratch-free active foam technology.
           </p>
+          {/* Car Washing Lottie Animation for Quick Services Promo Banner */}
+          <div className="d-flex justify-content-center mt-2 mb-5">
+            <lottie-player
+              src="/carwash3.json"
+              background="transparent"
+              speed="1"
+              style={{ width: '420px', height: '300px' }}
+              loop
+              autoplay
+              lazy
+            ></lottie-player>
+          </div>
           <div className="d-flex justify-content-center gap-3 flex-wrap">
-            <Link to="/services" className="btn btn-glow btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none">
+            <Link to="/car-spa/services" className="btn btn-glow btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none">
               View Packages & Detailed Process
             </Link>
             <a href="#book" className="btn btn-outline-primary-custom btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none" onClick={(e) => handleSmoothScroll(e, '#book')}>
@@ -673,7 +697,6 @@ function CarSpa({ isDarkMode, toggleTheme }) {
           </div>
         </div>
       </section>
-
       {/* TESTIMONIALS SECTION */}
       <section id="testimonials" className="py-5 bg-secondary-custom position-relative">
         <div className="container py-5 text-center">
@@ -800,7 +823,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                     </div>
                     <div className="store-btn-grid d-flex flex-wrap gap-2">
                       <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store.name + ' ' + store.address)}`} target="_blank" rel="noreferrer" className="store-btn btn btn-outline-secondary btn-sm flex-grow-1 text-center text-decoration-none">Directions</a>
-                      <Link to="/services" className="store-btn btn btn-outline-secondary btn-sm flex-grow-1 text-center text-decoration-none">Check Pricing</Link>
+                      <Link to="/car-spa/services" className="store-btn btn btn-outline-secondary btn-sm flex-grow-1 text-center text-decoration-none">Check Pricing</Link>
                       <a href="tel:+919138004800" className="store-btn btn btn-outline-secondary btn-sm flex-grow-1 text-center text-decoration-none">Call Now</a>
                       <a href="https://wa.me/919138004800" target="_blank" rel="noreferrer" className="store-btn btn btn-outline-secondary btn-sm flex-grow-1 text-center text-decoration-none">WhatsApp</a>
                     </div>
@@ -836,6 +859,19 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                   <h3 className="fw-bold mb-0 text-brand-primary">21</h3>
                   <small className="text-uppercase tracking-wider text-muted-custom small" style={{ fontSize: '0.75rem' }}>States</small>
                 </div>
+              </div>
+
+              {/* Lottie Animation of Car Wash */}
+              <div className="d-flex justify-content-center my-4">
+                <lottie-player
+                  src="/carwash1.json"
+                  background="transparent"
+                  speed="1"
+                  style={{ width: '260px', height: '260px' }}
+                  loop
+                  autoplay
+                  lazy
+                ></lottie-player>
               </div>
 
               <div className="custom-faq-wrapper mt-4">
@@ -985,8 +1021,6 @@ function CarSpa({ isDarkMode, toggleTheme }) {
       </section>
 
       {/* PREMIUM FOOTER SECTION */}
-      <Footer />
-
       {/* FLOATING ACTION BUTTONS */}
       <div className="floating-actions">
         <a href="https://wa.me/919138004800" target="_blank" rel="noreferrer" className="fab fab-whatsapp" aria-label="WhatsApp">

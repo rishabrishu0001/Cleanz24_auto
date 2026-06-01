@@ -1,87 +1,78 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
-import ScrollToTop from './components/ScrollToTop';
-import Landing from './pages/Landing';
-import CarSpa from './pages/CarSpa';
-import Franchise from './pages/Franchise';
-import Services from './pages/Services';
-import Book from './pages/Book';
-import { Link } from 'react-router-dom';
-import FloatingActions from './components/FloatingActions';
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
-// 404 Page
-function NotFound() {
-  return (
-    <div className="not-found-page">
-      <div>
-        <div className="not-found-code">404</div>
-        <h2 className="fw-bold text-heading mb-3" style={{ textTransform: 'none' }}>Page Not Found</h2>
-        <p className="text-muted-custom mb-4">The page you're looking for doesn't exist or has been moved.</p>
-        <div className="d-flex gap-3 justify-content-center">
-          <Link to="/car-spa" className="btn btn-glow px-4 py-2 text-decoration-none">Go Home</Link>
-          <Link to="/services" className="btn btn-outline-primary-custom px-4 py-2 text-decoration-none">View Services</Link>
-        </div>
-      </div>
-    </div>
-  );
-}
+// ─── Landing Page ──────────────────────────────────────────────
+import LandingPage from './pages/LandingPage';
 
-// Animated Routes Wrapper
-function AnimatedRoutes({ isDarkMode, toggleTheme }) {
-  const location = useLocation();
-  
-  return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Landing />} />
-        <Route path="/car-spa" element={
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-            <CarSpa isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
-          </motion.div>
-        } />
-        <Route path="/franchise" element={
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-            <Franchise isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
-          </motion.div>
-        } />
-        <Route path="/services" element={
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-            <Services isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
-          </motion.div>
-        } />
-        <Route path="/book" element={
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-            <Book isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
-          </motion.div>
-        } />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </AnimatePresence>
-  );
-}
+// ─── Car Spa Section ───────────────────────────────────────────
+import CarSpaLayout from './pages/car-spa/CarSpaLayout';
+import CarSpaHome from './pages/car-spa/CarSpaHome';
+import Services from './pages/car-spa/Services';
+import Book from './pages/car-spa/Book';
+import CarSpaFranchise from './pages/car-spa/Franchise';
+import PackageDetails from './pages/car-spa/PackageDetails';
 
+// ─── Laundry Section ───────────────────────────────────────────
+import LaundryLayout from './pages/laundry/LaundryLayout';
+import LaundryHome from './pages/laundry/LaundryHome';
+import About from './pages/laundry/About';
+import LaundryServices from './pages/laundry/LaundryServices';
+import DryCleaning from './pages/laundry/DryCleaning';
+import HomeCleaning from './pages/laundry/HomeCleaning';
+import SteamIroning from './pages/laundry/SteamIroning';
+import ShoeCleaning from './pages/laundry/ShoeCleaning';
+import LaundryFranchise from './pages/laundry/Franchise';
+import Stores from './pages/laundry/Stores';
+import Contact from './pages/laundry/Contact';
+import Placeholder from './pages/laundry/Placeholder';
+
+/**
+ * App — Central Router Configuration
+ *
+ * Route structure:
+ *   /                → LandingPage (no header/footer, split-screen animation)
+ *   /car-spa         → CarSpaLayout > CarSpaHome  (dark theme)
+ *   /car-spa/...     → CarSpaLayout > respective page
+ *   /laundry         → LaundryLayout > LaundryHome  (white/blue theme)
+ *   /laundry/...     → LaundryLayout > respective page
+ */
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const location = useLocation();
 
+  // Scroll to top on every route change
   useEffect(() => {
-    if (isDarkMode) {
-      document.body.classList.remove('light-mode');
-    } else {
-      document.body.classList.add('light-mode');
-    }
-  }, [isDarkMode]);
-
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
-    <Router>
-      <ScrollToTop />
-      <AnimatedRoutes isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
-      <FloatingActions />
-    </Router>
+    <Routes>
+      {/* ── Landing Page ── */}
+      <Route path="/" element={<LandingPage />} />
+
+      {/* ── Car Spa Section ── */}
+      <Route path="/car-spa" element={<CarSpaLayout />}>
+        <Route index element={<CarSpaHome />} />
+        <Route path="services" element={<Services />} />
+        <Route path="packages/:packageId" element={<PackageDetails />} />
+        <Route path="book" element={<Book />} />
+        <Route path="franchise" element={<CarSpaFranchise />} />
+      </Route>
+
+      {/* ── Laundry Section ── */}
+      <Route path="/laundry" element={<LaundryLayout />}>
+        <Route index element={<LaundryHome />} />
+        <Route path="about-us" element={<About />} />
+        <Route path="services" element={<LaundryServices />} />
+        <Route path="dry-cleaning" element={<DryCleaning />} />
+        <Route path="home-cleaning" element={<HomeCleaning />} />
+        <Route path="steam-ironing" element={<SteamIroning />} />
+        <Route path="shoe-cleaning" element={<ShoeCleaning />} />
+        <Route path="franchise" element={<LaundryFranchise />} />
+        <Route path="stores" element={<Stores />} />
+        <Route path="blog" element={<Placeholder title="Blog" />} />
+        <Route path="contact-us" element={<Contact />} />
+      </Route>
+    </Routes>
   );
 }
 
