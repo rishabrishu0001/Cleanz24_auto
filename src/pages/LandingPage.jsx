@@ -11,7 +11,7 @@ function Landing() {
 
   useEffect(() => {
     // Generate bubbles for Laundry side
-    const bubbleArray = Array.from({ length: 15 }).map((_, i) => ({
+    const bubbleArray = Array.from({ length: 5 }).map((_, i) => ({
       id: i,
       left: `${Math.random() * 90}%`,
       size: `${Math.random() * 25 + 8}px`,
@@ -21,7 +21,7 @@ function Landing() {
     setBubbles(bubbleArray);
 
     // Generate sparks for Car Spa side
-    const sparkArray = Array.from({ length: 18 }).map((_, i) => ({
+    const sparkArray = Array.from({ length: 8 }).map((_, i) => ({
       id: i,
       left: `${Math.random() * 90}%`,
       size: `${Math.random() * 5 + 2}px`,
@@ -73,13 +73,8 @@ function Landing() {
           zIndex: 4,
           pointerEvents: 'none',
           clipPath: dividerClip,
-          transition: 'clip-path 0.7s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s ease, filter 0.4s ease',
-          backgroundColor: hoveredSide === 'laundry' ? '#00C96D' : hoveredSide === 'car-spa' ? '#D4AF37' : 'rgba(255,255,255,0.15)',
-          filter: hoveredSide === 'laundry' 
-            ? 'drop-shadow(0 0 10px #00C96D) drop-shadow(0 0 25px #00C96D)' 
-            : hoveredSide === 'car-spa' 
-            ? 'drop-shadow(0 0 10px #D4AF37) drop-shadow(0 0 25px #D4AF37)' 
-            : 'none'
+          transition: 'clip-path 0.7s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s ease',
+          backgroundColor: hoveredSide === 'laundry' ? '#00C96D' : hoveredSide === 'car-spa' ? '#D4AF37' : 'rgba(255,255,255,0.15)'
         }}
       />
 
