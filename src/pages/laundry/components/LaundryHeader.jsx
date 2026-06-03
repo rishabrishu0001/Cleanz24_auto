@@ -6,7 +6,6 @@ import { Link, useLocation } from 'react-router-dom';
 export default function Header({ isDarkMode, toggleTheme }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [franchiseDropdownOpen, setFranchiseDropdownOpen] = useState(false);
   const location = useLocation();
 
@@ -67,33 +66,10 @@ export default function Header({ isDarkMode, toggleTheme }) {
             <div className="navbar-nav align-items-center">
               {/* Navigation links */}
               <Link className={`nav-link text-heading mx-2 fw-medium ${isActive('/laundry') ? 'active-link' : ''}`} to="/laundry">Home</Link>
-              <Link className={`nav-link text-heading mx-2 fw-medium ${isActive('/laundry/about-us') ? 'active-link' : ''}`} to="/laundry/about-us">About</Link>
-              
-              {/* Dropdown for Services */}
-              <div 
-                className="nav-item dropdown mx-2"
-                onMouseEnter={() => setDropdownOpen(true)}
-                onMouseLeave={() => setDropdownOpen(false)}
-              >
-                <Link 
-                  className={`nav-link text-heading fw-medium dropdown-toggle ${location.pathname.startsWith('/laundry/services') || location.pathname.includes('cleaning') || location.pathname.includes('ironing') ? 'active-link' : ''}`} 
-                  to="/laundry/services"
-                  role="button" 
-                  aria-expanded={dropdownOpen}
-                >
-                  Services
-                </Link>
-                <div className={`dropdown-menu border-0 shadow-sm ${dropdownOpen ? 'show' : ''}`} style={{ position: 'absolute', backgroundColor: isDarkMode ? '#13263d' : '#fff', borderRadius: '8px', padding: '10px 0', marginTop: '0' }}>
-                  <Link className="dropdown-item py-2 px-3 fw-semibold small" to="/laundry/services">All Services</Link>
-                  <Link className="dropdown-item py-2 px-3 fw-semibold small" to="/laundry/dry-cleaning">Dry Cleaning</Link>
-                  <Link className="dropdown-item py-2 px-3 fw-semibold small" to="/laundry/home-cleaning">Home Cleaning</Link>
-                  <Link className="dropdown-item py-2 px-3 fw-semibold small" to="/laundry/steam-ironing">Steam Ironing</Link>
-                  <Link className="dropdown-item py-2 px-3 fw-semibold small" to="/laundry/shoe-cleaning">Shoe Cleaning</Link>
-                </div>
-              </div>
 
               <Link className={`nav-link text-heading mx-2 fw-medium ${isActive('/laundry/franchise') ? 'active-link' : ''}`} to="/laundry/franchise">Franchise</Link>
               <Link className={`nav-link text-heading mx-2 fw-medium ${isActive('/laundry/stores') ? 'active-link' : ''}`} to="/laundry/stores">Stores</Link>
+              <Link className={`nav-link text-heading mx-2 fw-medium ${isActive('/laundry/blog') ? 'active-link' : ''}`} to="/laundry/blog">Blog</Link>
               <Link className={`nav-link text-heading mx-2 fw-medium ${isActive('/laundry/contact-us') ? 'active-link' : ''}`} to="/laundry/contact-us">Contact</Link>
               
               {/* Back to Home link */}

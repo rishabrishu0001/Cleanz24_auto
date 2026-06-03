@@ -144,12 +144,19 @@ body.light-mode .nav-full {
   box-shadow: none;
 }
 body.light-mode .nav-full .nav-link {
-  color: #ffffff !important; /* Keep white links initially at the top */
+  color: #ffffff !important; /* Keep white links initially at the top for dark hero videos */
+}
+/* For sub-pages with light banners, use dark text immediately */
+body.light-mode .nav-full.nav-light-hero .nav-link {
+  color: var(--text-heading) !important;
+}
+body.light-mode .nav-full.nav-light-hero .navbar-toggler-icon {
+  filter: brightness(0) !important;
 }
 body.light-mode .nav-full.nav-scrolled {
   background: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(24px) saturate(1.3); -webkit-backdrop-filter: blur(24px) saturate(1.3);
-  border-bottom: 1px solid var(--nav-border);
+  border-bottom: none !important;
   box-shadow: 0 8px 32px rgba(43, 108, 176, 0.05);
   padding: 6px 0 8px 0;
 }
@@ -448,7 +455,8 @@ body.light-mode .pricing-tab-btn {
   background: #f0f0f0;
   border: 1px solid #ddd;
 }
-.pricing-tab-btn.active {
+.pricing-tab-btn.active,
+body.light-mode .pricing-tab-btn.active {
   background: var(--primary-color);
   color: #fff;
   border-color: var(--primary-color);
@@ -563,6 +571,9 @@ body.light-mode .package-service-list li {
   font-weight: 700;
   letter-spacing: 1.5px;
   font-family: 'Inter', sans-serif;
+}
+.btn-glow.rounded-pill {
+  border-radius: 50rem !important;
 }
 .btn-glow:hover {
   background: linear-gradient(135deg, var(--primary-light) 0%, var(--accent-color) 100%);
@@ -1382,4 +1393,312 @@ body.light-mode .property-req-details p {
   color: #000000 !important;
   transform: translateY(-2px);
   box-shadow: 0 8px 25px var(--card-glow);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  MEMBERSHIP PAGE — LIGHT MODE OVERRIDES                                    */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Page wrapper ─────────────────────────────────────────────────────────── */
+body.light-mode .bg-carbon {
+  background-color: var(--bg-body) !important;
+  background-image: none !important;
+}
+
+/* ── Header banner ────────────────────────────────────────────────────────── */
+body.light-mode .membership-header-section {
+  background: linear-gradient(180deg, rgba(0,201,109,0.06) 0%, rgba(0,201,109,0.02) 100%) !important;
+}
+
+/* ── Billing cycle toggle pill ───────────────────────────────────────────── */
+body.light-mode .membership-billing-toggle {
+  background: rgba(0,201,109,0.08) !important;
+  border-color: rgba(0,201,109,0.25) !important;
+}
+
+/* ── Plan cards ──────────────────────────────────────────────────────────── */
+body.light-mode .membership-plan-card {
+  background: #ffffff !important;
+  border-color: rgba(0,201,109,0.2) !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07) !important;
+}
+body.light-mode .membership-plan-card:hover {
+  box-shadow: 0 12px 40px rgba(0,201,109,0.15) !important;
+}
+body.light-mode .membership-plan-card .plan-name {
+  color: #0d2618 !important;
+}
+body.light-mode .membership-plan-card .plan-feature-item {
+  color: #2c4a38 !important;
+}
+
+/* text-white inside plan cards → dark in light mode */
+body.light-mode .membership-plan-card .text-white,
+body.light-mode .membership-plan-card h3,
+body.light-mode .membership-plan-card h4,
+body.light-mode .membership-plan-card h5 {
+  color: #0d2618 !important;
+}
+body.light-mode .membership-plan-card .text-muted-custom {
+  color: #4B6355 !important;
+}
+
+/* ── Tab switch (Plans/Admin) ────────────────────────────────────────────── */
+body.light-mode .membership-tab-switch {
+  background: rgba(0,201,109,0.06) !important;
+  border-color: rgba(0,201,109,0.2) !important;
+}
+
+/* ── Signup & admin card wrappers ────────────────────────────────────────── */
+body.light-mode .bg-secondary-custom {
+  background-color: #ffffff !important;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.06) !important;
+}
+
+/* Form controls in light mode */
+body.light-mode .bg-primary-custom.form-control,
+body.light-mode .bg-primary-custom.form-select,
+body.light-mode input.bg-primary-custom,
+body.light-mode select.bg-primary-custom,
+body.light-mode textarea.bg-primary-custom {
+  background-color: #f4faf6 !important;
+  color: #0d2618 !important;
+  border: 1px solid rgba(0,201,109,0.25) !important;
+  border-radius: 8px !important;
+}
+body.light-mode .bg-primary-custom.form-control::placeholder,
+body.light-mode input.bg-primary-custom::placeholder {
+  color: #7aab8e !important;
+}
+body.light-mode .bg-primary-custom.form-control:focus,
+body.light-mode input.bg-primary-custom:focus,
+body.light-mode select.bg-primary-custom:focus {
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 0.2rem rgba(0,201,109,0.18) !important;
+  background-color: #ecf8f1 !important;
+}
+body.light-mode select option,
+body.light-mode select optgroup {
+  background: #ffffff;
+  color: #0d2618;
+}
+
+/* text-white labels / headings inside forms */
+body.light-mode .card-body .text-white,
+body.light-mode .card-body h3,
+body.light-mode .card-body h4,
+body.light-mode .card-body h5,
+body.light-mode .card-body .fw-bold.text-white {
+  color: #0d2618 !important;
+}
+body.light-mode .card-body .text-muted-custom {
+  color: #4B6355 !important;
+}
+body.light-mode .card-body .text-gradient {
+  background: linear-gradient(135deg, #009a52 0%, #0d2618 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Admin dashboard stats bar ───────────────────────────────────────────── */
+body.light-mode .membership-stat-card {
+  background: #ffffff !important;
+  border: 1px solid rgba(0,201,109,0.18) !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05) !important;
+}
+body.light-mode .membership-stat-card .fw-bold.text-white {
+  color: #0d2618 !important;
+}
+body.light-mode .membership-stat-card .text-muted-custom {
+  color: #4B6355 !important;
+}
+
+/* ── Admin sub-tabs (Members / Pricing) ──────────────────────────────────── */
+body.light-mode .membership-admin-subtab {
+  border-bottom-color: rgba(0,201,109,0.15) !important;
+}
+body.light-mode .membership-admin-subtab button {
+  color: #4B6355;
+}
+body.light-mode .membership-admin-subtab button.active-sub {
+  color: var(--primary-color) !important;
+  background: rgba(0,201,109,0.08) !important;
+}
+
+/* ── Admin expand panels (Create / Update) ───────────────────────────────── */
+body.light-mode .admin-create-panel {
+  background-color: rgba(0,201,109,0.05) !important;
+  border-color: rgba(0,201,109,0.3) !important;
+}
+body.light-mode .admin-edit-panel {
+  background-color: rgba(212,175,55,0.05) !important;
+  border-color: rgba(212,175,55,0.35) !important;
+}
+body.light-mode .admin-create-panel .text-white,
+body.light-mode .admin-edit-panel .text-white {
+  color: #0d2618 !important;
+}
+
+/* ── Members table ───────────────────────────────────────────────────────── */
+body.light-mode .table.table-dark {
+  background-color: #ffffff !important;
+  color: #0d2618 !important;
+  --bs-table-bg: #ffffff;
+  --bs-table-striped-bg: #f4faf6;
+  --bs-table-hover-bg: #ebf7f1;
+  --bs-table-color: #0d2618;
+  --bs-table-border-color: rgba(0,201,109,0.12);
+  --bs-table-striped-color: #0d2618;
+}
+body.light-mode .table.table-dark thead tr {
+  border-bottom-color: rgba(0,201,109,0.2) !important;
+}
+body.light-mode .table.table-dark thead th {
+  color: #4B6355 !important;
+}
+body.light-mode .table.table-dark tbody tr {
+  border-bottom-color: rgba(0,0,0,0.05) !important;
+}
+body.light-mode .table.table-dark .fw-bold.text-white {
+  color: #0d2618 !important;
+}
+body.light-mode .table.table-dark .small.text-white {
+  color: #2c4a38 !important;
+}
+body.light-mode .table.table-dark .badge.bg-secondary-custom {
+  background: rgba(0,201,109,0.08) !important;
+  color: #0a6636 !important;
+  border-color: rgba(0,201,109,0.25) !important;
+}
+body.light-mode .table.table-dark .text-muted-custom {
+  color: #4B6355 !important;
+}
+
+/* ── Pricing editor cards ────────────────────────────────────────────────── */
+body.light-mode .pricing-editor-card {
+  background: #ffffff !important;
+  box-shadow: 0 3px 16px rgba(0,0,0,0.07) !important;
+}
+body.light-mode .pricing-editor-card .fw-bold.text-white,
+body.light-mode .pricing-editor-card .text-white {
+  color: #0d2618 !important;
+}
+body.light-mode .pricing-editor-card .text-muted-custom {
+  color: #4B6355 !important;
+}
+body.light-mode .pricing-editor-card .price-input-wrapper {
+  background: #f4faf6 !important;
+}
+body.light-mode .pricing-editor-card input[type="number"] {
+  color: #0d2618 !important;
+  background: transparent !important;
+}
+
+/* ── Pricing info note ───────────────────────────────────────────────────── */
+body.light-mode .pricing-info-note {
+  background: rgba(0,201,109,0.06) !important;
+  border-color: rgba(0,201,109,0.2) !important;
+}
+body.light-mode .pricing-info-note .text-muted-custom {
+  color: #4B6355 !important;
+}
+body.light-mode .pricing-info-note .text-white {
+  color: #0d2618 !important;
+}
+body.light-mode .pricing-info-note kbd {
+  background: rgba(0,0,0,0.06) !important;
+  border-color: rgba(0,0,0,0.12) !important;
+  color: #0d2618 !important;
+}
+
+/* ── Section dividers in pricing tab ────────────────────────────────────── */
+body.light-mode .pricing-section-divider {
+  background: rgba(0,201,109,0.2) !important;
+}
+
+/* ── Reset-all button (danger tinted) light mode fix ────────────────────── */
+body.light-mode .btn-reset-prices {
+  background: rgba(231,76,60,0.07) !important;
+  color: #c0392b !important;
+  border-color: rgba(231,76,60,0.25) !important;
+}
+body.light-mode .btn-reset-prices:hover {
+  background: rgba(231,76,60,0.15) !important;
+}
+
+/* ── Billing toggle inner buttons ────────────────────────────────────────── */
+body.light-mode .billing-toggle-monthly-btn,
+body.light-mode .billing-toggle-annual-btn {
+  color: #2c4a38 !important;
+}
+body.light-mode .billing-toggle-monthly-btn.active,
+body.light-mode .billing-toggle-annual-btn.active {
+  color: #000 !important;
+}
+
+/* ── Admin create/update panel text ─────────────────────────────────────── */
+body.light-mode .admin-section-title {
+  color: #0d2618 !important;
+}
+
+/* ── Table action buttons ────────────────────────────────────────────────── */
+body.light-mode .btn-outline-warning {
+  border-color: rgba(212,175,55,0.5) !important;
+}
+body.light-mode .btn-outline-danger {
+  border-color: rgba(231,76,60,0.5) !important;
+}
+
+/* ── Success/info flash messages ─────────────────────────────────────────── */
+body.light-mode .price-saved-flash {
+  color: var(--primary-color) !important;
+}
+
+/* ── Card header / EXCLUSIVE CAR CLUB label ──────────────────────────────── */
+body.light-mode .membership-header-section .text-brand-primary {
+  color: var(--primary-color) !important;
+}
+body.light-mode .membership-header-section .lead {
+  color: #2c4a38 !important;
+  opacity: 1 !important;
+}
+
+/* ── Search bar icons ────────────────────────────────────────────────────── */
+body.light-mode .search-icon-overlay {
+  opacity: 0.5 !important;
+  color: #2c4a38 !important;
+}
+
+/* ── btn-glow stays readable on light ────────────────────────────────────── */
+body.light-mode .btn-glow {
+  color: #fff !important;
+}
+body.light-mode .btn-glow:hover {
+  color: #fff !important;
+}
+
+/* ── Table-responsive wrapper ────────────────────────────────────────────── */
+body.light-mode .table-responsive {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+/* ── Signup success panel ────────────────────────────────────────────────── */
+body.light-mode .signup-success-inner .text-white {
+  color: #0d2618 !important;
+}
+body.light-mode .signup-success-inner .text-muted-custom {
+  color: #4B6355 !important;
+}
+body.light-mode .signup-success-inner .bg-primary-custom {
+  background: #f4faf6 !important;
+  border-color: rgba(0,201,109,0.25) !important;
+}
+
+/* ── Generic Catch-all to make text visible in light mode on pages that use the dark theme heavily */
+body.light-mode .membership-page-wrapper .text-white:not(.btn-glow),
+body.light-mode .franchise-page-wrapper section:not(.hero-section) .text-white:not(.btn-glow) {
+  color: var(--text-heading) !important;
 }

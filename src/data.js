@@ -166,25 +166,25 @@ export const storesData = [
 // ═══════════════════════════════════════════════════
 export const pricingPackagesData = {
   hatchback: [
-    { name: 'Eco Foam Wash', price: '₹399', warranty: 'Standard', layers: 'Exterior Only', services: ['High-Pressure Rinse', 'Snow Foam Bath', 'Microfiber Towel Dry', 'Basic Glass Wipe', 'Tire Dressing'] },
+    { name: 'Eco Foam Wash', price: '₹399', warranty: 'Standard', layers: 'Exterior Only', services: ['Pre wash', 'Foam wash', 'Underbody wash', 'Car perfume spray', 'Layring paper mats', 'All Tyre Polishing', 'Tyre & Arches Cleaning', 'All 4 Wheels / Alloys Cleaning', 'All foot mats will be washed & vacuumed', 'AC Duct Cleaning & Sanitization using steam', 'All 4 Doors & Dashboard, Cleaned and Polished from inside'] },
     { name: 'Premium Wash & Vacuum', price: '₹799', warranty: 'Deep Clean', layers: 'Int + Ext', popular: true, services: ['Exterior Foam Wash', 'Full Underbody Spray', 'Cabin Vacuuming', 'Dashboard Cleaning', 'Air Purifier Spray'] },
     { name: 'Ultra Polish & Wash', price: '₹1,499', warranty: 'Gloss Boost', layers: 'Polished Finish', services: ['Premium Wash & Vacuum', 'Engine Bay Dressing', 'Liquid Hand Wax Coat', 'AC Vent Cleaning', 'Foot Mat Wash'] },
     { name: 'Ceramic Shield Wash', price: '₹2,499', warranty: '3-Month Protect', layers: 'SiO2 Hydrophobic', services: ['Ultra Polish & Wash', 'Clay Bar Treatment', 'Ceramic Spray Sealant', 'Leather Conditioning', 'Rain Repellent (Glass)'] }
   ],
   sedan: [
-    { name: 'Eco Foam Wash', price: '₹499', warranty: 'Standard', layers: 'Exterior Only', services: ['High-Pressure Rinse', 'Snow Foam Bath', 'Microfiber Towel Dry', 'Basic Glass Wipe', 'Tire Dressing'] },
+    { name: 'Eco Foam Wash', price: '₹499', warranty: 'Standard', layers: 'Exterior Only', services: ['Pre wash', 'Foam wash', 'Underbody wash', 'Car perfume spray', 'Layring paper mats', 'All Tyre Polishing', 'Tyre & Arches Cleaning', 'All 4 Wheels / Alloys Cleaning', 'All foot mats will be washed & vacuumed', 'AC Duct Cleaning & Sanitization using steam', 'All 4 Doors & Dashboard, Cleaned and Polished from inside'] },
     { name: 'Premium Wash & Vacuum', price: '₹999', warranty: 'Deep Clean', layers: 'Int + Ext', popular: true, services: ['Exterior Foam Wash', 'Full Underbody Spray', 'Cabin Vacuuming', 'Dashboard Cleaning', 'Air Purifier Spray'] },
     { name: 'Ultra Polish & Wash', price: '₹1,799', warranty: 'Gloss Boost', layers: 'Polished Finish', services: ['Premium Wash & Vacuum', 'Engine Bay Dressing', 'Liquid Hand Wax Coat', 'AC Vent Cleaning', 'Foot Mat Wash'] },
     { name: 'Ceramic Shield Wash', price: '₹2,999', warranty: '3-Month Protect', layers: 'SiO2 Hydrophobic', services: ['Ultra Polish & Wash', 'Clay Bar Treatment', 'Ceramic Spray Sealant', 'Leather Conditioning', 'Rain Repellent (Glass)'] }
   ],
   suv: [
-    { name: 'Eco Foam Wash', price: '₹599', warranty: 'Standard', layers: 'Exterior Only', services: ['High-Pressure Rinse', 'Snow Foam Bath', 'Microfiber Towel Dry', 'Basic Glass Wipe', 'Tire Dressing'] },
+    { name: 'Eco Foam Wash', price: '₹599', warranty: 'Standard', layers: 'Exterior Only', services: ['Pre wash', 'Foam wash', 'Underbody wash', 'Car perfume spray', 'Layring paper mats', 'All Tyre Polishing', 'Tyre & Arches Cleaning', 'All 4 Wheels / Alloys Cleaning', 'All foot mats will be washed & vacuumed', 'AC Duct Cleaning & Sanitization using steam', 'All 4 Doors & Dashboard, Cleaned and Polished from inside'] },
     { name: 'Premium Wash & Vacuum', price: '₹1,199', warranty: 'Deep Clean', layers: 'Int + Ext', popular: true, services: ['Exterior Foam Wash', 'Full Underbody Spray', 'Cabin Vacuuming', 'Dashboard Cleaning', 'Air Purifier Spray'] },
     { name: 'Ultra Polish & Wash', price: '₹2,199', warranty: 'Gloss Boost', layers: 'Polished Finish', services: ['Premium Wash & Vacuum', 'Engine Bay Dressing', 'Liquid Hand Wax Coat', 'AC Vent Cleaning', 'Foot Mat Wash'] },
     { name: 'Ceramic Shield Wash', price: '₹3,499', warranty: '3-Month Protect', layers: 'SiO2 Hydrophobic', services: ['Ultra Polish & Wash', 'Clay Bar Treatment', 'Ceramic Spray Sealant', 'Leather Conditioning', 'Rain Repellent (Glass)'] }
   ],
   luxury: [
-    { name: 'Eco Foam Wash', price: '₹799', warranty: 'Standard', layers: 'Exterior Only', services: ['High-Pressure Rinse', 'Snow Foam Bath', 'Microfiber Towel Dry', 'Basic Glass Wipe', 'Tire Dressing'] },
+    { name: 'Eco Foam Wash', price: '₹799', warranty: 'Standard', layers: 'Exterior Only', services: ['Pre wash', 'Foam wash', 'Underbody wash', 'Car perfume spray', 'Layring paper mats', 'All Tyre Polishing', 'Tyre & Arches Cleaning', 'All 4 Wheels / Alloys Cleaning', 'All foot mats will be washed & vacuumed', 'AC Duct Cleaning & Sanitization using steam', 'All 4 Doors & Dashboard, Cleaned and Polished from inside'] },
     { name: 'Premium Wash & Vacuum', price: '₹1,499', warranty: 'Deep Clean', layers: 'Int + Ext', popular: true, services: ['Exterior Foam Wash', 'Full Underbody Spray', 'Cabin Vacuuming', 'Dashboard Cleaning', 'Air Purifier Spray'] },
     { name: 'Ultra Polish & Wash', price: '₹2,599', warranty: 'Gloss Boost', layers: 'Polished Finish', services: ['Premium Wash & Vacuum', 'Engine Bay Dressing', 'Liquid Hand Wax Coat', 'AC Vent Cleaning', 'Foot Mat Wash'] },
     { name: 'Ceramic Shield Wash', price: '₹3,999', warranty: '3-Month Protect', layers: 'SiO2 Hydrophobic', services: ['Ultra Polish & Wash', 'Clay Bar Treatment', 'Ceramic Spray Sealant', 'Leather Conditioning', 'Rain Repellent (Glass)'] }

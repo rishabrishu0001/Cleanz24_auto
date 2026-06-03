@@ -20,7 +20,6 @@ function Book({ isDarkMode, toggleTheme }) {
     'CRYSTAL SHIELD',
     'VELVET TOUCH',
     'PEARL RADIANCE',
-    'OBSIDIAN ELITE',
     'PLATINUM REVIVAL'
   ];
 
@@ -334,7 +333,6 @@ function Book({ isDarkMode, toggleTheme }) {
                             <option>CRYSTAL SHIELD</option>
                             <option>VELVET TOUCH</option>
                             <option>PEARL RADIANCE</option>
-                            <option>OBSIDIAN ELITE</option>
                             <option>PLATINUM REVIVAL</option>
                           </optgroup>
                         </select>

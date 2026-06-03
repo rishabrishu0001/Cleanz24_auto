@@ -10,6 +10,18 @@ export default function Header({ isDarkMode, toggleTheme }) {
   const [packagesDropdownOpen, setPackagesDropdownOpen] = useState(false);
   const location = useLocation();
 
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    try { return !!localStorage.getItem('cleanz24_logged_in_member'); } catch { return false; }
+  });
+
+  useEffect(() => {
+    const checkAuth = () => {
+      try { setIsLoggedIn(!!localStorage.getItem('cleanz24_logged_in_member')); } catch { setIsLoggedIn(false); }
+    };
+    window.addEventListener('auth-change', checkAuth);
+    return () => window.removeEventListener('auth-change', checkAuth);
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -43,7 +55,7 @@ export default function Header({ isDarkMode, toggleTheme }) {
 
       <motion.nav 
         initial={{ y: -100 }} animate={{ y: 0 }} transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`navbar navbar-expand-lg ${isDarkMode ? 'navbar-dark' : 'navbar-light'} nav-full ${isScrolled ? 'nav-scrolled' : ''}`}
+        className={`navbar navbar-expand-lg ${isDarkMode ? 'navbar-dark' : 'navbar-light'} nav-full ${isScrolled ? 'nav-scrolled' : ''} ${isActive('/car-spa/membership') ? 'nav-light-hero' : ''}`}
       >
         <div className="container">
           <Link className="navbar-brand d-flex align-items-center text-decoration-none gap-2" to="/car-spa">
@@ -115,18 +127,6 @@ export default function Header({ isDarkMode, toggleTheme }) {
                   <li>
                     <Link 
                       className={`dropdown-item py-2 hover-brand-item ${isDarkMode ? 'text-white' : 'text-dark'}`} 
-                      to="/car-spa/packages/obsidian-elite"
-                      style={{ fontSize: '0.9rem', transition: 'all 0.2s ease', backgroundColor: 'transparent', color: isDarkMode ? '#ffffff' : '#000000' }}
-                      onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--primary-color)'; e.currentTarget.style.backgroundColor = isDarkMode ? 'rgba(0, 201, 109, 0.08)' : 'rgba(0, 201, 109, 0.06)'; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.color = isDarkMode ? '#ffffff' : '#000000'; e.currentTarget.style.backgroundColor = 'transparent'; }}
-                      onClick={() => setPackagesDropdownOpen(false)}
-                    >
-                      Obsidian Elite
-                    </Link>
-                  </li>
-                  <li>
-                    <Link 
-                      className={`dropdown-item py-2 hover-brand-item ${isDarkMode ? 'text-white' : 'text-dark'}`} 
                       to="/car-spa/packages/platinum-revival"
                       style={{ fontSize: '0.9rem', transition: 'all 0.2s ease', backgroundColor: 'transparent', color: isDarkMode ? '#ffffff' : '#000000' }}
                       onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--primary-color)'; e.currentTarget.style.backgroundColor = isDarkMode ? 'rgba(0, 201, 109, 0.08)' : 'rgba(0, 201, 109, 0.06)'; }}
@@ -148,7 +148,11 @@ export default function Header({ isDarkMode, toggleTheme }) {
               <button onClick={toggleTheme} className="theme-toggle ms-2 me-3" aria-label="Toggle Theme">
                 {isDarkMode ? '☀️' : '🌙'}
               </button>
-              <Link className="btn btn-glow px-4 ms-lg-2 fw-bold text-decoration-none" to="/car-spa/book">Book Now</Link>
+              {isLoggedIn ? (
+                <a className="btn btn-glow px-4 ms-lg-2 fw-bold text-decoration-none" href="https://wa.me/919138004800?text=Hi%2C%20I'd%20like%20to%20schedule%20a%20free%20pickup%20for%20my%20vehicle." target="_blank" rel="noreferrer">Schedule Free Pickup</a>
+              ) : (
+                <Link className="btn btn-glow px-4 ms-lg-2 fw-bold text-decoration-none" to="/car-spa/membership">Become Our Member</Link>
+              )}
             </div>
           </div>
         </div>

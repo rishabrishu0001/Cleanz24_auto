@@ -58,7 +58,7 @@ export default function Header({ isDarkMode, toggleTheme }) {
               <button onClick={toggleTheme} className="theme-toggle ms-2 me-3" aria-label="Toggle Theme">
                 {isDarkMode ? '☀️' : '🌙'}
               </button>
-              <Link className="btn btn-glow px-4 ms-lg-2 fw-bold text-decoration-none" to="/book">Book Now</Link>
+              <Link className="btn btn-glow px-4 ms-lg-2 fw-bold text-decoration-none" to="/book">Become Our Member</Link>
             </div>
           </div>
         </div>

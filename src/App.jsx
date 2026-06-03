@@ -11,20 +11,18 @@ import Services from './pages/car-spa/Services';
 import Book from './pages/car-spa/Book';
 import CarSpaFranchise from './pages/car-spa/Franchise';
 import PackageDetails from './pages/car-spa/PackageDetails';
-
+import Membership from './pages/car-spa/Membership';
+import Payment from './pages/car-spa/Payment';
 // ─── Laundry Section ───────────────────────────────────────────
 import LaundryLayout from './pages/laundry/LaundryLayout';
 import LaundryHome from './pages/laundry/LaundryHome';
-import About from './pages/laundry/About';
-import LaundryServices from './pages/laundry/LaundryServices';
-import DryCleaning from './pages/laundry/DryCleaning';
-import HomeCleaning from './pages/laundry/HomeCleaning';
-import SteamIroning from './pages/laundry/SteamIroning';
-import ShoeCleaning from './pages/laundry/ShoeCleaning';
-import LaundryFranchise from './pages/laundry/Franchise';
+
+
+
+import LaundryFranchise from './pages/laundry/LaundryFrenchise';
 import Stores from './pages/laundry/Stores';
 import Contact from './pages/laundry/Contact';
-import Placeholder from './pages/laundry/Placeholder';
+import LaundryBlog from './pages/laundry/Blog';
 
 /**
  * App — Central Router Configuration
@@ -55,21 +53,21 @@ function App() {
         <Route path="services" element={<Services />} />
         <Route path="packages/:packageId" element={<PackageDetails />} />
         <Route path="book" element={<Book />} />
+        <Route path="membership" element={<Membership />} />
+        <Route path="payment" element={<Payment />} />
         <Route path="franchise" element={<CarSpaFranchise />} />
       </Route>
 
       {/* ── Laundry Section ── */}
       <Route path="/laundry" element={<LaundryLayout />}>
         <Route index element={<LaundryHome />} />
-        <Route path="about-us" element={<About />} />
-        <Route path="services" element={<LaundryServices />} />
-        <Route path="dry-cleaning" element={<DryCleaning />} />
-        <Route path="home-cleaning" element={<HomeCleaning />} />
-        <Route path="steam-ironing" element={<SteamIroning />} />
-        <Route path="shoe-cleaning" element={<ShoeCleaning />} />
+
+
+
         <Route path="franchise" element={<LaundryFranchise />} />
         <Route path="stores" element={<Stores />} />
-        <Route path="blog" element={<Placeholder title="Blog" />} />
+        <Route path="blog" element={<LaundryBlog />} />
+        <Route path="blog/:slug" element={<LaundryBlog />} />
         <Route path="contact-us" element={<Contact />} />
       </Route>
     </Routes>

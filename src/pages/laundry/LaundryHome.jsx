@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Player } from '@lottiefiles/react-lottie-player';
 
 // Import local assets
 import heroCircleImg from '../../assets/hero_laundry_circle.png';
@@ -21,6 +22,8 @@ import media2Img from '../../assets/media_mention_2.png';
 import media3Img from '../../assets/media_mention_3.png';
 import media4Img from '../../assets/media_mention_4.png';
 import storefrontImg from '../../assets/laundry_storefront2.png';
+import laundryHandImg from '../../assets/laundry_hand.png';
+import laundry2Img from '../../assets/laundry_2.jpg';
 
 export default function LaundryHome() {
   // Booking Form State
@@ -133,8 +136,8 @@ export default function LaundryHome() {
                 </p>
                 
                 {/* Floating/Action buttons next to text */}
-                <div className="d-flex gap-3 align-items-center flex-wrap">
-                  <a href="#booking-form-section" className="btn-primary-custom">
+                <div className="d-flex flex-wrap gap-3 mt-4">
+                  <a href="/contact" className="btn-primary-custom">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
                     Schedule Your Pickup
                   </a>
@@ -149,144 +152,13 @@ export default function LaundryHome() {
         </div>
       </section>
 
-      {/* ────────────────── 2. BOOKING SECTION ────────────────── */}
-      <section className="split-booking-section" id="booking-form-section">
-        <div className="container">
-          <div className="row g-5 align-items-center">
-            {/* Left side: Brand Stats & Image */}
-            <div className="col-lg-6">
-              <div className="brand-card-box">
-                <h4>India’s Fast Growing Laundry &amp; Dry Cleaning Franchise Chain</h4>
-                <div className="brand-stats-row mt-3">
-                  <div className="brand-stat-item">
-                    <span className="green-dot"></span>
-                    <span>100+ Stores</span>
-                  </div>
-                  <div className="brand-stat-item">
-                    <span className="green-dot"></span>
-                    <span>43 Cities</span>
-                  </div>
-                  <div className="brand-stat-item">
-                    <span className="green-dot"></span>
-                    <span>21 States</span>
-                  </div>
-                </div>
-              </div>
-              <div className="store-img-container">
-                <img src={storefrontImg} alt="Cleanz24 Storefront" />
-              </div>
-            </div>
-
-            {/* Right side: Booking Form */}
-            <div className="col-lg-6">
-              <div className="booking-right-side text-start">
-                <h2>Get Up to 20% OFF<br />Free Doorstep Pickup &amp; Delivery</h2>
-                <h3>Schedule a free pickup</h3>
-                <p>We offer free pickup &amp; drop for order value above Rs.300.00 across all our stores in India.</p>
-                
-                <AnimatePresence mode="wait">
-                  {!formSubmitted ? (
-                    <motion.form 
-                      key="booking-form-v2"
-                      onSubmit={handleFormSubmit}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="booking-form-v2"
-                    >
-                      <div className="mb-3">
-                        <label className="form-label text-dark">Name <span className="text-danger">*</span></label>
-                        <input 
-                          type="text" 
-                          name="name"
-                          value={formData.name}
-                          onChange={handleInputChange}
-                          className="form-control" 
-                          placeholder="Enter your name" 
-                          required 
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label text-dark">Mobile Number <span className="text-danger">*</span></label>
-                        <input 
-                          type="tel" 
-                          name="mobile"
-                          value={formData.mobile}
-                          onChange={handleInputChange}
-                          className="form-control" 
-                          placeholder="Enter a valid mobile number" 
-                          required 
-                        />
-                      </div>
-                      <div className="mb-4">
-                        <label className="form-label text-dark">Address <span className="text-danger">*</span></label>
-                        <textarea 
-                          name="address"
-                          value={formData.address}
-                          onChange={handleInputChange}
-                          className="form-control" 
-                          rows="2" 
-                          placeholder="Enter your complete address" 
-                          required
-                        ></textarea>
-                      </div>
-
-                      {/* Recaptcha Mock */}
-                      <div className="recaptcha-mock">
-                        <div className="recaptcha-left d-flex align-items-center gap-2" style={{ cursor: 'pointer' }} onClick={() => setRecaptchaChecked(prev => !prev)}>
-                          <div className="recaptcha-checkbox">
-                            {recaptchaChecked && (
-                              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00c853" strokeWidth="4">
-                                <polyline points="20 6 9 17 4 12"/>
-                              </svg>
-                            )}
-                          </div>
-                          <span style={{ fontSize: '14px', color: '#555' }}>I'm not a robot</span>
-                        </div>
-                        <div className="recaptcha-right">
-                          <svg width="28" height="28" viewBox="0 0 24 24" fill="#4285F4">
-                            <path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12h2c0 4.41 3.59 8 8 8s8-3.59 8-8-3.59-8-8-8c-2.4 0-4.52 1.05-6 2.74V4h-2v5h5V7H7.72C8.83 5.17 10.27 4 12 4z"/>
-                          </svg>
-                          <span>reCAPTCHA</span>
-                          <span>Privacy - Terms</span>
-                        </div>
-                      </div>
-
-                      <button type="submit" className="btn-submit-v2 px-4 py-2 text-white">
-                        Submit
-                      </button>
-                    </motion.form>
-                  ) : (
-                    <motion.div 
-                      key="success-message-v2"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0 }}
-                      className="py-4"
-                    >
-                      <div className="mb-3 d-inline-flex align-items-center justify-content-center bg-success text-white rounded-circle" style={{ width: '50px', height: '50px' }}>
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
-                      </div>
-                      <h4 className="fw-bold text-success">Booking Request Received!</h4>
-                      <p className="text-muted small mt-2">
-                        Thank you, <strong>{formData.name}</strong>. Our logistics executive will contact you shortly on <strong>{formData.mobile}</strong>.
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
 
       {/* ────────────────── 2. INTRO / STATS CHECKLIST SECTION ────────────────── */}
       <section className="section-padding bg-white">
         <div className="container">
           <div className="row align-items-center mb-5">
             <div className="col-lg-6 mb-5 mb-lg-0 text-start">
-              <span className="section-subtitle">India's Best Dry-Clean &amp; Laundry Service</span>
+              <span className="section-subtitle" style={{ fontSize: '10px', letterSpacing: '1.5px' }}>India's Best Dry-Clean &amp; Laundry Service</span>
               <h2 className="section-title">
                 Getting Tired With Your <br />
                 <span>Dirty Clothes?</span>
@@ -343,7 +215,7 @@ export default function LaundryHome() {
               </div>
 
               <div className="mt-5 d-flex gap-3">
-                <a href="#booking-form" className="btn-primary-custom">Get Started</a>
+                <a href="/contact" className="btn-primary-custom">Get Started</a>
                 <a href="https://cleanz24.com/about-us/" target="_blank" rel="noreferrer" className="btn-outline-custom">Learn More</a>
               </div>
             </div>
@@ -354,8 +226,8 @@ export default function LaundryHome() {
                 whileInView={{ scale: [0.95, 1], rotate: [0, 1, -1, 0] }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.5, ease: "easeInOut" }}
-                src={introLoadingImg} 
-                alt="Cleanz24 Laundry"
+                src={storefrontImg} 
+                alt="Cleanz24 Storefront"
                 className="img-fluid rounded-4 animate-bob"
                 style={{ maxHeight: '420px', border: '8px solid #F8FAFC', boxShadow: '0 20px 40px rgba(0,0,0,0.06)' }}
               />
@@ -470,14 +342,7 @@ export default function LaundryHome() {
                 transition={{ duration: 0.8 }}
                 style={{ position: 'relative', zIndex: 2 }}
               >
-                <lottie-player
-                  src="/washing_machine.json"
-                  background="transparent"
-                  speed="1"
-                  style={{ width: '320px', height: '320px', margin: '0 auto' }}
-                  loop
-                  autoplay
-                ></lottie-player>
+                <img src={laundryHandImg} alt="Tackle the Stains" className="img-fluid animate-bob" style={{ maxWidth: '100%', maxHeight: '400px', filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.15))' }} />
               </motion.div>
             </div>
             
@@ -492,7 +357,7 @@ export default function LaundryHome() {
                 Our laundry experts handle it with high-grade machinery and eco-friendly solutions. We separate your clothing by fabric type and care label to keep your wardrobe in showroom condition.
               </p>
               <div className="d-flex align-items-center gap-3">
-                <a href="#booking-form" className="btn-primary-custom">Schedule Free Pickup</a>
+                <a href="/contact" className="btn-primary-custom">Schedule Free Pickup</a>
                 <a href="tel:+919138004800" className="btn-outline-custom">Call us: 9138004800</a>
               </div>
             </div>
@@ -602,14 +467,14 @@ export default function LaundryHome() {
         <div className="container py-4 position-relative z-3 text-center">
           {/* Lottie Animation for 24/7 Booking Banner */}
           <div className="d-flex justify-content-center mb-3">
-            <lottie-player
+            <Player
               src="/laundry1.json"
               background="transparent"
-              speed="1"
+              speed={1}
               style={{ width: '250px', height: '250px' }}
               loop
               autoplay
-            ></lottie-player>
+            />
           </div>
           <span className="badge bg-success px-3 py-2 rounded-pill uppercase mb-3" style={{ fontSize: '0.8rem', letterSpacing: '1px' }}>24/7 Booking Available</span>
           <h2 className="display-5 fw-bold mb-3">Dry Clean Solutions For a Busy Life</h2>

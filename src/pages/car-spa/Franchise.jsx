@@ -76,7 +76,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
   };
 
   return (
-    <div className="d-flex flex-column min-vh-100 bg-primary-custom bg-carbon" style={{ overflowX: 'hidden' }}>
+    <div className="franchise-page-wrapper d-flex flex-column min-vh-100 bg-primary-custom bg-carbon" style={{ overflowX: 'hidden' }}>
       {/* HERO SECTION */}
       <section className="hero-section position-relative text-center overflow-hidden d-flex flex-column justify-content-center" style={{ height: '100vh', backgroundImage: 'none', backgroundColor: '#000' }}>
         {/* Cinematic Video Background */}
