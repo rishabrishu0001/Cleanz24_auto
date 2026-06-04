@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import '../../styles/carSpa.css';
+import SEOMeta from '../../components/SEOMeta';
 
 // ── Default Plan Definitions (prices overridden from localStorage) ─────────────
 const DEFAULT_ANNUAL_PLANS = [
@@ -130,6 +131,11 @@ export default function Membership() {
   useEffect(() => {
     if (location.state?.paymentSuccess) {
       setSignupSuccess(true);
+      if (location.state?.newMember) {
+        setLoggedInMember(location.state.newMember);
+        localStorage.setItem('cleanz24_logged_in_member', JSON.stringify(location.state.newMember));
+        window.dispatchEvent(new Event('auth-change'));
+      }
       // clean up state to prevent re-trigger on refresh
       navigate('.', { replace: true, state: {} });
     }
@@ -546,6 +552,11 @@ export default function Membership() {
   // ════════════════════════════════════════════════════════════════════════════
   return (
     <div className="membership-page-wrapper d-flex flex-column min-vh-100 bg-primary-custom bg-carbon" style={{ overflowX: 'hidden' }}>
+      <SEOMeta
+        title="Car Club Membership Plans"
+        description="Become a Cleanz24 Car Club member. Get paint protection coats, unlimited foam washes, interior vacuuming, and significant discounts all year round."
+        canonical="https://cleanz24.com/car-spa/membership"
+      />
 
       {/* ── HEADER BANNER ──────────────────────────────────────────────────── */}
       <section className="membership-header-section position-relative text-center overflow-hidden pt-5 pb-4"
@@ -564,17 +575,17 @@ export default function Membership() {
             Join our elite club to enjoy premium ceramic paint protection, unlimited wash benefits, priority scheduling, and heavy savings all year round.
           </motion.p>
 
-          {/* Tab Switch */}
+          {/* Tab Switch — only Plans & Login visible to public */}
           <div className="membership-tab-switch d-inline-flex bg-secondary-custom p-1 rounded-pill border" style={{ borderColor: 'var(--card-border)' }}>
             <button onClick={() => { setActiveTab('buy'); setSignupSuccess(false); }}
               className={`btn rounded-pill px-4 py-2 fw-semibold ${activeTab === 'buy' ? 'btn-glow' : 'bg-transparent text-white'}`}
               style={{ border: 'none', transition: 'all 0.3s ease' }}>
               Plans &amp; Signup
             </button>
-            <button onClick={() => setActiveTab('admin')}
-              className={`btn rounded-pill px-4 py-2 fw-semibold ${activeTab === 'admin' ? 'btn-glow' : 'bg-transparent text-white'}`}
+            <button onClick={() => setActiveTab('login')}
+              className={`btn rounded-pill px-4 py-2 fw-semibold ${activeTab === 'login' ? 'btn-glow' : 'bg-transparent text-white'}`}
               style={{ border: 'none', transition: 'all 0.3s ease' }}>
-              Admin Dashboard
+              Member Login
             </button>
           </div>
         </div>
@@ -770,406 +781,73 @@ export default function Membership() {
         </div>
       )}
 
-      {/* ── ADMIN DASHBOARD TAB ─────────────────────────────────────────────── */}
-      {activeTab === 'admin' && (
-        <div className="container py-4">
-
-          {/* Stats bar */}
-          <div className="row g-3 mb-4">
-            {[
-              { label: 'Total Members',    value: members.length,                icon: '👥', color: '#00C96D' },
-              { label: 'Annual Members',   value: members.filter(m => m.plan?.includes('annual')).length,  icon: '📅', color: '#D4AF37' },
-              { label: 'Monthly Members',  value: members.filter(m => m.plan?.includes('monthly')).length, icon: '📆', color: '#3498db' },
-              { label: 'Total Revenue',    value: fmtPrice(totalRevenue),         icon: '💰', color: '#e74c3c' }
-            ].map((s, i) => (
-              <div key={i} className="col-6 col-lg-3">
-                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }}
-                  className="membership-stat-card"
-                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '18px 20px' }}>
-                  <div className="d-flex align-items-center gap-3">
-                    <span style={{ fontSize: '1.6rem' }}>{s.icon}</span>
-                    <div>
-                      <div className="fw-bold text-white" style={{ fontSize: '1.3rem' }}>{s.value}</div>
-                      <div className="text-muted-custom" style={{ fontSize: '0.73rem', textTransform: 'uppercase', letterSpacing: '0.8px' }}>{s.label}</div>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            ))}
-          </div>
-
-          {/* Admin Sub-Tabs */}
-          <div className="membership-admin-subtab d-flex gap-2 mb-4" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)', paddingBottom: '0', overflowX: 'auto', whiteSpace: 'nowrap' }}>
-            {[
-              { key: 'members', label: '👥 Members', },
-              { key: 'pricing', label: '💲 Plan Pricing', },
-              { key: 'coupons', label: '🎟️ Coupons', }
-            ].map(tab => (
-              <button key={tab.key} onClick={() => setAdminSubTab(tab.key)}
-                className={`btn fw-semibold${adminSubTab === tab.key ? ' active-sub' : ''}`}
-                style={{
-                  borderRadius: '10px 10px 0 0', border: 'none', padding: '10px 22px',
-                  background: adminSubTab === tab.key ? 'rgba(0,201,109,0.12)' : 'transparent',
-                  color: adminSubTab === tab.key ? '#00C96D' : 'rgba(255,255,255,0.45)',
-                  borderBottom: adminSubTab === tab.key ? '2px solid #00C96D' : '2px solid transparent',
-                  transition: 'all 0.2s ease', fontSize: '0.9rem'
-                }}>
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          {/* ── SUB-TAB: MEMBERS ──────────────────────────────────────────────── */}
-          <AnimatePresence mode="wait">
-            {adminSubTab === 'members' && (
-              <motion.div key="members" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-                <div className="card bg-secondary-custom shadow-lg overflow-hidden border mb-4" style={{ borderColor: 'var(--card-border)', borderRadius: '12px' }}>
-                  <div className="card-body p-4 p-md-5">
-
-                    {/* Header */}
-                    <div className="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
-                      <div>
-                        <h3 className="h4 fw-bold text-white mb-1">Active Club Memberships</h3>
-                        <p className="text-muted-custom small mb-0">Total: {displayedMembers.length} members shown</p>
-                      </div>
-                      <button onClick={() => setAdminAddOpen(!adminAddOpen)} className="btn btn-glow rounded-pill px-4 py-2 fw-semibold">
-                        {adminAddOpen ? '✕ Close Form' : '➕ Add Member'}
-                      </button>
-                    </div>
-
-                    {/* CREATE */}
-                    <AnimatePresence>
-                      {adminAddOpen && (
-                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-                          className="admin-create-panel overflow-hidden border border-success p-4 mb-4"
-                          style={{ backgroundColor: 'rgba(0,201,109,0.05)', borderRadius: '10px' }}>
-                          <h4 className="h5 fw-bold text-white mb-3 text-gradient admin-section-title">Create New Membership</h4>
-                          <form onSubmit={handleAdminAddSubmit}>
-                            <div className="row g-3 mb-3">
-                              {[
-                                { label: 'Full Name', type: 'text',  key: 'name',    ph: 'Full name' },
-                                { label: 'Mobile',    type: 'tel',   key: 'mobile',  ph: '10-digit mobile' },
-                                { label: 'Email',     type: 'email', key: 'email',   ph: 'Email address' }
-                              ].map(f => (
-                                <div className="col-md-4" key={f.key}>
-                                  <label className="form-label small text-muted-custom">{f.label}</label>
-                                  <input type={f.type} value={adminAddData[f.key]} placeholder={f.ph}
-                                    onChange={e => setAdminAddData({ ...adminAddData, [f.key]: e.target.value })}
-                                    className="form-control py-2 rounded-0 bg-primary-custom text-white border-0" required />
-                                </div>
-                              ))}
-                            </div>
-                            <div className="row g-3 mb-3">
-                              <div className="col-md-3">
-                                <label className="form-label small text-muted-custom">Select Plan</label>
-                                <select value={adminAddData.plan} onChange={e => setAdminAddData({ ...adminAddData, plan: e.target.value })}
-                                  className="form-select py-2 rounded-0 bg-primary-custom text-white border-0">
-                                  <optgroup label="Annual">
-                                    {ANNUAL_PLANS.map(p => <option key={p.id} value={p.id}>{p.name} – Annual</option>)}
-                                  </optgroup>
-                                  <optgroup label="Monthly">
-                                    {MONTHLY_PLANS.map(p => <option key={p.id} value={p.id}>{p.name} – Monthly</option>)}
-                                  </optgroup>
-                                </select>
-                              </div>
-                              {[
-                                { label: 'Vehicle Reg No.', key: 'vehicleNumber', ph: 'e.g. MH01AB1234' },
-                                { label: 'Vehicle Model',   key: 'vehicleModel',  ph: 'e.g. Honda City' }
-                              ].map(f => (
-                                <div className="col-md-3" key={f.key}>
-                                  <label className="form-label small text-muted-custom">{f.label}</label>
-                                  <input type="text" value={adminAddData[f.key]} placeholder={f.ph}
-                                    onChange={e => setAdminAddData({ ...adminAddData, [f.key]: f.key === 'vehicleNumber' ? e.target.value.toUpperCase() : e.target.value })}
-                                    className="form-control py-2 rounded-0 bg-primary-custom text-white border-0" required />
-                                </div>
-                              ))}
-                              <div className="col-md-3">
-                                <label className="form-label small text-muted-custom">Start Date</label>
-                                <input type="date" value={adminAddData.startDate}
-                                  onChange={e => setAdminAddData({ ...adminAddData, startDate: e.target.value })}
-                                  className="form-control py-2 rounded-0 bg-primary-custom text-white border-0"
-                                  style={{ colorScheme: 'dark' }} required />
-                              </div>
-                            </div>
-                            <div className="text-end">
-                              <button type="submit" className="btn btn-glow rounded-pill px-4 py-2 mt-2">Save Member</button>
-                            </div>
-                          </form>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-
-                    {/* UPDATE */}
-                    <AnimatePresence>
-                      {editingMember && (
-                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-                          className="admin-edit-panel overflow-hidden border border-warning p-4 mb-4"
-                          style={{ backgroundColor: 'rgba(212,175,55,0.05)', borderRadius: '10px' }}>
-                          <h4 className="h5 fw-bold text-white mb-3 text-gradient admin-section-title">Update Member: {editingMember.name}</h4>
-                          <form onSubmit={handleEditSubmit}>
-                            <div className="row g-3 mb-3">
-                              {[
-                                { label: 'Full Name', type: 'text',  key: 'name'  },
-                                { label: 'Mobile',    type: 'tel',   key: 'mobile' },
-                                { label: 'Email',     type: 'email', key: 'email' }
-                              ].map(f => (
-                                <div className="col-md-4" key={f.key}>
-                                  <label className="form-label small text-muted-custom">{f.label}</label>
-                                  <input type={f.type} value={editFormData[f.key] || ''}
-                                    onChange={e => setEditFormData({ ...editFormData, [f.key]: e.target.value })}
-                                    className="form-control py-2 rounded-0 bg-primary-custom text-white border-0" required />
-                                </div>
-                              ))}
-                            </div>
-                            <div className="row g-3 mb-3">
-                              <div className="col-md-3">
-                                <label className="form-label small text-muted-custom">Plan</label>
-                                <select value={editFormData.plan || ''} onChange={e => setEditFormData({ ...editFormData, plan: e.target.value })}
-                                  className="form-select py-2 rounded-0 bg-primary-custom text-white border-0">
-                                  <optgroup label="Annual">
-                                    {ANNUAL_PLANS.map(p => <option key={p.id} value={p.id}>{p.name} – Annual</option>)}
-                                  </optgroup>
-                                  <optgroup label="Monthly">
-                                    {MONTHLY_PLANS.map(p => <option key={p.id} value={p.id}>{p.name} – Monthly</option>)}
-                                  </optgroup>
-                                </select>
-                              </div>
-                              {[
-                                { label: 'Vehicle Reg No.', key: 'vehicleNumber' },
-                                { label: 'Vehicle Model',   key: 'vehicleModel'  }
-                              ].map(f => (
-                                <div className="col-md-3" key={f.key}>
-                                  <label className="form-label small text-muted-custom">{f.label}</label>
-                                  <input type="text" value={editFormData[f.key] || ''}
-                                    onChange={e => setEditFormData({ ...editFormData, [f.key]: f.key === 'vehicleNumber' ? e.target.value.toUpperCase() : e.target.value })}
-                                    className="form-control py-2 rounded-0 bg-primary-custom text-white border-0 admin-form-control" required />
-                                </div>
-                              ))}
-                              <div className="col-md-3">
-                                <label className="form-label small text-muted-custom">Start Date</label>
-                                <div className="position-relative">
-                                  <input type="date" value={editFormData.startDate || ''}
-                                    onChange={e => setEditFormData({ ...editFormData, startDate: e.target.value })}
-                                    className="form-control py-2 rounded-0 bg-primary-custom text-white border-0 admin-form-control"
-                                    style={{ colorScheme: 'dark' }} required />
-                                </div>
-                              </div>
-                            </div>
-                            <div className="d-flex justify-content-end gap-2">
-                              <button type="button" onClick={() => setEditingMember(null)}
-                                className="btn btn-outline-secondary rounded-pill px-4 py-2 mt-2">Cancel</button>
-                              <button type="submit" className="btn btn-glow rounded-pill px-4 py-2 mt-2">Update Member</button>
-                            </div>
-                          </form>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-
-                    {/* Search & Filter */}
-                    <div className="row g-3 mb-4">
-                      <div className="col-md-6">
-                        <div className="position-relative">
-                          <input type="text" placeholder="Search by name, phone, or vehicle..." value={searchQuery}
-                            onChange={e => setSearchQuery(e.target.value)}
-                            className="form-control py-3 bg-primary-custom text-white border-0"
-                            style={{ paddingLeft: '40px' }} />
-                          <span className="position-absolute" style={{ left: '15px', top: '50%', transform: 'translateY(-50%)', opacity: 0.4 }}>🔍</span>
-                        </div>
-                      </div>
-                      <div className="col-md-6">
-                        <select value={filterPlan} onChange={e => setFilterPlan(e.target.value)}
-                          className="form-select py-3 bg-primary-custom text-white border-0">
-                          <option value="all">All Plans</option>
-                          <optgroup label="Annual">
-                            {ANNUAL_PLANS.map(p => <option key={p.id} value={p.id}>{p.name} – Annual</option>)}
-                          </optgroup>
-                          <optgroup label="Monthly">
-                            {MONTHLY_PLANS.map(p => <option key={p.id} value={p.id}>{p.name} – Monthly</option>)}
-                          </optgroup>
-                        </select>
-                      </div>
-                    </div>
-
-                    {/* Table */}
-                    <div className="table-responsive">
-                      <table className="table table-dark table-striped align-middle border-0 text-start" style={{ borderRadius: '8px', overflow: 'hidden' }}>
-                        <thead>
-                          <tr style={{ borderBottom: '2px solid var(--card-border)' }}>
-                            <th className="py-3 ps-3 text-muted-custom small text-uppercase">Member</th>
-                            <th className="py-3 text-muted-custom small text-uppercase">Vehicle</th>
-                            <th className="py-3 text-muted-custom small text-uppercase">Plan</th>
-                            <th className="py-3 text-muted-custom small text-uppercase">Price</th>
-                            <th className="py-3 text-muted-custom small text-uppercase">Reg Date</th>
-                            <th className="py-3 text-muted-custom small text-uppercase text-center">Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {displayedMembers.length > 0 ? displayedMembers.map(member => {
-                            const planObj = ALL_PLANS.find(p => p.id === member.plan);
-                            return (
-                              <tr key={member.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                                <td className="py-3 ps-3">
-                                  <div className="fw-bold text-white">{member.name}</div>
-                                  <div className="small text-muted-custom">{member.mobile} | {member.email}</div>
-                                </td>
-                                <td className="py-3">
-                                  <span className="badge bg-secondary-custom text-white border font-monospace px-2 py-1 me-2" style={{ borderColor: 'var(--card-border)', fontSize: '0.78rem' }}>{member.vehicleNumber}</span>
-                                  <span className="small text-white">{member.vehicleModel}</span>
-                                </td>
-                                <td className="py-3">
-                                  <span className="fw-bold" style={{ color: getPlanColor(member.plan) }}>{getPlanName(member.plan)}</span>
-                                </td>
-                                <td className="py-3">
-                                  <span className="fw-bold" style={{ color: getPlanColor(member.plan) }}>{planObj ? planObj.price : '—'}</span>
-                                </td>
-                                <td className="py-3 text-muted-custom small">
-                                  {new Date(member.startDate).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' })}
-                                </td>
-                                <td className="py-3 text-center">
-                                  <div className="d-flex justify-content-center gap-2">
-                                    <button onClick={() => { setEditingMember(member); setEditFormData({ ...member }); }}
-                                      className="btn btn-outline-warning btn-sm rounded-circle p-0 d-flex align-items-center justify-content-center"
-                                      style={{ width: '32px', height: '32px', border: '1px solid rgba(212,175,55,0.4)' }} title="Edit">✏️</button>
-                                    <button onClick={() => handleDeleteMember(member.id, member.name)}
-                                      className="btn btn-outline-danger btn-sm rounded-circle p-0 d-flex align-items-center justify-content-center"
-                                      style={{ width: '32px', height: '32px', border: '1px solid rgba(231,76,60,0.4)' }} title="Delete">🗑️</button>
-                                  </div>
-                                </td>
-                              </tr>
-                            );
-                          }) : (
-                            <tr><td colSpan="6" className="text-center py-5 text-muted-custom">No memberships found.</td></tr>
-                          )}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-
-            {/* ── SUB-TAB: PLAN PRICING ────────────────────────────────────────── */}
-            {adminSubTab === 'pricing' && (
-              <motion.div key="pricing" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-
-                {/* Section header */}
-                <div className="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
-                  <div>
-                    <h3 className="h4 fw-bold text-white mb-1">Plan Pricing Control</h3>
-                    <p className="text-muted-custom small mb-0">Edit any plan's price. Changes are saved instantly and reflected live on the Plans &amp; Signup page.</p>
-                  </div>
-                  <button onClick={resetAllPrices}
-                    className="btn fw-semibold"
-                    style={{ background: 'rgba(231,76,60,0.1)', color: '#e74c3c', border: '1px solid rgba(231,76,60,0.3)', borderRadius: '10px', padding: '9px 20px', fontSize: '0.85rem', transition: 'all 0.2s' }}
-                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(231,76,60,0.2)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.background = 'rgba(231,76,60,0.1)'; }}>
-                    ↩ Reset All to Defaults
-                  </button>
-                </div>
-
-                {/* Annual Plans */}
-                <div className="mb-2">
-                  <div className="d-flex align-items-center gap-2 mb-3">
-                    <span style={{ fontSize: '0.7rem', color: '#00C96D', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '2px' }}>📅 Annual Plans</span>
-                    <div style={{ flex: 1, height: '1px', background: 'rgba(0,201,109,0.15)' }} />
-                  </div>
-                  <div className="row g-3 mb-5">
-                    {ANNUAL_PLANS.map(plan => <PricingCard key={plan.id} plan={plan} />)}
-                  </div>
-                </div>
-
-                {/* Monthly Plans */}
-                <div>
-                  <div className="d-flex align-items-center gap-2 mb-3">
-                    <span style={{ fontSize: '0.7rem', color: '#3498db', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '2px' }}>📆 Monthly Plans</span>
-                    <div style={{ flex: 1, height: '1px', background: 'rgba(52,152,219,0.15)' }} />
-                  </div>
-                  <div className="row g-3 mb-4">
-                    {MONTHLY_PLANS.map(plan => <PricingCard key={plan.id} plan={plan} />)}
-                  </div>
-                </div>
-
-                {/* Info note */}
-                <div className="pricing-info-note" style={{ background: 'rgba(0,201,109,0.06)', border: '1px solid rgba(0,201,109,0.15)', borderRadius: '10px', padding: '14px 18px' }}>
-                  <p className="mb-0 text-muted-custom" style={{ fontSize: '0.82rem' }}>
-                    💡 <strong className="text-white">Tip:</strong> Prices are saved in your browser's local storage and will persist between sessions. Press <kbd style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '4px', padding: '1px 5px', fontSize: '0.78rem' }}>Enter</kbd> to quickly save a price after typing.
-                  </p>
-                </div>
-              </motion.div>
-            )}
-
-            {/* ── SUB-TAB: COUPONS ─────────────────────────────────────────────── */}
-            {adminSubTab === 'coupons' && (
-              <motion.div key="coupons" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-                <div className="d-flex align-items-center justify-content-between mb-4">
-                  <div>
-                    <h3 className="h4 fw-bold text-white mb-1">Coupon Management</h3>
-                    <p className="text-muted-custom small mb-0">Create and manage discount codes for the checkout page.</p>
-                  </div>
-                </div>
-
-                <div className="row g-4">
-                  <div className="col-md-4">
-                    <div className="bg-dark p-4 rounded border border-secondary">
-                      <h5 className="fw-bold text-white mb-4">Create New Coupon</h5>
-                      <form onSubmit={handleAddCoupon}>
-                        <div className="mb-3">
-                          <label className="form-label small text-muted-custom">Coupon Code</label>
-                          <input type="text" className="form-control bg-primary-custom text-white border-secondary py-2 text-uppercase" placeholder="e.g. FESTIVAL20" value={couponFormData.code} onChange={e => setCouponFormData({...couponFormData, code: e.target.value.toUpperCase()})} required />
-                        </div>
+      {/* ── MEMBER LOGIN TAB ──────────────────────────────────────────────── */}
+      {activeTab === 'login' && (
+        <div className="container py-5">
+          <div className="row justify-content-center">
+            <div className="col-lg-6">
+              <div className="card bg-secondary-custom shadow-lg overflow-hidden" style={{ border: '1px solid var(--card-border)', borderRadius: '12px' }}>
+                <div className="card-body p-4 p-md-5">
+                  {!loggedInMember ? (
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                      <h3 className="card-title fw-bold text-white mb-2 text-gradient">Member Login</h3>
+                      <p className="text-muted-custom small mb-4">Enter your registered mobile number to check your active membership details.</p>
+                      
+                      <form onSubmit={handleLoginSubmit}>
                         <div className="mb-4">
-                          <label className="form-label small text-muted-custom">Discount Percentage (%)</label>
-                          <input type="number" min="1" max="100" className="form-control bg-primary-custom text-white border-secondary py-2" placeholder="e.g. 20" value={couponFormData.discountPercent} onChange={e => setCouponFormData({...couponFormData, discountPercent: e.target.value})} required />
+                          <label htmlFor="loginMobile" className="form-label fw-bold small text-uppercase text-muted-custom">Registered Mobile Number</label>
+                          <input type="tel" id="loginMobile" value={loginMobile} onChange={e => setLoginMobile(e.target.value)}
+                            placeholder="Enter 10-digit mobile"
+                            className={`form-control py-3 rounded-0 bg-primary-custom text-white border-0 ${loginError ? 'is-invalid' : ''}`}
+                            maxLength={10} required />
+                          {loginError && <div className="invalid-feedback text-start d-block">{loginError}</div>}
                         </div>
-                        <div className="form-check form-switch mb-4">
-                          <input className="form-check-input" type="checkbox" role="switch" checked={couponFormData.active} onChange={e => setCouponFormData({...couponFormData, active: e.target.checked})} />
-                          <label className="form-check-label text-white small">Active (Can be used)</label>
-                        </div>
-                        <button type="submit" className="btn btn-success w-100 fw-bold">Add Coupon</button>
+                        <button type="submit" className="btn btn-primary btn-lg rounded-0 fw-bold btn-glow py-3 w-100">
+                          Check Membership Status
+                        </button>
                       </form>
-                    </div>
-                  </div>
+                    </motion.div>
+                  ) : (
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center">
+                      <div className="mb-4 d-flex justify-content-center">
+                        <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'rgba(0,201,109,0.1)', border: '2px solid #00C96D', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', color: '#00C96D' }}>
+                          👤
+                        </div>
+                      </div>
+                      <h4 className="fw-bold text-white mb-1">Welcome back, {loggedInMember.name}!</h4>
+                      <p className="text-muted-custom small mb-4">Here are your active membership details.</p>
+                      
+                      <div className="bg-primary-custom rounded text-start p-4 mb-4" style={{ border: '1px solid rgba(0,201,109,0.2)' }}>
+                        <div className="mb-3">
+                          <div className="small text-muted-custom text-uppercase fw-bold" style={{ fontSize: '0.7rem', letterSpacing: '1px' }}>Current Plan</div>
+                          <div className="fw-bold fs-5" style={{ color: getPlanColor(loggedInMember.plan) }}>{getPlanName(loggedInMember.plan)}</div>
+                        </div>
+                        <div className="row g-3">
+                          <div className="col-6">
+                            <div className="small text-muted-custom text-uppercase fw-bold" style={{ fontSize: '0.7rem', letterSpacing: '1px' }}>Vehicle</div>
+                            <div className="fw-semibold text-white">{loggedInMember.vehicleNumber}</div>
+                            <div className="small text-muted-custom">{loggedInMember.vehicleModel}</div>
+                          </div>
+                          <div className="col-6">
+                            <div className="small text-muted-custom text-uppercase fw-bold" style={{ fontSize: '0.7rem', letterSpacing: '1px' }}>Start Date</div>
+                            <div className="fw-semibold text-white">{new Date(loggedInMember.startDate).toLocaleDateString('en-IN')}</div>
+                            <div className="small text-success">Status: {loggedInMember.status}</div>
+                          </div>
+                        </div>
+                      </div>
 
-                  <div className="col-md-8">
-                    <div className="table-responsive rounded border border-secondary">
-                      <table className="table table-dark table-hover mb-0 align-middle">
-                        <thead style={{ background: 'var(--bg-secondary-custom)' }}>
-                          <tr>
-                            <th className="text-muted-custom small fw-semibold text-uppercase py-3 ps-4">Code</th>
-                            <th className="text-muted-custom small fw-semibold text-uppercase py-3">Discount</th>
-                            <th className="text-muted-custom small fw-semibold text-uppercase py-3">Status</th>
-                            <th className="text-muted-custom small fw-semibold text-uppercase py-3 text-end pe-4">Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {coupons.length > 0 ? coupons.map(c => (
-                            <tr key={c.id}>
-                              <td className="ps-4 fw-bold text-brand-primary">{c.code}</td>
-                              <td>{c.discountPercent}% OFF</td>
-                              <td>
-                                <span className={`badge ${c.active ? 'bg-success' : 'bg-secondary'}`}>{c.active ? 'Active' : 'Inactive'}</span>
-                              </td>
-                              <td className="text-end pe-4">
-                                <button onClick={() => toggleCouponStatus(c.id)} className={`btn btn-sm ${c.active ? 'btn-outline-warning' : 'btn-outline-success'} me-2`} style={{ fontSize: '0.75rem' }}>
-                                  {c.active ? 'Disable' : 'Enable'}
-                                </button>
-                                <button onClick={() => deleteCoupon(c.id)} className="btn btn-sm btn-outline-danger" style={{ fontSize: '0.75rem' }}>Delete</button>
-                              </td>
-                            </tr>
-                          )) : (
-                            <tr><td colSpan="4" className="text-center py-5 text-muted-custom">No coupons created yet.</td></tr>
-                          )}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
+                      <button onClick={handleLogout} className="btn btn-outline-secondary rounded-pill px-4 py-2 fw-semibold">
+                        Log out
+                      </button>
+                    </motion.div>
+                  )}
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
+              </div>
+            </div>
+          </div>
         </div>
       )}
+
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useOutletContext } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import SEOMeta from '../../components/SEOMeta';
 
 // ── Blog Images from assets ───────────────────────────────────────────────
 import blog1 from '../../assets/blog1.png';
@@ -1098,10 +1099,134 @@ function Pagination({ current, total, onChange, isDarkMode }) {
 
 /* ─── Main Blog Page ─────────────────────────────────────────────────────── */
 export default function Blog() {
+  const { slug } = useParams();
+  const navigate = useNavigate();
   const { isDarkMode } = useOutletContext() || {};
   const [activeCategory, setActiveCategory] = useState('All');
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
+
+  if (slug) {
+    const post = BLOG_POSTS.find((p) => p.slug === slug);
+    if (!post) {
+      return (
+        <div style={{ background: isDarkMode ? '#081426' : '#F7FAFC', minHeight: '100vh', color: isDarkMode ? '#fff' : '#000', padding: '100px 20px', textAlign: 'center' }}>
+          <h2 className="mb-4">Article Not Found</h2>
+          <p className="text-muted mb-4">The laundry article you are looking for does not exist or has been relocated.</p>
+          <Link to="/laundry/blog" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none', borderRadius: '4px' }}>Back to Blog</Link>
+        </div>
+      );
+    }
+
+    const detailSchema = {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": post.title,
+      "image": post.image,
+      "datePublished": post.dateTime,
+      "author": {
+        "@type": "Organization",
+        "name": "Cleanz24 Laundry"
+      },
+      "description": post.excerpt
+    };
+
+    return (
+      <div style={{ background: isDarkMode ? '#081426' : '#F7FAFC', minHeight: '100vh', color: isDarkMode ? '#fff' : '#000' }}>
+        <SEOMeta
+          title={post.title}
+          description={post.excerpt}
+          canonical={`https://cleanz24.com/laundry/blog/${post.slug}`}
+          ogImage={post.image}
+          ogType="article"
+          schema={detailSchema}
+        />
+        
+        {/* Detail Hero Banner */}
+        <section
+          style={{
+            position: 'relative',
+            height: '40vh',
+            backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, ${isDarkMode ? '#081426' : '#F7FAFC'} 100%), url(${post.image})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center center',
+            display: 'flex',
+            alignItems: 'flex-end',
+            paddingBottom: '30px'
+          }}
+        >
+          <div className="container px-3">
+            <h1 style={{ fontSize: 'clamp(24px, 4vw, 42px)', fontWeight: 800, color: isDarkMode ? '#fff' : '#1A202C', textShadow: '0 2px 10px rgba(0,0,0,0.3)', maxWidth: '900px' }}>
+              {post.title}
+            </h1>
+            <div style={{ display: 'flex', gap: '16px', color: isDarkMode ? '#CBD5E0' : '#4A5568', fontSize: '14px', marginTop: '12px' }}>
+              <span>By <strong style={{ color: '#2B6CB0' }}>{post.author}</strong></span>
+              <span>•</span>
+              <time dateTime={post.dateTime}>{post.date}</time>
+              <span>•</span>
+              <span>⏱ {post.readTime}</span>
+            </div>
+          </div>
+        </section>
+
+        {/* Content Section */}
+        <div className="container py-5 px-3">
+          <div className="row">
+            <div className="col-lg-8 text-start">
+              <Link
+                to="/laundry/blog"
+                style={{
+                  color: '#2B6CB0',
+                  textDecoration: 'none',
+                  fontWeight: 700,
+                  fontSize: '14px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  marginBottom: '32px'
+                }}
+              >
+                ← Back to Laundry Blog
+              </Link>
+
+              <article 
+                className="blog-post-content"
+                style={{
+                  lineHeight: '1.8',
+                  fontSize: '16px',
+                  color: isDarkMode ? '#CBD5E0' : '#4A5568'
+                }}
+              >
+                <h3>Introduction to Garment and Fabric Care</h3>
+                <p>{post.excerpt}</p>
+                <p>Proper fabric care is essential to extending the life of your garments. Different materials—such as silk, cotton, wool, synthetic blends, and linen—require specific washing temperatures, detergent strengths, and drying limits. In this article, we outline best practices for keeping your clothes in pristine condition and highlight common mistakes to avoid.</p>
+                
+                <h3>Key Takeaways for Daily Maintenance</h3>
+                <ul>
+                  <li><strong>Check Care Labels:</strong> Always verify instructions before washing any premium fabric.</li>
+                  <li><strong>Color Separation:</strong> Separate dark, white, and bright items to prevent bleeding.</li>
+                  <li><strong>Gentle Detergents:</strong> Avoid harsh chemicals on delicate threads to prevent structural breakdown.</li>
+                </ul>
+                
+                <p>By implementing professional wash processes at home or trusting a certified cleaning team, you can keep colors vibrant, textures soft, and seams secure for years to come.</p>
+              </article>
+            </div>
+
+            <div className="col-lg-4">
+              <BlogSidebar
+                isDarkMode={isDarkMode}
+                activeCategory="All"
+                onCategoryChange={(cat) => {
+                  navigate('/laundry/blog');
+                }}
+                posts={BLOG_POSTS}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // Filter posts
   const filteredPosts = BLOG_POSTS.filter((post) => {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import aboutBg from '../../assets/about_bg.jpg';
+import SEOMeta from '../../components/SEOMeta';
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', mobile: '', email: '', message: '' });
@@ -26,6 +27,11 @@ export default function Contact() {
 
   return (
     <div className="contact-page">
+      <SEOMeta
+        title="Contact Cleanz24 Laundry — Customer Support & Franchise Inquiries"
+        description="Have questions about our laundry and dry cleaning services or interested in starting a franchise? Contact Cleanz24 today via phone, WhatsApp, email, or our inquiry form."
+        keywords="contact laundry, Cleanz24 customer care, dry cleaning phone number, laundry franchise contact"
+      />
 
       {/* ─── PAGE HEADER ─── */}
       <section className="py-5 text-center" style={{ background: 'linear-gradient(135deg, #1a7a2e 0%, #0f5520 100%)', paddingTop: '5rem', paddingBottom: '5rem' }}>
@@ -220,7 +226,7 @@ export default function Contact() {
       </section>
 
       {/* What Makes Us Stand Out */}
-      <section className="section-padding" style={{ backgroundColor: '#F7FAFC' }}>
+      <section className="section-padding why-choose-us-section">
         <div className="container">
           <div className="text-center mb-5 mx-auto" style={{ maxWidth: 700 }}>
             <span className="section-subtitle">Why Choose Us</span>
@@ -233,15 +239,13 @@ export default function Contact() {
           <div className="row g-4 justify-content-center">
             {features.map((feature, i) => (
               <div key={i} className="col-lg-4 col-md-6">
-                <div className="bg-white p-4 text-center h-100 shadow-sm" style={{ borderRadius: 16, border: '1px solid #EDF2F7', transition: 'transform 0.2s' }}
-                  onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-6px)'}
-                  onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}>
+                <div className="why-choose-us-card p-4 text-center h-100 shadow-sm" style={{ borderRadius: 16 }}>
                   <div className="mb-3 mx-auto d-flex align-items-center justify-content-center"
                     style={{ width: 64, height: 64, background: '#f0faf2', borderRadius: '50%', fontSize: '28px' }}>
                     {feature.icon}
                   </div>
                   <h4 className="h5 fw-bold mb-3">{feature.title}</h4>
-                  <p className="text-muted mb-0">{feature.desc}</p>
+                  <p className="mb-0">{feature.desc}</p>
                 </div>
               </div>
             ))}
@@ -277,8 +281,8 @@ export default function Contact() {
           <p className="mb-5 fst-italic" style={{ color: 'rgba(255,255,255,0.75)', maxWidth: 700, margin: '0 auto 32px', lineHeight: 1.8 }}>
             "Cleanz24 – Expert Laundry &amp; Dry Cleaning Services Near You. Fast, eco-friendly, and professionally done."
           </p>
-          <a href="https://wa.me/919138004800" target="_blank" rel="noreferrer" className="btn-primary-custom px-5 py-3 fs-5"
-            style={{ background: '#fff', color: '#1a7a2e', justifyContent: 'center' }}>
+          <a href="https://wa.me/919138004800" target="_blank" rel="noreferrer" className="btn-primary-custom btn-white-bg px-5 py-3 fs-5"
+            style={{ justifyContent: 'center' }}>
             📱 Schedule Your Free Pickup Now
           </a>
         </div>

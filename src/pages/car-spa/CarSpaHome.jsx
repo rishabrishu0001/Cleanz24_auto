@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   testimonialsData, 
   faqsData, 
-  storesData
+  storesData,
+  pricingPackagesData
 } from '../../data';
 import { handleSmoothScroll } from '../../utils';
 import beforeDetailingImg from '../../assets/before_detailing.png';
@@ -12,6 +13,7 @@ import cleanz24Technicians from '../../assets/cleanz24_technicians.jpg';
 import neonCarRender from '../../assets/neon_car_render.png';
 import { Link, useLocation } from 'react-router-dom';
 import '../../styles/carSpa.css';
+import SEOMeta from '../../components/SEOMeta';
 
 // 1. BEFORE/AFTER SLIDER COMPONENT
 function BeforeAfterSlider() {
@@ -93,6 +95,9 @@ function CarSpa({ isDarkMode, toggleTheme }) {
   const [openFaqIndex, setOpenFaqIndex] = useState(-1);
   const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showSearchDropdown, setShowSearchDropdown] = useState(false);
+  const carSearchRef = useRef(null);
+  const carResultsRef = useRef(null);
 
   useEffect(() => {
     if (location.hash) {
@@ -130,6 +135,59 @@ function CarSpa({ isDarkMode, toggleTheme }) {
     address: '',
     service: 'Premium Wash & Vacuum'
   });
+
+  const [memberData, setMemberData] = useState(() => {
+    try {
+      const saved = localStorage.getItem('cleanz24_logged_in_member');
+      return saved ? JSON.parse(saved) : null;
+    } catch { return null; }
+  });
+
+  useEffect(() => {
+    const checkAuth = () => {
+      try {
+        const saved = localStorage.getItem('cleanz24_logged_in_member');
+        setMemberData(saved ? JSON.parse(saved) : null);
+      } catch { setMemberData(null); }
+    };
+    window.addEventListener('auth-change', checkAuth);
+    return () => window.removeEventListener('auth-change', checkAuth);
+  }, []);
+
+  const getPlanName = (planId) => {
+    if (!planId) return 'N/A';
+    const planMap = {
+      'crystal-shield-annual': 'Crystal Shield (Annual)',
+      'velvet-touch-annual': 'Velvet Touch (Annual)',
+      'pearl-radiance-annual': 'Pearl Radiance (Annual)',
+      'platinum-revival-annual': 'Platinum Revival (Annual)',
+      'crystal-shield-monthly': 'Crystal Shield (Monthly)',
+      'velvet-touch-monthly': 'Velvet Touch (Monthly)',
+      'pearl-radiance-monthly': 'Pearl Radiance (Monthly)',
+      'platinum-revival-monthly': 'Platinum Revival (Monthly)',
+    };
+    return planMap[planId] || planId.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  };
+
+  useEffect(() => {
+    if (memberData) {
+      setBookingData(prev => ({
+        ...prev,
+        name: memberData.name || '',
+        mobile: memberData.mobile || '',
+        address: prev.address || '',
+        service: prev.service || 'Eco Foam Wash'
+      }));
+    } else {
+      setBookingData(prev => ({
+        ...prev,
+        name: '',
+        mobile: '',
+        address: '',
+        service: 'Premium Wash & Vacuum'
+      }));
+    }
+  }, [memberData]);
 
   const nextTestimonial = () => {
     setCurrentTestimonialIndex((prev) => (prev + 1) % testimonialsData.length);
@@ -171,10 +229,29 @@ function CarSpa({ isDarkMode, toggleTheme }) {
   };
 
   // Filter stores based on search query
-  const filteredStores = storesData.filter(store => 
-    store.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    store.address.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredStores = storesData.filter(store => {
+    const q = searchQuery.toLowerCase();
+    if (!q) return true;
+    return (
+      store.name.toLowerCase().includes(q) ||
+      store.address.toLowerCase().includes(q) ||
+      (store.city && store.city.toLowerCase().includes(q)) ||
+      (store.state && store.state.toLowerCase().includes(q)) ||
+      (store.tags && store.tags.some(t => t.toLowerCase().includes(q)))
+    );
+  });
+  const carDropdownSuggestions = searchQuery.length >= 2 ? filteredStores.slice(0, 3) : [];
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (carSearchRef.current && !carSearchRef.current.contains(e.target)) {
+        setShowSearchDropdown(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Interactive Visualizer Colors configuration
   const visualizerColors = [
@@ -188,37 +265,45 @@ function CarSpa({ isDarkMode, toggleTheme }) {
   const currentFilter = visualizerColors.find(c => c.name === selectedColor)?.filter || '';
 
   // Advanced Personalization Calculator Formula
+  const typeKey = (carType || 'Sedan').toLowerCase();
+  const packages = pricingPackagesData[typeKey] || pricingPackagesData['sedan'];
+
   let recommendationTitle = "";
   let recommendationPrice = "";
   let recommendationDesc = "";
   let progressScore = 50;
 
   if (paintCondition <= 3) {
-    recommendationTitle = "Eco Foam Wash + Wax Sealant";
-    recommendationPrice = "₹499 - ₹799";
+    recommendationTitle = packages[0].name;
+    recommendationPrice = packages[0].price;
     recommendationDesc = "Recommended for light surface dirt and dust protection. Perfect for quick weekly washes.";
     progressScore = 40;
   } else if (paintCondition <= 7) {
     if (drivingHabit === 'Daily Commute') {
-      recommendationTitle = "Premium Wash & Vacuum + Hand Wax";
-      recommendationPrice = "₹999 - ₹1,499";
+      recommendationTitle = packages[1].name;
+      recommendationPrice = packages[1].price;
       recommendationDesc = "Restores high gloss, deep vacuum cleans interior cabin, & eliminates light road contaminants.";
       progressScore = 75;
     } else {
-      recommendationTitle = "Ultra Polish & Wash + Ceramic spray";
-      recommendationPrice = "₹1,499 - ₹2,599";
+      recommendationTitle = packages[2].name;
+      recommendationPrice = packages[2].price;
       recommendationDesc = "Includes machine polishing to erase light swirls, finished with SiO2 hydrophobic spray protection.";
       progressScore = 88;
     }
   } else {
-    recommendationTitle = "Ceramic Shield Wash + Paint Correction";
-    recommendationPrice = "₹2,499 - ₹3,999";
+    recommendationTitle = packages[3].name;
+    recommendationPrice = packages[3].price;
     recommendationDesc = "Ultimate detail clean. Clay bar decontamination, DA machine polishing, SiO2 ceramic coat lock.";
     progressScore = 98;
   }
 
   return (
     <div className="d-flex flex-column min-vh-100 bg-primary-custom bg-carbon" id="home" style={{ overflowX: 'hidden' }}>
+      <SEOMeta
+        title="Premium Car Spa, Wash & Detailing Network"
+        description="Experience the ultimate car wash, ceramic coating, paint protection film (PPF), and detailing services at Cleanz24. National network of certified master detailers."
+        canonical="https://cleanz24.com/car-spa"
+      />
       {/* CINEMATIC HERO SECTION */}
       <section className="hero-section position-relative text-center overflow-hidden" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
         {/* Cinematic Video Background */}
@@ -261,21 +346,36 @@ function CarSpa({ isDarkMode, toggleTheme }) {
           variants={staggerContainer}
         >
           <motion.span variants={fadeUpVariant} className="text-uppercase tracking-widest text-brand-primary fw-bold small mb-3 d-block" style={{ letterSpacing: '4px' }}>
-            DEVIATE FROM ORDINARY
+            {memberData ? `WELCOME BACK, ${memberData.name.toUpperCase()}` : 'DEVIATE FROM ORDINARY'}
           </motion.span>
           <motion.h1 variants={fadeUpVariant} className="display-1 fw-black mb-4 text-gradient" style={{ lineHeight: '1.1', fontWeight: 900 }}>
-            RESTORE. PROTECT. <br /> MAINTAIN.
+            {memberData ? 'YOUR EXCLUSIVE' : 'RESTORE. PROTECT.'} <br /> {memberData ? 'MEMBER PORTAL' : 'MAINTAIN.'}
           </motion.h1>
           <motion.p variants={fadeUpVariant} className="lead text-white mb-5 mx-auto" style={{ maxWidth: '650px', fontSize: '1.1rem', opacity: 0.95 }}>
-            Experience professional paint protection coatings, high-gloss graphene shields & eco-friendly foam washes.
+            {memberData 
+              ? `You are signed up for the ${getPlanName(memberData.plan)} plan. Book your complimentary doorstep pickup and let our master detailers treat your vehicle.`
+              : 'Experience professional paint protection coatings, high-gloss graphene shields & eco-friendly foam washes.'}
           </motion.p>
           <motion.div variants={fadeUpVariant} className="d-flex gap-3 justify-content-center flex-wrap">
-            <a href="#book" className="btn btn-glow btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg text-decoration-none" onClick={(e) => handleSmoothScroll(e, '#book')}>
-              Book Appointment
-            </a>
-            <Link to="/car-spa/services" className="btn btn-outline-primary-custom btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none">
-              View Pricing Matrix
-            </Link>
+            {memberData ? (
+              <>
+                <a href="#book" className="btn btn-glow btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg text-decoration-none" onClick={(e) => handleSmoothScroll(e, '#book')}>
+                  🚗 Schedule Free Pickup
+                </a>
+                <Link to="/car-spa/membership" className="btn btn-outline-primary-custom btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none">
+                  View Plan Details
+                </Link>
+              </>
+            ) : (
+              <>
+                <a href="#book" className="btn btn-glow btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg text-decoration-none" onClick={(e) => handleSmoothScroll(e, '#book')}>
+                  Book Appointment
+                </a>
+                <Link to="/car-spa/services" className="btn btn-outline-primary-custom btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none">
+                  View Pricing Matrix
+                </Link>
+              </>
+            )}
           </motion.div>
         </motion.div>
       </section>
@@ -302,7 +402,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
             
             {/* COLUMN 1: LIVE STUDIO VISUALIZER */}
             <div className="col-lg-5">
-              <div className="premium-card h-100 p-4 d-flex flex-column" style={{ background: 'rgba(10,26,16,0.6)', backdropFilter: 'blur(12px)', border: '1px solid var(--card-border)' }}>
+              <div className="premium-card h-100 p-4 d-flex flex-column" style={{ background: 'var(--card-bg)', backdropFilter: 'blur(12px)', border: '1px solid var(--card-border)' }}>
                 <h4 className="text-center text-brand-primary fw-bold mb-4" style={{ letterSpacing: '2px', fontSize: '1.1rem' }}>LIVE STUDIO VISUALIZER</h4>
                 
                 <div className="d-flex justify-content-center gap-2 mb-4 flex-wrap">
@@ -384,7 +484,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
 
                 {/* Color swatches selector */}
                 <div className="mt-4 text-center">
-                  <h6 className="fw-bold text-white small text-uppercase tracking-wider mb-2">Select Protection Coating Tone</h6>
+                  <h6 className="fw-bold text-heading small text-uppercase tracking-wider mb-2">Select Protection Coating Tone</h6>
                   <div className="d-flex justify-content-center gap-2 mb-3">
                     {visualizerColors.map((tone) => (
                       <button
@@ -405,7 +505,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                       />
                     ))}
                   </div>
-                  <h3 className="fw-bold text-white h5 mb-1">{selectedColor} Finish</h3>
+                  <h3 className="fw-bold text-heading h5 mb-1">{selectedColor} Finish</h3>
                   <p className="text-muted-custom small mb-0">Protective overlay: {selectedVisualizerOption}</p>
                 </div>
               </div>
@@ -413,8 +513,8 @@ function CarSpa({ isDarkMode, toggleTheme }) {
 
             {/* COLUMN 2: ADVANCED PERSONALIZATION FORM */}
             <div className="col-lg-4">
-              <div className="premium-card h-100 p-4" style={{ background: 'rgba(10,26,16,0.6)', backdropFilter: 'blur(12px)', border: '1px solid var(--card-border)' }}>
-                <h4 className="text-center text-white fw-bold mb-4" style={{ letterSpacing: '2px', fontSize: '1.1rem' }}>DYNAMIC PRICING ESTIMATOR</h4>
+              <div className="premium-card h-100 p-4" style={{ background: 'var(--card-bg)', backdropFilter: 'blur(12px)', border: '1px solid var(--card-border)' }}>
+                <h4 className="text-center text-heading fw-bold mb-4" style={{ letterSpacing: '2px', fontSize: '1.1rem' }}>DYNAMIC PRICING ESTIMATOR</h4>
                 
                 <div className="bg-white rounded p-4 text-dark" style={{ color: '#000' }}>
                   <h5 className="fw-bold mb-3 small text-uppercase" style={{ color: '#000', letterSpacing: '1px' }}>Calculate Treatment</h5>
@@ -508,8 +608,8 @@ function CarSpa({ isDarkMode, toggleTheme }) {
 
             {/* COLUMN 3: TRUST PROTOCOL & LOCAL COMMUNITY IMPACT */}
             <div className="col-lg-3">
-              <div className="premium-card h-100 p-4" style={{ background: 'rgba(10,26,16,0.6)', backdropFilter: 'blur(12px)', border: '1px solid var(--card-border)' }}>
-                <h4 className="text-center text-white fw-bold mb-4" style={{ letterSpacing: '1px', fontSize: '1rem', lineHeight: '1.4' }}>TRUST PROTOCOL & COMMUNITY</h4>
+              <div className="premium-card h-100 p-4" style={{ background: 'var(--card-bg)', backdropFilter: 'blur(12px)', border: '1px solid var(--card-border)' }}>
+                <h4 className="text-center text-heading fw-bold mb-4" style={{ letterSpacing: '1px', fontSize: '1rem', lineHeight: '1.4' }}>TRUST PROTOCOL & COMMUNITY</h4>
                 
                 <h6 className="text-brand-primary fw-bold mb-3 small">SAFETY STANDARDS</h6>
                 
@@ -517,11 +617,11 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                 <div className="mb-4">
                   <div className="d-flex align-items-center gap-2 mb-2">
                     <span className="badge rounded-circle border border-primary text-primary" style={{width:'22px', height:'22px', display:'flex', alignItems:'center', justifyContent:'center', fontSize: '0.7rem'}}>A</span>
-                    <h6 className="fw-bold text-white mb-0 small" style={{ fontSize: '0.78rem' }}>MASTER DETAILERS</h6>
+                    <h6 className="fw-bold text-heading mb-0 small" style={{ fontSize: '0.78rem' }}>MASTER DETAILERS</h6>
                   </div>
                   <div className="d-flex align-items-center gap-2 ps-4">
-                    <div className="text-center border p-2 rounded border-secondary flex-grow-1" style={{background: 'rgba(255,255,255,0.02)', borderColor: 'var(--card-border)'}}>
-                      <div className="text-white fw-bold" style={{fontSize:'0.7rem'}}>Rajiv K. • Lead Technician</div>
+                    <div className="text-center border p-2 rounded flex-grow-1" style={{background: 'var(--bg-body)', borderColor: 'var(--card-border)'}}>
+                      <div className="text-heading fw-bold" style={{fontSize:'0.7rem'}}>Rajiv K. • Lead Technician</div>
                       <div className="text-brand-primary" style={{fontSize:'0.65rem'}}>12 Years Exp • Certified Master</div>
                     </div>
                   </div>
@@ -531,7 +631,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                 <div className="mb-4">
                   <div className="d-flex align-items-center gap-2 mb-2">
                     <span className="badge rounded-circle border border-primary text-primary" style={{width:'22px', height:'22px', display:'flex', alignItems:'center', justifyContent:'center', fontSize: '0.7rem'}}>B</span>
-                    <h6 className="fw-bold text-white mb-0 small" style={{ fontSize: '0.78rem' }}>ECO-SAFE PROTOCOLS</h6>
+                    <h6 className="fw-bold text-heading mb-0 small" style={{ fontSize: '0.78rem' }}>ECO-SAFE PROTOCOLS</h6>
                   </div>
                   <p className="text-muted-custom ps-4 mb-0 small" style={{fontSize: '0.78rem', lineHeight: '1.5' }}>
                     100% Biodegradable shampoos. Water scaling recycling technology to conserve 80% utility waste.
@@ -542,22 +642,22 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                 <div className="mb-4">
                   <div className="d-flex align-items-center gap-2 mb-2">
                     <span className="badge rounded-circle border border-primary text-primary" style={{width:'22px', height:'22px', display:'flex', alignItems:'center', justifyContent:'center', fontSize: '0.7rem'}}>C</span>
-                    <h6 className="fw-bold text-white mb-0 small" style={{ fontSize: '0.78rem' }}>ISO ACCREDITATION</h6>
+                    <h6 className="fw-bold text-heading mb-0 small" style={{ fontSize: '0.78rem' }}>ISO ACCREDITATION</h6>
                   </div>
                   
                   {/* Custom certification rows */}
                   <div className="ps-4">
                     <div className="d-flex flex-column gap-2">
-                      <div className="d-flex align-items-center gap-2 border border-secondary border-opacity-10 p-2 bg-black bg-opacity-25" style={{ borderRadius: '6px' }}>
+                      <div className="d-flex align-items-center gap-2 border p-2" style={{ background: 'var(--bg-body)', borderColor: 'var(--card-border)', borderRadius: '6px' }}>
                         <span className="text-success small">✔</span>
                         <div className="small" style={{ fontSize: '0.7rem' }}>
-                          <strong className="text-white">ISO 9001:2015</strong> Certified Studio Network
+                          <strong className="text-heading">ISO 9001:2015</strong> Certified Studio Network
                         </div>
                       </div>
-                      <div className="d-flex align-items-center gap-2 border border-secondary border-opacity-10 p-2 bg-black bg-opacity-25" style={{ borderRadius: '6px' }}>
+                      <div className="d-flex align-items-center gap-2 border p-2" style={{ background: 'var(--bg-body)', borderColor: 'var(--card-border)', borderRadius: '6px' }}>
                         <span className="text-success small">✔</span>
                         <div className="small" style={{ fontSize: '0.7rem' }}>
-                          <strong className="text-white">Google Verified</strong>detailing network
+                          <strong className="text-heading">Google Verified</strong>detailing network
                         </div>
                       </div>
                     </div>
@@ -783,59 +883,152 @@ function CarSpa({ isDarkMode, toggleTheme }) {
       </section>
 
       {/* STORES LOCATOR SECTION */}
-      <section id="stores" className="py-5 bg-secondary-custom position-relative border-top" style={{ borderColor: 'var(--card-border)' }}>
+      <section id="stores" className="py-5 store-locator-section position-relative border-top" style={{ borderColor: 'var(--card-border)' }}>
         <div className="container py-5 text-center">
           <motion.span
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
             className="text-uppercase text-brand-primary fw-bold small mb-2 d-block tracking-widest" style={{ letterSpacing: '2px' }}>
-            FIND HUBS
+            FIND STORES
           </motion.span>
-          <h2 className="display-5 fw-bold text-heading mb-4 text-gradient">
-            CLEANZ24 HUBS NEAR YOU
+          <h2 className="display-5 fw-bold text-heading mb-3 text-gradient">
+            CLEANZ24 STORES NEAR YOU
           </h2>
-          
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant} className="store-search-container mb-5">
-            <input 
-              type="text" 
-              className="form-control store-search-input py-3" 
-              placeholder="Search By State/Pincode/Locality" 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <button className="btn btn-glow rounded-0 px-4 fw-bold text-uppercase" onClick={() => setSearchQuery('Bangalore')}>
-              BANGALORE
-            </button>
-          </motion.div>
+          <p className="text-muted-custom mx-auto mb-5" style={{ maxWidth: '550px', lineHeight: 1.7, fontSize: '0.97rem' }}>
+            Search by city, state, or locality to discover nearby stores, contact numbers, and get instant directions.
+          </p>
 
-          <motion.div className="row g-4 justify-content-center mb-5" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
-            {filteredStores.length > 0 ? (
-              filteredStores.map((store) => (
-                <motion.div className="col-lg-4 col-md-6" key={store.id} variants={fadeUpVariant}>
-                  <div className="premium-card store-card h-100 text-start">
-                    <h4 className="text-heading fw-bold mb-2">{store.name}</h4>
-                    <p className="store-address text-muted-custom small mb-4">{store.address}</p>
-                    <div className="google-rating d-flex align-items-center mb-3">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" className="google-icon me-2" style={{ width: '18px' }} />
-                      <span className="text-muted-custom text-xs font-normal">Google Rating</span>
-                      <div className="ms-auto text-heading fw-semibold">
-                        {store.rating} <span className="stars text-warning">★★★★★</span> ({store.reviews})
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant} className="mb-5" style={{ maxWidth: '580px', margin: '0 auto 3rem' }}>
+            <div className="position-relative" ref={carSearchRef}>
+              {/* Search Bar */}
+              <div className="car-search-pill d-flex align-items-center">
+                <span className="car-search-icon">📍</span>
+                <input
+                  type="text"
+                  className="car-search-field"
+                  placeholder="Type your city, area or state..."
+                  value={searchQuery}
+                  onChange={(e) => { setSearchQuery(e.target.value); setShowSearchDropdown(true); }}
+                  onFocus={() => searchQuery.length >= 2 && setShowSearchDropdown(true)}
+                  autoComplete="off"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => { setSearchQuery(''); setShowSearchDropdown(false); }}
+                    className="car-search-clear"
+                    aria-label="Clear"
+                  >×</button>
+                )}
+              </div>
+
+              {/* Dropdown Suggestions */}
+              {showSearchDropdown && carDropdownSuggestions.length > 0 && (
+                <div className="car-dropdown-panel">
+                  <div className="car-dropdown-header">
+                    <span className="car-dropdown-label">📍 Nearby Stores</span>
+                    {filteredStores.length > 3 && (
+                      <span className="car-dropdown-count">{filteredStores.length} found</span>
+                    )}
+                  </div>
+                  {carDropdownSuggestions.map((store) => (
+                    <div
+                      key={store.id}
+                      className="car-dropdown-item"
+                      onClick={() => {
+                        setSearchQuery(store.city);
+                        setShowSearchDropdown(false);
+                        setTimeout(() => carResultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+                      }}
+                    >
+                      <span className="car-dropdown-pin text-brand-primary">📍</span>
+                      <div className="car-dropdown-info flex-grow-1 text-start">
+                        <div className="car-dropdown-name text-heading fw-semibold">{store.name}</div>
+                        <div className="car-dropdown-address text-muted-custom">{store.address}</div>
+                        <div className="d-flex align-items-center gap-2 mt-1 flex-wrap">
+                          <span className="car-city-badge text-brand-primary">
+                            {store.city}, {store.state}
+                          </span>
+                          <span className="text-muted-custom" style={{ fontSize: '0.72rem' }}>📞 {store.phone}</span>
+                        </div>
                       </div>
                     </div>
-                    <div className="store-btn-grid d-flex flex-wrap gap-2">
-                      <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store.name + ' ' + store.address)}`} target="_blank" rel="noreferrer" className="store-btn btn btn-outline-secondary btn-sm flex-grow-1 text-center text-decoration-none">Directions</a>
-                      <Link to="/car-spa/services" className="store-btn btn btn-outline-secondary btn-sm flex-grow-1 text-center text-decoration-none">Check Pricing</Link>
-                      <a href="tel:+919138004800" className="store-btn btn btn-outline-secondary btn-sm flex-grow-1 text-center text-decoration-none">Call Now</a>
-                      <a href="https://wa.me/919138004800" target="_blank" rel="noreferrer" className="store-btn btn btn-outline-secondary btn-sm flex-grow-1 text-center text-decoration-none">WhatsApp</a>
+                  ))}
+                  {filteredStores.length > 3 && (
+                    <div className="car-dropdown-more">
+                      ↓ {filteredStores.length - 3} more stores shown in cards below
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* No results */}
+              {showSearchDropdown && searchQuery.length >= 2 && carDropdownSuggestions.length === 0 && (
+                <div className="car-dropdown-empty">
+                  <div style={{ fontSize: '1.8rem' }}>🔍</div>
+                  <div className="text-muted-custom mt-1" style={{ fontSize: '0.84rem' }}>No stores found for "<span className="text-heading">{searchQuery}</span>"</div>
+                  <div className="text-muted-custom" style={{ fontSize: '0.73rem', marginTop: '4px' }}>Try: Noida, Delhi, Bengaluru, Hyderabad, Pune</div>
+                </div>
+              )}
+            </div>
+          </motion.div>
+
+          <div
+            ref={carResultsRef}
+            key={searchQuery || 'default'}
+            className="row g-4 justify-content-center mb-5"
+          >
+            {(searchQuery ? filteredStores : filteredStores.slice(0, 3)).length > 0 ? (
+              (searchQuery ? filteredStores : filteredStores.slice(0, 3)).map((store, index) => (
+                <motion.div
+                  className="col-lg-4 col-md-6"
+                  key={store.id}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.08 }}
+                >
+                  <div className="car-store-result-card h-100">
+                    <div className="car-store-result-header">
+                      <div className="car-store-icon-wrap">
+                        <span style={{ fontSize: '1.4rem' }}>&#128205;</span>
+                      </div>
+                      <div>
+                        <h4 className="car-store-result-name">{store.name}</h4>
+                        <span className="car-store-city-tag">{store.city}, {store.state}</span>
+                      </div>
+                    </div>
+                    <p className="car-store-result-address">{store.address}</p>
+                    <div className="car-store-result-rating">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" style={{ width: '16px' }} />
+                      <span style={{ fontSize: '0.78rem' }}>Google Rating</span>
+                      <div className="ms-auto">
+                        <strong style={{ fontSize: '0.85rem' }}>{store.rating}</strong>
+                        <span className="text-warning ms-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                        <span style={{ fontSize: '0.75rem' }}> ({store.reviews})</span>
+                      </div>
+                    </div>
+                    <div className="car-store-result-actions">
+                      <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store.name + ' ' + store.address)}`} target="_blank" rel="noreferrer" className="car-store-btn car-store-btn-outline">Directions</a>
+                      <a href={`tel:${store.phone ? store.phone.replace(/\s+/g, '') : '+919138004800'}`} className="car-store-btn car-store-btn-primary">Call Now</a>
+                      <a href={`https://wa.me/${store.whatsapp || '919138004800'}`} target="_blank" rel="noreferrer" className="car-store-btn car-store-btn-green">WhatsApp</a>
                     </div>
                   </div>
                 </motion.div>
               ))
             ) : (
-              <div className="col-12 py-4">
-                <p className="text-muted-custom">No detailing hubs found matching your search.</p>
+              <div className="col-12 py-5 text-center">
+                <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>&#128269;</div>
+                <p className="text-muted-custom fw-semibold">No stores found for "<span className="text-heading">{searchQuery}</span>"</p>
+                <p className="text-muted-custom" style={{ fontSize: '0.85rem' }}>Try: Noida, Delhi, Bengaluru, Hyderabad, Pune</p>
               </div>
             )}
-          </motion.div>
+          </div>
+
+          {!searchQuery && (
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}>
+              <Link to="/car-spa/services" className="btn btn-glow px-5 py-3 fw-bold text-uppercase text-decoration-none">
+                View All Stores
+              </Link>
+            </motion.div>
+          )}
         </div>
       </section>
 
@@ -897,8 +1090,8 @@ function CarSpa({ isDarkMode, toggleTheme }) {
               <div className="card bg-secondary-custom shadow-lg rounded-0 overflow-hidden" style={{ border: '1px solid var(--card-border)', borderRadius: '12px' }}>
                 <div className="card-body p-4 p-md-5 position-relative">
                   <div className="position-absolute top-0 end-0 p-3 opacity-25" style={{ fontSize: '4rem' }}>📅</div>
-                  <h3 className="card-title fw-bold mb-2 text-heading position-relative z-1">Schedule Car Wash</h3>
-                  <p className="card-text text-muted-custom small mb-4 position-relative z-1">Complimentary safe pickup and transit drop operations valid across all registered hubs.</p>
+                  <h3 className="card-title fw-bold mb-2 text-heading position-relative z-1">{memberData ? 'Schedule Free Member Pickup' : 'Schedule Car Wash'}</h3>
+                  <p className="card-text text-muted-custom small mb-4 position-relative z-1">{memberData ? 'Enjoy your club benefit! Complimentary doorstep pickup & transit wash scheduling are included in your active membership.' : 'Complimentary safe pickup and transit drop operations valid across all registered stores.'}</p>
                   
                   {bookingSubmitted ? (
                     <div className="text-center py-5 position-relative z-1">
@@ -907,21 +1100,32 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                           <polyline points="20 6 9 17 4 12" />
                         </svg>
                       </div>
-                      <h4 className="fw-bold text-heading mb-2">Booking Submitted!</h4>
-                      <p className="text-muted-custom">Thank you, {bookingData.name}. Our concierge service representative will contact you shortly to coordinate slot timing.</p>
+                      <h4 className="fw-bold text-heading mb-2">{memberData ? 'Free Member Pickup Scheduled!' : 'Booking Submitted!'}</h4>
+                      <p className="text-muted-custom">{memberData ? `Thank you, ${bookingData.name}. Your complimentary member pickup has been registered. Our driver will coordinate transit for your vehicle ${memberData.vehicleNumber}.` : `Thank you, ${bookingData.name}. Our concierge service representative will contact you shortly to coordinate slot timing.`}</p>
                       <div className="p-3 bg-primary-custom rounded border border-success border-opacity-20 text-start mt-4 mb-3">
                         <small className="text-muted-custom">
                           Selected Treatment: <strong>{bookingData.service}</strong><br />
                           Contact Number: <strong>{bookingData.mobile}</strong><br />
+                          {memberData && <>Registered Vehicle: <strong>{memberData.vehicleNumber} ({memberData.vehicleModel})</strong><br /></>}
                           {bookingData.date && <>Preferred Date: <strong>{bookingData.date}</strong><br /></>}
                           {bookingData.time && <>Preferred Time: <strong>{bookingData.time}</strong><br /></>}
                           Pickup Address: <strong>{bookingData.address}</strong>
                         </small>
                       </div>
-                      <button className="btn btn-outline-primary-custom px-4 py-2 mt-3" onClick={() => setBookingSubmitted(false)}>Schedule Another Wash</button>
+                      <button className="btn btn-outline-primary-custom px-4 py-2 mt-3" onClick={() => setBookingSubmitted(false)}>{memberData ? 'Schedule Another Pickup' : 'Schedule Another Wash'}</button>
                     </div>
                   ) : (
                     <form onSubmit={handleBookingSubmit} className="position-relative z-1">
+                      {memberData && (
+                        <div className="p-3 mb-4 rounded d-flex align-items-center justify-content-between text-start" style={{ background: 'rgba(0, 201, 109, 0.08)', border: '1px solid rgba(0, 201, 109, 0.2)', borderRadius: '8px' }}>
+                          <div>
+                            <span className="badge bg-success mb-1" style={{ fontSize: '0.65rem' }}>FREE MEMBER PICKUP ACTIVE</span>
+                            <div className="fw-bold text-white" style={{ fontSize: '0.9rem' }}>{memberData.vehicleModel} ({memberData.vehicleNumber})</div>
+                            <div className="small text-muted-custom" style={{ fontSize: '0.75rem' }}>Plan: {getPlanName(memberData.plan)}</div>
+                          </div>
+                          <span style={{ fontSize: '2rem' }}>🚗</span>
+                        </div>
+                      )}
                       <div className="mb-3">
                         <label htmlFor="name" className="form-label fw-bold small text-uppercase text-muted-custom">Name *</label>
                         <input 
@@ -1002,7 +1206,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                         ></textarea>
                       </div>
                       <div className="d-grid">
-                        <button type="submit" className="btn btn-primary btn-lg rounded-0 fw-bold btn-glow py-3">Submit Wash Booking</button>
+                        <button type="submit" className="btn btn-primary btn-lg rounded-0 fw-bold btn-glow py-3">{memberData ? 'Confirm Free Member Pickup' : 'Submit Wash Booking'}</button>
                       </div>
                       <div className="d-flex justify-content-between mt-3 text-muted-custom text-center" style={{ fontSize: '0.72rem' }}>
                         <span>🔒 Secure Submission</span>
@@ -1021,19 +1225,6 @@ function CarSpa({ isDarkMode, toggleTheme }) {
       </section>
 
       {/* PREMIUM FOOTER SECTION */}
-      {/* FLOATING ACTION BUTTONS */}
-      <div className="floating-actions">
-        <a href="https://wa.me/919138004800" target="_blank" rel="noreferrer" className="fab fab-whatsapp" aria-label="WhatsApp">
-          <svg viewBox="0 0 32 32" width="36" height="36" fill="currentColor">
-            <path d="M16 2.5C8.5 2.5 2.5 8.5 2.5 16c0 2.4.6 4.7 1.8 6.7L2.5 29.5l7-1.8c2 .1 4.1 1.8 6.5 1.8 7.5 0 13.5-6 13.5-13.5S23.5 2.5 16 2.5zm0 22.5c-2 0-4-.5-5.7-1.5l-.4-.2-4.2 1.1 1.1-4.1-.3-.4C5.5 18.2 5 16.1 5 14c0-6.1 5-11 11-11s11 4.9 11 11-4.9 11-11 11zm6-7.8c-.3-.2-2-.1-2.3-.8-.3-.7-.3-1.3-.4-1.4-.2-.2-.5-.2-.8 0-.3.3-1.3 1.3-1.5 1.5-.2.2-.4.2-.7 0-.3-.2-1.4-.5-2.6-1.6-1-1-1.3-1.3-1.5-1.5-.2-.2 0-.3.1-.4.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.2-.4-1-.5-1.4-.1-.4-.2-.3-.3-.3h-.3c-.1 0-.3 0-.5.2-.2.2-.8.8-.8 1.9 0 1.1.8 2.2.9 2.3.1.2 1.6 2.4 3.8 3.4 1.7.8 2.3.9 3.1.8.8-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.6-.4z" />
-          </svg>
-        </a>
-        <a href="tel:+919138004800" className="fab fab-phone" aria-label="Call Us">
-          <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor">
-            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
-          </svg>
-        </a>
-      </div>
 
     </div>
   );

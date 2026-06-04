@@ -35,6 +35,11 @@
   background-color: #007bff;
 }
 
+.fab-pickup {
+  background: linear-gradient(135deg, #00C96D 0%, #008749 100%);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
 @media (max-width: 768px) {
   .floating-actions {
     bottom: 16px;

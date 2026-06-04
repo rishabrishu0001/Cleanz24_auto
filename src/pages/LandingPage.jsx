@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import logoImg from '../assets/logo2.jpeg';
 import '../styles/carSpa.css';
+import SEOMeta from '../components/SEOMeta';
 
 function Landing() {
   const [hoveredSide, setHoveredSide] = useState(null); // 'laundry' | 'car-spa' | null
@@ -48,6 +49,11 @@ function Landing() {
 
   return (
     <div className="landing-container bg-black min-vh-100 position-relative overflow-hidden w-100">
+      <SEOMeta
+        title="Premium Laundry & Car Spa Services"
+        description="Experience India's most premium services. Cleanz24 offers professional laundry, dry cleaning, premium car spa, detailing, ceramic coating and PPF wraps."
+        canonical="https://cleanz24.com/"
+      />
       
       {/* Central Glassmorphic Badge / Logo Overlay (Hidden on Mobile) */}
       <div className="landing-center-badge d-none d-md-flex">
@@ -56,7 +62,7 @@ function Landing() {
           <img src={logoImg} alt="Cleanz24 Logo" className="landing-center-logo img-fluid mb-2" />
           <div className="center-badge-divider" />
           <div className="center-badge-tagline">INDIA'S PREMIUM SERVICE NETWORK</div>
-          <div className="center-badge-trust">Trusted Across 21 States • 100+ Franchise Locations</div>
+          <div className="center-badge-trust">Trusted Across 21 States • 100+ Stores Pan India</div>
         </div>
       </div>
 

@@ -116,6 +116,17 @@
   box-shadow: 0 6px 20px rgba(43, 108, 176, 0.3);
 }
 
+.laundry-app .btn-primary-custom.btn-white-bg {
+  background-color: #ffffff !important;
+  color: #1a7a2e !important;
+}
+
+.laundry-app .btn-primary-custom.btn-white-bg:hover {
+  background-color: #f0faf2 !important;
+  color: #0f5520 !important;
+  transform: translateY(-2px);
+}
+
 .laundry-app .btn-secondary-custom {
   background-color: var(--global-secondary);
   color: #fff !important;
@@ -331,7 +342,7 @@
 }
 
 .laundry-app .hero-title-new {
-  font-size: 68px;
+  font-size: 54px;
   font-weight: 800;
   line-height: 1.15;
   color: #ffffff;
@@ -897,13 +908,22 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
+.laundry-app.laundry-dark .nav-full .nav-link {
+  color: #ffffff !important;
+}
+
+.laundry-app.laundry-dark .nav-full .nav-link:hover,
+.laundry-app.laundry-dark .nav-full .nav-link.active-link {
+  color: var(--global-secondary) !important;
+}
+
 .laundry-app.laundry-dark .nav-full.nav-scrolled .nav-link {
-  color: #cbd5e0 !important;
+  color: #ffffff !important;
 }
 
 .laundry-app.laundry-dark .nav-full.nav-scrolled .nav-link:hover,
 .laundry-app.laundry-dark .nav-full.nav-scrolled .nav-link.active-link {
-  color: var(--global-primary) !important;
+  color: var(--global-secondary) !important;
 }
 
 /* Card overrides */
@@ -1282,4 +1302,63 @@
 .laundry-app a:hover,
 .laundry-app a:focus {
   text-decoration: none !important;
+}
+
+/* Responsive Hero Title Sizing */
+@media (max-width: 991px) {
+  .laundry-app .hero-title-new {
+    font-size: 44px;
+  }
+}
+@media (max-width: 767px) {
+  .laundry-app .hero-title-new {
+    font-size: 36px;
+  }
+}
+@media (max-width: 480px) {
+  .laundry-app .hero-title-new {
+    font-size: 28px;
+  }
+}
+
+/* Why Choose Us Section Styles */
+.laundry-app .why-choose-us-section {
+  background-color: var(--global-palette8) !important;
+}
+
+.laundry-app .why-choose-us-card {
+  background-color: #ffffff !important;
+  border: 1px solid #EDF2F7 !important;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out !important;
+}
+
+.laundry-app .why-choose-us-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05) !important;
+}
+
+.laundry-app .why-choose-us-card h4 {
+  color: var(--global-palette3) !important;
+}
+
+.laundry-app .why-choose-us-card p {
+  color: var(--global-palette5) !important;
+}
+
+/* Dark Mode overrides */
+.laundry-app.laundry-dark .why-choose-us-section {
+  background-color: #081426 !important;
+}
+
+.laundry-app.laundry-dark .why-choose-us-card {
+  background-color: #12253f !important;
+  border-color: #1b3252 !important;
+}
+
+.laundry-app.laundry-dark .why-choose-us-card h4 {
+  color: #ffffff !important;
+}
+
+.laundry-app.laundry-dark .why-choose-us-card p {
+  color: #a0aec0 !important;
 }

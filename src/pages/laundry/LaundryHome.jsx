@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Player } from '@lottiefiles/react-lottie-player';
+import { Link } from 'react-router-dom';
+import { storesData } from '../../data';
+import SEOMeta from '../../components/SEOMeta';
 
 // Import local assets
 import heroCircleImg from '../../assets/hero_laundry_circle.png';
@@ -15,7 +18,8 @@ import processFlowImg from '../../assets/process_flow.gif';
 import testimonialJatinImg from '../../assets/testimonial_jatin.jpg';
 import testimonialAnishaImg from '../../assets/testimonial_anisha.jpg';
 import testimonialManishImg from '../../assets/testimonial_manish.jpg';
-import playStoreBadgeImg from '../../assets/play_store_badge.png';
+import playStoreBadgeSvg from '../../assets/play_store_badge.svg';
+import appStoreBadgeSvg from '../../assets/app_store_badge.svg';
 import appMockupImg from '../../assets/app_mockup.png';
 import media1Img from '../../assets/media_mention_1.png';
 import media2Img from '../../assets/media_mention_2.png';
@@ -31,6 +35,37 @@ export default function LaundryHome() {
   const [formData, setFormData] = useState({ name: '', mobile: '', address: '' });
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [recaptchaChecked, setRecaptchaChecked] = useState(false);
+
+  // Store Search State
+  const [storeSearchQuery, setStoreSearchQuery] = useState('');
+  const [showStoreDropdown, setShowStoreDropdown] = useState(false);
+  const storeSearchRef = useRef(null);
+  const laundryResultsRef = useRef(null);
+
+  const filteredLaundryStores = storesData.filter(store => {
+    const q = storeSearchQuery.toLowerCase();
+    if (!q) return true;
+    return (
+      store.name.toLowerCase().includes(q) ||
+      store.address.toLowerCase().includes(q) ||
+      store.city.toLowerCase().includes(q) ||
+      store.state.toLowerCase().includes(q) ||
+      (store.tags && store.tags.some(t => t.toLowerCase().includes(q)))
+    );
+  });
+  const displayedLaundryStores = storeSearchQuery ? filteredLaundryStores : filteredLaundryStores.slice(0, 3);
+  const laundryDropdownSuggestions = storeSearchQuery.length >= 2 ? filteredLaundryStores.slice(0, 3) : [];
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (storeSearchRef.current && !storeSearchRef.current.contains(e.target)) {
+        setShowStoreDropdown(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -99,6 +134,11 @@ export default function LaundryHome() {
 
   return (
     <div className="home-page-new">
+      <SEOMeta
+        title="Premium Laundry & Dry Cleaning Services"
+        description="Get professional laundry, eco-friendly dry cleaning, shoe cleaning, steam pressing, and home deep cleaning at Cleanz24. Free pickup & delivery above Rs. 300."
+        canonical="https://cleanz24.com/laundry"
+      />
       {/* ────────────────── 1. HERO SECTION ────────────────── */}
       <section className="hero-section-new">
         {/* Soap Bubbles Animation Overlay */}
@@ -115,7 +155,7 @@ export default function LaundryHome() {
         <div className="container position-relative z-3">
           <div className="row align-items-center">
             {/* Hero Left Content */}
-            <div className="col-lg-8 text-start">
+            <div className="col-lg-10 text-start">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -127,8 +167,8 @@ export default function LaundryHome() {
                 </p>
                 
                 <h1 className="hero-title-new">
-                  <span className="text-highlight">Best Laundry</span> & Dry<br />
-                  Clean Service in India
+                  <span className="text-highlight">Best Laundry &amp; Dry Cleaning</span><br />
+                  Store in India
                 </h1>
 
                 <p className="hero-discount-text">
@@ -207,7 +247,7 @@ export default function LaundryHome() {
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
                     </div>
                     <div>
-                      <h5 className="fw-bold mb-1">70+ Store Outlets</h5>
+                      <h5 className="fw-bold mb-1">100+ Stores Pan India</h5>
                       <p className="text-muted small mb-0">A reliable laundry chain near you.</p>
                     </div>
                   </div>
@@ -596,6 +636,157 @@ export default function LaundryHome() {
         </div>
       </section>
 
+      {/* ────────────────── 8.5. STORES LOCATOR SECTION ────────────────── */}
+      <section id="stores" className="section-padding store-locator-section border-top border-bottom">
+        <div className="container py-3 text-center">
+          <motion.span
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
+            className="section-subtitle">
+            Find Stores
+          </motion.span>
+          <h2 className="section-title mt-2 mb-3">
+            Cleanz24 <span>Stores Near You</span>
+          </h2>
+          <p className="text-muted mx-auto mb-5" style={{ maxWidth: '600px', fontSize: '0.97rem', lineHeight: 1.7 }}>
+            Search by city, state, or locality to discover nearby stores, contact numbers, and get instant directions.
+          </p>
+
+          <motion.div
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
+            className="d-flex gap-3 justify-content-center mb-5 mx-auto"
+            style={{ maxWidth: '580px', width: '100%' }}
+          >
+            <div className="position-relative w-100" ref={storeSearchRef}>
+              {/* Search Bar */}
+              <div className="store-search-pill d-flex align-items-center">
+                <span className="store-search-icon">📍</span>
+                <input
+                  type="text"
+                  className="store-search-field"
+                  placeholder="Type your city, area or state..."
+                  value={storeSearchQuery}
+                  onChange={(e) => { setStoreSearchQuery(e.target.value); setShowStoreDropdown(true); }}
+                  onFocus={() => storeSearchQuery.length >= 2 && setShowStoreDropdown(true)}
+                  autoComplete="off"
+                />
+                {storeSearchQuery && (
+                  <button
+                    className="store-search-clear"
+                    onClick={() => { setStoreSearchQuery(''); setShowStoreDropdown(false); }}
+                    aria-label="Clear search"
+                  >×</button>
+                )}
+              </div>
+
+              {/* Dropdown Suggestions */}
+              {showStoreDropdown && laundryDropdownSuggestions.length > 0 && (
+                <div className="store-dropdown-panel">
+                  <div className="store-dropdown-header">
+                    <span className="store-dropdown-label">📍 Nearby Stores</span>
+                    {filteredLaundryStores.length > 3 && (
+                      <span className="store-dropdown-count">{filteredLaundryStores.length} found</span>
+                    )}
+                  </div>
+                  {laundryDropdownSuggestions.map((store) => (
+                    <div
+                      key={store.id}
+                      className="store-dropdown-item"
+                      onClick={() => {
+                        setStoreSearchQuery(store.city);
+                        setShowStoreDropdown(false);
+                        setTimeout(() => laundryResultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+                      }}
+                    >
+                      <div className="store-dropdown-pin">📍</div>
+                      <div className="store-dropdown-info">
+                        <div className="store-dropdown-name">{store.name}</div>
+                        <div className="store-dropdown-address">{store.address}</div>
+                        <div className="store-dropdown-meta">
+                          <span className="store-city-badge">{store.city}, {store.state}</span>
+                          <span className="store-phone-text">📞 {store.phone}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  {filteredLaundryStores.length > 3 && (
+                    <div className="store-dropdown-more">
+                      ↓ {filteredLaundryStores.length - 3} more stores shown in cards below
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* No results dropdown */}
+              {showStoreDropdown && storeSearchQuery.length >= 2 && laundryDropdownSuggestions.length === 0 && (
+                <div className="store-dropdown-empty">
+                  <div className="store-dropdown-empty-icon">🔍</div>
+                  <div className="store-dropdown-empty-text">No stores found for "<strong>{storeSearchQuery}</strong>"</div>
+                  <div className="store-dropdown-empty-hint">Try: Noida, Delhi, Bengaluru, Hyderabad, Pune</div>
+                </div>
+              )}
+            </div>
+          </motion.div>
+
+
+
+          <div
+            ref={laundryResultsRef}
+            key={storeSearchQuery || 'default'}
+            className="row g-4 justify-content-center mb-5"
+          >
+            {displayedLaundryStores.length > 0 ? (
+              displayedLaundryStores.map((store, index) => (
+                <motion.div
+                  className="col-lg-4 col-md-6 text-start"
+                  key={store.id}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.08 }}
+                >
+                  <div className="laundry-store-card h-100">
+                    <div className="laundry-store-card-header">
+                      <div className="laundry-store-icon">📍</div>
+                      <div>
+                        <h4 className="laundry-store-name">{store.name}</h4>
+                        <span className="laundry-store-city-tag">{store.city}, {store.state}</span>
+                      </div>
+                    </div>
+                    <p className="laundry-store-address">{store.address}</p>
+                    <div className="laundry-store-rating">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" style={{ width: '16px' }} />
+                      <span style={{ fontSize: '0.78rem' }}>Google Rating</span>
+                      <div className="ms-auto">
+                        <strong style={{ fontSize: '0.85rem' }}>{store.rating}</strong>
+                        <span className="text-warning ms-1">★★★★★</span>
+                        <span style={{ fontSize: '0.75rem' }}> ({store.reviews})</span>
+                      </div>
+                    </div>
+                    <div className="laundry-store-actions">
+                      <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store.name + ' ' + store.address)}`} target="_blank" rel="noreferrer" className="laundry-store-btn laundry-store-btn-outline">Directions</a>
+                      <a href="#booking-form" className="laundry-store-btn laundry-store-btn-primary">Schedule Pickup</a>
+                      <a href={`tel:${store.phone.replace(/\s+/g, '')}`} className="laundry-store-btn laundry-store-btn-outline">Call</a>
+                      <a href={`https://wa.me/${store.whatsapp}`} target="_blank" rel="noreferrer" className="laundry-store-btn laundry-store-btn-green">WhatsApp</a>
+                    </div>
+                  </div>
+                </motion.div>
+              ))
+            ) : (
+              <div className="col-12 py-5 text-center">
+                <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>&#128269;</div>
+                <p className="text-muted fw-semibold">No laundry stores found for "<strong>{storeSearchQuery}</strong>"</p>
+                <p className="text-muted" style={{ fontSize: '0.85rem' }}>Try searching: Noida, Delhi, Bengaluru, Hyderabad, Pune</p>
+              </div>
+            )}
+          </div>
+
+          <div className="text-center">
+            <Link to="/laundry/stores" className="btn-secondary-custom px-4 py-3 text-decoration-none d-inline-block">
+              View All Stores
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ────────────────── 9. MOBILE APP DOWNLOAD PROMO ────────────────── */}
       <section className="section-padding bg-white overflow-hidden pb-0">
         <div className="container">
@@ -607,9 +798,36 @@ export default function LaundryHome() {
               <p className="lead text-muted mb-4">
                 Download the Cleanz24 app to schedule pickups, track garment diagnostics, inspect item bills, and order contact-free express deliveries.
               </p>
-              <div className="d-flex gap-3">
+              <div className="d-flex flex-wrap gap-3 align-items-center mt-2">
                 <a href="https://play.google.com/store" target="_blank" rel="noreferrer">
-                  <img src={playStoreBadgeImg} alt="Google Play Store" style={{ height: '54px', width: 'auto', objectFit: 'contain' }} />
+                  <img 
+                    src={playStoreBadgeSvg} 
+                    alt="Google Play Store" 
+                    style={{ 
+                      height: '70px', 
+                      width: 'auto', 
+                      objectFit: 'contain',
+                      transition: 'transform 0.2s ease-in-out',
+                      cursor: 'pointer'
+                    }} 
+                    onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                    onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                  />
+                </a>
+                <a href="https://apps.apple.com" target="_blank" rel="noreferrer">
+                  <img 
+                    src={appStoreBadgeSvg} 
+                    alt="Download on the App Store" 
+                    style={{ 
+                      height: '70px', 
+                      width: 'auto', 
+                      objectFit: 'contain',
+                      transition: 'transform 0.2s ease-in-out',
+                      cursor: 'pointer'
+                    }} 
+                    onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                    onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                  />
                 </a>
               </div>
             </div>

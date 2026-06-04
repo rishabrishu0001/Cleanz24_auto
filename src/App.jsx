@@ -13,6 +13,10 @@ import CarSpaFranchise from './pages/car-spa/Franchise';
 import PackageDetails from './pages/car-spa/PackageDetails';
 import Membership from './pages/car-spa/Membership';
 import Payment from './pages/car-spa/Payment';
+import AdminLogin from './pages/car-spa/AdminLogin';
+import AdminDashboard from './pages/car-spa/AdminDashboard';
+import AdminRoute from './pages/car-spa/AdminRoute';
+import CarSpaBlog from './pages/car-spa/CarSpaBlog';
 // ─── Laundry Section ───────────────────────────────────────────
 import LaundryLayout from './pages/laundry/LaundryLayout';
 import LaundryHome from './pages/laundry/LaundryHome';
@@ -56,7 +60,15 @@ function App() {
         <Route path="membership" element={<Membership />} />
         <Route path="payment" element={<Payment />} />
         <Route path="franchise" element={<CarSpaFranchise />} />
+        <Route path="blog" element={<CarSpaBlog />} />
+        <Route path="blog/:slug" element={<CarSpaBlog />} />
       </Route>
+
+      {/* ── Admin (outside CarSpaLayout, no header/footer) ── */}
+      <Route path="/car-spa/admin" element={<AdminLogin />} />
+      <Route path="/car-spa/admin/dashboard" element={
+        <AdminRoute><AdminDashboard /></AdminRoute>
+      } />
 
       {/* ── Laundry Section ── */}
       <Route path="/laundry" element={<LaundryLayout />}>

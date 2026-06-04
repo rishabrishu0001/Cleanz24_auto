@@ -95,7 +95,7 @@ export default function Payment() {
 
       // 2. Initialize Razorpay
       const options = {
-        key: 'rzp_test_replace_me', // We use placeholder; in prod this comes from env or API
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID, // Loaded from frontend .env file
         amount: orderData.amount,
         currency: orderData.currency,
         name: 'Cleanz24 Car Spa',

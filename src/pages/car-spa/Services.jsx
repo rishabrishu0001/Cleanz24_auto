@@ -11,6 +11,7 @@ import carWashSpray from '../../assets/car_wash_spray.png';
 
 import { Link } from 'react-router-dom';
 import '../../styles/carSpa.css';
+import SEOMeta from '../../components/SEOMeta';
 
 // 1. SERVICES PAGE COMPONENT
 function Services({ isDarkMode, toggleTheme }) {
@@ -33,7 +34,11 @@ function Services({ isDarkMode, toggleTheme }) {
 
   return (
     <div className="d-flex flex-column min-vh-100 bg-primary-custom bg-carbon" style={{ overflowX: 'hidden' }}>
-      
+      <SEOMeta
+        title="Car Detailing Services & Wash Packages"
+        description="Explore the best detailing packages including Crystal Shield, Velvet Touch, Pearl Radiance, and Platinum Revival. Find the perfect treatment size and pricing for your car class."
+        canonical="https://cleanz24.com/car-spa/services"
+      />
       {/* NAVBAR */}
       {/* HERO SECTION */}
       <section className="hero-section position-relative text-center overflow-hidden" style={{ backgroundImage: 'none', backgroundColor: '#000', minHeight: '55vh', display: 'flex', alignItems: 'center' }}>

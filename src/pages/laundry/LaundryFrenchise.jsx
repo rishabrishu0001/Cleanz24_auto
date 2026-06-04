@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
+import SEOMeta from '../../components/SEOMeta';
 import laundryImg3 from '../../assets/laundry_img3.png';
 import laundryStorefront from '../../assets/laundry_storefront.png';
 import laundryStorefront2 from '../../assets/laundry_storefront2.png';
@@ -496,6 +497,11 @@ function LaundryFrenchise() {
 
   return (
     <div className="lf-page">
+      <SEOMeta
+        title="Laundry & Dry Cleaning Franchise Opportunities"
+        description="Partner with Cleanz24. Open a highly profitable laundry & dry cleaning franchise in India. Full operations training, supply chain access, and CRM support."
+        canonical="https://cleanz24.com/laundry/franchise"
+      />
       <style>{getStyles(dark)}</style>
 
 

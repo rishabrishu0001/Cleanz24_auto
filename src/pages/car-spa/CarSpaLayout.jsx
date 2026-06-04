@@ -4,6 +4,9 @@ import CarSpaHeader from './components/CarSpaHeader';
 import CarSpaFooter from './components/CarSpaFooter';
 import FloatingActions from '../../components/FloatingActions';
 import '../../styles/carSpa.css';
+import '../../styles/store-search.css';
+import '../../styles/store-cards.css';
+
 
 /**
  * CarSpaLayout

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { faqsData, storesData } from '../../data';
+import SEOMeta from '../../components/SEOMeta';
 import '../../styles/carSpa.css';
 
 function Book({ isDarkMode, toggleTheme }) {
@@ -115,6 +116,11 @@ function Book({ isDarkMode, toggleTheme }) {
 
   return (
     <div className="d-flex flex-column min-vh-100 bg-primary-custom bg-carbon" style={{ overflowX: 'hidden' }}>
+      <SEOMeta
+        title="Book Online Car Spa & Detailing Service"
+        description="Book your premium car spa, foam wash, or detailing package online. Choose your service, find your nearest Cleanz24 store, and schedule your appointment today."
+        keywords="book car wash online, car detailing booking, ceramic coating appointment, Cleanz24 booking"
+      />
       
       {/* NAVBAR */}
       {/* CINEMATIC HERO SECTION */}
@@ -257,7 +263,7 @@ function Book({ isDarkMode, toggleTheme }) {
                 <div className="card-body p-4 p-md-5 position-relative">
                   <div className="position-absolute top-0 end-0 p-3 opacity-25" style={{ fontSize: '4rem' }}>📅</div>
                   <h3 className="card-title fw-bold mb-2 text-heading position-relative z-1">Schedule Car Wash</h3>
-                  <p className="card-text text-muted-custom small mb-4 position-relative z-1">Complimentary safe pickup and transit drop operations valid across all registered hubs.</p>
+                  <p className="card-text text-muted-custom small mb-4 position-relative z-1">Complimentary safe pickup and transit drop operations valid across all registered stores.</p>
                   
                   {formSubmitted ? (
                     <div className="text-center py-5 position-relative z-1">
@@ -416,10 +422,10 @@ function Book({ isDarkMode, toggleTheme }) {
           <motion.span
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
             className="text-uppercase text-brand-primary fw-bold small mb-2 d-block tracking-widest" style={{ letterSpacing: '2px' }}>
-            FIND HUBS
+            FIND STORES
           </motion.span>
           <h2 className="display-5 fw-bold text-heading mb-4 text-gradient">
-            CLEANZ24 HUBS NEAR YOU
+            CLEANZ24 STORES NEAR YOU
           </h2>
           
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant} className="store-search-container mb-5">
@@ -460,7 +466,7 @@ function Book({ isDarkMode, toggleTheme }) {
               ))
             ) : (
               <div className="col-12 py-4">
-                <p className="text-muted-custom">No detailing hubs found matching your search.</p>
+                <p className="text-muted-custom">No detailing stores found matching your search.</p>
               </div>
             )}
           </motion.div>

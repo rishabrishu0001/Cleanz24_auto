@@ -8,6 +8,7 @@ import {
   roiProjections 
 } from '../../data';
 import '../../styles/carSpa.css';
+import SEOMeta from '../../components/SEOMeta';
 
 function Franchise({ isDarkMode, toggleTheme }) {
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -77,6 +78,11 @@ function Franchise({ isDarkMode, toggleTheme }) {
 
   return (
     <div className="franchise-page-wrapper d-flex flex-column min-vh-100 bg-primary-custom bg-carbon" style={{ overflowX: 'hidden' }}>
+      <SEOMeta
+        title="Car Detailing Franchise Opportunities"
+        description="Partner with Cleanz24. Start a premium car wash & detailing franchise in India. Low setup cost, high return on investment, and full CRM automation support."
+        canonical="https://cleanz24.com/car-spa/franchise"
+      />
       {/* HERO SECTION */}
       <section className="hero-section position-relative text-center overflow-hidden d-flex flex-column justify-content-center" style={{ height: '100vh', backgroundImage: 'none', backgroundColor: '#000' }}>
         {/* Cinematic Video Background */}
@@ -138,7 +144,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
           </motion.h1>
           
           <motion.p variants={fadeUpVariant} className="lead text-white mb-5 mx-auto" style={{ maxWidth: '650px', fontSize: '1.1rem', opacity: 0.95 }}>
-            Join the fastest-growing premium automotive wash network. Leverage our 100+ active laundry franchise footprint to capture the booming B2C premium car care segment.
+            Join the fastest-growing premium automotive wash network. Leverage our 100+ Stores Pan India network footprint to capture the booming B2C premium car care segment.
           </motion.p>
           
           <motion.div variants={fadeUpVariant} className="d-flex gap-3 justify-content-center flex-wrap">

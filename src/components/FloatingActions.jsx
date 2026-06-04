@@ -1,9 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import './FloatingActions.css';
 
 export default function FloatingActions() {
+  const [isMember, setIsMember] = useState(() => {
+    try { return !!localStorage.getItem('cleanz24_logged_in_member'); } catch { return false; }
+  });
+  const location = useLocation();
+
+  useEffect(() => {
+    const checkAuth = () => {
+      try {
+        setIsMember(!!localStorage.getItem('cleanz24_logged_in_member'));
+      } catch {
+        setIsMember(false);
+      }
+    };
+    window.addEventListener('auth-change', checkAuth);
+    return () => window.removeEventListener('auth-change', checkAuth);
+  }, []);
+
+  const handlePickupClick = (e) => {
+    if (location.pathname === '/car-spa' || location.pathname === '/car-spa/') {
+      e.preventDefault();
+      const target = document.querySelector('#book');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
     <div className="floating-actions">
+      {isMember && (
+        <a 
+          href="/car-spa#book" 
+          onClick={handlePickupClick}
+          className="fab fab-pickup animate-btn" 
+          aria-label="Schedule Free Pickup"
+          style={{ textDecoration: 'none' }}
+        >
+          <span style={{ fontSize: '1.6rem' }} title="Schedule Free Member Pickup">🚗</span>
+        </a>
+      )}
       <a 
         href="https://wa.me/919138004800?text=Hi%2C%20I%20am%20interested%20in%20Cleanz24%20services" 
         target="_blank" 

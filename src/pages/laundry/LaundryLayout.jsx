@@ -3,6 +3,8 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Header from './components/LaundryHeader';
 import Footer from './components/LaundryFooter';
 import '../../styles/laundry.css';
+import '../../styles/store-search.css';
+import '../../styles/store-cards.css';
 
 export default function LaundryLayout() {
   const [isDarkMode, setIsDarkMode] = useState(false);

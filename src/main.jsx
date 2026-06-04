@@ -5,10 +5,14 @@ import './index.css'
 import './App.css'
 import App from './App.jsx'
 
+import { HelmetProvider } from 'react-helmet-async'
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <HelmetProvider>
+        <App />
+      </HelmetProvider>
     </BrowserRouter>
   </StrictMode>,
 )

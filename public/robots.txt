@@ -1,0 +1,10 @@
+# Robots.txt file for Cleanz24
+User-agent: *
+Allow: /
+
+# Exclude Admin routes
+Disallow: /car-spa/admin/
+Disallow: /car-spa/admin/dashboard
+
+# Sitemap URL
+Sitemap: https://cleanz24.com/sitemap.xml
