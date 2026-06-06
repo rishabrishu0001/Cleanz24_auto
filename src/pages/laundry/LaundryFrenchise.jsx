@@ -425,9 +425,29 @@ function LaundryFrenchise() {
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    try {
+      const payload = {
+        name: formData.name,
+        mobile: formData.phone,
+        email: formData.email,
+        city: formData.city,
+        modelType: 'General Inquiry'
+      };
+
+      await fetch('http://localhost:5000/api/franchise', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {
+      console.error('Error submitting franchise inquiry:', err);
+    } finally {
+      setSubmitted(true);
+    }
   };
 
   const dark = !!isDarkMode;
