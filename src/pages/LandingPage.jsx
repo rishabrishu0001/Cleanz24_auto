@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import logoImg from '../assets/logo2.jpeg';
 import '../styles/carSpa.css';
@@ -9,8 +9,14 @@ function Landing() {
   const [hoveredSide, setHoveredSide] = useState(null); // 'laundry' | 'car-spa' | null
   const [bubbles, setBubbles] = useState([]);
   const [sparks, setSparks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Hide preloader after 2.5 seconds
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2500);
+
     // Generate bubbles for Laundry side
     const bubbleArray = Array.from({ length: 5 }).map((_, i) => ({
       id: i,
@@ -30,6 +36,8 @@ function Landing() {
       duration: `${Math.random() * 5 + 4}s`
     }));
     setSparks(sparkArray);
+
+    return () => clearTimeout(timer);
   }, []);
 
   // Diagonal clip path values 
@@ -54,9 +62,70 @@ function Landing() {
         description="Experience India's most premium services. Cleanz24 offers professional laundry, dry cleaning, premium car spa, detailing, ceramic coating and PPF wraps."
         canonical="https://cleanz24.com/"
       />
+
+      {/* ── PRELOADER ANIMATION ── */}
+      <AnimatePresence>
+        {loading && (
+          <motion.div
+            key="preloader"
+            className="preloader-overlay"
+            initial={{ opacity: 1 }}
+            exit={{ 
+              opacity: 0,
+              y: '-100vh',
+              transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } 
+            }}
+          >
+            <div className="preloader-glow" />
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 1, ease: 'easeOut' }}
+              className="d-flex flex-column align-items-center"
+            >
+              <img src={logoImg} alt="Cleanz24 Logo" className="preloader-logo mb-3" />
+            </motion.div>
+            <motion.div 
+              className="preloader-line"
+              initial={{ width: 0 }}
+              animate={{ width: '120px' }}
+              transition={{ delay: 0.5, duration: 1.2, ease: 'easeInOut' }}
+            />
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+              className="preloader-tagline"
+            >
+              INDIA'S PREMIUM SERVICE NETWORK
+            </motion.div>
+            <div className="preloader-bar-bg">
+              <motion.div 
+                className="preloader-bar-fill"
+                initial={{ width: '0%' }}
+                animate={{ width: '100%' }}
+                transition={{ duration: 2.2, ease: 'easeInOut' }}
+              />
+            </div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              transition={{ delay: 1.2, duration: 0.5 }}
+              className="preloader-status"
+            >
+              Loading experience...
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       
       {/* Central Glassmorphic Badge / Logo Overlay (Hidden on Mobile) */}
-      <div className="landing-center-badge d-none d-md-flex">
+      <motion.div 
+        className="landing-center-badge d-none d-md-flex"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 0.6, duration: 0.8, ease: 'easeOut' }}
+      >
         <div className="center-badge-blur" />
         <div className="center-badge-content text-center">
           <img src={logoImg} alt="Cleanz24 Logo" className="landing-center-logo img-fluid mb-2" />
@@ -64,11 +133,14 @@ function Landing() {
           <div className="center-badge-tagline">INDIA'S PREMIUM SERVICE NETWORK</div>
           <div className="center-badge-trust">Trusted Across 21 States • 100+ Stores Pan India</div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Dynamic Midline neon separator */}
-      <div 
+      <motion.div 
         className={`split-midline d-none d-md-block ${hoveredSide ? `active-${hoveredSide}` : ''}`}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8, duration: 0.8 }}
         style={{
           position: 'absolute',
           top: 0,
@@ -87,8 +159,11 @@ function Landing() {
       <div className="d-flex flex-column flex-md-row min-vh-100 w-100 position-relative">
         
         {/* 1. LAUNDRY SIDE */}
-        <div 
+        <motion.div 
           className="split-panel laundry-panel position-absolute top-0 start-0 w-100 h-100 text-decoration-none text-white overflow-hidden d-flex align-items-center justify-content-center"
+          initial={{ x: '-10%', opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           style={{
             clipPath: leftClip,
             transition: 'clip-path 0.7s cubic-bezier(0.25, 0.8, 0.25, 1)',
@@ -117,7 +192,13 @@ function Landing() {
 
           <div className="landing-content laundry-content-wrapper z-2">
             {/* Premium Laundry SVG Icon */}
-            <div className="landing-icon-wrap mb-4" style={{ filter: 'drop-shadow(0 0 12px rgba(0, 201, 109, 0.45))' }}>
+            <motion.div 
+              className="landing-icon-wrap mb-4" 
+              style={{ filter: 'drop-shadow(0 0 12px rgba(0, 201, 109, 0.45))' }}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+            >
               <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#00C96D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7" />
                 <circle cx="12" cy="12" r="4" />
@@ -127,22 +208,42 @@ function Landing() {
                 <path d="M7 8h.01" />
                 <path d="M11 8h.01" />
               </svg>
-            </div>
-            <h2 className="display-4 fw-black text-uppercase tracking-wide font-oswald text-white mb-3">
+            </motion.div>
+            <motion.h2 
+              className="display-4 fw-black text-uppercase tracking-wide font-oswald text-white mb-3"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.6, duration: 0.6 }}
+            >
               PREMIER <br /><span style={{ color: '#00C96D' }}>LAUNDRY</span>
-            </h2>
-            <p className="lead fw-light mb-4 text-light-custom" style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'rgba(255, 255, 255, 0.78)' }}>
+            </motion.h2>
+            <motion.p 
+              className="lead fw-light mb-4 text-light-custom" 
+              style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'rgba(255, 255, 255, 0.78)' }}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.7, duration: 0.6 }}
+            >
               Expert garment care, chemical dry cleaning, and fabric restoration services with door-to-door convenience.
-            </p>
-            <Link to="/laundry" className="btn-portal btn-laundry text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border text-decoration-none position-relative" style={{ borderColor: '#00C96D', display: 'inline-block', zIndex: 20 }}>
-              ENTER LAUNDRY
-            </Link>
+            </motion.p>
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+            >
+              <Link to="/laundry" className="btn-portal btn-laundry text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border text-decoration-none position-relative" style={{ borderColor: '#00C96D', display: 'inline-block', zIndex: 20 }}>
+                ENTER LAUNDRY
+              </Link>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* 2. CAR SPA SIDE */}
-        <div 
+        <motion.div 
           className="split-panel carspa-panel position-absolute top-0 start-0 w-100 h-100 text-decoration-none text-white overflow-hidden d-flex align-items-center justify-content-center"
+          initial={{ x: '10%', opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           style={{
             clipPath: rightClip,
             transition: 'clip-path 0.7s cubic-bezier(0.25, 0.8, 0.25, 1)',
@@ -171,7 +272,13 @@ function Landing() {
 
           <div className="landing-content carspa-content-wrapper z-2">
             {/* Premium Car Detailing SVG Icon */}
-            <div className="landing-icon-wrap mb-4" style={{ filter: 'drop-shadow(0 0 12px rgba(212, 175, 55, 0.45))' }}>
+            <motion.div 
+              className="landing-icon-wrap mb-4" 
+              style={{ filter: 'drop-shadow(0 0 12px rgba(212, 175, 55, 0.45))' }}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+            >
               <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" />
                 <circle cx="7" cy="17" r="2" />
@@ -183,18 +290,35 @@ function Landing() {
                 <path d="M19 4l-1.5 1.5" />
                 <path d="M5 4l1.5 1.5" />
               </svg>
-            </div>
-            <h2 className="display-4 fw-black text-uppercase tracking-wide font-oswald text-white mb-3">
+            </motion.div>
+            <motion.h2 
+              className="display-4 fw-black text-uppercase tracking-wide font-oswald text-white mb-3"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.6, duration: 0.6 }}
+            >
               CAR <br /><span style={{ color: '#D4AF37' }}>SPA</span>
-            </h2>
-            <p className="lead fw-light mb-4 text-light-custom" style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'rgba(255, 255, 255, 0.78)' }}>
+            </motion.h2>
+            <motion.p 
+              className="lead fw-light mb-4 text-light-custom" 
+              style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'rgba(255, 255, 255, 0.78)' }}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.7, duration: 0.6 }}
+            >
               Advanced paint protection film (PPF), 10H DNA Graphene coatings, & premium detail wash restoration.
-            </p>
-            <Link to="/car-spa" className="btn-portal btn-carspa text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border text-decoration-none position-relative" style={{ borderColor: '#D4AF37', display: 'inline-block', zIndex: 20 }}>
-              ENTER CAR SPA
-            </Link>
+            </motion.p>
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+            >
+              <Link to="/car-spa" className="btn-portal btn-carspa text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border text-decoration-none position-relative" style={{ borderColor: '#D4AF37', display: 'inline-block', zIndex: 20 }}>
+                ENTER CAR SPA
+              </Link>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
       </div>
 
@@ -207,6 +331,84 @@ function Landing() {
       </div>
 
       <style>{`
+        /* Preloader Styles */
+        .preloader-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: radial-gradient(circle at center, #111a24 0%, #05080c 100%);
+          z-index: 9999;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .preloader-glow {
+          position: absolute;
+          width: 400px;
+          height: 400px;
+          background: radial-gradient(circle, rgba(0, 201, 109, 0.08) 0%, rgba(212, 175, 55, 0.06) 50%, transparent 100%);
+          filter: blur(40px);
+          pointer-events: none;
+          animation: pulseGlow 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+          0% { transform: scale(0.9); opacity: 0.6; }
+          100% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .preloader-logo {
+          max-height: 80px;
+          object-fit: contain;
+          border-radius: 8px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.05);
+        }
+
+        .preloader-line {
+          height: 2px;
+          background: linear-gradient(90deg, #00C96D, #D4AF37);
+          margin: 15px 0;
+          border-radius: 1px;
+        }
+
+        .preloader-tagline {
+          font-family: 'Oswald', sans-serif;
+          font-size: 0.8rem;
+          color: #D4AF37;
+          letter-spacing: 3px;
+          font-weight: 800;
+          text-transform: uppercase;
+        }
+
+        .preloader-bar-bg {
+          width: 200px;
+          height: 3px;
+          background: rgba(255, 255, 255, 0.07);
+          border-radius: 10px;
+          margin-top: 35px;
+          overflow: hidden;
+          position: relative;
+        }
+
+        .preloader-bar-fill {
+          height: 100%;
+          background: linear-gradient(90deg, #00C96D, #D4AF37);
+          border-radius: 10px;
+          box-shadow: 0 0 8px rgba(0, 201, 109, 0.5);
+        }
+
+        .preloader-status {
+          margin-top: 10px;
+          font-size: 0.65rem;
+          color: rgba(255, 255, 255, 0.5);
+          letter-spacing: 1px;
+          text-transform: uppercase;
+        }
+
         /* Bubble Particles for Laundry */
         .bubble {
           position: absolute;
