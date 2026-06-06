@@ -173,9 +173,33 @@ export default function Stores() {
                           <span>📞</span>
                           <span className="fw-semibold text-dark">{store.phone}</span>
                         </div>
-                        <div className="d-flex align-items-center gap-2 text-muted small">
+                        <div className="d-flex align-items-center gap-2 mb-3 text-muted small">
                           <span>💬</span>
                           <span className="text-success fw-semibold">Available on WhatsApp</span>
+                        </div>
+                        
+                        <div className="store-guides-section p-2 rounded mb-2" style={{ fontSize: '0.78rem', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+                          <span className="fw-bold text-dark d-block mb-1">📖 Local Guides:</span>
+                          <div className="d-flex flex-column gap-1">
+                            <Link 
+                              to={`/laundry/blog/best-laundry-nearby-you-${store.city.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${store.id}`}
+                              className="text-decoration-none text-primary fw-semibold"
+                            >
+                              • Best Laundry Nearby
+                            </Link>
+                            <Link 
+                              to={`/laundry/blog/best-laundry-dry-cleaning-store-in-${store.city.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${store.id}`}
+                              className="text-decoration-none text-primary fw-semibold"
+                            >
+                              • Dry Cleaning Guide
+                            </Link>
+                            <Link 
+                              to={`/laundry/blog/trusted-laundry-store-in-${store.city.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${store.id}`}
+                              className="text-decoration-none text-primary fw-semibold"
+                            >
+                              • Trusted Store Guide
+                            </Link>
+                          </div>
                         </div>
                       </div>
 

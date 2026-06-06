@@ -3,6 +3,8 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useOutletContext } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import SEOMeta from '../../components/SEOMeta';
+import { storesData } from '../../data';
+
 
 // ── Blog Images from assets ───────────────────────────────────────────────
 import blog1 from '../../assets/blog1.png';
@@ -501,6 +503,74 @@ const BLOG_POSTS = [
     readTime: '6 min read',
   },
 ];
+
+const blogImages = [
+  blog1, blog2, blog3, blog4, blog5, blog6, blog7, blog8, blog9, blog10,
+  blog11, blog12, blog13, blog14, blog15, blog16, blog17, blog18, blog19, blog20,
+  blog21, blog22, blog23, blog24, blog25, blog26, blog27, blog28, blog29, blog30,
+  blog31, blog32, blog33, blog34, blog35
+];
+
+const GENERATED_STORE_POSTS = [];
+storesData.forEach((store) => {
+  const citySlug = store.city.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  
+  // Post 1: Best Laundry Nearby You
+  GENERATED_STORE_POSTS.push({
+    id: `g-nearby-${store.id}`,
+    slug: `best-laundry-nearby-you-${citySlug}-${store.id}`,
+    title: `Best Laundry Service Nearby You in ${store.city} - ${store.name}`,
+    excerpt: `Looking for the best laundry service nearby you in ${store.city}? Cleanz24 at ${store.address} offers premium eco-friendly washing, dry cleaning, and fabric sanitation.`,
+    categories: ['Blog'],
+    author: 'cleanz24',
+    date: 'June 6, 2026',
+    dateTime: '2026-06-06',
+    image: blogImages[(store.id * 3) % blogImages.length],
+    readTime: '5 min read',
+    isGenerated: true,
+    storeId: store.id,
+    storeType: 'nearby',
+    store: store
+  });
+
+  // Post 2: Best Laundry & Dry Cleaning Store
+  GENERATED_STORE_POSTS.push({
+    id: `g-dry-${store.id}`,
+    slug: `best-laundry-dry-cleaning-store-in-${citySlug}-${store.id}`,
+    title: `Best Laundry & Dry Cleaning Store in ${store.city} - ${store.name}`,
+    excerpt: `Discover the best laundry & dry cleaning store in ${store.city}. Cleanz24 at ${store.address} provides professional steam ironing, dry cleaning, and shoe cleaning.`,
+    categories: ['Dry Cleaning'],
+    author: 'cleanz24',
+    date: 'June 6, 2026',
+    dateTime: '2026-06-06',
+    image: blogImages[(store.id * 3 + 1) % blogImages.length],
+    readTime: '6 min read',
+    isGenerated: true,
+    storeId: store.id,
+    storeType: 'dry-cleaning',
+    store: store
+  });
+
+  // Post 3: Trusted Laundry Store
+  GENERATED_STORE_POSTS.push({
+    id: `g-trusted-${store.id}`,
+    slug: `trusted-laundry-store-in-${citySlug}-${store.id}`,
+    title: `Trusted Laundry Store in ${store.city} - ${store.name}`,
+    excerpt: `Why Cleanz24 at ${store.address} is the most trusted laundry store in ${store.city}. Read about our certified master cleaners, state-of-the-art washing machines, and eco-safe detergents.`,
+    categories: ['Blog'],
+    author: 'cleanz24',
+    date: 'June 6, 2026',
+    dateTime: '2026-06-06',
+    image: blogImages[(store.id * 3 + 2) % blogImages.length],
+    readTime: '5 min read',
+    isGenerated: true,
+    storeId: store.id,
+    storeType: 'trusted',
+    store: store
+  });
+});
+
+const ALL_BLOG_POSTS = [...BLOG_POSTS, ...GENERATED_STORE_POSTS];
 
 const POSTS_PER_PAGE = 6;
 
@@ -1107,7 +1177,7 @@ export default function Blog() {
   const [searchQuery, setSearchQuery] = useState('');
 
   if (slug) {
-    const post = BLOG_POSTS.find((p) => p.slug === slug);
+    const post = ALL_BLOG_POSTS.find((p) => p.slug === slug);
     if (!post) {
       return (
         <div style={{ background: isDarkMode ? '#081426' : '#F7FAFC', minHeight: '100vh', color: isDarkMode ? '#fff' : '#000', padding: '100px 20px', textAlign: 'center' }}>
@@ -1197,18 +1267,78 @@ export default function Blog() {
                   color: isDarkMode ? '#CBD5E0' : '#4A5568'
                 }}
               >
-                <h3>Introduction to Garment and Fabric Care</h3>
-                <p>{post.excerpt}</p>
-                <p>Proper fabric care is essential to extending the life of your garments. Different materials—such as silk, cotton, wool, synthetic blends, and linen—require specific washing temperatures, detergent strengths, and drying limits. In this article, we outline best practices for keeping your clothes in pristine condition and highlight common mistakes to avoid.</p>
-                
-                <h3>Key Takeaways for Daily Maintenance</h3>
-                <ul>
-                  <li><strong>Check Care Labels:</strong> Always verify instructions before washing any premium fabric.</li>
-                  <li><strong>Color Separation:</strong> Separate dark, white, and bright items to prevent bleeding.</li>
-                  <li><strong>Gentle Detergents:</strong> Avoid harsh chemicals on delicate threads to prevent structural breakdown.</li>
-                </ul>
-                
-                <p>By implementing professional wash processes at home or trusting a certified cleaning team, you can keep colors vibrant, textures soft, and seams secure for years to come.</p>
+                {post.isGenerated ? (
+                  <>
+                    <h3>Looking for Premium Laundry Services in {post.store.city}?</h3>
+                    <p>
+                      Finding a reliable laundry service can be a daunting task, especially when you want the absolute best care for your premium wear, everyday garments, and household fabrics. 
+                      If you reside in or near <strong>{post.store.city}</strong>, look no further than <strong>{post.store.name}</strong>. Located at <em>{post.store.address}</em>, this outlet is part of Cleanz24's premium national network of over 100+ stores.
+                    </p>
+                    <p>
+                      At Cleanz24, we combine state-of-the-art German eco-friendly detergents, professional laundry and dry-cleaning machinery, and highly trained master cleaners to ensure that your clothes look and feel brand new after every single wash.
+                    </p>
+
+                    <div style={{
+                      background: isDarkMode ? 'rgba(43, 108, 176, 0.15)' : 'rgba(43, 108, 176, 0.05)',
+                      borderLeft: '4px solid #2B6CB0',
+                      padding: '20px',
+                      borderRadius: '8px',
+                      margin: '24px 0'
+                    }}>
+                      <h4 style={{ color: '#2B6CB0', marginTop: 0, fontWeight: 700 }}>📍 Store Details & Contact Information</h4>
+                      <p style={{ margin: '8px 0', fontSize: '15px' }}><strong>Address:</strong> {post.store.address}</p>
+                      <p style={{ margin: '8px 0', fontSize: '15px' }}><strong>Phone:</strong> {post.store.phone}</p>
+                      <p style={{ margin: '8px 0', fontSize: '15px' }}><strong>Google Customer Rating:</strong> {post.store.rating} ★ ({post.store.reviews} Verified Reviews)</p>
+                      <div style={{ display: 'flex', gap: '10px', marginTop: '15px', flexWrap: 'wrap' }}>
+                        <a href={`tel:${post.store.phone.replace(/\s+/g, '')}`} className="btn btn-sm text-white" style={{ backgroundColor: '#2B6CB0', border: 'none', padding: '6px 16px', fontWeight: 600 }}>Call Store</a>
+                        <a href={`https://wa.me/${post.store.whatsapp}`} target="_blank" rel="noreferrer" className="btn btn-sm text-white" style={{ backgroundColor: '#28A745', border: 'none', padding: '6px 16px', fontWeight: 600 }}>WhatsApp Us</a>
+                        <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(post.store.name + ' ' + post.store.address)}`} target="_blank" rel="noreferrer" className="btn btn-sm btn-outline-secondary" style={{ padding: '6px 16px', fontWeight: 600 }}>Get Directions</a>
+                      </div>
+                    </div>
+
+                    <h3>Why Cleanz24 is {post.store.city}'s Most Trusted Laundry & Dry Cleaning Brand</h3>
+                    <p>
+                      Our laundry and dry cleaning processes are designed to offer maximum convenience, unparalleled hygiene, and extreme fabric care:
+                    </p>
+                    <ul>
+                      <li><strong>German Fabric Care:</strong> We use eco-friendly solvents that protect clothing threads from losing their count or shine, ensuring zero fading.</li>
+                      <li><strong>Color & Sort Protocol:</strong> Your clothes are categorized by color density, care label guidelines, and material type prior to washing to prevent any cross-bleeding.</li>
+                      <li><strong>Doorstep Convenience:</strong> Busy schedule? We offer complimentary doorstep pickup and delivery for all orders above ₹300!</li>
+                      <li><strong>Transparent Diagnostics:</strong> Each item undergoes meticulous diagnostic inspections to identify fabric wear, loose seams, or specific stain pre-treatment requirements.</li>
+                    </ul>
+
+                    <h3>Our Comprehensive Cleaning Services in {post.store.city}</h3>
+                    <p>
+                      Cleanz24 - {post.store.name} offers a complete suite of professional cleaning solutions:
+                    </p>
+                    <ol>
+                      <li><strong>Premium Wash & Fold:</strong> Ideal for daily casual wear, linens, and everyday clothes. Cleaned, dried, and crisply folded.</li>
+                      <li><strong>Professional Dry Cleaning:</strong> Gentle chemical-free solvent wash specifically tailored for woolens, designer silk sarees, formal suits, and bridal wear.</li>
+                      <li><strong>Steam Pressing (Ironing):</strong> Industrial steam irons to give your formal shirts, trousers, and blazers that crisp, zero-crease, premium corporate look.</li>
+                      <li><strong>Sneaker & Shoe Restorations:</strong> Professional deep-cleansing for sports shoes, canvas sneakers, nubuck, and premium leather footwear.</li>
+                      <li><strong>Home Soft Furnishing Deep Cleaning:</strong> Curtains, quilts, duvets, blankets, and sofa covers are washed and fully sanitized.</li>
+                    </ol>
+
+                    <p>
+                      Experience the peace of mind that comes with premium garment care. Book your appointment or schedule a free pickup today at our <strong>{post.store.city}</strong> branch and see the Cleanz24 difference for yourself!
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <h3>Introduction to Garment and Fabric Care</h3>
+                    <p>{post.excerpt}</p>
+                    <p>Proper fabric care is essential to extending the life of your garments. Different materials—such as silk, cotton, wool, synthetic blends, and linen—require specific washing temperatures, detergent strengths, and drying limits. In this article, we outline best practices for keeping your clothes in pristine condition and highlight common mistakes to avoid.</p>
+                    
+                    <h3>Key Takeaways for Daily Maintenance</h3>
+                    <ul>
+                      <li><strong>Check Care Labels:</strong> Always verify instructions before washing any premium fabric.</li>
+                      <li><strong>Color Separation:</strong> Separate dark, white, and bright items to prevent bleeding.</li>
+                      <li><strong>Gentle Detergents:</strong> Avoid harsh chemicals on delicate threads to prevent structural breakdown.</li>
+                    </ul>
+                    
+                    <p>By implementing professional wash processes at home or trusting a certified cleaning team, you can keep colors vibrant, textures soft, and seams secure for years to come.</p>
+                  </>
+                )}
               </article>
             </div>
 
@@ -1219,7 +1349,7 @@ export default function Blog() {
                 onCategoryChange={(cat) => {
                   navigate('/laundry/blog');
                 }}
-                posts={BLOG_POSTS}
+                posts={ALL_BLOG_POSTS}
               />
             </div>
           </div>
@@ -1229,7 +1359,7 @@ export default function Blog() {
   }
 
   // Filter posts
-  const filteredPosts = BLOG_POSTS.filter((post) => {
+  const filteredPosts = ALL_BLOG_POSTS.filter((post) => {
     const matchesCategory =
       activeCategory === 'All' || post.categories.includes(activeCategory);
     const matchesSearch =
@@ -1407,7 +1537,7 @@ export default function Blog() {
               isDarkMode={isDarkMode}
               activeCategory={activeCategory}
               onCategoryChange={(cat) => setActiveCategory(cat)}
-              posts={BLOG_POSTS}
+              posts={ALL_BLOG_POSTS}
             />
           </div>
         </div>
