@@ -14,6 +14,7 @@ import neonCarRender from '../../assets/neon_car_render.png';
 import { Link, useLocation } from 'react-router-dom';
 import '../../styles/carSpa.css';
 import SEOMeta from '../../components/SEOMeta';
+import { Player } from '@lottiefiles/react-lottie-player';
 
 // 1. BEFORE/AFTER SLIDER COMPONENT
 function BeforeAfterSlider() {
@@ -791,14 +792,14 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                 className="position-relative overflow-hidden shadow-lg"
                 style={{ width: '100%', aspectRatio: '4/3', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
-                <lottie-player
+                <Player
                   src="/carwash_custom.json"
                   background="transparent"
-                  speed="1"
+                  speed={1}
                   style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
                   loop
                   autoplay
-                ></lottie-player>
+                />
                 <div className="position-absolute bottom-0 start-0 w-100 bg-success text-white p-3 fw-bold small text-uppercase tracking-wider text-center" style={{ letterSpacing: '1px', zIndex: 2 }}>
                   Our Insured & Certified Wash Crew
                 </div>
@@ -847,15 +848,14 @@ function CarSpa({ isDarkMode, toggleTheme }) {
           </p>
           {/* Car Washing Lottie Animation for Quick Services Promo Banner */}
           <div className="d-flex justify-content-center mt-2 mb-5">
-            <lottie-player
+            <Player
               src="/carwash3.json"
               background="transparent"
-              speed="1"
+              speed={1}
               style={{ width: '420px', height: '300px' }}
               loop
               autoplay
-              lazy
-            ></lottie-player>
+            />
           </div>
           <div className="d-flex justify-content-center gap-3 flex-wrap">
             <Link to="/car-spa/services" className="btn btn-glow btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none">
@@ -1126,15 +1126,14 @@ function CarSpa({ isDarkMode, toggleTheme }) {
 
               {/* Lottie Animation of Car Wash */}
               <div className="d-flex justify-content-center my-4">
-                <lottie-player
+                <Player
                   src="/carwash1.json"
                   background="transparent"
-                  speed="1"
+                  speed={1}
                   style={{ width: '260px', height: '260px' }}
                   loop
                   autoplay
-                  lazy
-                ></lottie-player>
+                />
               </div>
 
               <div className="custom-faq-wrapper mt-4">
