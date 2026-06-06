@@ -116,8 +116,33 @@ export default function LocationDetail() {
 
   const primaryStore = matchedStores[0];
 
-  const city = primaryStore.city;
-  const state = primaryStore.state;
+  // Helper to get formatted display name from the slug
+  const getCityDisplayName = (slug) => {
+    if (!slug) return '';
+    const specialCases = {
+      'delhi': 'Delhi',
+      'noida': 'Noida',
+      'greater-noida': 'Greater Noida',
+      'greater-noida-west': 'Greater Noida West',
+      'noida-extension': 'Noida Extension',
+      'gurugram': 'Gurugram',
+      'mumbai': 'Mumbai',
+      'pune': 'Pune',
+      'bangalore': 'Bangalore',
+      'hyderabad': 'Hyderabad',
+      'dehradun': 'Dehradun',
+      'thane-west': 'Thane West',
+      'hsr-layout': 'HSR Layout'
+    };
+    if (specialCases[slug]) return specialCases[slug];
+    return slug
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  };
+
+  const city = getCityDisplayName(cleanSlug);
+  const state = cleanSlug === 'delhi' ? 'Delhi NCR' : primaryStore.state;
   const address = primaryStore.address;
   const phone = primaryStore.phone;
   const rating = primaryStore.rating;
