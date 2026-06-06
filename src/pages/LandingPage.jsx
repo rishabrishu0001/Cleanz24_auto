@@ -118,22 +118,6 @@ function Landing() {
           </motion.div>
         )}
       </AnimatePresence>
-      
-      {/* Central Glassmorphic Badge / Logo Overlay (Hidden on Mobile) */}
-      <motion.div 
-        className="landing-center-badge d-none d-md-flex"
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 0.6, duration: 0.8, ease: 'easeOut' }}
-      >
-        <div className="center-badge-blur" />
-        <div className="center-badge-content text-center">
-          <img src={logoImg} alt="Cleanz24 Logo" className="landing-center-logo img-fluid mb-2" />
-          <div className="center-badge-divider" />
-          <div className="center-badge-tagline">INDIA'S PREMIUM SERVICE NETWORK</div>
-          <div className="center-badge-trust">Trusted Across 21 States • 100+ Stores Pan India</div>
-        </div>
-      </motion.div>
 
       {/* Dynamic Midline neon separator */}
       <motion.div 
