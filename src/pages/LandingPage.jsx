@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import logoImg from '../assets/logo2.jpeg';
+import carSpaLogo from '../assets/logo3.jpeg'; // Replace with exact filename if different
 import '../styles/carSpa.css';
 import SEOMeta from '../components/SEOMeta';
 
@@ -246,25 +247,14 @@ function Landing() {
           </div>
 
           <div className="landing-content carspa-content-wrapper z-2">
-            {/* Premium Car Detailing SVG Icon */}
+            {/* Premium Car Spa Logo */}
             <motion.div 
               className="landing-icon-wrap mb-4" 
-              style={{ filter: 'drop-shadow(0 0 12px rgba(212, 175, 55, 0.45))' }}
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.6 }}
             >
-              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" />
-                <circle cx="7" cy="17" r="2" />
-                <path d="M9 17h6" />
-                <circle cx="17" cy="17" r="2" />
-                <path d="M13 10h3" />
-                <path d="M5 10h4" />
-                <path d="M12 4v2" />
-                <path d="M19 4l-1.5 1.5" />
-                <path d="M5 4l1.5 1.5" />
-              </svg>
+              <img src={carSpaLogo} alt="Cleanz24 Car Spa Logo" style={{ height: '70px', borderRadius: '8px', boxShadow: '0 4px 15px rgba(0,0,0,0.3)', objectFit: 'contain' }} />
             </motion.div>
             <motion.h2 
               className="display-4 fw-black text-uppercase tracking-wide font-oswald text-white mb-3"
