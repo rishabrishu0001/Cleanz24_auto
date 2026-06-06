@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import { storesData as detailedStores } from '../../data';
 import SEOMeta from '../../components/SEOMeta';
 
@@ -27,6 +27,7 @@ const storeLocationsGrouped = [
 const popularSearches = ["Noida", "Bengaluru", "Hyderabad", "Pune", "Gurugram", "Dehradun"];
 
 export default function Stores() {
+  const { isDarkMode } = useOutletContext() || {};
   const [searchQuery, setSearchQuery] = useState('');
   const searchInputRef = useRef(null);
   const resultsRef = useRef(null);
@@ -60,22 +61,100 @@ export default function Stores() {
         keywords="laundry stores, laundry near me, dry cleaning store locator, find laundry Noida, find laundry Delhi, Cleanz24 outlets"
       />
       {/* Page Header */}
-      <section className="bg-white py-5 text-center border-bottom">
-        <div className="container py-4">
-          <h1 className="display-5 fw-bold text-dark mb-3">Our Stores</h1>
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb justify-content-center mb-0">
-              <li className="breadcrumb-item">
-                <Link to="/" className="text-decoration-none text-primary fw-semibold">Home</Link>
-              </li>
-              <li className="breadcrumb-item active text-muted" aria-current="page">Stores</li>
-            </ol>
+      <section
+        style={{
+          position: 'relative',
+          background: isDarkMode
+            ? 'linear-gradient(135deg, #0d1f36 0%, #102A45 100%)'
+            : 'linear-gradient(135deg, #1e4e8c 0%, #2B6CB0 50%, #3C8B35 100%)',
+          color: '#fff',
+          padding: '80px 0 70px',
+          overflow: 'hidden',
+          textAlign: 'center',
+          borderBottom: isDarkMode ? '1px solid #1b3252' : '1px solid #E2E8F0',
+        }}
+      >
+        {/* Decorative bubbles */}
+        {[...Array(6)].map((_, i) => (
+          <div
+            key={i}
+            style={{
+              position: 'absolute',
+              borderRadius: '50%',
+              background: 'rgba(255,255,255,0.05)',
+              width: `${60 + i * 40}px`,
+              height: `${60 + i * 40}px`,
+              top: `${10 + i * 10}%`,
+              left: i % 2 === 0 ? `${5 + i * 8}%` : `${70 + i * 3}%`,
+              pointerEvents: 'none',
+              filter: 'blur(1px)',
+            }}
+          />
+        ))}
+
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+          {/* Breadcrumb */}
+          <nav aria-label="breadcrumb" style={{ marginBottom: '20px' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', fontSize: '13px', color: 'rgba(255,255,255,0.75)', alignItems: 'center' }}>
+              <Link to="/laundry" style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none' }}>Home</Link>
+              <span>›</span>
+              <span style={{ color: '#fff', fontWeight: 600 }}>Stores</span>
+            </div>
           </nav>
+
+          <span
+            style={{
+              display: 'inline-block',
+              background: 'rgba(255,255,255,0.15)',
+              border: '1px solid rgba(255,255,255,0.25)',
+              borderRadius: '30px',
+              fontSize: '12px',
+              fontWeight: 700,
+              padding: '6px 18px',
+              textTransform: 'uppercase',
+              letterSpacing: '2px',
+              marginBottom: '16px',
+              backdropFilter: 'blur(10px)',
+            }}
+          >
+            📍 Find Us
+          </span>
+          <h1
+            style={{
+              fontSize: 'clamp(32px, 5vw, 56px)',
+              fontWeight: 800,
+              lineHeight: 1.2,
+              marginBottom: '16px',
+              fontFamily: "'Poppins', sans-serif",
+              color: '#fff',
+            }}
+          >
+            Our <span style={{ color: '#9AE6B4' }}>Stores</span>
+          </h1>
+          <p
+            style={{
+              fontSize: '17px',
+              color: 'rgba(255,255,255,0.85)',
+              maxWidth: '560px',
+              margin: '0 auto',
+              lineHeight: 1.7,
+            }}
+          >
+            Locate your nearest Cleanz24 laundry and dry cleaning store across India.
+          </p>
         </div>
       </section>
 
       {/* Search Section */}
-      <section className="py-5 bg-white shadow-sm">
+      <section 
+        className="py-5 shadow-sm"
+        style={{
+          background: isDarkMode 
+            ? 'linear-gradient(180deg, #0d1f36 0%, #081426 100%)' 
+            : 'linear-gradient(180deg, #f0faf4 0%, #ffffff 100%)',
+          borderBottom: isDarkMode ? '1px solid #1b3252' : '1px solid #EDF2F7'
+        }}
+      >
         <div className="container">
           <div className="row justify-content-center text-center mb-4">
             <div className="col-lg-8">
@@ -256,7 +335,15 @@ export default function Stores() {
       </section>
 
       {/* Interactive Browse by State Section */}
-      <section className="py-5 bg-white border-top">
+      <section 
+        className="py-5 border-top"
+        style={{
+          background: isDarkMode 
+            ? 'linear-gradient(180deg, #081426 0%, #0d1f36 100%)' 
+            : 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)',
+          borderColor: isDarkMode ? '#1b3252' : '#edf2f7'
+        }}
+      >
         <div className="container">
           <div className="row justify-content-center text-center mb-5">
             <div className="col-lg-8">
