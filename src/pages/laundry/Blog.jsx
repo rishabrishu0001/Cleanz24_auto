@@ -1197,98 +1197,7 @@ function BlogSidebar({ isDarkMode, activeCategory, onCategoryChange, posts }) {
   );
 }
 
-/* ─── Hero Banner ────────────────────────────────────────────────────────── */
-function BlogHero({ isDarkMode }) {
-  return (
-    <section
-      style={{
-        position: 'relative',
-        background: isDarkMode
-          ? 'linear-gradient(135deg, #0d1f36 0%, #102A45 100%)'
-          : 'linear-gradient(135deg, #1e4e8c 0%, #2B6CB0 50%, #3C8B35 100%)',
-        color: '#fff',
-        padding: '80px 0 70px',
-        overflow: 'hidden',
-        textAlign: 'center',
-      }}
-    >
-      {/* Decorative circles */}
-      {[...Array(6)].map((_, i) => (
-        <div
-          key={i}
-          style={{
-            position: 'absolute',
-            borderRadius: '50%',
-            background: 'rgba(255,255,255,0.05)',
-            width: `${60 + i * 40}px`,
-            height: `${60 + i * 40}px`,
-            top: `${10 + i * 10}%`,
-            left: i % 2 === 0 ? `${5 + i * 8}%` : `${70 + i * 3}%`,
-            pointerEvents: 'none',
-          }}
-        />
-      ))}
 
-      <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-        {/* Breadcrumb */}
-        <nav aria-label="breadcrumb" style={{ marginBottom: '20px' }}>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', fontSize: '13px', color: 'rgba(255,255,255,0.75)', alignItems: 'center' }}>
-            <Link to="/laundry" style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none' }}>Home</Link>
-            <span>›</span>
-            <span style={{ color: '#fff', fontWeight: 600 }}>Blog</span>
-          </div>
-        </nav>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-        >
-          <span
-            style={{
-              display: 'inline-block',
-              background: 'rgba(255,255,255,0.15)',
-              border: '1px solid rgba(255,255,255,0.25)',
-              borderRadius: '30px',
-              fontSize: '12px',
-              fontWeight: 700,
-              padding: '6px 18px',
-              textTransform: 'uppercase',
-              letterSpacing: '2px',
-              marginBottom: '16px',
-              backdropFilter: 'blur(10px)',
-            }}
-          >
-            📝 Our Blog
-          </span>
-          <h1
-            style={{
-              fontSize: 'clamp(32px, 5vw, 56px)',
-              fontWeight: 800,
-              lineHeight: 1.2,
-              marginBottom: '16px',
-              fontFamily: "'Poppins', sans-serif",
-            }}
-          >
-            Laundry Tips, News &amp;{' '}
-            <span style={{ color: '#9AE6B4' }}>Insights</span>
-          </h1>
-          <p
-            style={{
-              fontSize: '17px',
-              color: 'rgba(255,255,255,0.85)',
-              maxWidth: '560px',
-              margin: '0 auto',
-              lineHeight: 1.7,
-            }}
-          >
-            Expert advice on laundry care, dry cleaning tips, franchise opportunities, and everything in between.
-          </p>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
 
 /* ─── Pagination ─────────────────────────────────────────────────────────── */
 function Pagination({ current, total, onChange, isDarkMode }) {
@@ -1825,9 +1734,6 @@ export default function Blog() {
 
   return (
     <div style={{ background: pageBg, minHeight: '100vh' }}>
-      {/* Hero */}
-      <BlogHero isDarkMode={isDarkMode} />
-
       {/* Main Content */}
       <div className="container" style={{ padding: '60px 16px' }}>
 
