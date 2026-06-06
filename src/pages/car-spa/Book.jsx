@@ -14,10 +14,6 @@ function Book({ isDarkMode, toggleTheme }) {
   const packageQuery = queryParams.get('package');
   
   const defaultServices = [
-    'Eco Foam Wash',
-    'Premium Wash & Vacuum',
-    'Ultra Polish & Wash',
-    'Ceramic Shield Wash',
     'CRYSTAL SHIELD',
     'VELVET TOUCH',
     'PEARL RADIANCE',
@@ -27,13 +23,22 @@ function Book({ isDarkMode, toggleTheme }) {
   // Find matching service case-insensitively
   const matchedService = defaultServices.find(
     s => s.toLowerCase() === packageQuery?.toLowerCase()
-  ) || 'Premium Wash & Vacuum';
+  ) || 'CRYSTAL SHIELD';
+
+  const [memberData] = useState(() => {
+    try {
+      const saved = localStorage.getItem('cleanz24_logged_in_member');
+      return saved ? JSON.parse(saved) : null;
+    } catch { return null; }
+  });
+
+  const [vehicleClass, setVehicleClass] = useState('sedan');
 
   // Form state
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
-    mobile: '',
+    name: memberData?.name || '',
+    mobile: memberData?.mobile || '',
     service: matchedService,
     date: '',
     time: '',
@@ -72,7 +77,7 @@ function Book({ isDarkMode, toggleTheme }) {
     validateField(id, value);
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     // Final validation before submit
@@ -91,7 +96,32 @@ function Book({ isDarkMode, toggleTheme }) {
     }
 
     setFormErrors({});
-    setFormSubmitted(true);
+    try {
+      const payload = {
+        name: formData.name,
+        mobile: formData.mobile,
+        service: `${formData.service} (${vehicleClass.toUpperCase()})`,
+        date: formData.date || 'N/A',
+        time: formData.time || 'N/A',
+        address: formData.address,
+        type: 'Car Wash Booking',
+        source: 'Car Spa',
+        price: selectedPriceInfo.current,
+        isMember: selectedPriceInfo.isMember
+      };
+
+      await fetch('http://localhost:5000/api/pickups', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {
+      console.error('Error submitting booking:', err);
+    } finally {
+      setFormSubmitted(true);
+    }
   };
 
   const toggleFaq = (index) => {
@@ -113,6 +143,43 @@ function Book({ isDarkMode, toggleTheme }) {
     store.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     store.address.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const washPrices = {
+    'CRYSTAL SHIELD': {
+      'hatchback': { regular: 750, member: 500 },
+      'sedan': { regular: 800, member: 550 },
+      'suv & luxury': { regular: 850, member: 600 }
+    },
+    'VELVET TOUCH': {
+      'hatchback': { regular: 1800, member: 1500 },
+      'sedan': { regular: 2200, member: 1800 },
+      'suv & luxury': { regular: 2500, member: 2000 }
+    },
+    'PEARL RADIANCE': {
+      'hatchback': { regular: 2400, member: 1800 },
+      'sedan': { regular: 2800, member: 2000 },
+      'suv & luxury': { regular: 3000, member: 2200 }
+    },
+    'PLATINUM REVIVAL': {
+      'hatchback': { regular: 3800, member: 3000 },
+      'sedan': { regular: 4300, member: 3200 },
+      'suv & luxury': { regular: 4800, member: 3400 }
+    }
+  };
+
+  const getPackagePrice = (serviceName) => {
+    const servicePrices = washPrices[serviceName] || washPrices['CRYSTAL SHIELD'];
+    const classPrices = servicePrices[vehicleClass] || servicePrices['sedan'];
+    const isMember = !!memberData;
+
+    return {
+      original: classPrices.regular,
+      current: isMember ? classPrices.member : classPrices.regular,
+      isMember: isMember
+    };
+  };
+
+  const selectedPriceInfo = getPackagePrice(formData.service);
 
   return (
     <div className="d-flex flex-column min-vh-100 bg-primary-custom bg-carbon" style={{ overflowX: 'hidden' }}>
@@ -261,7 +328,7 @@ function Book({ isDarkMode, toggleTheme }) {
             <motion.div className="col-lg-6" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
               <div className="card bg-secondary-custom shadow-lg rounded-0 overflow-hidden" style={{ border: '1px solid var(--card-border)', borderRadius: '12px' }}>
                 <div className="card-body p-4 p-md-5 position-relative">
-                  <div className="position-absolute top-0 end-0 p-3 opacity-25" style={{ fontSize: '4rem' }}>📅</div>
+                  <div className="position-absolute top-0 end-0 p-3 opacity-25" style={{ fontSize: '4rem', pointerEvents: 'none' }}>📅</div>
                   <h3 className="card-title fw-bold mb-2 text-heading position-relative z-1">Schedule Car Wash</h3>
                   <p className="card-text text-muted-custom small mb-4 position-relative z-1">Complimentary safe pickup and transit drop operations valid across all registered stores.</p>
                   
@@ -278,6 +345,7 @@ function Book({ isDarkMode, toggleTheme }) {
                       <div className="p-3 bg-primary-custom rounded border border-success border-opacity-20 text-start mt-4 mb-3">
                         <small className="text-muted-custom">
                           Selected Package: <strong>{formData.service}</strong><br />
+                          Price: <strong>₹{selectedPriceInfo.current.toLocaleString('en-IN')}</strong><br />
                           Contact Number: <strong>{formData.mobile}</strong><br />
                           Preferred Time: <strong>{formData.date} at {formData.time}</strong><br />
                           Address: <strong>{formData.address}</strong>
@@ -321,27 +389,66 @@ function Book({ isDarkMode, toggleTheme }) {
                         )}
                       </div>
 
-                      <div className="mb-3">
-                        <label htmlFor="service" className="form-label fw-bold small text-uppercase text-muted-custom">Service Package *</label>
+                       <div className="mb-3">
+                        <label htmlFor="vehicleClass" className="form-label fw-bold small text-uppercase text-muted-custom">Vehicle Category *</label>
                         <select 
                           className="form-control py-3 rounded-0" 
-                          id="service" 
-                          value={formData.service}
-                          onChange={handleInputChange}
+                          id="vehicleClass" 
+                          value={vehicleClass}
+                          onChange={(e) => setVehicleClass(e.target.value)}
                         >
-                          <optgroup label="Standard Services" style={{ backgroundColor: 'var(--secondary-bg)' }}>
-                            <option>Eco Foam Wash</option>
-                            <option>Premium Wash & Vacuum</option>
-                            <option>Ultra Polish & Wash</option>
-                            <option>Ceramic Shield Wash</option>
-                          </optgroup>
-                          <optgroup label="Detailing Suites / Packages" style={{ backgroundColor: 'var(--secondary-bg)' }}>
+                          <option value="hatchback">Hatchback</option>
+                          <option value="sedan">Sedan</option>
+                          <option value="suv & luxury">SUV & Luxury</option>
+                        </select>
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="service" className="form-label fw-bold small text-uppercase text-muted-custom">Service Package *</label>
+                        <div className="d-flex align-items-center gap-3">
+                          <select 
+                            className="form-control py-3 rounded-0 flex-grow-1" 
+                            id="service" 
+                            value={formData.service}
+                            onChange={handleInputChange}
+                          >
                             <option>CRYSTAL SHIELD</option>
                             <option>VELVET TOUCH</option>
                             <option>PEARL RADIANCE</option>
                             <option>PLATINUM REVIVAL</option>
-                          </optgroup>
-                        </select>
+                          </select>
+                          <div className="price-circle-badge d-flex flex-column align-items-center justify-content-center text-center rounded-circle border" 
+                               style={{ 
+                                 width: '85px', 
+                                 height: '85px', 
+                                 background: 'rgba(0, 201, 109, 0.1)', 
+                                 borderColor: 'var(--accent-color)', 
+                                 minWidth: '85px',
+                                 boxShadow: '0 0 15px rgba(0, 201, 109, 0.2)',
+                                 lineHeight: '1.2',
+                                 color: '#fff'
+                               }}>
+                            {selectedPriceInfo.isMember ? (
+                              <>
+                                <span className="text-muted text-decoration-line-through" style={{ fontSize: '0.7rem', opacity: 0.6 }}>
+                                  ₹{selectedPriceInfo.original.toLocaleString('en-IN')}
+                                </span>
+                                <span className="text-brand-primary fw-black" style={{ fontSize: '0.95rem', fontWeight: 900, color: '#00C96D' }}>
+                                  ₹{selectedPriceInfo.current.toLocaleString('en-IN')}
+                                </span>
+                                <span className="badge bg-success py-0 px-1 rounded-pill" style={{ fontSize: '0.55rem', marginTop: '2px' }}>
+                                  MEMBER
+                                </span>
+                              </>
+                            ) : (
+                              <>
+                                <span className="text-muted-custom small" style={{ fontSize: '0.65rem' }}>Price</span>
+                                <span className="text-brand-primary fw-black" style={{ fontSize: '1rem', fontWeight: 900, color: '#00C96D' }}>
+                                  ₹{selectedPriceInfo.current.toLocaleString('en-IN')}
+                                </span>
+                              </>
+                            )}
+                          </div>
+                        </div>
                       </div>
 
                       <div className="row g-3 mb-3">

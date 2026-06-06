@@ -8,13 +8,37 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
 
   const handleInputChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: '', mobile: '', email: '', message: '' });
-    }, 4000);
+    try {
+      const payload = {
+        name: formData.name,
+        mobile: formData.mobile,
+        email: formData.email,
+        service: 'Contact Inquiry / Pickup',
+        date: 'N/A',
+        time: 'N/A',
+        address: formData.message,
+        type: 'Laundry Pickup / Contact Request',
+        source: 'Laundry'
+      };
+
+      await fetch('http://localhost:5000/api/pickups', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {
+      console.error('Error submitting contact form:', err);
+    } finally {
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({ name: '', mobile: '', email: '', message: '' });
+      }, 4000);
+    }
   };
 
   const features = [

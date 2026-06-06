@@ -63,8 +63,15 @@ html {
   background-color: var(--bg-body);
 }
 
+body, p, li, span, input, textarea, select, label {
+  font-family: 'DM Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, button, .btn, nav a, .cta-label {
+  font-family: 'Rajdhani', sans-serif;
+}
+
 body {
-  font-family: 'Inter', 'Montserrat', sans-serif;
   font-weight: 400;
   background-color: var(--bg-body);
   color: var(--text-main);
@@ -76,7 +83,6 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display-5 {
-  font-family: 'Oswald', sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   color: var(--text-heading);
@@ -477,7 +483,6 @@ body.light-mode .card-icon-wrapper {
   background: linear-gradient(135deg, rgba(0, 201, 109, 0.2), rgba(0, 201, 109, 0.03));
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   position: absolute; top: -5px; right: 15px; z-index: 0; user-select: none;
-  font-family: 'Oswald', sans-serif;
 }
 
 /* ═══════════════════════════════════════════════════ */
@@ -530,7 +535,6 @@ body.light-mode .card-icon-wrapper {
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--text-main);
   padding: 12px 28px;
-  font-family: 'Oswald', sans-serif;
   text-transform: uppercase;
   font-size: 0.95rem;
   letter-spacing: 1px;
@@ -578,7 +582,6 @@ body.light-mode .pricing-tab-btn:hover:not(.active) {
   font-size: 0.65rem; font-weight: 900;
   padding: 4px 12px;
   letter-spacing: 1px;
-  font-family: 'Oswald', sans-serif;
   border-radius: 20px;
 }
 .package-card:hover {
@@ -587,7 +590,6 @@ body.light-mode .pricing-tab-btn:hover:not(.active) {
   box-shadow: 0 16px 40px rgba(0, 201, 109, 0.2);
 }
 .package-price {
-  font-family: 'Oswald', sans-serif;
   color: var(--primary-color);
   font-size: 2.3rem;
   font-weight: 700;
@@ -625,7 +627,6 @@ body.light-mode .package-service-list li {
   border-radius: 20px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  font-family: 'Oswald', sans-serif;
 }
 
 /* Card Sweep Shine Effect */
@@ -657,7 +658,6 @@ body.light-mode .package-service-list li {
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 1.5px;
-  font-family: 'Inter', sans-serif;
 }
 .btn-glow.rounded-pill {
   border-radius: 50rem !important;
@@ -676,7 +676,6 @@ body.light-mode .package-service-list li {
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 1.5px;
-  font-family: 'Inter', sans-serif;
 }
 .btn-outline-primary-custom:hover {
   background: var(--primary-color);
@@ -797,7 +796,6 @@ body.light-mode .package-service-list li {
   padding: 2rem 1rem;
 }
 .stat-number {
-  font-family: 'Oswald', sans-serif;
   font-size: 3.2rem;
   font-weight: 900;
   color: var(--primary-color);
@@ -912,7 +910,6 @@ body.light-mode .testimonial-dot { background-color: #d0d0d0; }
   display: flex; align-items: center; justify-content: center;
   font-weight: 800;
   font-size: 1.1rem;
-  font-family: 'Oswald', sans-serif;
   flex-shrink: 0;
 }
 
@@ -966,7 +963,6 @@ body.light-mode .testimonial-dot { background-color: #d0d0d0; }
   padding: 1.8rem;
 }
 .store-card h4 {
-  font-family: 'Oswald', sans-serif;
   font-weight: 700; font-size: 1.2rem;
   color: var(--text-heading);
   margin-bottom: 10px;
@@ -1089,7 +1085,6 @@ body.light-mode .custom-footer { background: var(--bg-section-alt) !important; }
   text-align: center;
 }
 .roi-result-value {
-  font-family: 'Oswald', sans-serif;
   font-size: 1.8rem;
   font-weight: 900;
   color: var(--primary-color);
@@ -1149,7 +1144,6 @@ body.light-mode .custom-footer { background: var(--bg-section-alt) !important; }
   box-shadow: 0 0 20px rgba(0, 201, 109, 0.2);
 }
 .timeline-step-title {
-  font-family: 'Oswald', sans-serif;
   font-size: 0.85rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -1200,7 +1194,6 @@ body.light-mode .custom-footer { background: var(--bg-section-alt) !important; }
   color: #fff;
   display: flex; align-items: center; justify-content: center;
   font-weight: 800;
-  font-family: 'Oswald', sans-serif;
   font-size: 1.1rem;
   flex-shrink: 0;
 }
@@ -1256,7 +1249,6 @@ body.light-mode .property-req-details {
   font-size: 0.95rem;
   color: var(--primary-color) !important;
   text-transform: uppercase;
-  font-family: 'Oswald', sans-serif;
   font-weight: 800;
   margin-bottom: 4px;
 }
@@ -1308,7 +1300,6 @@ body.light-mode .property-req-details p {
   background: var(--bg-body);
 }
 .not-found-code {
-  font-family: 'Oswald', sans-serif;
   font-size: 8rem;
   font-weight: 900;
   background: var(--gradient-primary);
@@ -1852,7 +1843,6 @@ body.light-mode .franchise-page-wrapper section:not(.hero-section) .text-white:n
   font-size: 0.96rem;
   color: var(--text-heading);
   padding: 11px 0;
-  font-family: 'Inter', sans-serif;
 }
 .car-search-field::placeholder { color: var(--text-muted); }
 .car-search-clear {
@@ -2021,7 +2011,6 @@ body.light-mode .store-btn {
   color: var(--text-heading);
   margin: 0 0 5px;
   line-height: 1.3;
-  font-family: 'Oswald', sans-serif;
 }
 .car-store-city-tag {
   display: inline-block;

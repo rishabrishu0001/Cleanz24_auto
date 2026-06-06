@@ -123,6 +123,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
   const [carType, setCarType] = useState('Sedan');
   const [paintCondition, setPaintCondition] = useState(5);
   const [drivingHabit, setDrivingHabit] = useState('Daily Commute');
+  const [vehicleClass, setVehicleClass] = useState('sedan');
 
   // Booking Form State
   const [bookingSubmitted, setBookingSubmitted] = useState(false);
@@ -133,7 +134,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
     date: '',
     time: '',
     address: '',
-    service: 'Premium Wash & Vacuum'
+    service: 'CRYSTAL SHIELD'
   });
 
   const [memberData, setMemberData] = useState(() => {
@@ -176,7 +177,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
         name: memberData.name || '',
         mobile: memberData.mobile || '',
         address: prev.address || '',
-        service: prev.service || 'Eco Foam Wash'
+        service: prev.service || 'CRYSTAL SHIELD'
       }));
     } else {
       setBookingData(prev => ({
@@ -184,7 +185,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
         name: '',
         mobile: '',
         address: '',
-        service: 'Premium Wash & Vacuum'
+        service: 'CRYSTAL SHIELD'
       }));
     }
   }, [memberData]);
@@ -206,7 +207,9 @@ function CarSpa({ isDarkMode, toggleTheme }) {
     setBookingData(prev => ({ ...prev, [id]: value }));
   };
 
-  const handleBookingSubmit = (e) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleBookingSubmit = async (e) => {
     e.preventDefault();
     // Validate mobile number (10 digits)
     const phoneRegex = /^[6-9]\d{9}$/;
@@ -215,7 +218,35 @@ function CarSpa({ isDarkMode, toggleTheme }) {
       return;
     }
     setMobileError('');
-    setBookingSubmitted(true);
+    setIsSubmitting(true);
+
+    try {
+      const payload = {
+        name: bookingData.name,
+        mobile: bookingData.mobile,
+        service: `${bookingData.service} (${vehicleClass.toUpperCase()})`,
+        date: bookingData.date || 'N/A',
+        time: bookingData.time || 'N/A',
+        address: bookingData.address,
+        type: memberData ? 'Free Member Pickup' : 'Car Wash Booking',
+        source: 'Car Spa',
+        price: selectedPriceInfo.current,
+        isMember: selectedPriceInfo.isMember
+      };
+
+      await fetch('http://localhost:5000/api/pickups', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+      });
+    } catch (error) {
+      console.error('Error saving booking:', error);
+    } finally {
+      setIsSubmitting(false);
+      setBookingSubmitted(true);
+    }
   };
 
   const fadeUpVariant = {
@@ -296,6 +327,43 @@ function CarSpa({ isDarkMode, toggleTheme }) {
     recommendationDesc = "Ultimate detail clean. Clay bar decontamination, DA machine polishing, SiO2 ceramic coat lock.";
     progressScore = 98;
   }
+
+  const washPrices = {
+    'CRYSTAL SHIELD': {
+      'hatchback': { regular: 750, member: 500 },
+      'sedan': { regular: 800, member: 550 },
+      'suv & luxury': { regular: 850, member: 600 }
+    },
+    'VELVET TOUCH': {
+      'hatchback': { regular: 1800, member: 1500 },
+      'sedan': { regular: 2200, member: 1800 },
+      'suv & luxury': { regular: 2500, member: 2000 }
+    },
+    'PEARL RADIANCE': {
+      'hatchback': { regular: 2400, member: 1800 },
+      'sedan': { regular: 2800, member: 2000 },
+      'suv & luxury': { regular: 3000, member: 2200 }
+    },
+    'PLATINUM REVIVAL': {
+      'hatchback': { regular: 3800, member: 3000 },
+      'sedan': { regular: 4300, member: 3200 },
+      'suv & luxury': { regular: 4800, member: 3400 }
+    }
+  };
+
+  const getPackagePrice = (serviceName) => {
+    const servicePrices = washPrices[serviceName] || washPrices['CRYSTAL SHIELD'];
+    const classPrices = servicePrices[vehicleClass] || servicePrices['sedan'];
+    const isMember = !!memberData;
+    
+    return {
+      original: classPrices.regular,
+      current: isMember ? classPrices.member : classPrices.regular,
+      isMember: isMember
+    };
+  };
+
+  const selectedPriceInfo = getPackagePrice(bookingData.service);
 
   return (
     <div className="d-flex flex-column min-vh-100 bg-primary-custom bg-carbon" id="home" style={{ overflowX: 'hidden' }}>
@@ -721,15 +789,17 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
                 className="position-relative overflow-hidden shadow-lg"
-                style={{ width: '100%', aspectRatio: '4/3' }}
+                style={{ width: '100%', aspectRatio: '4/3', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
-                <img
-                  src={cleanz24Technicians}
-                  alt="Cleanz24 certified wash crew technicians"
-                  className="w-100 h-100"
-                  style={{ objectFit: 'cover' }}
-                />
-                <div className="position-absolute bottom-0 start-0 w-100 bg-success text-white p-3 fw-bold small text-uppercase tracking-wider text-center" style={{ letterSpacing: '1px' }}>
+                <lottie-player
+                  src="/carwash_custom.json"
+                  background="transparent"
+                  speed="1"
+                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                  loop
+                  autoplay
+                ></lottie-player>
+                <div className="position-absolute bottom-0 start-0 w-100 bg-success text-white p-3 fw-bold small text-uppercase tracking-wider text-center" style={{ letterSpacing: '1px', zIndex: 2 }}>
                   Our Insured & Certified Wash Crew
                 </div>
               </motion.div>
@@ -1089,7 +1159,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
             <motion.div className="col-lg-6" initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
               <div className="card bg-secondary-custom shadow-lg rounded-0 overflow-hidden" style={{ border: '1px solid var(--card-border)', borderRadius: '12px' }}>
                 <div className="card-body p-4 p-md-5 position-relative">
-                  <div className="position-absolute top-0 end-0 p-3 opacity-25" style={{ fontSize: '4rem' }}>📅</div>
+                  <div className="position-absolute top-0 end-0 p-3 opacity-25" style={{ fontSize: '4rem', pointerEvents: 'none' }}>📅</div>
                   <h3 className="card-title fw-bold mb-2 text-heading position-relative z-1">{memberData ? 'Schedule Free Member Pickup' : 'Schedule Car Wash'}</h3>
                   <p className="card-text text-muted-custom small mb-4 position-relative z-1">{memberData ? 'Enjoy your club benefit! Complimentary doorstep pickup & transit wash scheduling are included in your active membership.' : 'Complimentary safe pickup and transit drop operations valid across all registered stores.'}</p>
                   
@@ -1105,6 +1175,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                       <div className="p-3 bg-primary-custom rounded border border-success border-opacity-20 text-start mt-4 mb-3">
                         <small className="text-muted-custom">
                           Selected Treatment: <strong>{bookingData.service}</strong><br />
+                          Price: <strong>₹{selectedPriceInfo.current.toLocaleString('en-IN')}</strong><br />
                           Contact Number: <strong>{bookingData.mobile}</strong><br />
                           {memberData && <>Registered Vehicle: <strong>{memberData.vehicleNumber} ({memberData.vehicleModel})</strong><br /></>}
                           {bookingData.date && <>Preferred Date: <strong>{bookingData.date}</strong><br /></>}
@@ -1157,18 +1228,65 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                         {mobileError && <small className="text-danger d-block mt-1">{mobileError}</small>}
                       </div>
                       <div className="mb-3">
-                        <label htmlFor="service" className="form-label fw-bold small text-uppercase text-muted-custom">Service Package *</label>
+                        <label htmlFor="vehicleClass" className="form-label fw-bold small text-uppercase text-muted-custom">Vehicle Category *</label>
                         <select 
                           className="form-control py-3 rounded-0" 
-                          id="service" 
-                          value={bookingData.service}
-                          onChange={handleBookingInputChange}
+                          id="vehicleClass" 
+                          value={vehicleClass}
+                          onChange={(e) => setVehicleClass(e.target.value)}
                         >
-                          <option>Eco Foam Wash</option>
-                          <option>Premium Wash & Vacuum</option>
-                          <option>Ultra Polish & Wash</option>
-                          <option>Ceramic Shield Wash</option>
+                          <option value="hatchback">Hatchback</option>
+                          <option value="sedan">Sedan</option>
+                          <option value="suv & luxury">SUV & Luxury</option>
                         </select>
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="service" className="form-label fw-bold small text-uppercase text-muted-custom">Service Package *</label>
+                        <div className="d-flex align-items-center gap-3">
+                          <select 
+                            className="form-control py-3 rounded-0 flex-grow-1" 
+                            id="service" 
+                            value={bookingData.service}
+                            onChange={handleBookingInputChange}
+                          >
+                            <option>CRYSTAL SHIELD</option>
+                            <option>VELVET TOUCH</option>
+                            <option>PEARL RADIANCE</option>
+                            <option>PLATINUM REVIVAL</option>
+                          </select>
+                          <div className="price-circle-badge d-flex flex-column align-items-center justify-content-center text-center rounded-circle border" 
+                               style={{ 
+                                 width: '85px', 
+                                 height: '85px', 
+                                 background: 'rgba(0, 201, 109, 0.1)', 
+                                 borderColor: 'var(--accent-color)', 
+                                 minWidth: '85px',
+                                 boxShadow: '0 0 15px rgba(0, 201, 109, 0.2)',
+                                 lineHeight: '1.2',
+                                 color: '#fff'
+                               }}>
+                            {selectedPriceInfo.isMember ? (
+                              <>
+                                <span className="text-muted text-decoration-line-through" style={{ fontSize: '0.7rem', opacity: 0.6 }}>
+                                  ₹{selectedPriceInfo.original.toLocaleString('en-IN')}
+                                </span>
+                                <span className="text-brand-primary fw-black" style={{ fontSize: '0.95rem', fontWeight: 900, color: '#00C96D' }}>
+                                  ₹{selectedPriceInfo.current.toLocaleString('en-IN')}
+                                </span>
+                                <span className="badge bg-success py-0 px-1 rounded-pill" style={{ fontSize: '0.55rem', marginTop: '2px' }}>
+                                  MEMBER
+                                </span>
+                              </>
+                            ) : (
+                              <>
+                                <span className="text-muted-custom small" style={{ fontSize: '0.65rem' }}>Price</span>
+                                <span className="text-brand-primary fw-black" style={{ fontSize: '1rem', fontWeight: 900, color: '#00C96D' }}>
+                                  ₹{selectedPriceInfo.current.toLocaleString('en-IN')}
+                                </span>
+                              </>
+                            )}
+                          </div>
+                        </div>
                       </div>
                       <div className="row g-3 mb-3">
                         <div className="col-6">
@@ -1206,7 +1324,9 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                         ></textarea>
                       </div>
                       <div className="d-grid">
-                        <button type="submit" className="btn btn-primary btn-lg rounded-0 fw-bold btn-glow py-3">{memberData ? 'Confirm Free Member Pickup' : 'Submit Wash Booking'}</button>
+                        <button type="submit" className="btn btn-primary btn-lg rounded-0 fw-bold btn-glow py-3" disabled={isSubmitting}>
+                          {isSubmitting ? 'Saving to System...' : (memberData ? 'Confirm Free Member Pickup' : 'Submit Wash Booking')}
+                        </button>
                       </div>
                       <div className="d-flex justify-content-between mt-3 text-muted-custom text-center" style={{ fontSize: '0.72rem' }}>
                         <span>🔒 Secure Submission</span>
