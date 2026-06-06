@@ -1293,7 +1293,32 @@ function BlogHero({ isDarkMode }) {
 /* ─── Pagination ─────────────────────────────────────────────────────────── */
 function Pagination({ current, total, onChange, isDarkMode }) {
   if (total <= 1) return null;
-  const pages = Array.from({ length: total }, (_, i) => i + 1);
+
+  // Build the list of pages to render
+  const renderPages = [];
+  const maxInitial = Math.min(10, total);
+  
+  // Always show pages 1 to 10 (or up to total)
+  for (let i = 1; i <= maxInitial; i++) {
+    renderPages.push(i);
+  }
+
+  // If total is greater than 10
+  if (total > 10) {
+    if (current > 10) {
+      if (current < total) {
+        renderPages.push({ type: 'ellipsis', key: 'el-1' });
+        renderPages.push(current);
+        renderPages.push({ type: 'ellipsis', key: 'el-2' });
+      } else {
+        renderPages.push({ type: 'ellipsis', key: 'el-1' });
+      }
+    } else {
+      renderPages.push({ type: 'ellipsis', key: 'el-1' });
+    }
+    // Always show the last page
+    renderPages.push(total);
+  }
 
   return (
     <nav
@@ -1336,13 +1361,30 @@ function Pagination({ current, total, onChange, isDarkMode }) {
         </button>
       )}
 
-      {pages.map((p) => {
-        const isActive = p === current;
+      {renderPages.map((page, idx) => {
+        if (typeof page === 'object' && page.type === 'ellipsis') {
+          return (
+            <span
+              key={page.key || idx}
+              style={{
+                color: isDarkMode ? '#718096' : '#A0AEC0',
+                fontSize: '15px',
+                fontWeight: '700',
+                padding: '0 4px',
+                userSelect: 'none',
+              }}
+            >
+              ...
+            </span>
+          );
+        }
+
+        const isActive = page === current;
         return (
           <button
-            key={p}
-            onClick={() => onChange(p)}
-            aria-label={`Page ${p}`}
+            key={page}
+            onClick={() => onChange(page)}
+            aria-label={`Page ${page}`}
             aria-current={isActive ? 'page' : undefined}
             style={{
               minWidth: '36px',
@@ -1375,7 +1417,7 @@ function Pagination({ current, total, onChange, isDarkMode }) {
               }
             }}
           >
-            {p}
+            {page}
           </button>
         );
       })}
