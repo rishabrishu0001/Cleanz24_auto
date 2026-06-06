@@ -27,6 +27,8 @@ import LaundryFranchise from './pages/laundry/LaundryFrenchise';
 import Stores from './pages/laundry/Stores';
 import Contact from './pages/laundry/Contact';
 import LaundryBlog from './pages/laundry/Blog';
+import Locations from './pages/laundry/Locations';
+import LocationDetail from './pages/laundry/LocationDetail';
 
 /**
  * App — Central Router Configuration
@@ -70,17 +72,20 @@ function App() {
         <AdminRoute><AdminDashboard /></AdminRoute>
       } />
 
+      {/* ── Locations Central Directory ── */}
+      <Route element={<LaundryLayout />}>
+        <Route path="/locations" element={<Locations />} />
+      </Route>
+
       {/* ── Laundry Section ── */}
       <Route path="/laundry" element={<LaundryLayout />}>
         <Route index element={<LaundryHome />} />
-
-
-
         <Route path="franchise" element={<LaundryFranchise />} />
         <Route path="stores" element={<Stores />} />
         <Route path="blog" element={<LaundryBlog />} />
         <Route path="blog/:slug" element={<LaundryBlog />} />
         <Route path="contact-us" element={<Contact />} />
+        <Route path=":citySlug" element={<LocationDetail />} />
       </Route>
     </Routes>
   );

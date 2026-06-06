@@ -158,9 +158,13 @@ export default function Stores() {
                         <span className="fs-4">📍</span>
                         <div>
                           <h4 className="h5 fw-bold text-dark mb-1">{store.name}</h4>
-                          <span className="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-1 font-semibold" style={{ fontSize: '0.72rem' }}>
+                          <Link 
+                            to={`/laundry/${store.city.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+                            className="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-1 font-semibold text-decoration-none" 
+                            style={{ fontSize: '0.72rem' }}
+                          >
                             {store.city}, {store.state}
-                          </span>
+                          </Link>
                         </div>
                       </div>
                       
