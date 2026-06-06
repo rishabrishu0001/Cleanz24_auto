@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 import { storesData as detailedStores } from '../../data';
 import SEOMeta from '../../components/SEOMeta';
+import storesBg from '../../assets/stores_bg.jpg';
 
 const storeLocationsGrouped = [
   { state: 'Bihar', cities: ['Purnia'] },
@@ -60,107 +61,68 @@ export default function Stores() {
         description="Find your nearest Cleanz24 laundry and dry cleaning store. Locate addresses, phone numbers, and WhatsApp links for all our 100+ stores across India."
         keywords="laundry stores, laundry near me, dry cleaning store locator, find laundry Noida, find laundry Delhi, Cleanz24 outlets"
       />
-      {/* Page Header */}
-      <section
-        style={{
-          position: 'relative',
-          background: isDarkMode
-            ? 'linear-gradient(135deg, #0d1f36 0%, #102A45 100%)'
-            : 'linear-gradient(135deg, #1e4e8c 0%, #2B6CB0 50%, #3C8B35 100%)',
-          color: '#fff',
-          padding: '80px 0 70px',
-          overflow: 'hidden',
-          textAlign: 'center',
-          borderBottom: isDarkMode ? '1px solid #1b3252' : '1px solid #E2E8F0',
-        }}
-      >
-        {/* Decorative bubbles */}
-        {[...Array(6)].map((_, i) => (
-          <div
-            key={i}
-            style={{
-              position: 'absolute',
-              borderRadius: '50%',
-              background: 'rgba(255,255,255,0.05)',
-              width: `${60 + i * 40}px`,
-              height: `${60 + i * 40}px`,
-              top: `${10 + i * 10}%`,
-              left: i % 2 === 0 ? `${5 + i * 8}%` : `${70 + i * 3}%`,
-              pointerEvents: 'none',
-              filter: 'blur(1px)',
-            }}
-          />
-        ))}
-
-        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-          {/* Breadcrumb */}
-          <nav aria-label="breadcrumb" style={{ marginBottom: '20px' }}>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', fontSize: '13px', color: 'rgba(255,255,255,0.75)', alignItems: 'center' }}>
-              <Link to="/laundry" style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none' }}>Home</Link>
-              <span>›</span>
-              <span style={{ color: '#fff', fontWeight: 600 }}>Stores</span>
-            </div>
-          </nav>
-
-          <span
-            style={{
-              display: 'inline-block',
-              background: 'rgba(255,255,255,0.15)',
-              border: '1px solid rgba(255,255,255,0.25)',
-              borderRadius: '30px',
-              fontSize: '12px',
-              fontWeight: 700,
-              padding: '6px 18px',
-              textTransform: 'uppercase',
-              letterSpacing: '2px',
-              marginBottom: '16px',
-              backdropFilter: 'blur(10px)',
-            }}
-          >
-            📍 Find Us
-          </span>
-          <h1
-            style={{
-              fontSize: 'clamp(32px, 5vw, 56px)',
-              fontWeight: 800,
-              lineHeight: 1.2,
-              marginBottom: '16px',
-              fontFamily: "'Poppins', sans-serif",
-              color: '#fff',
-            }}
-          >
-            Our <span style={{ color: '#9AE6B4' }}>Stores</span>
-          </h1>
-          <p
-            style={{
-              fontSize: '17px',
-              color: 'rgba(255,255,255,0.85)',
-              maxWidth: '560px',
-              margin: '0 auto',
-              lineHeight: 1.7,
-            }}
-          >
-            Locate your nearest Cleanz24 laundry and dry cleaning store across India.
-          </p>
-        </div>
-      </section>
-
-      {/* Search Section */}
+      {/* Search Section / Store Locator Hero */}
       <section 
-        className="py-5 shadow-sm"
+        className="d-flex align-items-center position-relative"
         style={{
-          background: isDarkMode 
-            ? 'linear-gradient(180deg, #0d1f36 0%, #081426 100%)' 
-            : 'linear-gradient(180deg, #f0faf4 0%, #ffffff 100%)',
+          minHeight: '100vh',
+          backgroundImage: isDarkMode 
+            ? `linear-gradient(rgba(11, 26, 48, 0.88), rgba(11, 26, 48, 0.88)), url(${storesBg})` 
+            : `linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), url(${storesBg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          padding: '120px 0 80px 0',
           borderBottom: isDarkMode ? '1px solid #1b3252' : '1px solid #EDF2F7'
         }}
       >
-        <div className="container">
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+          {/* Breadcrumb */}
+          <nav aria-label="breadcrumb" style={{ marginBottom: '30px', textAlign: 'center' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', fontSize: '13px', color: isDarkMode ? 'rgba(255,255,255,0.7)' : '#4A5568', alignItems: 'center' }}>
+              <Link to="/laundry" style={{ color: isDarkMode ? '#90CDF4' : '#2B6CB0', textDecoration: 'none', fontWeight: 600 }}>Home</Link>
+              <span>›</span>
+              <span style={{ color: isDarkMode ? '#fff' : '#1A202C', fontWeight: 600 }}>Stores</span>
+            </div>
+          </nav>
+
           <div className="row justify-content-center text-center mb-4">
             <div className="col-lg-8">
-              <span className="text-uppercase text-primary fw-bold small tracking-wider">Store Locator</span>
-              <h2 className="fw-bold text-dark mt-2 mb-3">Find a Cleanz24 Store Near You</h2>
-              <p className="text-muted">
+              <span 
+                style={{
+                  display: 'inline-block',
+                  background: isDarkMode ? 'rgba(59, 125, 216, 0.15)' : 'rgba(43, 108, 176, 0.1)',
+                  color: isDarkMode ? '#90CDF4' : '#2B6CB0',
+                  borderRadius: '30px',
+                  fontSize: '12px',
+                  fontWeight: 700,
+                  padding: '6px 18px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '2px',
+                  marginBottom: '16px'
+                }}
+              >
+                📍 Store Locator
+              </span>
+              <h2 
+                className="fw-bold mt-2 mb-3"
+                style={{
+                  fontSize: 'clamp(32px, 5vw, 52px)',
+                  color: isDarkMode ? '#fff' : '#1A202C',
+                  fontFamily: "'Poppins', sans-serif",
+                  lineHeight: 1.25
+                }}
+              >
+                Find a Cleanz24 Store Near You
+              </h2>
+              <p 
+                style={{ 
+                  color: isDarkMode ? '#CBD5E0' : '#4A5568',
+                  maxWidth: '650px',
+                  margin: '0 auto',
+                  fontSize: '1.1rem',
+                  lineHeight: 1.6
+                }}
+              >
                 Search by City, State, or Area to discover nearby stores, contact numbers, and get instant directions.
               </p>
             </div>
@@ -193,7 +155,7 @@ export default function Stores() {
 
               {/* Popular Searches Quick Filters */}
               <div className="mt-4 d-flex flex-wrap gap-2 align-items-center justify-content-center">
-                <span className="small text-muted fw-semibold">Popular Searches:</span>
+                <span className="small fw-semibold" style={{ color: isDarkMode ? '#A0AEC0' : '#718096' }}>Popular Searches:</span>
                 {popularSearches.map((city, idx) => (
                   <button
                     key={idx}
@@ -209,6 +171,7 @@ export default function Stores() {
           </div>
         </div>
       </section>
+
 
       {/* Dynamic Results Grid */}
       <section ref={resultsRef} className="py-5">
