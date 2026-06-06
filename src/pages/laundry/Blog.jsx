@@ -1605,21 +1605,35 @@ export default function Blog() {
         <section
           style={{
             position: 'relative',
-            height: '40vh',
-            backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, ${isDarkMode ? '#081426' : '#F7FAFC'} 100%), url(${post.image})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center center',
+            padding: '70px 0 50px 0',
+            background: 'linear-gradient(135deg, #1A365D 0%, #2A4365 100%)',
+            color: '#fff',
             display: 'flex',
-            alignItems: 'flex-end',
-            paddingBottom: '30px'
+            alignItems: 'center',
           }}
         >
           <div className="container px-3">
-            <h1 style={{ fontSize: 'clamp(24px, 4vw, 42px)', fontWeight: 800, color: isDarkMode ? '#fff' : '#1A202C', textShadow: '0 2px 10px rgba(0,0,0,0.3)', maxWidth: '900px' }}>
+            <h1 style={{ 
+              fontSize: 'clamp(24px, 4vw, 42px)', 
+              fontWeight: 800, 
+              color: '#fff', 
+              fontFamily: "'Poppins', sans-serif",
+              maxWidth: '950px',
+              lineHeight: 1.35,
+              margin: 0
+            }}>
               {post.title}
             </h1>
-            <div style={{ display: 'flex', gap: '16px', color: isDarkMode ? '#CBD5E0' : '#4A5568', fontSize: '14px', marginTop: '12px' }}>
-              <span>By <strong style={{ color: '#2B6CB0' }}>{post.author}</strong></span>
+            <div style={{ 
+              display: 'flex', 
+              gap: '16px', 
+              color: 'rgba(255, 255, 255, 0.8)', 
+              fontSize: '14px', 
+              marginTop: '16px',
+              flexWrap: 'wrap',
+              alignItems: 'center'
+            }}>
+              <span>By <strong style={{ color: '#90CDF4' }}>{post.author}</strong></span>
               <span>•</span>
               <time dateTime={post.dateTime}>{post.date}</time>
               <span>•</span>
