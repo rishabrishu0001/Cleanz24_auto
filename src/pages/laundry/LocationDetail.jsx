@@ -46,12 +46,15 @@ const CITY_NEIGHBORHOODS = {
 export default function LocationDetail() {
   const { citySlug } = useParams();
   
+  // Clean slug of any leading colons
+  const cleanSlug = citySlug ? citySlug.replace(/^:/, '').trim() : '';
+  
   // Find stores matching city slug
   const matchedStores = storesData.filter((store) => {
     const sCity = slugify(store.city);
-    const sTagCity = store.tags && store.tags.some(t => slugify(t) === citySlug);
+    const sTagCity = store.tags && store.tags.some(t => slugify(t) === cleanSlug);
     const sName = slugify(store.name);
-    return sCity === citySlug || sTagCity || sName.includes(citySlug);
+    return sCity === cleanSlug || sTagCity || sName.includes(cleanSlug);
   });
 
   // If no stores match, show a beautiful 404 store locator fallback page
@@ -68,7 +71,7 @@ export default function LocationDetail() {
             Store Location Not Found
           </h1>
           <p style={{ color: '#718096', fontSize: '15px', lineHeight: '1.6', marginBottom: '30px' }}>
-            We couldn't find a Cleanz24 laundry or dry cleaning store matching <strong>"{citySlug}"</strong>. We currently operate 61 premium outlets across India.
+            We couldn't find a Cleanz24 laundry or dry cleaning store matching <strong>"{cleanSlug}"</strong>. We currently operate 61 premium outlets across India.
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <Link
@@ -121,8 +124,8 @@ export default function LocationDetail() {
   const reviewsCount = primaryStore.reviews;
 
   // Retrieve landmarks and neighborhoods
-  const landmarks = CITY_LANDMARKS[citySlug] || [`the local ${city} City Center`, `the Main Market in ${city}`, `popular transit hubs in ${city}`, `major residential complexes in ${city}`];
-  const neighborhoods = CITY_NEIGHBORHOODS[citySlug] || [`${city} Sector 1`, `${city} Sector 2`, `${city} Extension`, `Downtown ${city}`, `Green View Society`];
+  const landmarks = CITY_LANDMARKS[cleanSlug] || [`the local ${city} City Center`, `the Main Market in ${city}`, `popular transit hubs in ${city}`, `major residential complexes in ${city}`];
+  const neighborhoods = CITY_NEIGHBORHOODS[cleanSlug] || [`${city} Sector 1`, `${city} Sector 2`, `${city} Extension`, `Downtown ${city}`, `Green View Society`];
 
   // Areas We Serve String
   const areasServedStr = neighborhoods.join(', ');
@@ -177,8 +180,8 @@ export default function LocationDetail() {
     "@type": "LaundryBusiness",
     "name": primaryStore.name || `Cleanz24 ${city}`,
     "image": "https://cleanz24.com/logo.png",
-    "@id": `https://cleanz24.com/laundry/${citySlug}`,
-    "url": `https://cleanz24.com/laundry/${citySlug}`,
+    "@id": `https://cleanz24.com/laundry/${cleanSlug}`,
+    "url": `https://cleanz24.com/laundry/${cleanSlug}`,
     "telephone": `+91${phone.replace(/\s+/g, '')}`,
     "priceRange": "₹₹",
     "address": {
@@ -230,7 +233,7 @@ export default function LocationDetail() {
       <SEOMeta
         title={`Best Laundry & Dry Cleaning Service in ${city} | Cleanz24`}
         description={`Find the best laundry and dry cleaning services in ${city}. Eco-friendly care, sneaker cleaning, sofa cleaning with free home pickup & delivery. Book today!`}
-        canonical={`https://cleanz24.com/laundry/${citySlug}`}
+        canonical={`https://cleanz24.com/laundry/${cleanSlug}`}
         schema={schemas}
       />
 
