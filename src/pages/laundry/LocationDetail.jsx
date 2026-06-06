@@ -47,28 +47,71 @@ export default function LocationDetail() {
   const { citySlug } = useParams();
   
   // Find stores matching city slug
-  let matchedStores = storesData.filter((store) => {
+  const matchedStores = storesData.filter((store) => {
     const sCity = slugify(store.city);
     const sTagCity = store.tags && store.tags.some(t => slugify(t) === citySlug);
     const sName = slugify(store.name);
     return sCity === citySlug || sTagCity || sName.includes(citySlug);
   });
 
-  // Fallback to Noida stores if no direct match is found to guarantee pages don't crash
+  // If no stores match, show a beautiful 404 store locator fallback page
   if (matchedStores.length === 0) {
-    matchedStores = storesData.filter(store => slugify(store.city) === 'noida');
+    return (
+      <div style={{ background: '#F7FAFC', minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '60px 20px' }}>
+        <SEOMeta
+          title="Store Location Not Found"
+          description="The requested Cleanz24 store location was not found. Browse our directory of 61 premium dry cleaning and laundry locations across India."
+        />
+        <div style={{ maxWidth: '500px', width: '100%', background: '#fff', padding: '40px', borderRadius: '16px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', border: '1px solid #EDF2F7', textAlign: 'center' }}>
+          <span style={{ fontSize: '64px', display: 'block', marginBottom: '24px' }}>📍</span>
+          <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#1A365D', fontFamily: "'Poppins', sans-serif", marginBottom: '16px' }}>
+            Store Location Not Found
+          </h1>
+          <p style={{ color: '#718096', fontSize: '15px', lineHeight: '1.6', marginBottom: '30px' }}>
+            We couldn't find a Cleanz24 laundry or dry cleaning store matching <strong>"{citySlug}"</strong>. We currently operate 61 premium outlets across India.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <Link
+              to="/locations"
+              style={{
+                background: '#2B6CB0',
+                color: '#fff',
+                textDecoration: 'none',
+                fontWeight: 700,
+                borderRadius: '30px',
+                padding: '12px 24px',
+                fontSize: '15px',
+                display: 'block',
+                boxShadow: '0 4px 12px rgba(43,108,176,0.3)',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              🔍 Browse Store Directory
+            </Link>
+            <Link
+              to="/laundry/stores"
+              style={{
+                background: '#fff',
+                color: '#2B6CB0',
+                border: '1px solid #2B6CB0',
+                textDecoration: 'none',
+                fontWeight: 700,
+                borderRadius: '30px',
+                padding: '12px 24px',
+                fontSize: '15px',
+                display: 'block',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              📍 Search Nearest Store
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
   }
 
-  const primaryStore = matchedStores[0] || {
-    name: 'Cleanz24 Premium Laundry',
-    address: 'Cleanz24 Premium Laundry Outlet, India',
-    phone: '92660 18365',
-    whatsapp: '919266018365',
-    city: 'Noida',
-    state: 'Uttar Pradesh',
-    rating: 4.8,
-    reviews: 50
-  };
+  const primaryStore = matchedStores[0];
 
   const city = primaryStore.city;
   const state = primaryStore.state;
