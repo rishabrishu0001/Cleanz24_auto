@@ -306,15 +306,66 @@ function Landing() {
 
       </div>
 
-      {/* Mobile Center Header (Visible only on mobile) */}
-      <div className="mobile-landing-header d-block d-md-none text-center w-100 py-3 position-absolute top-0 start-0 z-3 bg-black bg-opacity-70 border-bottom border-secondary border-opacity-20">
-        <img src={logoImg} alt="Cleanz24 Logo" style={{ height: '40px' }} />
-        <div style={{ fontSize: '0.65rem', color: '#D4AF37', letterSpacing: '2px', fontWeight: 'bold', marginTop: '2px' }}>
+      {/* Unified Landing Logo Header (Visible on both Mobile & Desktop) */}
+      <motion.div 
+        className="landing-header text-center w-100 py-3 position-absolute top-0 start-0 z-3"
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.8 }}
+      >
+        <img src={logoImg} alt="Cleanz24 Logo" className="landing-top-logo" />
+        <div className="landing-top-tagline">
           INDIA'S PREMIUM SERVICE NETWORK
         </div>
-      </div>
+      </motion.div>
 
       <style>{`
+        /* Unified Header Styles */
+        .landing-header {
+          pointer-events: none;
+          background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, transparent 100%);
+          padding-top: 25px !important;
+        }
+
+        .landing-top-logo {
+          height: 55px;
+          object-fit: contain;
+          border-radius: 8px;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 10px rgba(255, 255, 255, 0.05);
+          pointer-events: auto;
+          transition: transform 0.3s ease;
+        }
+        
+        .landing-top-logo:hover {
+          transform: scale(1.05);
+        }
+
+        .landing-top-tagline {
+          font-family: 'Oswald', sans-serif;
+          font-size: 0.72rem;
+          color: #D4AF37;
+          letter-spacing: 3px;
+          font-weight: 800;
+          margin-top: 8px;
+          text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+          text-transform: uppercase;
+        }
+
+        @media (max-width: 767px) {
+          .landing-header {
+            padding-top: 15px !important;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
+          }
+          .landing-top-logo {
+            height: 40px;
+          }
+          .landing-top-tagline {
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            margin-top: 4px;
+          }
+        }
+
         /* Preloader Styles */
         .preloader-overlay {
           position: fixed;
