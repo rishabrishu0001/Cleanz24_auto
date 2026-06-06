@@ -792,13 +792,10 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                 className="position-relative overflow-hidden shadow-lg"
                 style={{ width: '100%', aspectRatio: '4/3', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
-                <Player
-                  src="/carwash_custom.json"
-                  background="transparent"
-                  speed={1}
-                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-                  loop
-                  autoplay
+                <img
+                  src={cleanz24Technicians}
+                  alt="Our Insured & Certified Wash Crew"
+                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
                 />
                 <div className="position-absolute bottom-0 start-0 w-100 bg-success text-white p-3 fw-bold small text-uppercase tracking-wider text-center" style={{ letterSpacing: '1px', zIndex: 2 }}>
                   Our Insured & Certified Wash Crew
