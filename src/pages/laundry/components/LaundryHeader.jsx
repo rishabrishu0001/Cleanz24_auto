@@ -27,6 +27,13 @@ export default function Header({ isDarkMode, toggleTheme }) {
   const isHome = location.pathname === '/laundry' || location.pathname === '/laundry/';
   const isTransparent = isHome && !isScrolled;
 
+  const closeNav = () => {
+    const navbar = document.getElementById('mynavbar');
+    if (navbar && navbar.classList.contains('show')) {
+      navbar.classList.remove('show');
+    }
+  };
+
   return (
     <>
       {/* Scroll Progress Bar */}
@@ -65,15 +72,15 @@ export default function Header({ isDarkMode, toggleTheme }) {
           <div className="collapse navbar-collapse justify-content-end" id="mynavbar">
             <div className="navbar-nav align-items-center">
               {/* Navigation links */}
-              <Link className={`nav-link text-heading mx-2 fw-medium ${isActive('/laundry') ? 'active-link' : ''}`} to="/laundry">Home</Link>
+              <Link onClick={closeNav} className={`nav-link text-heading mx-2 fw-medium ${isActive('/laundry') ? 'active-link' : ''}`} to="/laundry">Home</Link>
 
-              <Link className={`nav-link text-heading mx-2 fw-medium ${isActive('/laundry/franchise') ? 'active-link' : ''}`} to="/laundry/franchise">Franchise</Link>
-              <Link className={`nav-link text-heading mx-2 fw-medium ${isActive('/laundry/stores') ? 'active-link' : ''}`} to="/laundry/stores">Stores</Link>
-              <Link className={`nav-link text-heading mx-2 fw-medium ${isActive('/laundry/blog') ? 'active-link' : ''}`} to="/laundry/blog">Blog</Link>
-              <Link className={`nav-link text-heading mx-2 fw-medium ${isActive('/laundry/contact-us') ? 'active-link' : ''}`} to="/laundry/contact-us">Contact</Link>
+              <Link onClick={closeNav} className={`nav-link text-heading mx-2 fw-medium ${isActive('/laundry/franchise') ? 'active-link' : ''}`} to="/laundry/franchise">Franchise</Link>
+              <Link onClick={closeNav} className={`nav-link text-heading mx-2 fw-medium ${isActive('/laundry/stores') ? 'active-link' : ''}`} to="/laundry/stores">Stores</Link>
+              <Link onClick={closeNav} className={`nav-link text-heading mx-2 fw-medium ${isActive('/laundry/blog') ? 'active-link' : ''}`} to="/laundry/blog">Blog</Link>
+              <Link onClick={closeNav} className={`nav-link text-heading mx-2 fw-medium ${isActive('/laundry/contact-us') ? 'active-link' : ''}`} to="/laundry/contact-us">Contact</Link>
               
               {/* Back to Home link */}
-              <Link className="nav-link text-heading mx-2 fw-medium back-to-home-link" style={{ fontWeight: '700' }} to="/">
+              <Link onClick={closeNav} className="nav-link text-heading mx-2 fw-medium back-to-home-link" style={{ fontWeight: '700' }} to="/">
                 ← Back to Home
               </Link>
               
@@ -89,6 +96,7 @@ export default function Header({ isDarkMode, toggleTheme }) {
               
               {/* Schedule Pickup Action Button - Always visible */}
               <Link 
+                onClick={closeNav}
                 className="btn-header-pickup px-4 ms-lg-2 fw-bold text-decoration-none" 
                 to="/laundry/contact-us"
               >

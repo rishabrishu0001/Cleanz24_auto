@@ -140,7 +140,7 @@ export default function Contact() {
 
             {/* Right – Contact Form */}
             <div className="col-lg-7">
-              <div className="p-4 p-md-5 h-100" style={{ background: '#f8fafc', borderRadius: 20, border: '1px solid #e2e8f0' }}>
+              <div className="p-4 p-md-5 h-100 bg-light" style={{ borderRadius: 20, border: '1px solid #e2e8f0' }}>
                 {submitted ? (
                   <div className="text-center py-5">
                     <div style={{ fontSize: '4rem', marginBottom: 16 }}>✅</div>
@@ -149,7 +149,7 @@ export default function Contact() {
                   </div>
                 ) : (
                   <form onSubmit={handleFormSubmit}>
-                    <h4 className="fw-bold mb-4" style={{ color: '#1A202C' }}>Send Us a Message</h4>
+                    <h4 className="fw-bold mb-4">Send Us a Message</h4>
                     <div className="row g-3">
                       <div className="col-md-6">
                         <label className="form-label fw-semibold">Name <span className="text-danger">*</span></label>

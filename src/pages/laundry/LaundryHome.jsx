@@ -177,10 +177,10 @@ export default function LaundryHome() {
                 
                 {/* Floating/Action buttons next to text */}
                 <div className="d-flex flex-wrap gap-3 mt-4">
-                  <a href="/contact" className="btn-primary-custom">
+                  <Link to="/laundry/contact-us" className="btn-primary-custom">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
                     Schedule Your Pickup
-                  </a>
+                  </Link>
                   <a href="https://wa.me/919138004800" target="_blank" rel="noreferrer" className="btn-secondary-custom">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01C17.18 3.03 14.69 2 12.04 2zm5.83 14.09c-.25.7-.1.97-.24 1.45-.33 1.15-1.35 1.77-2.38 1.95-1.12.19-2.3-.22-3.32-.73-2.18-1.09-3.9-2.81-4.99-4.99-.51-1.02-.92-2.2-.73-3.32.18-1.03.8-2.05 1.95-2.38.48-.14.75.01 1.45-.24.28.56.84 1.68 1.12 2.24.14.28.01.56-.14.84-.28.56-.84 1.12-.56 1.4.56 1.12 1.4 1.96 2.52 2.52.28.28.84-.28 1.4-.56.28-.14.56-.28.84-.14.56.28 1.68.84 2.24 1.12.25.14.39.42.24.71z"/></svg>
                     Chat On Whatsapp
@@ -255,8 +255,8 @@ export default function LaundryHome() {
               </div>
 
               <div className="mt-5 d-flex gap-3">
-                <a href="/contact" className="btn-primary-custom">Get Started</a>
-                <a href="https://cleanz24.com/about-us/" target="_blank" rel="noreferrer" className="btn-outline-custom">Learn More</a>
+                <Link to="/laundry/contact-us" className="btn-primary-custom">Get Started</Link>
+                <Link to="/laundry/contact-us" className="btn-outline-custom">Learn More</Link>
               </div>
             </div>
 
@@ -337,11 +337,11 @@ export default function LaundryHome() {
             className="services-grid-inline"
           >
             {[
-              { title: 'Laundry', desc: 'We wash, dry, and fold with precision for a spotless finish.', icon: srvLaundryImg, link: '/laundry/services' },
-              { title: 'Dry Cleaning', desc: 'Professional care for suits, silks, and delicate fabrics.', icon: srvDryImg, link: '/laundry/dry-cleaning' },
-              { title: 'Home Cleaning', desc: 'Professional cleaning for a healthier living space.', icon: srvHomeImg, link: '/laundry/home-cleaning' },
-              { title: 'Steam Ironing', desc: 'Wrinkle-free perfection, every time.', icon: srvIronImg, link: '/laundry/steam-ironing' },
-              { title: 'Shoe Cleaning', desc: 'Bring back the shine to your favorite pairs.', icon: srvShoeImg, link: '/laundry/shoe-cleaning' }
+              { title: 'Laundry', desc: 'We wash, dry, and fold with precision for a spotless finish.', icon: srvLaundryImg, link: '#booking-form' },
+              { title: 'Dry Cleaning', desc: 'Professional care for suits, silks, and delicate fabrics.', icon: srvDryImg, link: '#booking-form' },
+              { title: 'Home Cleaning', desc: 'Professional cleaning for a healthier living space.', icon: srvHomeImg, link: '#booking-form' },
+              { title: 'Steam Ironing', desc: 'Wrinkle-free perfection, every time.', icon: srvIronImg, link: '#booking-form' },
+              { title: 'Shoe Cleaning', desc: 'Bring back the shine to your favorite pairs.', icon: srvShoeImg, link: '#booking-form' }
             ].map((srv, idx) => (
               <motion.div key={idx} variants={fadeInUp} className="service-card-wrapper">
                 <div className="service-card-new">
@@ -397,7 +397,7 @@ export default function LaundryHome() {
                 Our laundry experts handle it with high-grade machinery and eco-friendly solutions. We separate your clothing by fabric type and care label to keep your wardrobe in showroom condition.
               </p>
               <div className="d-flex align-items-center gap-3">
-                <a href="/contact" className="btn-primary-custom">Schedule Free Pickup</a>
+                <Link to="/laundry/contact-us" className="btn-primary-custom">Schedule Free Pickup</Link>
                 <a href="tel:+919138004800" className="btn-outline-custom">Call us: 9138004800</a>
               </div>
             </div>

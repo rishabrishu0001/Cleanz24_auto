@@ -568,8 +568,9 @@ function Landing() {
         @media (max-width: 767px) {
           .split-panel {
             position: relative !important;
-            height: 50vh !important;
-            min-height: 380px !important; /* Prevent content clipping on smaller screens */
+            height: auto !important;
+            min-height: 50vh !important;
+            padding-bottom: 2rem !important;
             clip-path: none !important;
             width: 100% !important;
             overflow: visible !important; /* Ensure buttons don't get clipped on smaller viewports */
@@ -585,13 +586,13 @@ function Landing() {
             transform: none !important;
             padding: 1.5rem !important;
             text-align: center !important;
-            margin: 60px auto 0 auto !important; /* Push down to clear mobile header */
+            margin: 40px auto 0 auto !important; /* Slightly reduced margin-top */
           }
           .carspa-content-wrapper {
             transform: none !important;
             padding: 1.5rem !important;
             text-align: center !important;
-            margin: 0 auto !important;
+            margin: 20px auto 0 auto !important;
           }
           
           /* Scale down typography & icons for mobile */

@@ -116,6 +116,13 @@ export default function Header({ isDarkMode, toggleTheme }) {
 
   const isActive = (path) => location.pathname === path;
 
+  const closeNav = () => {
+    const navbar = document.getElementById('mynavbar');
+    if (navbar && navbar.classList.contains('show')) {
+      navbar.classList.remove('show');
+    }
+  };
+
   return (
     <>
       {/* Scroll Progress Bar */}
@@ -141,8 +148,8 @@ export default function Header({ isDarkMode, toggleTheme }) {
           </button>
           <div className="collapse navbar-collapse justify-content-end" id="mynavbar">
             <div className="navbar-nav align-items-center">
-              <Link className={`nav-link text-heading mx-1 mx-lg-1 mx-xl-2 mx-xxl-3 fw-medium hover-brand ${isActive('/car-spa') ? 'active-link' : ''}`} to="/car-spa">Home</Link>
-              <Link className={`nav-link text-heading mx-1 mx-lg-1 mx-xl-2 mx-xxl-3 fw-medium hover-brand ${isActive('/car-spa/services') ? 'active-link' : ''}`} to="/car-spa/services">Services</Link>
+              <Link onClick={closeNav} className={`nav-link text-heading mx-1 mx-lg-1 mx-xl-2 mx-xxl-3 fw-medium hover-brand ${isActive('/car-spa') ? 'active-link' : ''}`} to="/car-spa">Home</Link>
+              <Link onClick={closeNav} className={`nav-link text-heading mx-1 mx-lg-1 mx-xl-2 mx-xxl-3 fw-medium hover-brand ${isActive('/car-spa/services') ? 'active-link' : ''}`} to="/car-spa/services">Services</Link>
               
               {/* Packages Dropdown */}
               <div className="nav-item dropdown mx-1 mx-lg-1 mx-xl-2" style={{ position: 'relative' }}>
@@ -166,7 +173,7 @@ export default function Header({ isDarkMode, toggleTheme }) {
                       style={{ fontSize: '0.9rem', transition: 'all 0.2s ease', backgroundColor: 'transparent', color: isDarkMode ? '#ffffff' : '#000000' }}
                       onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--primary-color)'; e.currentTarget.style.backgroundColor = isDarkMode ? 'rgba(0, 201, 109, 0.08)' : 'rgba(0, 201, 109, 0.06)'; }}
                       onMouseLeave={(e) => { e.currentTarget.style.color = isDarkMode ? '#ffffff' : '#000000'; e.currentTarget.style.backgroundColor = 'transparent'; }}
-                      onClick={() => setPackagesDropdownOpen(false)}
+                      onClick={() => { setPackagesDropdownOpen(false); closeNav(); }}
                     >
                       Crystal Shield
                     </Link>
@@ -178,7 +185,7 @@ export default function Header({ isDarkMode, toggleTheme }) {
                       style={{ fontSize: '0.9rem', transition: 'all 0.2s ease', backgroundColor: 'transparent', color: isDarkMode ? '#ffffff' : '#000000' }}
                       onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--primary-color)'; e.currentTarget.style.backgroundColor = isDarkMode ? 'rgba(0, 201, 109, 0.08)' : 'rgba(0, 201, 109, 0.06)'; }}
                       onMouseLeave={(e) => { e.currentTarget.style.color = isDarkMode ? '#ffffff' : '#000000'; e.currentTarget.style.backgroundColor = 'transparent'; }}
-                      onClick={() => setPackagesDropdownOpen(false)}
+                      onClick={() => { setPackagesDropdownOpen(false); closeNav(); }}
                     >
                       Velvet Touch
                     </Link>
@@ -190,7 +197,7 @@ export default function Header({ isDarkMode, toggleTheme }) {
                       style={{ fontSize: '0.9rem', transition: 'all 0.2s ease', backgroundColor: 'transparent', color: isDarkMode ? '#ffffff' : '#000000' }}
                       onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--primary-color)'; e.currentTarget.style.backgroundColor = isDarkMode ? 'rgba(0, 201, 109, 0.08)' : 'rgba(0, 201, 109, 0.06)'; }}
                       onMouseLeave={(e) => { e.currentTarget.style.color = isDarkMode ? '#ffffff' : '#000000'; e.currentTarget.style.backgroundColor = 'transparent'; }}
-                      onClick={() => setPackagesDropdownOpen(false)}
+                      onClick={() => { setPackagesDropdownOpen(false); closeNav(); }}
                     >
                       Pearl Radiance
                     </Link>
@@ -202,7 +209,7 @@ export default function Header({ isDarkMode, toggleTheme }) {
                       style={{ fontSize: '0.9rem', transition: 'all 0.2s ease', backgroundColor: 'transparent', color: isDarkMode ? '#ffffff' : '#000000' }}
                       onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--primary-color)'; e.currentTarget.style.backgroundColor = isDarkMode ? 'rgba(0, 201, 109, 0.08)' : 'rgba(0, 201, 109, 0.06)'; }}
                       onMouseLeave={(e) => { e.currentTarget.style.color = isDarkMode ? '#ffffff' : '#000000'; e.currentTarget.style.backgroundColor = 'transparent'; }}
-                      onClick={() => setPackagesDropdownOpen(false)}
+                      onClick={() => { setPackagesDropdownOpen(false); closeNav(); }}
                     >
                       Platinum Revival
                     </Link>
@@ -210,11 +217,11 @@ export default function Header({ isDarkMode, toggleTheme }) {
                 </ul>
               </div>
  
-              <Link className={`nav-link text-heading mx-1 mx-lg-1 mx-xl-2 mx-xxl-3 fw-medium hover-brand ${location.pathname.startsWith('/car-spa/blog') ? 'active-link' : ''}`} to="/car-spa/blog">Blog</Link>
-              <Link className={`nav-link text-heading mx-1 mx-lg-1 mx-xl-2 mx-xxl-3 fw-medium hover-brand ${isActive('/car-spa/franchise') ? 'active-link' : ''}`} to="/car-spa/franchise">Franchise</Link>
+              <Link onClick={closeNav} className={`nav-link text-heading mx-1 mx-lg-1 mx-xl-2 mx-xxl-3 fw-medium hover-brand ${location.pathname.startsWith('/car-spa/blog') ? 'active-link' : ''}`} to="/car-spa/blog">Blog</Link>
+              <Link onClick={closeNav} className={`nav-link text-heading mx-1 mx-lg-1 mx-xl-2 mx-xxl-3 fw-medium hover-brand ${isActive('/car-spa/franchise') ? 'active-link' : ''}`} to="/car-spa/franchise">Franchise</Link>
               
               {/* Back to Home Link */}
-              <Link className="nav-link text-heading mx-1 mx-lg-1 mx-xl-2 mx-xxl-3 fw-medium hover-brand" style={{ color: 'var(--accent-color)' }} to="/">
+              <Link onClick={closeNav} className="nav-link text-heading mx-1 mx-lg-1 mx-xl-2 mx-xxl-3 fw-medium hover-brand" style={{ color: 'var(--accent-color)' }} to="/">
                 <span className="d-inline d-xxl-none">← Home</span>
                 <span className="d-none d-xxl-inline">← Back to Home</span>
               </Link>
@@ -312,7 +319,7 @@ export default function Header({ isDarkMode, toggleTheme }) {
                   )}
                 </>
               ) : (
-                <Link className="btn btn-glow btn-nav-cta px-3 px-xl-4 ms-lg-2 fw-bold text-decoration-none" to="/car-spa/membership">
+                <Link onClick={closeNav} className="btn btn-glow btn-nav-cta px-3 px-xl-4 ms-lg-2 fw-bold text-decoration-none" to="/car-spa/membership">
                   <span className="d-inline d-xxl-none">Join Membership</span>
                   <span className="d-none d-xxl-inline">Become Our Member</span>
                 </Link>

@@ -66,7 +66,7 @@ export default function Footer() {
             <h4 className="h6 fw-bold mb-4 position-relative pb-2 footer-heading text-heading">Contact Us</h4>
             <div className="d-flex align-items-start mb-3 text-muted-custom" style={{ fontSize: '0.88rem' }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="me-2 mt-1 flex-shrink-0" style={{ color: 'var(--global-primary)' }}><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
-              <span>Plot No. 24, Industrial Area Phase 2, Panchkula, Haryana</span>
+              <span>Banglore India</span>
             </div>
             <div className="d-flex align-items-center mb-3 text-muted-custom" style={{ fontSize: '0.88rem' }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="me-2 flex-shrink-0" style={{ color: 'var(--global-primary)' }}><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
@@ -80,7 +80,7 @@ export default function Footer() {
             {/* Trust Line */}
             <div className="mt-4 d-flex align-items-center gap-2" style={{ fontSize: '0.75rem', color: '#A0AEC0' }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--global-primary)"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
-              <span>Trusted by 2 Lacs+ customers across India</span>
+              <span>Trusted by 5 Lacs+ customers across India</span>
             </div>
           </div>
         </div>
@@ -101,7 +101,7 @@ export default function Footer() {
           </div>
           <div className="footer-cert-badge">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
-            70+ Stores, 43+ Cities
+            100+ Stores, 17+ States
           </div>
         </div>
 

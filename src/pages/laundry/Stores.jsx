@@ -63,15 +63,13 @@ export default function Stores() {
       />
       {/* Search Section / Store Locator Hero */}
       <section 
-        className="d-flex align-items-center position-relative"
+        className="d-flex align-items-center position-relative store-locator-hero"
         style={{
-          minHeight: '100vh',
           backgroundImage: isDarkMode 
             ? `linear-gradient(rgba(11, 26, 48, 0.88), rgba(11, 26, 48, 0.88)), url(${storesBg})` 
             : `linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), url(${storesBg})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
-          padding: '120px 0 80px 0',
           borderBottom: isDarkMode ? '1px solid #1b3252' : '1px solid #EDF2F7'
         }}
       >
