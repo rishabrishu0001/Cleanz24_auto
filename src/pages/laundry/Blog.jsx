@@ -1551,6 +1551,20 @@ export default function Blog() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
 
+  // Reset page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeCategory, searchQuery]);
+
+  // Sync sidebar search with state
+  useEffect(() => {
+    const input = document.getElementById('blog-search');
+    if (!input) return;
+    const handler = (e) => setSearchQuery(e.target.value);
+    input.addEventListener('input', handler);
+    return () => input.removeEventListener('input', handler);
+  }, []);
+
   if (slug) {
     const post = ALL_BLOG_POSTS.find((p) => p.slug === slug);
     if (!post) {
@@ -1787,25 +1801,11 @@ export default function Blog() {
     return matchesCategory && matchesSearch;
   });
 
-  // Reset page when filters change
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [activeCategory, searchQuery]);
-
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
   const paginatedPosts = filteredPosts.slice(
     (currentPage - 1) * POSTS_PER_PAGE,
     currentPage * POSTS_PER_PAGE
   );
-
-  // Sync sidebar search with state
-  useEffect(() => {
-    const input = document.getElementById('blog-search');
-    if (!input) return;
-    const handler = (e) => setSearchQuery(e.target.value);
-    input.addEventListener('input', handler);
-    return () => input.removeEventListener('input', handler);
-  }, []);
 
   const pageBg = isDarkMode ? '#081426' : '#F7FAFC';
 
