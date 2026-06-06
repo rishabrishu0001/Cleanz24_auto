@@ -57,23 +57,7 @@ export default function Contact() {
         keywords="contact laundry, Cleanz24 customer care, dry cleaning phone number, laundry franchise contact"
       />
 
-      {/* ─── PAGE HEADER ─── */}
-      <section className="py-5 text-center" style={{ background: 'linear-gradient(135deg, #1a7a2e 0%, #0f5520 100%)', paddingTop: '5rem', paddingBottom: '5rem' }}>
-        <div className="container py-4">
-          <h1 className="display-5 fw-bold text-white mb-3">Contact Us</h1>
-          <p className="text-white mb-3" style={{ opacity: 0.85, fontSize: '1.1rem', maxWidth: 560, margin: '0 auto 16px' }}>
-            We'd love to hear from you. Get in touch and our team will respond within 24 hours.
-          </p>
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb justify-content-center mb-0">
-              <li className="breadcrumb-item">
-                <Link to="/" className="text-decoration-none fw-semibold" style={{ color: 'rgba(255,255,255,0.75)' }}>Home</Link>
-              </li>
-              <li className="breadcrumb-item active" aria-current="page" style={{ color: 'rgba(255,255,255,0.55)' }}>Contact Us</li>
-            </ol>
-          </nav>
-        </div>
-      </section>
+
 
       {/* ─── CONTACT DETAILS + FORM ─── */}
       <section className="section-padding bg-white">
