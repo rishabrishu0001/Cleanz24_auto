@@ -7,7 +7,8 @@ import {
 } from '../../data';
 import carWashFoam from '../../assets/car_wash_foam.png';
 import carWashInterior from '../../assets/car_wash_interior.png';
-import carWashSpray from '../../assets/car_wash_spray.png';
+import carWashPageSpray from '../../assets/car_wash_spray.png';
+import serviceVideo from '../../assets/service_video.mp4';
 
 import { Link } from 'react-router-dom';
 import '../../styles/carSpa.css';
@@ -58,7 +59,7 @@ function Services({ isDarkMode, toggleTheme }) {
             zIndex: 0
           }}
         >
-          <source src="/service_video.mp4" type="video/mp4" />
+          <source src={serviceVideo} type="video/mp4" />
         </video>
 
         {/* Global Dark Overlay */}

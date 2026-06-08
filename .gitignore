@@ -16,6 +16,8 @@ dist
 dist-ssr
 **/dist/
 **/dist-ssr/
+public_backup/
+**/public_backup/
 
 # Environment variables
 .env

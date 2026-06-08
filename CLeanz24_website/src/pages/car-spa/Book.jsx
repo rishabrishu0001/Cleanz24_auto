@@ -5,6 +5,7 @@ import { faqsData, storesData } from '../../data';
 import SEOMeta from '../../components/SEOMeta';
 import '../../styles/carSpa.css';
 import { API_URL } from '../../config';
+import carwashingTransparent from '../../assets/carwashing_transparent.png';
 
 function Book({ isDarkMode, toggleTheme }) {
   const [openFaqIndex, setOpenFaqIndex] = useState(-1);
@@ -300,7 +301,7 @@ function Book({ isDarkMode, toggleTheme }) {
               {/* Car Washing Image */}
               <div className="d-flex justify-content-center mt-0 mb-4">
                 <img
-                  src="/carwashing_transparent.png"
+                  src={carwashingTransparent}
                   alt="Car Wash Detailing"
                   className="img-fluid"
                   style={{ width: '100%', maxWidth: '380px', height: 'auto' }}

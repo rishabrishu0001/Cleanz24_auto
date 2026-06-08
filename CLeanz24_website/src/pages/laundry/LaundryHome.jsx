@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Player } from '@lottiefiles/react-lottie-player';
+import laundry1Url from '../../assets/laundry1.json?url';
 import { Link } from 'react-router-dom';
 import { storesData } from '../../data';
 import SEOMeta from '../../components/SEOMeta';
@@ -508,7 +509,7 @@ export default function LaundryHome() {
           {/* Lottie Animation for 24/7 Booking Banner */}
           <div className="d-flex justify-content-center mb-3">
             <Player
-              src="/laundry1.json"
+              src={laundry1Url}
               background="transparent"
               speed={1}
               style={{ width: '250px', height: '250px' }}

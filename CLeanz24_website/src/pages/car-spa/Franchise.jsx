@@ -9,6 +9,7 @@ import {
 } from '../../data';
 import '../../styles/carSpa.css';
 import SEOMeta from '../../components/SEOMeta';
+import lastVideo from '../../assets/last_video.mp4';
 
 function Franchise({ isDarkMode, toggleTheme }) {
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -101,7 +102,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
             zIndex: 0
           }}
         >
-          <source src="/last_video.mp4" type="video/mp4" />
+          <source src={lastVideo} type="video/mp4" />
         </video>
 
         {/* Global Dark Overlay */}

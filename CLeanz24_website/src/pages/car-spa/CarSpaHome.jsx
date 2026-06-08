@@ -11,6 +11,9 @@ import beforeDetailingImg from '../../assets/before_detailing.png';
 import afterDetailingImg from '../../assets/after_detailing.png';
 import cleanz24Technicians from '../../assets/cleanz24_technicians.jpg';
 import neonCarRender from '../../assets/neon_car_render.png';
+import firstVideo from '../../assets/first_video.mp4';
+import carwash1Url from '../../assets/carwash1.json?url';
+import carwash3Url from '../../assets/carwash3.json?url';
 import { Link, useLocation } from 'react-router-dom';
 import '../../styles/carSpa.css';
 import SEOMeta from '../../components/SEOMeta';
@@ -393,7 +396,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
             zIndex: 0
           }}
         >
-          <source src="/first_video.mp4" type="video/mp4" />
+          <source src={firstVideo} type="video/mp4" />
         </video>
 
         {/* Global Dark Overlay */}
@@ -847,7 +850,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
           {/* Car Washing Lottie Animation for Quick Services Promo Banner */}
           <div className="d-flex justify-content-center mt-2 mb-5">
             <Player
-              src="/carwash3.json"
+              src={carwash3Url}
               background="transparent"
               speed={1}
               style={{ width: '420px', height: '300px' }}
@@ -1125,7 +1128,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
               {/* Lottie Animation of Car Wash */}
               <div className="d-flex justify-content-center my-4">
                 <Player
-                  src="/carwash1.json"
+                  src={carwash1Url}
                   background="transparent"
                   speed={1}
                   style={{ width: '260px', height: '260px' }}
