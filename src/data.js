@@ -162,18 +162,7 @@ export const storesData = [
     rating: 4.7,
     reviews: 41
   },
-  {
-    id: 3,
-    name: 'Cleanz24 - Noida Sector 74',
-    address: 'Shop No. 12A, North Eye Mall, Near Sector 74, Noida, Uttar Pradesh 201316',
-    phone: '9540204800',
-    whatsapp: '919540204800',
-    city: 'Noida',
-    state: 'Uttar Pradesh',
-    tags: ['Delhi NCR', 'Delhi', 'NCR'],
-    rating: 4.8,
-    reviews: 52
-  },
+
   {
     id: 4,
     name: 'Cleanz24 - Greater Noida West (Patwari)',
@@ -233,17 +222,7 @@ export const storesData = [
     rating: 4.9,
     reviews: 107
   },
-  {
-    id: 9,
-    name: 'Cleanz24 - Dehradun',
-    address: 'Shop No. 5, Post Office Road, Near Arya Inter College Chowk, Dehradun, Uttarakhand 248002',
-    phone: '9116656455',
-    whatsapp: '919116656455',
-    city: 'Dehradun',
-    state: 'Uttarakhand',
-    rating: 4.6,
-    reviews: 118
-  },
+
   {
     id: 10,
     name: 'Cleanz24 - Karnaprayag',
@@ -387,39 +366,7 @@ export const storesData = [
     rating: 4.7,
     reviews: 141
   },
-  {
-    id: 23,
-    name: 'Cleanz24 - Barmunda Bhubaneswar',
-    address: 'Plot No. 1210, 2224, Krushi Vihar Street, Soubhagya Nagar, Barmunda, Bhubaneswar, Odisha 751003',
-    phone: '89261 71739',
-    whatsapp: '918926171739',
-    city: 'Barmunda',
-    state: 'Odisha',
-    rating: 4.8,
-    reviews: 32
-  },
-  {
-    id: 24,
-    name: 'Cleanz24 - Rasulgarh Bhubaneswar',
-    address: 'Plot No. 1582/5955, Satya Vihar, Palasuni, Rasulgarh, Odisha 751010',
-    phone: '86588 86280',
-    whatsapp: '918658886280',
-    city: 'Rasulgarh',
-    state: 'Odisha',
-    rating: 4.9,
-    reviews: 43
-  },
-  {
-    id: 25,
-    name: 'Cleanz24 - Raghunathpur Bhubaneswar',
-    address: 'Shop No. 010, Ground Floor, Royal Arcade Mall, Near Royal Lagoon Society, Patia, Raghunathpur, Bhubaneswar, Odisha 751024',
-    phone: '91244 71331',
-    whatsapp: '919124471331',
-    city: 'Raghunathpur',
-    state: 'Odisha',
-    rating: 4.6,
-    reviews: 54
-  },
+
   {
     id: 26,
     name: 'Cleanz24 - Jatni',
@@ -475,17 +422,7 @@ export const storesData = [
     rating: 4.7,
     reviews: 109
   },
-  {
-    id: 31,
-    name: 'Cleanz24 - Bhilai',
-    address: '1st Floor, Dream Home, CHPL Complex, Smriti Nagar, Bhilai, Chhattisgarh 490020',
-    phone: '99930 27390',
-    whatsapp: '919993027390',
-    city: 'Bhilai',
-    state: 'Chhattisgarh',
-    rating: 4.8,
-    reviews: 120
-  },
+
   {
     id: 32,
     name: 'Cleanz24 - Arjunda',
@@ -673,17 +610,7 @@ export const storesData = [
     rating: 4.9,
     reviews: 67
   },
-  {
-    id: 49,
-    name: 'Cleanz24 - Jayanagar Bengaluru',
-    address: '364, 16th Main Road, 4th T Block, Jayanagar, Bengaluru, Karnataka 560041',
-    phone: '98805 17875',
-    whatsapp: '919880517875',
-    city: 'Jayanagar',
-    state: 'Karnataka',
-    rating: 4.6,
-    reviews: 78
-  },
+
   {
     id: 50,
     name: 'Cleanz24 - Varthur Hobli Bengaluru',

@@ -73,7 +73,7 @@ export default function Header({ isDarkMode, toggleTheme }) {
             <div className="navbar-nav align-items-center">
               {/* Navigation links */}
               <Link onClick={closeNav} className={`nav-link text-heading mx-2 fw-medium ${isActive('/laundry') ? 'active-link' : ''}`} to="/laundry">Home</Link>
-
+              <Link onClick={closeNav} className={`nav-link text-heading mx-2 fw-medium ${isActive('/laundry/services') ? 'active-link' : ''}`} to="/laundry/services">Services</Link>
               <Link onClick={closeNav} className={`nav-link text-heading mx-2 fw-medium ${isActive('/laundry/franchise') ? 'active-link' : ''}`} to="/laundry/franchise">Franchise</Link>
               <Link onClick={closeNav} className={`nav-link text-heading mx-2 fw-medium ${isActive('/laundry/stores') ? 'active-link' : ''}`} to="/laundry/stores">Stores</Link>
               <Link onClick={closeNav} className={`nav-link text-heading mx-2 fw-medium ${isActive('/laundry/blog') ? 'active-link' : ''}`} to="/laundry/blog">Blog</Link>

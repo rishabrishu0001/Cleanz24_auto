@@ -20,6 +20,7 @@ import CarSpaBlog from './pages/car-spa/CarSpaBlog';
 // ─── Laundry Section ───────────────────────────────────────────
 import LaundryLayout from './pages/laundry/LaundryLayout';
 import LaundryHome from './pages/laundry/LaundryHome';
+import LaundryServices from './pages/laundry/Services';
 
 
 
@@ -80,6 +81,7 @@ function App() {
       {/* ── Laundry Section ── */}
       <Route path="/laundry" element={<LaundryLayout />}>
         <Route index element={<LaundryHome />} />
+        <Route path="services" element={<LaundryServices />} />
         <Route path="franchise" element={<LaundryFranchise />} />
         <Route path="stores" element={<Stores />} />
         <Route path="blog" element={<LaundryBlog />} />

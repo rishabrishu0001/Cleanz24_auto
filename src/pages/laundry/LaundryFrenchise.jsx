@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import SEOMeta from '../../components/SEOMeta';
-import laundryImg3 from '../../assets/laundry_img3.png';
-import laundryStorefront from '../../assets/laundry_storefront.png';
-import laundryStorefront2 from '../../assets/laundry_storefront2.png';
+import storepic1 from '../../assets/storepic1.jpeg';
+import storepic2 from '../../assets/storepic2.jpeg';
+import storepic3 from '../../assets/storepic3.jpeg';
 
 /* ─── Dynamic Styles ─────────────────────────────────────────────── */
 const getStyles = (dark) => `
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Lora:wght@600;700&display=swap');
 
   .lf-page {
     font-family: 'Inter', sans-serif;
@@ -420,6 +420,95 @@ function LaundryFrenchise() {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', city: '' });
   const [submitted, setSubmitted] = useState(false);
 
+  const mediaMentions = [
+    {
+      name: 'The Times of India',
+      icon: '📰',
+      color: '#1f3a60',
+      shadowColor: 'rgba(31, 58, 96, 0.15)',
+      gradient: 'linear-gradient(135deg, #1f3a60 0%, #0f172a 100%)',
+      font: "'Playfair Display', serif"
+    },
+    {
+      name: 'Hindustan Times',
+      icon: '💙',
+      color: '#007cc2',
+      shadowColor: 'rgba(0, 124, 194, 0.15)',
+      gradient: 'linear-gradient(135deg, #007cc2 0%, #005580 100%)',
+      font: "'Inter', sans-serif"
+    },
+    {
+      name: 'Dainik Bhaskar',
+      icon: '☀️',
+      color: '#f05123',
+      shadowColor: 'rgba(240, 81, 35, 0.15)',
+      gradient: 'linear-gradient(135deg, #ff9900 0%, #f05123 100%)',
+      font: "'Poppins', sans-serif"
+    },
+    {
+      name: 'Economic Times',
+      icon: '📈',
+      color: '#e31b23',
+      shadowColor: 'rgba(227, 27, 35, 0.15)',
+      gradient: 'linear-gradient(135deg, #e31b23 0%, #801015 100%)',
+      font: "'Lora', serif"
+    },
+    {
+      name: 'NDTV',
+      icon: '📺',
+      color: '#ff0000',
+      shadowColor: 'rgba(255, 0, 0, 0.15)',
+      gradient: 'linear-gradient(135deg, #ff0000 0%, #b30000 100%)',
+      font: "'Poppins', sans-serif",
+      letterSpacing: '1px'
+    }
+  ];
+
+  const brandPartners = [
+    {
+      name: 'Alliance Laundry Systems',
+      url: 'https://alliancelaundry.com',
+      color: '#00549f',
+      shadowColor: 'rgba(0, 84, 159, 0.15)',
+      gradient: 'linear-gradient(135deg, #00549f 0%, #002b4d 100%)'
+    },
+    {
+      name: 'LG Electronics',
+      url: 'https://www.lg.com',
+      color: '#a50034',
+      shadowColor: 'rgba(165, 0, 52, 0.15)',
+      gradient: 'linear-gradient(135deg, #a50034 0%, #7a0026 100%)'
+    },
+    {
+      name: 'Speed Queen',
+      url: 'https://speedqueen.com',
+      color: '#e51937',
+      shadowColor: 'rgba(229, 25, 55, 0.15)',
+      gradient: 'linear-gradient(135deg, #e51937 0%, #111111 100%)'
+    },
+    {
+      name: 'Fabcare',
+      url: 'https://fabcare.com',
+      color: '#00b4d8',
+      shadowColor: 'rgba(0, 180, 216, 0.15)',
+      gradient: 'linear-gradient(135deg, #0077b6 0%, #00b4d8 100%)'
+    },
+    {
+      name: 'Reckitt Benckiser',
+      url: 'https://www.reckitt.com',
+      color: '#8300e5',
+      shadowColor: 'rgba(131, 0, 229, 0.15)',
+      gradient: 'linear-gradient(135deg, #8300e5 0%, #4c0080 100%)'
+    },
+    {
+      name: 'Samsung',
+      url: 'https://www.samsung.com',
+      color: '#1428a0',
+      shadowColor: 'rgba(20, 40, 160, 0.15)',
+      gradient: 'linear-gradient(135deg, #1428a0 0%, #0c1860 100%)'
+    }
+  ];
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData(prev => ({ ...prev, [id]: value }));
@@ -462,26 +551,93 @@ function LaundryFrenchise() {
 
   const models = [
     {
-      tag: 'Starter', title: 'ALPHA – BASIC',
-      sub: 'Ideal for compact high-footfall spaces in tier-2 and tier-3 cities.',
-      investment: '₹10 - ₹12 Lacs', area: '200 - 400 sqft', profit: '₹60K - ₹1L/mo', roi: '18-20 months',
-      features: ['Store Setup & Branding', 'Basic Equipment Provided', 'Staff Training Included', 'Local Marketing Support'],
+      tag: 'Starter',
+      title: 'ALPHA MODEL',
+      sub: 'Ideal for standard laundry setups in high-density residential areas.',
+      investment: '₹13 Lacs+',
+      area: '250 Sq.Ft (Minimum)',
+      profit: '1 Lakh/Month+',
+      roi: '18-20 Months',
+      features: [
+        'Complete end to end Store Setup',
+        '15Kg Stacker (Washer & Extractor)',
+        'Automatic Pressing Setup',
+        'Complete Chemicals (Softwash, Shoe, Sofa and Carpet Cleaning, Laundry & Spotting)',
+        'Standard Packing Materials',
+        'Staff Support',
+        'Online and Offline Marketing Support',
+        'Training of All Staffs and Franchise',
+        'Software, App and GMB Support'
+      ],
       featured: false,
     },
     {
-      tag: 'Most Popular', title: 'CLASSIC MODEL',
-      sub: 'Our standard studio handling heavy loads, steam ironing & dry-cleaning.',
-      investment: '₹15 - ₹18 Lacs', area: '400 - 800 sqft', profit: '₹1.5 - ₹2L/mo', roi: '14-16 months',
-      features: ['Advanced Dry-Cleaning Machines', 'Steam Ironing Setup', 'Local Marketing Support', 'CRM Dashboard Access'],
+      tag: 'Most Popular',
+      title: 'BETA MODEL',
+      sub: 'High capacity laundry setup handling premium wash & fold and steam pressing.',
+      investment: '₹15 Lacs+',
+      area: '250 Sq.Ft (Minimum)',
+      profit: '1.5 Lacs/Month+',
+      roi: '18-20 Months',
+      features: [
+        'Complete end to end Store Setup',
+        '15Kg Stacker (Washer & Extractor)',
+        '10Kg Stacker (Washer & Extractor)',
+        'Automatic Pressing Setup',
+        'Complete Chemicals (Softwash, Shoe, Sofa and Carpet Cleaning, Laundry & Spotting)',
+        'Standard Packing Materials',
+        'Staff Support',
+        'Online and Offline Marketing Support',
+        'Training of All Staffs and Franchise',
+        'Software, App and GMB Support'
+      ],
       featured: true,
     },
     {
-      tag: 'Premium', title: 'COMBO – PREMIUM',
-      sub: 'Flagship mega workspace for high-speed washing and specialized fabric care.',
-      investment: '₹25+ Lacs', area: '1000+ sqft', profit: '₹2.5 - ₹3L/mo', roi: '12-14 months',
-      features: ['Full Industrial Setup', 'Shoe & Bag Cleaning Module', 'Dedicated Manager Training', 'Mega City & Commercial Tie-ups'],
+      tag: 'Commercial Combo',
+      title: 'COMBO MODEL',
+      sub: 'Flagship B2B and B2C setup for handling both commercial loads & individual wear.',
+      investment: '₹22 Lacs+',
+      area: '400 Sq.Ft (Minimum)',
+      profit: '2 Lacs/Month+',
+      roi: '18-20 Months',
+      features: [
+        'Complete end to end Store Setup',
+        '18Kg Standalone Washer for B2B and B2C Load.',
+        '18Kg Standalone Dryer for B2B and B2C Load.',
+        '10Kg Stacker (Washer & Extractor)',
+        'Automatic Pressing Setup',
+        'Complete Chemicals (Softwash, Shoe, Sofa and Carpet Cleaning, Laundry & Spotting)',
+        'Standard Packing Materials',
+        'Staff Support',
+        'Online and Offline Marketing Support',
+        'Training of All Staffs and Franchise',
+        'Software, App and GMB Support'
+      ],
       featured: false,
     },
+    {
+      tag: 'Premium Dry-Clean',
+      title: 'HYDRO-CARBON MODEL',
+      sub: 'Ultra-premium model featuring modern eco dry-cleaning and stackers.',
+      investment: '₹29 Lacs+',
+      area: '500 Sq.Ft (Minimum)',
+      profit: '2.5 Lacs/Month+',
+      roi: '18-20 Months',
+      features: [
+        'Complete end to end Store Setup',
+        '10 Kg Hydro-Cabon Machine with Dry to Dry Process (99% Recovery)',
+        '10Kg Stacker (Washer & Extractor)',
+        'Automatic Pressing Setup',
+        'Complete Chemicals (Hydrocarbon oil, Softwash, Shoe, Sofa and Carpet Cleaning, Laundry & Spotting)',
+        'Standard Packing Materials',
+        'Staff Support',
+        'Online and Offline Marketing Support',
+        'Training of All Staffs and Franchise',
+        'Software, App and GMB Support'
+      ],
+      featured: false,
+    }
   ];
 
   const metrics = [
@@ -501,9 +657,9 @@ function LaundryFrenchise() {
   ];
 
   const testimonials = [
-    { initials: 'RK', name: 'Rajesh Kumar', city: 'Gurugram, Haryana', model: 'Classic Model', milestone: '₹1.8L/month', quote: 'I opened my Cleanz24 franchise 8 months ago and we\'re already doing great business. The brand recognition gave us a head-start that competitors simply don\'t have.' },
-    { initials: 'PS', name: 'Priya Sharma', city: 'New Delhi', model: 'Alpha - Basic', milestone: '₹90K/month', quote: 'Coming from a regular job, I was nervous about running my own business. Cleanz24\'s training and support made it incredibly smooth. ROI within 16 months!' },
-    { initials: 'AM', name: 'Amit Mehta', city: 'Visakhapatnam, AP', model: 'Combo Premium', milestone: '₹2.7L/month', quote: 'The Combo Premium model was the best investment decision of my life. Cleanz24\'s CRM dashboard and automated billing makes managing the store effortless.' },
+    { initials: 'RK', name: 'Rajesh Kumar', city: 'Gurugram, Haryana', model: 'Beta Model', milestone: '₹1.8L/month', quote: 'I opened my Cleanz24 franchise 8 months ago and we\'re already doing great business. The brand recognition gave us a head-start that competitors simply don\'t have.' },
+    { initials: 'PS', name: 'Priya Sharma', city: 'New Delhi', model: 'Alpha Model', milestone: '₹90K/month', quote: 'Coming from a regular job, I was nervous about running my own business. Cleanz24\'s training and support made it incredibly smooth. ROI within 16 months!' },
+    { initials: 'AM', name: 'Amit Mehta', city: 'Visakhapatnam, AP', model: 'Combo Model', milestone: '₹2.7L/month', quote: 'The Combo Model was the best investment decision of my life. Cleanz24\'s CRM dashboard and automated billing makes managing the store effortless.' },
   ];
 
   const advantages = [
@@ -572,13 +728,13 @@ function LaundryFrenchise() {
             <div className="col-lg-6 d-none d-lg-block">
               <div className="row g-3">
                 <div className="col-5">
-                  <img src={laundryImg3} alt="Cleanz24 Store Interior"
+                  <img src={storepic1} alt="Cleanz24 Store Interior"
                     style={{ width: '100%', height: '420px', objectFit: 'cover', objectPosition: 'center', borderRadius: 14, boxShadow: `0 8px 32px rgba(0,0,0,${dark ? '0.4' : '0.15'})` }} />
                 </div>
                 <div className="col-7 d-flex flex-column gap-3">
-                  <img src={laundryStorefront} alt="Cleanz24 Store 1"
+                  <img src={storepic2} alt="Cleanz24 Store 1"
                     style={{ width: '100%', height: '200px', objectFit: 'cover', objectPosition: 'center', borderRadius: 14, boxShadow: `0 8px 32px rgba(0,0,0,${dark ? '0.4' : '0.15'})` }} />
-                  <img src={laundryStorefront2} alt="Cleanz24 Store 2"
+                  <img src={storepic3} alt="Cleanz24 Store 2"
                     style={{ width: '100%', height: '200px', objectFit: 'cover', objectPosition: 'center', borderRadius: 14, boxShadow: `0 8px 32px rgba(0,0,0,${dark ? '0.4' : '0.15'})` }} />
                 </div>
               </div>
@@ -642,7 +798,7 @@ function LaundryFrenchise() {
           </div>
           <div className="row g-4 justify-content-center">
             {models.map((m, i) => (
-              <div className="col-lg-4 col-md-6" key={i}>
+              <div className="col-lg-3 col-md-6" key={i}>
                 <div className={`lf-model-card d-flex flex-column ${m.featured ? 'featured' : ''}`}>
                   {m.featured && <div className="lf-model-badge">MOST POPULAR</div>}
                   <div className="lf-model-tag">{m.tag}</div>
@@ -654,7 +810,7 @@ function LaundryFrenchise() {
                   <div className="lf-model-stat"><span className="lf-model-stat-label">⏱️ ROI Period</span><span className="lf-model-stat-value">{m.roi}</span></div>
                   <ul className="lf-model-features mt-3">{m.features.map((f, fi) => <li key={fi}>{f}</li>)}</ul>
                   <a href="#inquiry" className={`lf-model-btn mt-auto ${m.featured ? 'primary' : ''}`}>
-                    Enquire About {m.title.split('–')[0].trim()} Model
+                    Enquire About {m.title}
                   </a>
                 </div>
               </div>
@@ -694,9 +850,10 @@ function LaundryFrenchise() {
                 Join the Cleanz24 family and start your own franchise with a trusted brand in laundry and cleaning services. Complete end-to-end support from store setup to daily operations.
               </p>
               <div className="d-flex gap-3 flex-wrap">
-                <a href="#inquiry" className="lf-btn-submit" style={{ textDecoration: 'none', padding: '11px 28px', borderRadius: 8, fontSize: '0.88rem' }}>ALPHA – BASIC ›</a>
-                <a href="#inquiry" className="lf-btn-submit" style={{ textDecoration: 'none', padding: '11px 28px', borderRadius: 8, fontSize: '0.88rem', background: dark ? '#15803d' : '#0f5520' }}>CLASSIC MODEL ›</a>
-                <a href="#inquiry" className="lf-btn-submit" style={{ textDecoration: 'none', padding: '11px 28px', borderRadius: 8, fontSize: '0.88rem', background: dark ? '#14532d' : '#0a3d18' }}>COMBO PREMIUM ›</a>
+                <a href="#inquiry" className="lf-btn-submit" style={{ textDecoration: 'none', padding: '11px 28px', borderRadius: 8, fontSize: '0.88rem' }}>ALPHA MODEL ›</a>
+                <a href="#inquiry" className="lf-btn-submit" style={{ textDecoration: 'none', padding: '11px 28px', borderRadius: 8, fontSize: '0.88rem', background: dark ? '#15803d' : '#0f5520' }}>BETA MODEL ›</a>
+                <a href="#inquiry" className="lf-btn-submit" style={{ textDecoration: 'none', padding: '11px 28px', borderRadius: 8, fontSize: '0.88rem', background: dark ? '#14532d' : '#0a3d18' }}>COMBO MODEL ›</a>
+                <a href="#inquiry" className="lf-btn-submit" style={{ textDecoration: 'none', padding: '11px 28px', borderRadius: 8, fontSize: '0.88rem', background: dark ? '#1e3a2f' : '#22c55e' }}>HYDRO-CARBON MODEL ›</a>
               </div>
             </div>
             <div className="col-lg-7">
@@ -770,9 +927,61 @@ function LaundryFrenchise() {
             <div className="lf-divider mx-auto"></div>
           </div>
           <div className="row g-4 justify-content-center align-items-center">
-            {['Alliance Laundry Systems', 'LG Electronics', 'Speed Queen', 'Fabcare', 'Reckitt Benckiser', 'Samsung'].map((partner, i) => (
+            {brandPartners.map((partner, i) => (
               <div className="col-6 col-md-4 col-lg-2" key={i}>
-                <div className="lf-partner-logo"><span>{partner}</span></div>
+                <a
+                  href={partner.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="lf-partner-logo text-decoration-none"
+                  style={{
+                    background: dark ? 'rgba(30, 41, 59, 0.7)' : '#fff',
+                    border: `1.5px solid ${dark ? '#334155' : '#e2e8f0'}`,
+                    borderRadius: '12px',
+                    height: '84px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.02)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px) scale(1.03)';
+                    e.currentTarget.style.borderColor = partner.color;
+                    e.currentTarget.style.boxShadow = `0 8px 24px ${partner.shadowColor}`;
+                    const textSpan = e.currentTarget.querySelector('span');
+                    if (textSpan) {
+                      textSpan.style.background = partner.gradient;
+                      textSpan.style.WebkitBackgroundClip = 'text';
+                      textSpan.style.WebkitTextFillColor = 'transparent';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                    e.currentTarget.style.borderColor = dark ? '#334155' : '#e2e8f0';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.02)';
+                    const textSpan = e.currentTarget.querySelector('span');
+                    if (textSpan) {
+                      textSpan.style.background = 'none';
+                      textSpan.style.WebkitBackgroundClip = 'initial';
+                      textSpan.style.WebkitTextFillColor = dark ? '#cbd5e1' : '#4A5568';
+                    }
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: "'Poppins', sans-serif",
+                      fontWeight: '800',
+                      fontSize: '0.98rem',
+                      textAlign: 'center',
+                      color: dark ? '#cbd5e1' : '#4A5568',
+                      transition: 'all 0.2s ease',
+                      padding: '0 10px'
+                    }}
+                  >
+                    {partner.name}
+                  </span>
+                </a>
               </div>
             ))}
           </div>
@@ -820,9 +1029,49 @@ function LaundryFrenchise() {
             <div className="lf-divider mx-auto"></div>
             <p style={{ color: dark ? '#94a3b8' : '#718096', fontSize: '0.9rem' }}>Cleanz24 has been spotlighted on major news outlets.</p>
           </div>
-          <div className="d-flex flex-wrap justify-content-center align-items-center gap-5">
-            {['The Times of India', 'Hindustan Times', 'Dainik Bhaskar', 'Economic Times', 'NDTV'].map((m, i) => (
-              <div key={i} className="lf-media-item">{m}</div>
+          <div className="d-flex flex-wrap justify-content-center align-items-center gap-4">
+            {mediaMentions.map((m, i) => (
+              <div
+                key={i}
+                style={{
+                  background: dark ? 'rgba(30, 41, 59, 0.7)' : '#fff',
+                  border: `1.5px solid ${dark ? '#334155' : '#e2e8f0'}`,
+                  borderRadius: '12px',
+                  padding: '14px 26px',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.03)',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  transform: 'translateY(0)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.borderColor = m.color;
+                  e.currentTarget.style.boxShadow = `0 8px 24px ${m.shadowColor}`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.borderColor = dark ? '#334155' : '#e2e8f0';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.03)';
+                }}
+              >
+                <span style={{ fontSize: '1.25rem' }}>{m.icon}</span>
+                <span
+                  style={{
+                    fontFamily: m.font,
+                    fontWeight: m.font.includes('Playfair') || m.font.includes('Lora') ? '800' : '900',
+                    fontSize: '1.1rem',
+                    background: m.gradient,
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    letterSpacing: m.letterSpacing || 'normal'
+                  }}
+                >
+                  {m.name}
+                </span>
+              </div>
             ))}
           </div>
         </div>

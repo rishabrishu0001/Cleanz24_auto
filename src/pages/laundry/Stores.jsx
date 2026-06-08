@@ -6,26 +6,26 @@ import storesBg from '../../assets/stores_bg.jpg';
 
 const storeLocationsGrouped = [
   { state: 'Bihar', cities: ['Purnia'] },
-  { state: 'Chhattisgarh', cities: ['Arjunda', 'Bhilai'] },
+  { state: 'Chhattisgarh', cities: ['Arjunda'] },
   { state: 'Gujarat', cities: ['Nadiad'] },
   { state: 'Haryana', cities: ['Gurugram', 'Panchkula'] },
   { state: 'Himachal Pradesh', cities: ['Una'] },
-  { state: 'Karnataka', cities: ['HSR Layout', 'Jayanagar', 'Padmanabhanagar', 'Varthur Hobli'] },
+  { state: 'Karnataka', cities: ['HSR Layout', 'Padmanabhanagar', 'Varthur Hobli'] },
   { state: 'Kerala', cities: ['Ernakulam', 'Kannur', 'Kozhikode', 'Panoor', 'Parat', 'Trivandrum', 'Vaikom'] },
   { state: 'Madhya Pradesh', cities: ['Bhopal'] },
   { state: 'Maharashtra', cities: ['Alibag', 'Pune', 'Thane West'] },
-  { state: 'Odisha', cities: ['Angul', 'Barmunda', 'Berhampur', 'Bomikhal', 'Chandrasekharpur', 'Jatni', 'Jeypore', 'Kharakhia', 'Raghunathpur', 'Rasulgarh'] },
+  { state: 'Odisha', cities: ['Angul', 'Berhampur', 'Bomikhal', 'Chandrasekharpur', 'Jatni', 'Jeypore', 'Kharakhia'] },
   { state: 'Puducherry', cities: ['Mahe'] },
   { state: 'Punjab', cities: ['Amritsar', 'Bathinda', 'Kharar', 'Patiala'] },
   { state: 'Rajasthan', cities: ['Bhilwara', 'Sanchore', 'Udaipur'] },
   { state: 'Tamil Nadu', cities: ['Kalaiyarkovil', 'Karungal'] },
   { state: 'Telangana', cities: ['Beeramguda', 'Gachibowli', 'Gopanpally', 'Kondapur', 'Narsingi', 'Vanasthalipuram'] },
   { state: 'Uttar Pradesh', cities: ['Bhinga', 'Greater Noida', 'Greater Noida West', 'Indirapuram', 'Noida', 'Noida Extension'] },
-  { state: 'Uttarakhand', cities: ['Dehradun', 'Karnaprayag', 'Roorkee'] },
+  { state: 'Uttarakhand', cities: ['Karnaprayag', 'Roorkee'] },
   { state: 'West Bengal', cities: ['Siliguri'] }
 ];
 
-const popularSearches = ["Noida", "Bengaluru", "Hyderabad", "Pune", "Gurugram", "Dehradun"];
+const popularSearches = ["Noida", "Bengaluru", "Hyderabad", "Pune", "Gurugram"];
 
 export default function Stores() {
   const { isDarkMode } = useOutletContext() || {};
@@ -215,7 +215,7 @@ export default function Stores() {
                       <div className="mb-4 pt-3 border-top" style={{ borderColor: '#f1f5f9' }}>
                         <div className="d-flex align-items-center gap-2 mb-2 text-muted small">
                           <span>📞</span>
-                          <span className="fw-semibold text-dark">{store.phone}</span>
+                          <span className="fw-semibold text-dark">+91 91380 04800</span>
                         </div>
                         <div className="d-flex align-items-center gap-2 mb-3 text-muted small">
                           <span>💬</span>
@@ -259,7 +259,7 @@ export default function Stores() {
                           Directions
                         </a>
                         <a 
-                          href={`tel:${store.phone.replace(/\s+/g, '')}`} 
+                          href="tel:+919138004800" 
                           className="btn btn-outline-primary btn-sm flex-grow-1 py-2 fw-semibold text-center text-decoration-none"
                           style={{ fontSize: '0.8rem' }}
                         >

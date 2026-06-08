@@ -81,7 +81,7 @@ export default function Contact() {
                 </div>
                 <div className="ms-4">
                   <h5 className="fw-bold mb-1">Our Address</h5>
-                  <p className="text-muted mb-0">Mumbai, India</p>
+                  <p className="text-muted mb-0">Pan India</p>
                 </div>
               </div>
 

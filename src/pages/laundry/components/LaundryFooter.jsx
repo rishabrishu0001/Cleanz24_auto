@@ -53,11 +53,11 @@ export default function Footer() {
           <div className="col-lg-2 col-md-4 col-6">
             <h4 className="h6 fw-bold mb-4 position-relative pb-2 footer-heading text-heading">Services</h4>
             <ul className="list-unstyled footer-links">
-              <li><Link to="/laundry/services" className="text-muted-custom text-decoration-none hover-brand">Wash & Fold Laundry</Link></li>
-              <li><Link to="/laundry/dry-cleaning" className="text-muted-custom text-decoration-none hover-brand">Dry Cleaning</Link></li>
-              <li><Link to="/laundry/home-cleaning" className="text-muted-custom text-decoration-none hover-brand">Home Cleaning</Link></li>
-              <li><Link to="/laundry/steam-ironing" className="text-muted-custom text-decoration-none hover-brand">Steam Ironing</Link></li>
-              <li><Link to="/laundry/shoe-cleaning" className="text-muted-custom text-decoration-none hover-brand">Shoe Cleaning</Link></li>
+              <li><Link to="/laundry/services#laundry" className="text-muted-custom text-decoration-none hover-brand">Wash & Fold Laundry</Link></li>
+              <li><Link to="/laundry/services#dry-cleaning" className="text-muted-custom text-decoration-none hover-brand">Dry Cleaning</Link></li>
+              <li><Link to="/laundry/services#home-cleaning" className="text-muted-custom text-decoration-none hover-brand">Home Cleaning</Link></li>
+              <li><Link to="/laundry/services#steam-ironing" className="text-muted-custom text-decoration-none hover-brand">Steam Ironing</Link></li>
+              <li><Link to="/laundry/services#shoe-cleaning" className="text-muted-custom text-decoration-none hover-brand">Shoe Cleaning</Link></li>
             </ul>
           </div>
 
@@ -66,7 +66,7 @@ export default function Footer() {
             <h4 className="h6 fw-bold mb-4 position-relative pb-2 footer-heading text-heading">Contact Us</h4>
             <div className="d-flex align-items-start mb-3 text-muted-custom" style={{ fontSize: '0.88rem' }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="me-2 mt-1 flex-shrink-0" style={{ color: 'var(--global-primary)' }}><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
-              <span>Banglore India</span>
+              <span>Pan India</span>
             </div>
             <div className="d-flex align-items-center mb-3 text-muted-custom" style={{ fontSize: '0.88rem' }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="me-2 flex-shrink-0" style={{ color: 'var(--global-primary)' }}><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
@@ -74,13 +74,13 @@ export default function Footer() {
             </div>
             <div className="d-flex align-items-center mb-3 text-muted-custom" style={{ fontSize: '0.88rem' }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="me-2 flex-shrink-0" style={{ color: 'var(--global-primary)' }}><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-              <a href="mailto:info@cleanz24.com" className="text-muted-custom text-decoration-none hover-brand">info@cleanz24.com</a>
+              <a href="mailto:happy2helpu@cleanz24.com" className="text-muted-custom text-decoration-none hover-brand">happy2helpu@cleanz24.com</a>
             </div>
 
             {/* Trust Line */}
             <div className="mt-4 d-flex align-items-center gap-2" style={{ fontSize: '0.75rem', color: '#A0AEC0' }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--global-primary)"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
-              <span>Trusted by 5 Lacs+ customers across India</span>
+              <span>Trusted by 2 Lacs+ customers across India</span>
             </div>
           </div>
         </div>

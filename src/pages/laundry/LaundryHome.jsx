@@ -337,11 +337,11 @@ export default function LaundryHome() {
             className="services-grid-inline"
           >
             {[
-              { title: 'Laundry', desc: 'We wash, dry, and fold with precision for a spotless finish.', icon: srvLaundryImg, link: '#booking-form' },
-              { title: 'Dry Cleaning', desc: 'Professional care for suits, silks, and delicate fabrics.', icon: srvDryImg, link: '#booking-form' },
-              { title: 'Home Cleaning', desc: 'Professional cleaning for a healthier living space.', icon: srvHomeImg, link: '#booking-form' },
-              { title: 'Steam Ironing', desc: 'Wrinkle-free perfection, every time.', icon: srvIronImg, link: '#booking-form' },
-              { title: 'Shoe Cleaning', desc: 'Bring back the shine to your favorite pairs.', icon: srvShoeImg, link: '#booking-form' }
+              { title: 'Laundry', desc: 'We wash, dry, and fold with precision for a spotless finish.', icon: srvLaundryImg, link: '/laundry/contact-us' },
+              { title: 'Dry Cleaning', desc: 'Professional care for suits, silks, and delicate fabrics.', icon: srvDryImg, link: '/laundry/contact-us' },
+              { title: 'Home Cleaning', desc: 'Professional cleaning for a healthier living space.', icon: srvHomeImg, link: '/laundry/contact-us' },
+              { title: 'Steam Ironing', desc: 'Wrinkle-free perfection, every time.', icon: srvIronImg, link: '/laundry/contact-us' },
+              { title: 'Shoe Cleaning', desc: 'Bring back the shine to your favorite pairs.', icon: srvShoeImg, link: '/laundry/contact-us' }
             ].map((srv, idx) => (
               <motion.div key={idx} variants={fadeInUp} className="service-card-wrapper">
                 <div className="service-card-new">
@@ -351,10 +351,10 @@ export default function LaundryHome() {
                     <p>{srv.desc}</p>
                   </div>
                   <div className="text-center">
-                    <a href={srv.link} className="know-more-btn text-decoration-none">
+                    <Link to={srv.link} className="know-more-btn text-decoration-none">
                       <span>Know More</span>
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </motion.div>
@@ -522,9 +522,9 @@ export default function LaundryHome() {
             Managing dirty laundry can be an uphill battle when juggling a busy schedule. Our express pickup & dropoff services make dry cleaning seamless, reliable, and prompt.
           </p>
           <div className="d-flex justify-content-center gap-3 flex-wrap">
-            <a href="#booking-form" className="btn-secondary-custom">
+            <Link to="/laundry/contact-us" className="btn-secondary-custom">
               Schedule Free Pickup
-            </a>
+            </Link>
             <a href="https://wa.me/919138004800" target="_blank" rel="noreferrer" className="btn-outline-light-custom">
               Chat On Whatsapp
             </a>
@@ -631,7 +631,7 @@ export default function LaundryHome() {
           </div>
 
           <div className="text-center mt-5">
-            <a href="#booking-form" className="btn-primary-custom">Schedule Free Pickup Now</a>
+            <Link to="/laundry/contact-us" className="btn-primary-custom">Schedule Free Pickup Now</Link>
           </div>
         </div>
       </section>
@@ -763,7 +763,7 @@ export default function LaundryHome() {
                     </div>
                     <div className="laundry-store-actions">
                       <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store.name + ' ' + store.address)}`} target="_blank" rel="noreferrer" className="laundry-store-btn laundry-store-btn-outline">Directions</a>
-                      <a href="#booking-form" className="laundry-store-btn laundry-store-btn-primary">Schedule Pickup</a>
+                      <Link to="/laundry/contact-us" className="laundry-store-btn laundry-store-btn-primary">Schedule Pickup</Link>
                       <a href={`tel:${store.phone.replace(/\s+/g, '')}`} className="laundry-store-btn laundry-store-btn-outline">Call</a>
                       <a href={`https://wa.me/${store.whatsapp}`} target="_blank" rel="noreferrer" className="laundry-store-btn laundry-store-btn-green">WhatsApp</a>
                     </div>
