@@ -119,8 +119,8 @@ export default function Contact() {
               {/* WhatsApp */}
               <div className="d-flex align-items-center mb-4">
                 <div className="d-flex align-items-center justify-content-center shadow-sm"
-                  style={{ width: 60, height: 60, fontSize: '24px', background: '#f0faf2', borderRadius: 12, flexShrink: 0 }}>
-                  💬
+                  style={{ width: 60, height: 60, background: '#f0faf2', borderRadius: 12, flexShrink: 0, color: '#25D366' }}>
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01C17.18 3.03 14.69 2 12.04 2zm5.83 14.09c-.25.7-.1.97-.24 1.45-.33 1.15-1.35 1.77-2.38 1.95-1.12.19-2.3-.22-3.32-.73-2.18-1.09-3.9-2.81-4.99-4.99-.51-1.02-.92-2.2-.73-3.32.18-1.03.8-2.05 1.95-2.38.48-.14.75.01 1.45-.24.28.56.84 1.68 1.12 2.24.14.28.01.56-.14.84-.28.56-.84 1.12-.56 1.4.56 1.12 1.4 1.96 2.52 2.52.28.28.84-.28 1.4-.56.28-.14.56-.28.84-.14.56.28 1.68.84 2.24 1.12.25.14.39.42.24.71z"/></svg>
                 </div>
                 <div className="ms-4">
                   <h5 className="fw-bold mb-1">WhatsApp</h5>

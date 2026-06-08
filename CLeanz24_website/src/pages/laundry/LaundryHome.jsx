@@ -237,7 +237,7 @@ export default function LaundryHome() {
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
                     </div>
                     <div>
-                      <h5 className="fw-bold mb-1">5 Lac+ Customers</h5>
+                      <h5 className="fw-bold mb-1">2 Lac+ Customers</h5>
                       <p className="text-muted small mb-0">Trusted service across multiple cities.</p>
                     </div>
                   </div>

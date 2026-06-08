@@ -825,7 +825,7 @@ function LaundryFrenchise() {
             {[
               { icon: '📊', value: '1.5–3 Lac', label: 'Earn profit up to' },
               { icon: '📐', value: '250–600 sqft', label: 'Area Required' },
-              { icon: '💵', value: '11–20 Lacs', label: 'Total Investment' },
+              { icon: '💵', value: '13–30 Lacs', label: 'Total Investment' },
               { icon: '⏳', value: '18–20 Months', label: 'ROI Period' },
               { icon: '📍', value: 'Highstreet', label: 'Premium Locations' },
             ].map((item, i) => (
