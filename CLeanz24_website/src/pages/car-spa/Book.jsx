@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { faqsData, storesData } from '../../data';
 import SEOMeta from '../../components/SEOMeta';
 import '../../styles/carSpa.css';
-import { API_URL } from '../../config';
+import { GOOGLE_SHEETS_SCRIPT_URL } from '../../config';
 import carwashingTransparent from '../../assets/carwashing_transparent.png';
 
 function Book({ isDarkMode, toggleTheme }) {
@@ -100,6 +100,7 @@ function Book({ isDarkMode, toggleTheme }) {
     setFormErrors({});
     try {
       const payload = {
+        timestamp: new Date().toISOString().split('T')[0],
         name: formData.name,
         mobile: formData.mobile,
         service: `${formData.service} (${vehicleClass.toUpperCase()})`,
@@ -112,10 +113,11 @@ function Book({ isDarkMode, toggleTheme }) {
         isMember: selectedPriceInfo.isMember
       };
 
-      await fetch(`${API_URL}/api/pickups`, {
+      await fetch(GOOGLE_SHEETS_SCRIPT_URL, {
         method: 'POST',
+        mode: 'no-cors',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'text/plain',
         },
         body: JSON.stringify(payload)
       });

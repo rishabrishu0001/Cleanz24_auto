@@ -18,7 +18,7 @@ import { Link, useLocation } from 'react-router-dom';
 import '../../styles/carSpa.css';
 import SEOMeta from '../../components/SEOMeta';
 import { Player } from '@lottiefiles/react-lottie-player';
-import { API_URL } from '../../config';
+import { GOOGLE_SHEETS_SCRIPT_URL } from '../../config';
 
 // 1. BEFORE/AFTER SLIDER COMPONENT
 function BeforeAfterSlider() {
@@ -227,6 +227,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
 
     try {
       const payload = {
+        timestamp: new Date().toISOString().split('T')[0],
         name: bookingData.name,
         mobile: bookingData.mobile,
         service: `${bookingData.service} (${vehicleClass.toUpperCase()})`,
@@ -239,10 +240,11 @@ function CarSpa({ isDarkMode, toggleTheme }) {
         isMember: selectedPriceInfo.isMember
       };
 
-      await fetch(`${API_URL}/api/pickups`, {
+      await fetch(GOOGLE_SHEETS_SCRIPT_URL, {
         method: 'POST',
+        mode: 'no-cors',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'text/plain',
         },
         body: JSON.stringify(payload)
       });

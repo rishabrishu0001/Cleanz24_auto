@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import aboutBg from '../../assets/about_bg.jpg';
 import SEOMeta from '../../components/SEOMeta';
-import { API_URL } from '../../config';
+import { GOOGLE_SHEETS_SCRIPT_URL } from '../../config';
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', mobile: '', email: '', message: '' });
@@ -13,21 +13,25 @@ export default function Contact() {
     e.preventDefault();
     try {
       const payload = {
+        timestamp: new Date().toISOString().split('T')[0],
         name: formData.name,
         mobile: formData.mobile,
-        email: formData.email,
+        email: formData.email || 'N/A',
         service: 'Contact Inquiry / Pickup',
         date: 'N/A',
         time: 'N/A',
         address: formData.message,
         type: 'Laundry Pickup / Contact Request',
-        source: 'Laundry'
+        source: 'Laundry',
+        price: 0,
+        isMember: false
       };
 
-      await fetch(`${API_URL}/api/pickups`, {
+      await fetch(GOOGLE_SHEETS_SCRIPT_URL, {
         method: 'POST',
+        mode: 'no-cors',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'text/plain',
         },
         body: JSON.stringify(payload)
       });

@@ -719,19 +719,25 @@ body.light-mode .package-service-list li {
 /* ═══════════════════════════════════════════════════ */
 /*  FORM OVERRIDES                                     */
 /* ═══════════════════════════════════════════════════ */
-.form-control {
+.car-spa-layout .form-control,
+.admin-login-wrapper .form-control,
+.admin-dashboard-layout .form-control {
   background-color: var(--input-bg) !important;
   border: 1px solid var(--input-border) !important;
   color: var(--input-text) !important;
   border-radius: 8px !important;
   transition: all 0.3s ease;
 }
-.form-control:focus {
+.car-spa-layout .form-control:focus,
+.admin-login-wrapper .form-control:focus,
+.admin-dashboard-layout .form-control:focus {
   background-color: var(--bg-section-alt) !important;
   border-color: var(--primary-color) !important;
   box-shadow: 0 0 0 0.2rem rgba(0, 201, 109, 0.15) !important;
 }
-.form-control::placeholder { color: var(--text-muted) !important; }
+.car-spa-layout .form-control::placeholder,
+.admin-login-wrapper .form-control::placeholder,
+.admin-dashboard-layout .form-control::placeholder { color: var(--text-muted) !important; }
 
 /* Form Success State */
 .form-success {

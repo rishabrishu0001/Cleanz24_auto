@@ -29,7 +29,7 @@ export default function CarSpaLayout() {
   const toggleTheme = () => setIsDarkMode(prev => !prev);
 
   return (
-    <div className="d-flex flex-column min-vh-100 bg-primary-custom bg-carbon" style={{ overflowX: 'hidden' }}>
+    <div className="car-spa-layout d-flex flex-column min-vh-100 bg-primary-custom bg-carbon" style={{ overflowX: 'hidden' }}>
       <CarSpaHeader isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
       <main className="flex-grow-1">
         <Outlet context={{ isDarkMode, toggleTheme }} />

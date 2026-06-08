@@ -245,7 +245,7 @@ export default function AdminDashboard() {
 
   // ═══════════════════════════════════════════════════════════════════════════
   return (
-    <div className="d-flex flex-column min-vh-100" style={{ background: 'radial-gradient(ellipse at top, #051408 0%, #000 80%)', fontFamily: "'Inter', sans-serif" }}>
+    <div className="admin-dashboard-layout d-flex flex-column min-vh-100" style={{ background: 'radial-gradient(ellipse at top, #051408 0%, #000 80%)', fontFamily: "'Inter', sans-serif" }}>
 
       {/* ── TOP NAV ─────────────────────────────────────────────────────── */}
       <nav style={{ background: 'rgba(5,20,8,0.95)', backdropFilter: 'blur(16px)', borderBottom: '1px solid rgba(0,201,109,0.12)', padding: '14px 0', position: 'sticky', top: 0, zIndex: 100 }}>

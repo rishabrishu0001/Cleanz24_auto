@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import SEOMeta from '../../components/SEOMeta';
-import { API_URL } from '../../config';
+import { GOOGLE_SHEETS_FRANCHISE_SCRIPT_URL } from '../../config';
 import storepic1 from '../../assets/storepic1.jpeg';
 import storepic2 from '../../assets/storepic2.jpeg';
 import storepic3 from '../../assets/storepic3.jpeg';
@@ -519,6 +519,7 @@ function LaundryFrenchise() {
     e.preventDefault();
     try {
       const payload = {
+        timestamp: new Date().toISOString().split('T')[0],
         name: formData.name,
         mobile: formData.phone,
         email: formData.email,
@@ -526,10 +527,11 @@ function LaundryFrenchise() {
         modelType: 'General Inquiry'
       };
 
-      await fetch(`${API_URL}/api/franchise`, {
+      await fetch(GOOGLE_SHEETS_FRANCHISE_SCRIPT_URL, {
         method: 'POST',
+        mode: 'no-cors',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'text/plain',
         },
         body: JSON.stringify(payload)
       });
@@ -644,7 +646,7 @@ function LaundryFrenchise() {
   const metrics = [
     { icon: '🏪', value: '100+', label: 'Franchise Locations' },
     { icon: '🌍', value: '21', label: 'States Covered' },
-    { icon: '😊', value: '50K+', label: 'Happy Customers' },
+    { icon: '😊', value: '2 Lakhs+', label: 'Happy Customers' },
     { icon: '📅', value: '8+', label: 'Years Experience' },
   ];
 
