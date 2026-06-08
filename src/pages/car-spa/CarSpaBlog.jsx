@@ -305,6 +305,7 @@ function CategoryBadge({ category }) {
 /* ─── Blog Card ──────────────────────────────────────────────────────────── */
 function BlogCard({ post }) {
   const [hovered, setHovered] = useState(false);
+  const { isDarkMode } = useOutletContext() || { isDarkMode: true };
 
   return (
     <motion.article
@@ -315,14 +316,14 @@ function BlogCard({ post }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: 'rgba(10, 26, 16, 0.65)',
+        background: 'var(--card-bg)',
         backdropFilter: 'blur(12px)',
         borderRadius: '16px',
         overflow: 'hidden',
         boxShadow: hovered
           ? '0 20px 40px rgba(0,201,109,0.08)'
-          : '0 8px 24px rgba(0,0,0,0.4)',
-        border: hovered ? '1px solid rgba(0, 201, 109, 0.3)' : '1px solid rgba(255,255,255,0.05)',
+          : (isDarkMode ? '0 8px 24px rgba(0,0,0,0.4)' : '0 8px 24px rgba(0,0,0,0.05)'),
+        border: hovered ? '1px solid rgba(0, 201, 109, 0.3)' : '1px solid var(--glass-border)',
         transition: 'all 0.4s cubic-bezier(0.25, 1, 0.5, 1)',
         transform: hovered ? 'translateY(-6px)' : 'translateY(0)',
         display: 'flex',
@@ -379,7 +380,7 @@ function BlogCard({ post }) {
             fontSize: '18px',
             fontWeight: 700,
             lineHeight: 1.4,
-            color: '#fff',
+            color: 'var(--text-heading)',
             marginBottom: '12px',
             fontFamily: "'Poppins', sans-serif",
           }}
@@ -388,7 +389,7 @@ function BlogCard({ post }) {
             to={`/car-spa/blog/${post.slug}`}
             style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s ease' }}
             onMouseEnter={(e) => (e.currentTarget.style.color = '#00C96D')}
-            onMouseLeave={(e) => (e.currentTarget.style.color = '#fff')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'inherit')}
           >
             {post.title}
           </Link>
@@ -402,7 +403,7 @@ function BlogCard({ post }) {
             gap: '8px',
             marginBottom: '14px',
             fontSize: '13px',
-            color: '#718096',
+            color: 'var(--text-muted)',
             flexWrap: 'wrap',
           }}
         >
@@ -421,7 +422,7 @@ function BlogCard({ post }) {
         <p
           style={{
             fontSize: '14px',
-            color: '#A0AEC0',
+            color: 'var(--text-muted)',
             lineHeight: 1.7,
             flex: 1,
             marginBottom: '20px',
@@ -437,7 +438,7 @@ function BlogCard({ post }) {
         {/* Read More */}
         <div
           style={{
-            borderTop: '1px solid rgba(255,255,255,0.06)',
+            borderTop: '1px solid var(--glass-border)',
             paddingTop: '16px',
           }}
         >
@@ -475,20 +476,21 @@ function BlogCard({ post }) {
 
 /* ─── Sidebar ────────────────────────────────────────────────────────────── */
 function BlogSidebar({ activeCategory, onCategoryChange, posts }) {
+  const { isDarkMode } = useOutletContext() || { isDarkMode: true };
   const cardStyle = {
-    background: 'rgba(10, 26, 16, 0.65)',
+    background: 'var(--card-bg)',
     backdropFilter: 'blur(12px)',
-    border: '1px solid rgba(255,255,255,0.05)',
+    border: '1px solid var(--glass-border)',
     borderRadius: '16px',
     padding: '28px',
     marginBottom: '24px',
-    boxShadow: '0 8px 24px rgba(0,0,0,0.35)',
+    boxShadow: isDarkMode ? '0 8px 24px rgba(0,0,0,0.35)' : '0 8px 24px rgba(0,0,0,0.05)',
   };
 
   const headingStyle = {
     fontSize: '18px',
     fontWeight: 700,
-    color: '#fff',
+    color: 'var(--text-heading)',
     marginBottom: '20px',
     fontFamily: "'Poppins', sans-serif",
     borderBottom: '2px solid rgba(0, 201, 109, 0.2)',
@@ -518,16 +520,16 @@ function BlogSidebar({ activeCategory, onCategoryChange, posts }) {
               width: '100%',
               padding: '12px 16px 12px 44px',
               borderRadius: '10px',
-              border: '1px solid rgba(255,255,255,0.08)',
-              background: 'rgba(0, 0, 0, 0.3)',
-              color: '#fff',
+              border: '1px solid var(--glass-border)',
+              background: isDarkMode ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 201, 109, 0.05)',
+              color: 'var(--input-text)',
               fontSize: '14px',
               outline: 'none',
               boxSizing: 'border-box',
               transition: 'all 0.3s ease',
             }}
             onFocus={(e) => e.target.style.borderColor = '#00C96D'}
-            onBlur={(e) => e.target.style.borderColor = 'rgba(255,255,255,0.08)'}
+            onBlur={(e) => e.target.style.borderColor = 'var(--glass-border)'}
           />
           <svg
             style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#718096' }}
@@ -559,17 +561,17 @@ function BlogSidebar({ activeCategory, onCategoryChange, posts }) {
                   padding: '10px 12px',
                   borderRadius: '8px',
                   marginBottom: '4px',
-                  color: activeCategory === cat ? '#00C96D' : '#A0AEC0',
+                  color: activeCategory === cat ? '#00C96D' : 'var(--text-muted)',
                   fontWeight: activeCategory === cat ? 700 : 500,
                   fontSize: '14px',
                   transition: 'all 0.2s ease',
                   textAlign: 'left',
                 }}
                 onMouseEnter={(e) => {
-                  if (activeCategory !== cat) e.currentTarget.style.color = '#fff';
+                  if (activeCategory !== cat) e.currentTarget.style.color = 'var(--text-heading)';
                 }}
                 onMouseLeave={(e) => {
-                  if (activeCategory !== cat) e.currentTarget.style.color = '#A0AEC0';
+                  if (activeCategory !== cat) e.currentTarget.style.color = 'var(--text-muted)';
                 }}
               >
                 <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -580,8 +582,8 @@ function BlogSidebar({ activeCategory, onCategoryChange, posts }) {
                 </span>
                 <span
                   style={{
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    color: activeCategory === cat ? '#00C96D' : '#718096',
+                    background: isDarkMode ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)',
+                    color: activeCategory === cat ? '#00C96D' : 'var(--text-muted)',
                     borderRadius: '20px',
                     fontSize: '11px',
                     fontWeight: 700,
@@ -622,7 +624,7 @@ function BlogSidebar({ activeCategory, onCategoryChange, posts }) {
                 style={{
                   fontSize: '13px',
                   fontWeight: 600,
-                  color: '#fff',
+                  color: 'var(--text-heading)',
                   lineHeight: 1.4,
                   marginBottom: '4px',
                   display: '-webkit-box',
@@ -631,11 +633,11 @@ function BlogSidebar({ activeCategory, onCategoryChange, posts }) {
                   overflow: 'hidden',
                 }}
                 onMouseEnter={(e) => e.currentTarget.style.color = '#00C96D'}
-                onMouseLeave={(e) => e.currentTarget.style.color = '#fff'}
+                onMouseLeave={(e) => e.currentTarget.style.color = 'inherit'}
               >
                 {post.title}
               </div>
-              <div style={{ fontSize: '11px', color: '#718096' }}>
+              <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
                 <time dateTime={post.dateTime}>{post.date}</time>
               </div>
             </div>
@@ -655,9 +657,9 @@ function BlogSidebar({ activeCategory, onCategoryChange, posts }) {
               alignItems: 'center',
               justifyContent: 'space-between',
               padding: '10px 0',
-              borderBottom: '1px solid rgba(255,255,255,0.05)',
+              borderBottom: '1px solid var(--glass-border)',
               textDecoration: 'none',
-              color: '#A0AEC0',
+              color: 'var(--text-muted)',
               fontSize: '14px',
               fontWeight: 500,
               transition: 'all 0.2s ease',
@@ -667,7 +669,7 @@ function BlogSidebar({ activeCategory, onCategoryChange, posts }) {
               e.currentTarget.style.paddingLeft = '6px';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = '#A0AEC0';
+              e.currentTarget.style.color = 'var(--text-muted)';
               e.currentTarget.style.paddingLeft = '0px';
             }}
           >
@@ -682,13 +684,16 @@ function BlogSidebar({ activeCategory, onCategoryChange, posts }) {
 
 /* ─── Hero Banner ────────────────────────────────────────────────────────── */
 function BlogHero() {
+  const { isDarkMode } = useOutletContext() || { isDarkMode: true };
   return (
     <section
       style={{
         position: 'relative',
-        background: 'linear-gradient(135deg, #020704 0%, #081a10 50%, #000000 100%)',
-        borderBottom: '1px solid rgba(0, 201, 109, 0.15)',
-        color: '#fff',
+        background: isDarkMode
+          ? 'linear-gradient(135deg, #020704 0%, #081a10 50%, #000000 100%)'
+          : 'linear-gradient(135deg, #F4FBF6 0%, #EAF5EE 100%)',
+        borderBottom: '1px solid var(--glass-border)',
+        color: 'var(--text-heading)',
         padding: '90px 0 80px',
         overflow: 'hidden',
         textAlign: 'center',
@@ -720,8 +725,8 @@ function BlogHero() {
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         {/* Breadcrumb */}
         <nav aria-label="breadcrumb" style={{ marginBottom: '20px' }}>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', fontSize: '13px', color: 'rgba(255,255,255,0.6)', alignItems: 'center' }}>
-            <Link to="/car-spa" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>Car Spa</Link>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', fontSize: '13px', color: isDarkMode ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.6)', alignItems: 'center' }}>
+            <Link to="/car-spa" style={{ color: isDarkMode ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.7)', textDecoration: 'none' }}>Car Spa</Link>
             <span>›</span>
             <span style={{ color: '#00C96D', fontWeight: 600 }}>Blog</span>
           </div>
@@ -765,7 +770,7 @@ function BlogHero() {
           <p
             style={{
               fontSize: '16px',
-              color: '#A0AEC0',
+              color: 'var(--text-muted)',
               maxWidth: '560px',
               margin: '0 auto',
               lineHeight: 1.7,
@@ -804,7 +809,7 @@ function Pagination({ current, total, onChange }) {
           style={{
             background: 'none',
             border: 'none',
-            color: '#A0AEC0',
+            color: 'var(--text-muted)',
             cursor: 'pointer',
             fontSize: '16px',
             fontWeight: '700',
@@ -815,7 +820,7 @@ function Pagination({ current, total, onChange }) {
             transition: 'color 0.2s ease',
           }}
           onMouseEnter={(e) => e.currentTarget.style.color = '#00C96D'}
-          onMouseLeave={(e) => e.currentTarget.style.color = '#A0AEC0'}
+          onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
         >
           &lt;
         </button>
@@ -843,14 +848,14 @@ function Pagination({ current, total, onChange }) {
               transition: 'all 0.2s ease',
               padding: 0,
               background: isActive ? '#00C96D' : 'transparent',
-              color: isActive ? '#fff' : '#A0AEC0',
-              border: isActive ? 'none' : '1px solid rgba(255,255,255,0.05)'
+              color: isActive ? '#fff' : 'var(--text-muted)',
+              border: isActive ? 'none' : '1px solid var(--glass-border)'
             }}
             onMouseEnter={(e) => {
               if (!isActive) e.currentTarget.style.color = '#00C96D';
             }}
             onMouseLeave={(e) => {
-              if (!isActive) e.currentTarget.style.color = '#A0AEC0';
+              if (!isActive) e.currentTarget.style.color = 'var(--text-muted)';
             }}
           >
             {p}
@@ -865,7 +870,7 @@ function Pagination({ current, total, onChange }) {
           style={{
             background: 'none',
             border: 'none',
-            color: '#A0AEC0',
+            color: 'var(--text-muted)',
             cursor: 'pointer',
             fontSize: '16px',
             fontWeight: '700',
@@ -876,7 +881,7 @@ function Pagination({ current, total, onChange }) {
             transition: 'color 0.2s ease',
           }}
           onMouseEnter={(e) => e.currentTarget.style.color = '#00C96D'}
-          onMouseLeave={(e) => e.currentTarget.style.color = '#A0AEC0'}
+          onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
         >
           &gt;
         </button>
@@ -900,8 +905,8 @@ export default function CarSpaBlog() {
 
     if (!post) {
       return (
-        <div style={{ background: '#0a0a0a', minHeight: '100vh', color: '#fff', padding: '100px 20px', textAlign: 'center' }}>
-          <h2 className="mb-4">Article Not Found</h2>
+        <div style={{ background: isDarkMode ? '#0a0a0a' : '#f7fafc', minHeight: '100vh', color: 'var(--text-main)', padding: '100px 20px', textAlign: 'center' }}>
+          <h2 className="mb-4" style={{ color: 'var(--text-heading)' }}>Article Not Found</h2>
           <p className="text-muted mb-4">The detailing article you are looking for does not exist or has been relocated.</p>
           <Link to="/car-spa/blog" className="btn btn-outline-success px-4 py-2">Back to Blog</Link>
         </div>
@@ -930,7 +935,7 @@ export default function CarSpaBlog() {
     };
 
     return (
-      <div style={{ background: '#050705', minHeight: '100vh', color: '#fff' }}>
+      <div style={{ background: 'var(--bg-body)', minHeight: '100vh', color: 'var(--text-main)', transition: 'background 0.3s ease, color 0.3s ease' }}>
         <SEOMeta
           title={post.title}
           description={post.excerpt}
@@ -945,7 +950,7 @@ export default function CarSpaBlog() {
           style={{
             position: 'relative',
             height: '45vh',
-            backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(5,7,5,1) 100%), url(${post.image})`,
+            backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, ${isDarkMode ? 'rgba(5,7,5,1)' : '#f7fafc'} 100%), url(${post.image})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center center',
             display: 'flex',
@@ -959,10 +964,10 @@ export default function CarSpaBlog() {
                 <CategoryBadge key={cat} category={cat} />
               ))}
             </div>
-            <h1 style={{ fontSize: 'clamp(28px, 4.5vw, 48px)', fontWeight: 900, fontFamily: "'Oswald', sans-serif", textShadow: '0 2px 10px rgba(0,0,0,0.8)', maxWidth: '900px' }}>
+            <h1 style={{ fontSize: 'clamp(28px, 4.5vw, 48px)', fontWeight: 900, fontFamily: "'Oswald', sans-serif", textShadow: isDarkMode ? '0 2px 10px rgba(0,0,0,0.8)' : 'none', color: 'var(--text-heading)', maxWidth: '900px' }}>
               {post.title}
             </h1>
-            <div style={{ display: 'flex', gap: '16px', color: '#718096', fontSize: '14px', marginTop: '12px' }}>
+            <div style={{ display: 'flex', gap: '16px', color: 'var(--text-muted)', fontSize: '14px', marginTop: '12px' }}>
               <span>By <strong style={{ color: '#00C96D' }}>{post.author}</strong></span>
               <span>•</span>
               <time dateTime={post.dateTime}>{post.date}</time>
@@ -1002,7 +1007,7 @@ export default function CarSpaBlog() {
                 style={{
                   lineHeight: '1.8',
                   fontSize: '16px',
-                  color: '#CBD5E0'
+                  color: 'var(--text-main)'
                 }}
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
@@ -1013,10 +1018,10 @@ export default function CarSpaBlog() {
                   marginTop: '48px', 
                   padding: '24px', 
                   borderRadius: '12px', 
-                  background: 'rgba(255,255,255,0.02)', 
-                  border: '1px solid rgba(255,255,255,0.05)',
+                  background: isDarkMode ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.02)', 
+                  border: '1px solid var(--glass-border)',
                   fontSize: '13px',
-                  color: '#718096'
+                  color: 'var(--text-muted)'
                 }}
               >
                 <p className="mb-0"><strong>Disclaimer:</strong> The opinions and tips expressed in this blog are based on general car detailing best practices. Always test products in an inconspicuous paint area first or consult a Cleanz24 certified master technician for tailored vehicle advice.</p>
@@ -1072,7 +1077,7 @@ export default function CarSpaBlog() {
   }, []);
 
   return (
-    <div style={{ background: '#050705', minHeight: '100vh' }}>
+    <div style={{ background: 'var(--bg-body)', minHeight: '100vh', color: 'var(--text-main)', transition: 'background 0.3s ease, color 0.3s ease' }}>
       <SEOMeta
         title="Car Detailing Tips & Blog"
         description="Read professional advice on car wash, paint polishing, ceramic coating applications, PPF wrap protection, and general automobile grooming in India."
@@ -1104,9 +1109,9 @@ export default function CarSpaBlog() {
               onClick={() => setActiveCategory(cat)}
               style={{
                 flexShrink: 0,
-                background: activeCategory === cat ? '#00C96D' : 'rgba(10, 26, 16, 0.65)',
-                color: activeCategory === cat ? '#fff' : '#A0AEC0',
-                border: activeCategory === cat ? '1px solid #00C96D' : '1px solid rgba(255,255,255,0.05)',
+                background: activeCategory === cat ? '#00C96D' : (isDarkMode ? 'rgba(10, 26, 16, 0.65)' : 'var(--card-bg)'),
+                color: activeCategory === cat ? '#fff' : 'var(--text-muted)',
+                border: activeCategory === cat ? '1px solid #00C96D' : '1px solid var(--glass-border)',
                 borderRadius: '20px',
                 padding: '8px 18px',
                 fontSize: '13px',
@@ -1134,9 +1139,9 @@ export default function CarSpaBlog() {
                 gap: '12px',
               }}
             >
-              <p style={{ color: '#718096', fontSize: '14px', margin: 0 }}>
+              <p style={{ color: 'var(--text-muted)', fontSize: '14px', margin: 0 }}>
                 Showing{' '}
-                <strong style={{ color: '#fff' }}>
+                <strong style={{ color: 'var(--text-heading)' }}>
                   {filteredPosts.length}
                 </strong>{' '}
                 {filteredPosts.length === 1 ? 'article' : 'articles'}
@@ -1178,13 +1183,13 @@ export default function CarSpaBlog() {
                     style={{
                       fontSize: '22px',
                       fontWeight: 700,
-                      color: '#fff',
+                      color: 'var(--text-heading)',
                       fontFamily: "'Oswald', sans-serif",
                     }}
                   >
                     No articles found
                   </h3>
-                  <p style={{ color: '#718096', marginTop: '8px' }}>
+                  <p style={{ color: 'var(--text-muted)', marginTop: '8px' }}>
                     Try a different category or search term.
                   </p>
                   <button
