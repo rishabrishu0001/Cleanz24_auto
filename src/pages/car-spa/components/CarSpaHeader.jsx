@@ -133,7 +133,7 @@ export default function Header({ isDarkMode, toggleTheme }) {
 
       <motion.nav 
         initial={{ y: -100 }} animate={{ y: 0 }} transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`navbar navbar-expand-lg ${isDarkMode ? 'navbar-dark' : 'navbar-light'} nav-full ${isScrolled ? 'nav-scrolled' : ''} ${isActive('/car-spa/membership') ? 'nav-light-hero' : ''}`}
+        className={`navbar navbar-expand-lg ${isDarkMode ? 'navbar-dark' : 'navbar-light'} nav-full ${isScrolled ? 'nav-scrolled' : ''} ${(isActive('/car-spa/membership') || location.pathname.startsWith('/car-spa/blog')) ? 'nav-light-hero' : ''}`}
       >
         <div className="container">
           <Link className="navbar-brand d-flex align-items-center text-decoration-none gap-2" to="/car-spa">
