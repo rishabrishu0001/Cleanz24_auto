@@ -3,6 +3,18 @@ import { Link, useParams, useNavigate, useOutletContext } from 'react-router-dom
 import { motion, AnimatePresence } from 'framer-motion';
 import SEOMeta from '../../components/SEOMeta';
 
+// Import local blog images
+import carblog1 from '../../assets/carblog1.jpeg';
+import carblog2 from '../../assets/carblog2.jpeg';
+import carblog4_2 from '../../assets/carblog4 (2).jpeg';
+import carblog4_1 from '../../assets/carblog4 (1).jpeg';
+import carblog5 from '../../assets/carblog5.jpeg';
+import carblog6 from '../../assets/carblog6.jpeg';
+import carblog7 from '../../assets/carblog7.jpeg';
+import carblog10_2 from '../../assets/carblog10 (2).jpeg';
+import carblog10_3 from '../../assets/carblog10 (3).jpeg';
+import carblog10_1 from '../../assets/carblog10 (1).jpeg';
+
 /* ─── Blog Data ──────────────────────────────────────────────────────────── */
 const ALL_CATEGORIES = ['All', 'Car Care Tips', 'Detailing', 'Membership', 'Services'];
 
@@ -16,7 +28,7 @@ const BLOG_POSTS = [
     author: 'cleanz24',
     date: 'June 04, 2026',
     dateTime: '2026-06-04',
-    image: 'https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=800&q=80',
+    image: carblog1,
     readTime: '6 min read',
     content: `
       <h3>Why Professional Detailing is Crucial for Delhi Cars</h3>
@@ -43,7 +55,7 @@ const BLOG_POSTS = [
     author: 'cleanz24',
     date: 'May 28, 2026',
     dateTime: '2026-05-28',
-    image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80',
+    image: carblog2,
     readTime: '8 min read',
     content: `
       <h3>What Exactly is Ceramic Coating?</h3>
@@ -69,7 +81,7 @@ const BLOG_POSTS = [
     author: 'cleanz24',
     date: 'May 20, 2026',
     dateTime: '2026-05-20',
-    image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80',
+    image: carblog4_2,
     readTime: '5 min read',
     content: `
       <h3>The Simple Car Wash: A Surface Clean</h3>
@@ -91,7 +103,7 @@ const BLOG_POSTS = [
     author: 'cleanz24',
     date: 'May 12, 2026',
     dateTime: '2026-05-12',
-    image: 'https://images.unsplash.com/photo-1520340356584-f9917d1ecc6f?auto=format&fit=crop&w=800&q=80',
+    image: carblog4_1,
     readTime: '6 min read',
     content: `
       <h3>More Than Just Aesthetics</h3>
@@ -116,7 +128,7 @@ const BLOG_POSTS = [
     author: 'cleanz24',
     date: 'May 05, 2026',
     dateTime: '2026-05-05',
-    image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80',
+    image: carblog5,
     readTime: '7 min read',
     content: `
       <h3>The Importance of Interior Upkeep</h3>
@@ -142,7 +154,7 @@ const BLOG_POSTS = [
     author: 'cleanz24',
     date: 'April 25, 2026',
     dateTime: '2026-04-25',
-    image: 'https://images.unsplash.com/photo-1616788494707-ec28f08d05a1?auto=format&fit=crop&w=800&q=80',
+    image: carblog6,
     readTime: '8 min read',
     content: `
       <h3>The Boom in India's Automotive Market</h3>
@@ -168,7 +180,7 @@ const BLOG_POSTS = [
     author: 'cleanz24',
     date: 'April 15, 2026',
     dateTime: '2026-04-15',
-    image: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&w=800&q=80',
+    image: carblog7,
     readTime: '6 min read',
     content: `
       <h3>Evaluating Scratch Depth</h3>
@@ -196,7 +208,7 @@ const BLOG_POSTS = [
     author: 'cleanz24',
     date: 'April 08, 2026',
     dateTime: '2026-04-08',
-    image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80',
+    image: carblog10_2,
     readTime: '5 min read',
     content: `
       <h3>Pay-Per-Wash vs. Membership Subscriptions</h3>
@@ -221,7 +233,7 @@ const BLOG_POSTS = [
     author: 'cleanz24',
     date: 'March 28, 2026',
     dateTime: '2026-03-28',
-    image: 'https://images.unsplash.com/photo-1518987048-93e2968c8b99?auto=format&fit=crop&w=800&q=80',
+    image: carblog10_3,
     readTime: '5 min read',
     content: `
       <h3>The Threats of the Monsoon Season</h3>
@@ -245,7 +257,7 @@ const BLOG_POSTS = [
     author: 'cleanz24',
     date: 'March 18, 2026',
     dateTime: '2026-03-18',
-    image: 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80',
+    image: carblog10_1,
     readTime: '6 min read',
     content: `
       <h3>Car Polish: Corrective & Abrasive</h3>
