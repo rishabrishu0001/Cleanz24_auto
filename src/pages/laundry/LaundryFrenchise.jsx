@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import SEOMeta from '../../components/SEOMeta';
+import { API_URL } from '../../config';
 import storepic1 from '../../assets/storepic1.jpeg';
 import storepic2 from '../../assets/storepic2.jpeg';
 import storepic3 from '../../assets/storepic3.jpeg';
@@ -525,7 +526,7 @@ function LaundryFrenchise() {
         modelType: 'General Inquiry'
       };
 
-      await fetch('http://localhost:5000/api/franchise', {
+      await fetch(`${API_URL}/api/franchise`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

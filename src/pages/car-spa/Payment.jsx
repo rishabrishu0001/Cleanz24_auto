@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../../styles/carSpa.css';
+import { API_URL } from '../../config';
 
 export default function Payment() {
   const location = useLocation();
@@ -30,7 +31,7 @@ export default function Payment() {
     if (!couponCode.trim()) return;
 
     try {
-      const res = await fetch('http://localhost:5000/api/coupons');
+      const res = await fetch(`${API_URL}/api/coupons`);
       if (!res.ok) throw new Error('Failed to fetch coupons');
       const coupons = await res.json();
       
@@ -85,7 +86,7 @@ export default function Payment() {
 
     try {
       // 1. Create Order on Backend
-      const orderRes = await fetch('http://localhost:5000/api/payment/create-order', {
+      const orderRes = await fetch(`${API_URL}/api/payment/create-order`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount: finalTotal, receipt: formData.mobile })
@@ -104,7 +105,7 @@ export default function Payment() {
         handler: async function (response) {
           try {
             // 3. Verify Payment Signature
-            const verifyRes = await fetch('http://localhost:5000/api/payment/verify', {
+            const verifyRes = await fetch(`${API_URL}/api/payment/verify`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -123,7 +124,7 @@ export default function Payment() {
                 vehicleNumber: formData.vehicleNumber.toUpperCase(), 
                 status: 'Active' 
               };
-              const saveRes = await fetch('http://localhost:5000/api/members', {
+              const saveRes = await fetch(`${API_URL}/api/members`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newMemberData)

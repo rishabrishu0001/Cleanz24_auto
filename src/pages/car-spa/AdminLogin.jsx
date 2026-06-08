@@ -3,9 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import logoImg from '../../assets/logo3.jpeg';
 import '../../styles/carSpa.css';
+import { API_URL } from '../../config';
 
 // ─── Small helper ─────────────────────────────────────────────────────────────
-const API = 'http://localhost:5000/api/admin';
+const API = `${API_URL}/api/admin`;
 
 export default function AdminLogin() {
   const navigate = useNavigate();
@@ -121,6 +122,7 @@ export default function AdminLogin() {
 
   return (
     <div
+      className="admin-login-wrapper"
       style={{
         minHeight: '100vh',
         background: 'radial-gradient(ellipse at top, #0a2010 0%, #000 70%)',
@@ -143,9 +145,9 @@ export default function AdminLogin() {
         initial={{ opacity: 0, y: 32 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, ease: 'easeOut' }}
+        className="admin-login-card"
         style={{
           position: 'relative', zIndex: 1,
-          width: '100%', maxWidth: '440px',
           background: 'rgba(10, 26, 16, 0.85)',
           backdropFilter: 'blur(20px)',
           border: '1px solid rgba(0, 201, 109, 0.2)',
@@ -157,10 +159,10 @@ export default function AdminLogin() {
         {/* Top accent bar */}
         <div style={{ height: '3px', background: 'linear-gradient(90deg, #00C96D, #00ff8a, #00C96D)', opacity: 0.8 }} />
 
-        <div style={{ padding: '40px 36px 36px' }}>
+        <div className="admin-login-padding" style={{ padding: '40px 36px 36px' }}>
           {/* Logo + title */}
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-            <img src={logoImg} alt="Cleanz24" style={{ height: '56px', borderRadius: '10px', marginBottom: '14px', boxShadow: '0 4px 20px rgba(0,201,109,0.2)' }} />
+            <img src={logoImg} alt="Cleanz24" className="admin-login-logo" style={{ height: '56px', borderRadius: '10px', marginBottom: '14px', boxShadow: '0 4px 20px rgba(0,201,109,0.2)' }} />
             <div style={{ color: 'rgba(0,201,109,0.8)', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '4px' }}>Admin Portal</div>
             <h1 style={{ color: '#fff', fontSize: '1.5rem', fontWeight: 800, margin: 0 }}>Welcome Back</h1>
             <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.85rem', marginTop: '6px', marginBottom: 0 }}>
@@ -181,6 +183,7 @@ export default function AdminLogin() {
               <button
                 key={m.key}
                 onClick={() => { setMethod(m.key); setError(''); setOtpSent(false); setOtp(''); }}
+                className="admin-login-toggle-btn"
                 style={{
                   flex: 1, padding: '10px', border: 'none', borderRadius: '8px',
                   fontWeight: 600, fontSize: '0.82rem', cursor: 'pointer',

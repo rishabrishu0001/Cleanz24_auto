@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import aboutBg from '../../assets/about_bg.jpg';
 import SEOMeta from '../../components/SEOMeta';
+import { API_URL } from '../../config';
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', mobile: '', email: '', message: '' });
@@ -23,7 +24,7 @@ export default function Contact() {
         source: 'Laundry'
       };
 
-      await fetch('http://localhost:5000/api/pickups', {
+      await fetch(`${API_URL}/api/pickups`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

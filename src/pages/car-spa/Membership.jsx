@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import '../../styles/carSpa.css';
 import SEOMeta from '../../components/SEOMeta';
+import { API_URL } from '../../config';
 
 // ── Default Plan Definitions (prices overridden from localStorage) ─────────────
 const DEFAULT_ANNUAL_PLANS = [
@@ -165,7 +166,7 @@ export default function Membership() {
   
   const fetchMembers = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/members');
+      const res = await fetch(`${API_URL}/api/members`);
       if (res.ok) {
         const data = await res.json();
         // map MongoDB _id to id for existing frontend logic
@@ -211,7 +212,7 @@ export default function Membership() {
   
   const fetchCoupons = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/coupons');
+      const res = await fetch(`${API_URL}/api/coupons`);
       if (res.ok) {
         const data = await res.json();
         setCoupons(data.map(c => ({...c, id: c._id})));
@@ -230,7 +231,7 @@ export default function Membership() {
     if (!couponFormData.code.trim() || !couponFormData.discountPercent) return;
     
     try {
-      const res = await fetch('http://localhost:5000/api/coupons', {
+      const res = await fetch(`${API_URL}/api/coupons`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code: couponFormData.code.toUpperCase(), discountPercent: Number(couponFormData.discountPercent), active: couponFormData.active })
@@ -247,7 +248,7 @@ export default function Membership() {
   const deleteCoupon = async (id) => {
     if (window.confirm('Delete this coupon?')) {
       try {
-        const res = await fetch(`http://localhost:5000/api/coupons/${id}`, { method: 'DELETE' });
+        const res = await fetch(`${API_URL}/api/coupons/${id}`, { method: 'DELETE' });
         if (res.ok) fetchCoupons();
       } catch (err) {
         console.error('Failed to delete coupon:', err);
@@ -259,7 +260,7 @@ export default function Membership() {
     const coupon = coupons.find(c => c.id === id);
     if (!coupon) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/coupons/${id}`, {
+      const res = await fetch(`${API_URL}/api/coupons/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ active: !coupon.active })
@@ -360,7 +361,7 @@ export default function Membership() {
     if (Object.keys(errors).length > 0) { alert('Please fill all fields correctly: ' + Object.values(errors).join(', ')); return; }
     
     try {
-      const res = await fetch('http://localhost:5000/api/members', {
+      const res = await fetch(`${API_URL}/api/members`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...adminAddData, vehicleNumber: adminAddData.vehicleNumber.toUpperCase() })
@@ -381,7 +382,7 @@ export default function Membership() {
     if (Object.keys(errors).length > 0) { alert('Please correct details: ' + Object.values(errors).join(', ')); return; }
     
     try {
-      const res = await fetch(`http://localhost:5000/api/members/${editingMember.id}`, {
+      const res = await fetch(`${API_URL}/api/members/${editingMember.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...editFormData, vehicleNumber: editFormData.vehicleNumber.toUpperCase() })
@@ -398,7 +399,7 @@ export default function Membership() {
   const handleDeleteMember = async (id, name) => {
     if (window.confirm(`Cancel membership for ${name}?`)) {
       try {
-        const res = await fetch(`http://localhost:5000/api/members/${id}`, { method: 'DELETE' });
+        const res = await fetch(`${API_URL}/api/members/${id}`, { method: 'DELETE' });
         if (res.ok) fetchMembers();
       } catch (err) {
         console.error('Failed to delete member:', err);

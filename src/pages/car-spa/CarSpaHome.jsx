@@ -15,6 +15,7 @@ import { Link, useLocation } from 'react-router-dom';
 import '../../styles/carSpa.css';
 import SEOMeta from '../../components/SEOMeta';
 import { Player } from '@lottiefiles/react-lottie-player';
+import { API_URL } from '../../config';
 
 // 1. BEFORE/AFTER SLIDER COMPONENT
 function BeforeAfterSlider() {
@@ -235,7 +236,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
         isMember: selectedPriceInfo.isMember
       };
 
-      await fetch('http://localhost:5000/api/pickups', {
+      await fetch(`${API_URL}/api/pickups`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

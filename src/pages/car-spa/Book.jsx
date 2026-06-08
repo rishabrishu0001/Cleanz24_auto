@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { faqsData, storesData } from '../../data';
 import SEOMeta from '../../components/SEOMeta';
 import '../../styles/carSpa.css';
+import { API_URL } from '../../config';
 
 function Book({ isDarkMode, toggleTheme }) {
   const [openFaqIndex, setOpenFaqIndex] = useState(-1);
@@ -110,7 +111,7 @@ function Book({ isDarkMode, toggleTheme }) {
         isMember: selectedPriceInfo.isMember
       };
 
-      await fetch('http://localhost:5000/api/pickups', {
+      await fetch(`${API_URL}/api/pickups`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

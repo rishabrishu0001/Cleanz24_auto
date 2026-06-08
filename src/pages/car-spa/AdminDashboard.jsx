@@ -3,8 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import logoImg from '../../assets/logo3.jpeg';
 import '../../styles/carSpa.css';
+import { API_URL } from '../../config';
 
-const API = 'http://localhost:5000';
+const API = API_URL;
 
 // ── Default Plans ─────────────────────────────────────────────────────────────
 const DEFAULT_ANNUAL_PLANS = [
@@ -248,18 +249,18 @@ export default function AdminDashboard() {
 
       {/* ── TOP NAV ─────────────────────────────────────────────────────── */}
       <nav style={{ background: 'rgba(5,20,8,0.95)', backdropFilter: 'blur(16px)', borderBottom: '1px solid rgba(0,201,109,0.12)', padding: '14px 0', position: 'sticky', top: 0, zIndex: 100 }}>
-        <div className="container d-flex align-items-center justify-content-between">
-          <div className="d-flex align-items-center gap-3">
-            <img src={logoImg} alt="Cleanz24" style={{ height: '40px', borderRadius: '8px' }} />
+        <div className="container d-flex flex-column flex-sm-row align-items-center justify-content-between gap-3">
+          <div className="d-flex align-items-center gap-3 align-self-start align-self-sm-center">
+            <img src={logoImg} alt="Cleanz24" style={{ height: '36px', borderRadius: '8px' }} />
             <div>
               <div style={{ color: '#00C96D', fontSize: '0.62rem', fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase' }}>Admin Portal</div>
-              <div style={{ color: '#fff', fontWeight: 700, fontSize: '1rem', lineHeight: 1.2 }}>Dashboard</div>
+              <div style={{ color: '#fff', fontWeight: 700, fontSize: '0.95rem', lineHeight: 1.2 }}>Dashboard</div>
             </div>
           </div>
-          <div className="d-flex align-items-center gap-3">
-            <span style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.8rem' }}>🟢 Signed in as Admin</span>
+          <div className="d-flex align-items-center justify-content-between justify-content-sm-end w-100 w-sm-auto gap-3">
+            <span style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.78rem' }}>🟢 Signed in</span>
             <button onClick={handleLogout}
-              style={{ background: 'rgba(231,76,60,0.1)', border: '1px solid rgba(231,76,60,0.3)', color: '#ff6b6b', borderRadius: '8px', padding: '7px 16px', fontSize: '0.82rem', fontWeight: 600, cursor: 'pointer' }}>
+              style={{ background: 'rgba(231,76,60,0.1)', border: '1px solid rgba(231,76,60,0.3)', color: '#ff6b6b', borderRadius: '8px', padding: '6px 14px', fontSize: '0.78rem', fontWeight: 600, cursor: 'pointer' }}>
               🚪 Logout
             </button>
           </div>
@@ -276,8 +277,9 @@ export default function AdminDashboard() {
             { label: 'Monthly Members', value: members.filter(m => m.plan?.includes('monthly')).length, icon: '📆', color: '#3498db' },
             { label: 'Total Revenue',   value: fmtPrice(totalRevenue),                                  icon: '💰', color: '#e74c3c' },
           ].map((s, i) => (
-            <div key={i} className="col-6 col-lg-3">
+            <div key={i} className="col-12 col-sm-6 col-lg-3">
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }}
+                className="admin-stat-card"
                 style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '18px 20px' }}>
                 <div className="d-flex align-items-center gap-3">
                   <span style={{ fontSize: '1.6rem' }}>{s.icon}</span>
@@ -292,7 +294,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* ── SUB-TABS ────────────────────────────────────────────────────── */}
-        <div className="d-flex gap-2 mb-4" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)', paddingBottom: 0, overflowX: 'auto', whiteSpace: 'nowrap' }}>
+        <div className="d-flex gap-2 mb-4 admin-subtabs-nav" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)', paddingBottom: 0, overflowX: 'auto', whiteSpace: 'nowrap' }}>
           {[
             { key: 'members', label: '👥 Members' },
             { key: 'pricing', label: '💲 Plan Pricing' },
@@ -365,7 +367,8 @@ export default function AdminDashboard() {
                               <input type="date" value={adminAddData.startDate} onChange={e => setAdminAddData({ ...adminAddData, startDate: e.target.value })} className="form-control py-2 rounded-0 bg-primary-custom text-white border-0" style={{ colorScheme: 'dark' }} required />
                             </div>
                           </div>
-                          <div className="text-end">
+                          <div className="d-flex justify-content-end gap-2 mt-3">
+                            <button type="button" onClick={() => setAdminAddOpen(false)} className="btn btn-outline-secondary rounded-pill px-4 py-2">Cancel</button>
                             <button type="submit" className="btn btn-glow rounded-pill px-4 py-2">Save Member</button>
                           </div>
                         </form>
@@ -434,8 +437,8 @@ export default function AdminDashboard() {
                     </div>
                   </div>
 
-                  {/* Table */}
-                  <div className="table-responsive">
+                  {/* Table (Desktop) */}
+                  <div className="table-responsive d-none d-md-block">
                     <table className="table table-dark table-striped align-middle border-0 text-start" style={{ borderRadius: '8px', overflow: 'hidden' }}>
                       <thead>
                         <tr style={{ borderBottom: '2px solid var(--card-border)' }}>
@@ -470,6 +473,66 @@ export default function AdminDashboard() {
                         )}
                       </tbody>
                     </table>
+                  </div>
+
+                  {/* Mobile Card List (< 768px) */}
+                  <div className="d-block d-md-none mobile-card-list">
+                    {displayedMembers.length > 0 ? (
+                      displayedMembers.map(member => {
+                        const planObj = ALL_PLANS.find(p => p.id === member.plan);
+                        return (
+                          <div key={member.id} className="mobile-card">
+                            <div className="d-flex justify-content-between align-items-center mb-3">
+                              <div>
+                                <h5 className="fw-bold text-white mb-0" style={{ fontSize: '1.05rem' }}>{member.name}</h5>
+                                <span className="small text-muted-custom">{member.mobile}</span>
+                              </div>
+                              <span className="badge font-monospace px-2 py-1" style={{ border: `1px solid ${getPlanColor(member.plan)}`, color: getPlanColor(member.plan), backgroundColor: `${getPlanColor(member.plan)}12`, fontSize: '0.72rem' }}>
+                                {planObj ? planObj.name : member.plan}
+                              </span>
+                            </div>
+
+                            <div className="mobile-card-field">
+                              <span className="mobile-card-label">Email</span>
+                              <span className="mobile-card-value text-truncate" style={{ maxWidth: '200px', display: 'inline-block' }}>{member.email || '—'}</span>
+                            </div>
+
+                            <div className="mobile-card-field">
+                              <span className="mobile-card-label">Vehicle</span>
+                              <span className="mobile-card-value">
+                                <span className="badge bg-secondary-custom text-white border font-monospace px-2 py-0.5 me-1" style={{ borderColor: 'var(--card-border)', fontSize: '0.75rem' }}>{member.vehicleNumber}</span>
+                                <span className="small text-white">{member.vehicleModel}</span>
+                              </span>
+                            </div>
+
+                            <div className="mobile-card-field">
+                              <span className="mobile-card-label">Amount / Cycle</span>
+                              <span className="mobile-card-value" style={{ color: getPlanColor(member.plan) }}>
+                                {planObj ? `${planObj.price} ${planObj.period}` : '—'}
+                              </span>
+                            </div>
+
+                            <div className="mobile-card-field">
+                              <span className="mobile-card-label">Reg Date</span>
+                              <span className="mobile-card-value text-muted-custom">
+                                {new Date(member.startDate).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' })}
+                              </span>
+                            </div>
+
+                            <div className="d-flex justify-content-end gap-3 mt-3 pt-2" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                              <button onClick={() => { setEditingMember(member); setEditFormData({ ...member }); }} className="btn btn-sm btn-outline-warning d-flex align-items-center gap-1 px-3 py-1.5" style={{ borderRadius: '8px', fontSize: '0.82rem' }}>
+                                ✏️ Edit
+                              </button>
+                              <button onClick={() => handleDeleteMember(member.id, member.name)} className="btn btn-sm btn-outline-danger d-flex align-items-center gap-1 px-3 py-1.5" style={{ borderRadius: '8px', fontSize: '0.82rem' }}>
+                                🗑️ Delete
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <div className="text-center py-5 text-muted-custom">No memberships found.</div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -545,7 +608,7 @@ export default function AdminDashboard() {
                 </div>
 
                 <div className="col-md-8">
-                  <div className="table-responsive rounded border border-secondary">
+                  <div className="table-responsive rounded border border-secondary d-none d-md-block">
                     <table className="table table-dark table-hover mb-0 align-middle">
                       <thead style={{ background: 'var(--bg-secondary-custom)' }}>
                         <tr>
@@ -571,6 +634,36 @@ export default function AdminDashboard() {
                         )}
                       </tbody>
                     </table>
+                  </div>
+
+                  {/* Mobile Coupons List (< 768px) */}
+                  <div className="d-block d-md-none mobile-card-list">
+                    {coupons.length > 0 ? coupons.map(c => (
+                      <div key={c.id} className="mobile-card">
+                        <div className="d-flex justify-content-between align-items-center mb-3">
+                          <span className="fw-bold text-brand-primary" style={{ fontSize: '1.1rem', letterSpacing: '1px' }}>{c.code}</span>
+                          <span className={`badge ${c.active ? 'bg-success' : 'bg-secondary'}`} style={{ fontSize: '0.72rem' }}>
+                            {c.active ? 'Active' : 'Inactive'}
+                          </span>
+                        </div>
+                        
+                        <div className="mobile-card-field">
+                          <span className="mobile-card-label">Discount</span>
+                          <span className="mobile-card-value">{c.discountPercent}% OFF</span>
+                        </div>
+
+                        <div className="d-flex justify-content-end gap-3 mt-3 pt-2" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                          <button onClick={() => toggleCoupon(c.id)} className={`btn btn-sm ${c.active ? 'btn-outline-warning' : 'btn-outline-success'} px-3 py-1.5`} style={{ borderRadius: '8px', fontSize: '0.82rem' }}>
+                            {c.active ? 'Disable' : 'Enable'}
+                          </button>
+                          <button onClick={() => deleteCoupon(c.id)} className="btn btn-sm btn-outline-danger px-3 py-1.5" style={{ borderRadius: '8px', fontSize: '0.82rem' }}>
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    )) : (
+                      <div className="text-center py-5 text-muted-custom">No coupons created yet.</div>
+                    )}
                   </div>
                 </div>
               </div>

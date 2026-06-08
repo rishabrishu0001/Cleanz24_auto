@@ -1,4 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Oswald:wght@500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Oswald:wght@500;700;900&display=swap');
 
 :root {
   --primary-color: #00C96D;       /* Refined Emerald Green */
@@ -1362,6 +1362,12 @@ body.light-mode .property-req-details p {
     margin: 0 !important;
     border-bottom: 1px solid var(--faq-border);
   }
+  body.light-mode #mynavbar .nav-link {
+    color: var(--text-heading) !important;
+  }
+  body.light-mode #mynavbar .nav-link:hover {
+    color: var(--primary-color) !important;
+  }
   #mynavbar .theme-toggle {
     margin: 15px 0 !important;
     align-self: flex-start;
@@ -2086,4 +2092,97 @@ body.light-mode .store-btn {
 .car-store-btn-green:hover {
   background: #1fba58;
   color: #fff;
+}
+
+/* ═══════════════════════════════════════════════════ */
+/*  ADMIN RESPONSIVE OVERRIDES                         */
+/* ═══════════════════════════════════════════════════ */
+
+/* Admin Login Page Responsiveness */
+.admin-login-card {
+  width: 100% !important;
+  max-width: 440px !important;
+}
+
+@media (max-width: 576px) {
+  .admin-login-wrapper {
+    padding: 16px !important;
+  }
+  .admin-login-card {
+    border-radius: 16px !important;
+  }
+  .admin-login-padding {
+    padding: 30px 20px 24px !important;
+  }
+  .admin-login-logo {
+    height: 48px !important;
+  }
+  .admin-login-toggle-btn {
+    font-size: 0.76rem !important;
+    padding: 8px 6px !important;
+  }
+}
+
+/* Admin Dashboard Page Responsiveness */
+@media (max-width: 991px) {
+  /* Stats grids stack better */
+  .admin-stat-card {
+    padding: 14px 16px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Hide scrollbar for subtabs navigation */
+  .admin-subtabs-nav {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  .admin-subtabs-nav::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+  
+  /* Form inputs stack better and fit screens nicely */
+  .form-control, .form-select {
+    font-size: 0.9rem !important;
+  }
+
+  /* Responsive lists layout styling instead of wide tables */
+  .mobile-card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .mobile-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 16px;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .mobile-card-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.85rem;
+  }
+
+  .mobile-card-field:last-of-type {
+    border-bottom: none;
+  }
+
+  .mobile-card-label {
+    color: rgba(255, 255, 255, 0.45);
+    font-weight: 500;
+  }
+
+  .mobile-card-value {
+    color: #fff;
+    font-weight: 600;
+    text-align: right;
+  }
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
+import { API_URL } from '../../config';
 
 /**
  * AdminRoute — Verifies JWT token with backend before rendering children.
@@ -12,7 +13,7 @@ export default function AdminRoute({ children }) {
     const token = localStorage.getItem('cleanz24_admin_token');
     if (!token) { setStatus('fail'); return; }
 
-    fetch('http://localhost:5000/api/admin/verify-token', {
+    fetch(`${API_URL}/api/admin/verify-token`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}` },
     })
