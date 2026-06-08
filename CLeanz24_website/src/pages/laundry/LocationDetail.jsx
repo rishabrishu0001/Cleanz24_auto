@@ -34,7 +34,7 @@ const CITY_NEIGHBORHOODS = {
   'greater-noida': ['Swarn Nagari', 'Omega 1', 'Gamma 2', 'Beta 1', 'Alpha 2', 'Chi 5', 'Zeta 1', 'Knowledge Park III'],
   'greater-noida-west': ['Gaur City 1', 'Gaur City 2', 'Patwari', 'Shahberi', 'Sector 1', 'Sector 4', 'Sector 10', 'Sector 16'],
   'noida-extension': ['Nirala Aspire', 'Panchsheel Greens 2', 'Stella', 'Eco Village 1', 'Cherry County Area', 'Bisrakh'],
-  gurugram: ['Sector 83', 'Sector 82', 'Sector 84', 'DLF Phase 3', 'Sushant Lok 1', 'Sector 56', 'Golf Course Road', 'Sohna Road'],
+  gurugram: ['Sector 82', 'Sector 84', 'DLF Phase 3', 'Sushant Lok 1', 'Sector 56', 'Golf Course Road', 'Sohna Road'],
   delhi: ['Dwarka', 'Saket', 'Karol Bagh', 'Vasant Kunj', 'Greater Kailash', 'Preet Vihar', 'Pitampura', 'Janakpuri'],
   mumbai: ['Andheri West', 'Bandra West', 'Thane West', 'Alibag', 'Colaba', 'Borivali East', 'Juhu', 'Dadar'],
   pune: ['Koregaon Park', 'Kothrud', 'Hinjewadi', 'Viman Nagar', 'Hadapsar', 'Baner', 'Kalyani Nagar', 'Aundh'],

@@ -268,17 +268,6 @@ export const storesData = [
     reviews: 42
   },
   {
-    id: 14,
-    name: 'Cleanz24 - Gurugram Sector 83',
-    address: 'Shop No. F196, First Floor, Shappire 83, Sector 83, Gurugram, Haryana 122004',
-    phone: '98733 33503',
-    whatsapp: '919873333503',
-    city: 'Gurugram',
-    state: 'Haryana',
-    rating: 4.7,
-    reviews: 53
-  },
-  {
     id: 15,
     name: 'Cleanz24 - Gurugram Sector 52',
     address: 'Sector 52, Shop No. 89, First Floor, Gurugram, Haryana 122003',
@@ -565,17 +554,6 @@ export const storesData = [
     state: 'Kerala',
     rating: 4.9,
     reviews: 143
-  },
-  {
-    id: 45,
-    name: 'Cleanz24 - Ernakulam (Kochi)',
-    address: 'St Francis Xavier Church Road, Katharikakadavu, Kaloor, Ernakulam, Kerala 682017',
-    phone: '9895127772',
-    whatsapp: '919895127772',
-    city: 'Ernakulam',
-    state: 'Kerala',
-    rating: 4.6,
-    reviews: 34
   },
   {
     id: 46,
