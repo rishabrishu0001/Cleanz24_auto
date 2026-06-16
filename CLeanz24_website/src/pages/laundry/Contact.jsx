@@ -1,21 +1,59 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import aboutBg from '../../assets/about_bg.jpg';
 import SEOMeta from '../../components/SEOMeta';
-import { GOOGLE_SHEETS_SCRIPT_URL } from '../../config';
+import { GOOGLE_SHEETS_LAUNDRY_SCRIPT_URL } from '../../config';
+import indiaMapPins from '../../assets/india_map_pins.png';
 
 export default function Contact() {
+  const { isDarkMode } = useOutletContext() || {};
   const [formData, setFormData] = useState({ name: '', mobile: '', email: '', message: '' });
+  const [countryCode, setCountryCode] = useState('+91');
+  const [countryEmoji, setCountryEmoji] = useState('🇮🇳');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const countries = [
+  { code: '+91', emoji: '🇮🇳', name: 'India' },
+  { code: '+1', emoji: '🇺🇸', name: 'United States' },
+  { code: '+1', emoji: '🇨🇦', name: 'Canada' },
+  { code: '+44', emoji: '🇬🇧', name: 'United Kingdom' },
+  { code: '+971', emoji: '🇦🇪', name: 'United Arab Emirates' },
+  { code: '+61', emoji: '🇦🇺', name: 'Australia' },
+  { code: '+65', emoji: '🇸🇬', name: 'Singapore' },
+  { code: '+966', emoji: '🇸🇦', name: 'Saudi Arabia' },
+  { code: '+974', emoji: '🇶🇦', name: 'Qatar' },
+  { code: '+968', emoji: '🇴🇲', name: 'Oman' },
+  { code: '+973', emoji: '🇧🇭', name: 'Bahrain' },
+  { code: '+965', emoji: '🇰🇼', name: 'Kuwait' },
+  { code: '+49', emoji: '🇩🇪', name: 'Germany' },
+  { code: '+33', emoji: '🇫🇷', name: 'France' },
+  { code: '+60', emoji: '🇲🇾', name: 'Malaysia' },
+  { code: '+81', emoji: '🇯🇵', name: 'Japan' },
+  { code: '+64', emoji: '🇳🇿', name: 'New Zealand' },
+  { code: '+977', emoji: '🇳🇵', name: 'Nepal' },
+  { code: '+880', emoji: '🇧🇩', name: 'Bangladesh' },
+  { code: '+94', emoji: '🇱🇰', name: 'Sri Lanka' },
+  { code: '+27', emoji: '🇿🇦', name: 'South Africa' },
+];
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleInputChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'mobile') {
+      setFormData({ ...formData, [name]: value.replace(/\D/g, '') });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     try {
       const payload = {
         timestamp: new Date().toISOString().split('T')[0],
         name: formData.name,
-        mobile: formData.mobile,
+        mobile: `'${countryCode} ${formData.mobile}`,
         email: formData.email || 'N/A',
         service: 'Contact Inquiry / Pickup',
         date: 'N/A',
@@ -24,10 +62,11 @@ export default function Contact() {
         type: 'Laundry Pickup / Contact Request',
         source: 'Laundry',
         price: 0,
-        isMember: false
+        isMember: false,
+        sheetName: 'washing leads'
       };
 
-      await fetch(GOOGLE_SHEETS_SCRIPT_URL, {
+      await fetch(GOOGLE_SHEETS_LAUNDRY_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: {
@@ -38,6 +77,7 @@ export default function Contact() {
     } catch (err) {
       console.error('Error submitting contact form:', err);
     } finally {
+      setIsSubmitting(false);
       setSubmitted(true);
       setTimeout(() => {
         setSubmitted(false);
@@ -125,7 +165,7 @@ export default function Contact() {
                 <div className="ms-4">
                   <h5 className="fw-bold mb-1">WhatsApp</h5>
                   <a href="https://wa.me/919138004800" target="_blank" rel="noreferrer" className="text-muted text-decoration-none">
-                    Chat with us on WhatsApp
+                    Chat with us on WhatsApp at +91 9138004800
                   </a>
                 </div>
               </div>
@@ -138,7 +178,7 @@ export default function Contact() {
                 </div>
                 <div className="ms-4">
                   <h5 className="fw-bold mb-1">Working Hours</h5>
-                  <p className="text-muted mb-0">Mon – Sun: 7:00 AM – 10:00 PM</p>
+                  <p className="text-muted mb-0">Mon – Sun: 9:00 AM – 9:00 PM</p>
                 </div>
               </div>
             </div>
@@ -164,9 +204,97 @@ export default function Contact() {
                       </div>
                       <div className="col-md-6">
                         <label className="form-label fw-semibold">Mobile <span className="text-danger">*</span></label>
-                        <input type="tel" name="mobile" value={formData.mobile} onChange={handleInputChange}
-                          className="form-control py-3 bg-white" style={{ borderRadius: 10, border: '1px solid #e2e8f0' }}
-                          placeholder="Your mobile number" required />
+                        <div style={{ position: 'relative' }}>
+                          <button
+                            type="button"
+                            onClick={() => setDropdownOpen(!dropdownOpen)}
+                            style={{
+                              position: 'absolute',
+                              left: 0,
+                              top: 0,
+                              height: '100%',
+                              width: '85px',
+                              fontWeight: '600',
+                              fontSize: '0.95rem',
+                              color: '#1e293b',
+                              background: 'transparent',
+                              border: 'none',
+                              outline: 'none',
+                              zIndex: 10,
+                              cursor: 'pointer',
+                              paddingLeft: '12px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'flex-start',
+                              gap: '4px'
+                            }}
+                          >
+                            <span>{countryEmoji} {countryCode}</span>
+                            <span style={{ fontSize: '0.65rem', color: '#64748b' }}>▼</span>
+                          </button>
+                          {dropdownOpen && (
+                            <>
+                              <div 
+                                onClick={() => setDropdownOpen(false)} 
+                                style={{
+                                  position: 'fixed',
+                                  top: 0,
+                                  right: 0,
+                                  bottom: 0,
+                                  left: 0,
+                                  zIndex: 99,
+                                  background: 'transparent'
+                                }}
+                              />
+                              <div
+                                style={{
+                                  position: 'absolute',
+                                  top: '100%',
+                                  left: 0,
+                                  zIndex: 100,
+                                  background: '#ffffff',
+                                  border: '1px solid #e2e8f0',
+                                  borderRadius: '8px',
+                                  boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                                  width: '120px',
+                                  maxHeight: '180px',
+                                  overflowY: 'auto',
+                                  marginTop: '4px'
+                                }}
+                              >
+                                {countries.map((c, i) => (
+                                  <div
+                                    key={i}
+                                    onClick={() => {
+                                      setCountryCode(c.code);
+                                      setCountryEmoji(c.emoji);
+                                      setDropdownOpen(false);
+                                    }}
+                                    style={{
+                                      padding: '8px 12px',
+                                      fontSize: '0.9rem',
+                                      color: '#1e293b',
+                                      cursor: 'pointer',
+                                      background: countryCode === c.code && countryEmoji === c.emoji ? '#f1f5f9' : 'transparent',
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      gap: '8px',
+                                      transition: 'background 0.2s'
+                                    }}
+                                    onMouseEnter={(e) => { e.currentTarget.style.background = '#f8fafc'; }}
+                                    onMouseLeave={(e) => { e.currentTarget.style.background = countryCode === c.code && countryEmoji === c.emoji ? '#f1f5f9' : 'transparent'; }}
+                                  >
+                                    <span>{c.emoji}</span>
+                                    <span>{c.code}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </>
+                          )}
+                          <input type="tel" name="mobile" value={formData.mobile} onChange={handleInputChange}
+                            className="form-control py-3 bg-white" style={{ borderRadius: 10, border: '1px solid #e2e8f0', paddingLeft: '92px' }}
+                            placeholder="Your mobile number" required />
+                        </div>
                       </div>
                       <div className="col-12">
                         <label className="form-label fw-semibold">Email <span className="text-danger">*</span></label>
@@ -182,8 +310,9 @@ export default function Contact() {
                       </div>
                       <div className="col-12 mt-2">
                         <button type="submit" className="btn-primary-custom w-100 py-3 fs-5"
+                          disabled={isSubmitting}
                           style={{ borderRadius: 10, background: '#1a7a2e', justifyContent: 'center' }}>
-                          Send Message →
+                          {isSubmitting ? 'Sending...' : 'Send Message →'}
                         </button>
                       </div>
                     </div>
@@ -195,19 +324,82 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* ─── GOOGLE MAP ─── */}
-      <section className="mb-0">
-        <iframe
-          title="Cleanz24 Location"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241317.11609823277!2d72.74109995!3d19.08219785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin"
-          width="100%" height="380"
-          style={{ border: 0, display: 'block' }}
-          allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
-      </section>
+      {/* ─── NATIONAL PRESENCE MAP ─── */}
+      <section 
+        className="py-5 bg-light" 
+        style={{ 
+          borderTop: isDarkMode ? '1px solid #1b3252' : '1px solid #edf2f7', 
+          borderBottom: isDarkMode ? '1px solid #1b3252' : '1px solid #edf2f7' 
+        }}
+      >
+        <div className="container">
+          <div className="row align-items-center g-5">
+            {/* Map Image Section */}
+            <div className="col-lg-7 text-center">
+              <div 
+                className={`position-relative p-3 bg-white shadow-sm rounded-4 border ${isDarkMode ? 'border-secondary' : 'border-light'}`} 
+                style={{ overflow: 'hidden' }}
+              >
+                <img 
+                  src={indiaMapPins} 
+                  alt="Cleanz24 National Presence Map" 
+                  className="img-fluid"
+                  style={{ 
+                    maxHeight: '420px', 
+                    objectFit: 'contain',
+                    transition: 'transform 0.4s ease'
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.02)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
+                />
+              </div>
+            </div>
 
-      {/* ══════════════════════════════════════════════════════════ */}
-      {/* ─── ABOUT US SECTION (below contact) ─── */}
-      {/* ══════════════════════════════════════════════════════════ */}
+            {/* Content Section */}
+            <div className="col-lg-5 text-start">
+              <span className="section-subtitle">National Reach</span>
+              <h2 className="section-title mt-2 mb-4">Serving Customers <span>Across India</span></h2>
+              <p className="text-muted mb-4" style={{ fontSize: '1.05rem', lineHeight: 1.8 }}>
+                Cleanz24 is rapidly expanding its footprint across the nation. With a robust network of digital hubs and physical outlets, we ensure high-quality fabric care is accessible to households everywhere.
+              </p>
+              
+              <div className="d-flex flex-column gap-3 mb-4">
+                <div className="d-flex align-items-center gap-3">
+                  <div className="d-flex align-items-center justify-content-center rounded-circle p-2 text-primary" style={{ width: '40px', height: '40px', backgroundColor: 'rgba(43, 108, 176, 0.1)', flexShrink: 0 }}>
+                    🏢
+                  </div>
+                  <div>
+                    <h6 className="fw-bold mb-0">100+ Franchise Locations</h6>
+                    <p className="text-muted small mb-0">Active outlets serving major cities and towns.</p>
+                  </div>
+                </div>
+                <div className="d-flex align-items-center gap-3">
+                  <div className="d-flex align-items-center justify-content-center rounded-circle p-2 text-primary" style={{ width: '40px', height: '40px', backgroundColor: 'rgba(43, 108, 176, 0.1)', flexShrink: 0 }}>
+                    📍
+                  </div>
+                  <div>
+                    <h6 className="fw-bold mb-0">20+ States Covered</h6>
+                    <p className="text-muted small mb-0">From northern cities to southern coastal hubs.</p>
+                  </div>
+                </div>
+                <div className="d-flex align-items-center gap-3">
+                  <div className="d-flex align-items-center justify-content-center rounded-circle p-2 text-primary" style={{ width: '40px', height: '40px', backgroundColor: 'rgba(43, 108, 176, 0.1)', flexShrink: 0 }}>
+                    🚚
+                  </div>
+                  <div>
+                    <h6 className="fw-bold mb-0">Doorstep Pickup & Delivery</h6>
+                    <p className="text-muted small mb-0">Free pickup service right at your doorstep.</p>
+                  </div>
+                </div>
+              </div>
+
+              <Link to="/laundry/stores" className="btn-primary-custom px-4 py-3 text-decoration-none d-inline-block" style={{ borderRadius: '8px' }}>
+                View All Stores
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* About Intro */}
       <section className="section-padding bg-white">

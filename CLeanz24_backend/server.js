@@ -489,8 +489,21 @@ app.post('/api/pickups', async (req, res) => {
     console.log('💾 Saved to MongoDB successfully');
 
     // Send to Google Sheets Apps Script Web App if configured
-    const scriptUrl = process.env.GOOGLE_SHEETS_SCRIPT_URL;
-    if (scriptUrl && scriptUrl !== 'your_google_script_url_here') {
+    const isCarSpa = pickupData.service && (
+      pickupData.service.includes('Spa') || 
+      pickupData.service.includes('Wash') || 
+      pickupData.service.includes('Detailing') || 
+      pickupData.service.includes('Shield') || 
+      pickupData.service.includes('Touch') || 
+      pickupData.service.includes('Radiance') || 
+      pickupData.service.includes('Revival') ||
+      (pickupData.source && pickupData.source.toLowerCase().includes('car'))
+    );
+    const scriptUrl = isCarSpa
+      ? (process.env.GOOGLE_SHEETS_CAR_SPA_SCRIPT_URL || process.env.GOOGLE_SHEETS_SCRIPT_URL)
+      : (process.env.GOOGLE_SHEETS_LAUNDRY_SCRIPT_URL || process.env.GOOGLE_SHEETS_SCRIPT_URL);
+
+    if (scriptUrl && scriptUrl !== 'your_google_script_url_here' && scriptUrl !== '') {
       try {
         const payload = {
           timestamp: new Date().toISOString().split('T')[0],
@@ -504,9 +517,10 @@ app.post('/api/pickups', async (req, res) => {
           type: pickupData.type || 'Booking',
           source: pickupData.source || 'Website',
           price: pickupData.price || 0,
-          isMember: pickupData.isMember !== undefined ? pickupData.isMember : false
+          isMember: pickupData.isMember !== undefined ? pickupData.isMember : false,
+          sheetName: isCarSpa ? 'Car sap leads' : 'washing leads'
         };
-        console.log('📤 Sending payload to Google Sheets script:', JSON.stringify(payload, null, 2));
+        console.log(`📤 Sending payload to ${isCarSpa ? 'Car Spa' : 'Laundry'} Google Sheets script:`, JSON.stringify(payload, null, 2));
 
         const response = await fetch(scriptUrl, {
           method: 'POST',
@@ -514,9 +528,9 @@ app.post('/api/pickups', async (req, res) => {
           body: JSON.stringify(payload)
         });
         const resText = await response.text();
-        console.log('📥 Google Sheets response:', resText);
+        console.log(`📥 ${isCarSpa ? 'Car Spa' : 'Laundry'} Google Sheets response:`, resText);
       } catch (sheetErr) {
-        console.error('⚠️ Failed to save to Google Sheets:', sheetErr.message);
+        console.error(`⚠️ Failed to save to ${isCarSpa ? 'Car Spa' : 'Laundry'} Google Sheets:`, sheetErr.message);
       }
     }
 
@@ -549,8 +563,16 @@ app.post('/api/franchise', async (req, res) => {
     console.log('💾 Saved Franchise to MongoDB successfully');
 
     // Send to Google Sheets Apps Script Web App for Franchise if configured
-    const scriptUrl = process.env.GOOGLE_SHEETS_FRANCHISE_SCRIPT_URL;
-    if (scriptUrl && scriptUrl !== 'your_google_sheets_franchise_script_url_here') {
+    const isCarSpa = franchiseData.modelType && (
+      franchiseData.modelType.includes('Car Spa') || 
+      franchiseData.modelType.includes('Studio') || 
+      franchiseData.modelType.includes('Hub')
+    );
+    const scriptUrl = isCarSpa
+      ? (process.env.GOOGLE_SHEETS_CAR_SPA_FRANCHISE_SCRIPT_URL || process.env.GOOGLE_SHEETS_FRANCHISE_SCRIPT_URL)
+      : (process.env.GOOGLE_SHEETS_LAUNDRY_FRANCHISE_SCRIPT_URL || process.env.GOOGLE_SHEETS_FRANCHISE_SCRIPT_URL);
+
+    if (scriptUrl && scriptUrl !== 'your_google_sheets_franchise_script_url_here' && scriptUrl !== '') {
       try {
         const payload = {
           timestamp: new Date().toISOString().split('T')[0],
@@ -558,9 +580,10 @@ app.post('/api/franchise', async (req, res) => {
           mobile: franchiseData.mobile,
           email: franchiseData.email,
           city: franchiseData.city,
-          modelType: franchiseData.modelType || 'General Inquiry'
+          modelType: franchiseData.modelType || 'General Inquiry',
+          sheetName: isCarSpa ? 'Car sap frenchise leads' : 'laundry frenchise leads'
         };
-        console.log('📤 Sending payload to Franchise Google Sheets script:', JSON.stringify(payload, null, 2));
+        console.log(`📤 Sending payload to ${isCarSpa ? 'Car Spa' : 'Laundry'} Franchise Google Sheets script:`, JSON.stringify(payload, null, 2));
 
         const response = await fetch(scriptUrl, {
           method: 'POST',
@@ -568,9 +591,39 @@ app.post('/api/franchise', async (req, res) => {
           body: JSON.stringify(payload)
         });
         const resText = await response.text();
-        console.log('📥 Franchise Google Sheets response:', resText);
+        console.log(`📥 ${isCarSpa ? 'Car Spa' : 'Laundry'} Franchise Google Sheets response:`, resText);
       } catch (sheetErr) {
-        console.error('⚠️ Failed to save Franchise to Google Sheets:', sheetErr.message);
+        console.error(`⚠️ Failed to save ${isCarSpa ? 'Car Spa' : 'Laundry'} Franchise to Google Sheets:`, sheetErr.message);
+      }
+    }
+
+    // Send to secondary Google Sheets Apps Script Web App for Franchise if configured
+    const scriptUrl2 = isCarSpa
+      ? (process.env.GOOGLE_SHEETS_CAR_SPA_FRANCHISE_SCRIPT_URL_2 || process.env.GOOGLE_SHEETS_FRANCHISE_SCRIPT_URL_2)
+      : (process.env.GOOGLE_SHEETS_LAUNDRY_FRANCHISE_SCRIPT_URL_2 || process.env.GOOGLE_SHEETS_FRANCHISE_SCRIPT_URL_2);
+
+    if (scriptUrl2 && scriptUrl2 !== 'your_google_sheets_franchise_script_url_2_here' && scriptUrl2 !== '' && scriptUrl2 !== scriptUrl) {
+      try {
+        const payload = {
+          timestamp: new Date().toISOString().split('T')[0],
+          name: franchiseData.name,
+          mobile: franchiseData.mobile,
+          email: franchiseData.email,
+          city: franchiseData.city,
+          modelType: franchiseData.modelType || 'General Inquiry',
+          sheetName: isCarSpa ? 'Car sap frenchise leads' : 'laundry frenchise leads'
+        };
+        console.log(`📤 Sending payload to Secondary ${isCarSpa ? 'Car Spa' : 'Laundry'} Franchise Google Sheets script:`, JSON.stringify(payload, null, 2));
+
+        const response = await fetch(scriptUrl2, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const resText = await response.text();
+        console.log(`📥 Secondary ${isCarSpa ? 'Car Spa' : 'Laundry'} Franchise Google Sheets response:`, resText);
+      } catch (sheetErr) {
+        console.error(`⚠️ Failed to save Secondary ${isCarSpa ? 'Car Spa' : 'Laundry'} Franchise to Google Sheets:`, sheetErr.message);
       }
     }
 

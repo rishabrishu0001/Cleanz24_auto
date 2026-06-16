@@ -128,6 +128,14 @@ export default function Membership() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [signupSuccess, setSignupSuccess] = useState(false);
+  const [loggedInMember, setLoggedInMember] = useState(() => {
+    try {
+      const saved = localStorage.getItem('cleanz24_logged_in_member');
+      return saved ? JSON.parse(saved) : null;
+    } catch { return null; }
+  });
+
   // Check if we came from a successful payment
   useEffect(() => {
     if (location.state?.paymentSuccess) {
@@ -186,17 +194,40 @@ export default function Membership() {
   const [selectedPlan, setSelectedPlan] = useState('crystal-shield-annual');
   const [formData, setFormData]         = useState({ name: '', mobile: '', email: '', vehicleNumber: '', vehicleModel: '', startDate: new Date().toISOString().split('T')[0] });
   const [formErrors, setFormErrors]     = useState({});
-  const [signupSuccess, setSignupSuccess] = useState(false);
+  const [countryCode, setCountryCode] = useState('+91');
+  const [countryEmoji, setCountryEmoji] = useState('🇮🇳');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [loginCountryCode, setLoginCountryCode] = useState('+91');
+  const [loginCountryEmoji, setLoginCountryEmoji] = useState('🇮🇳');
+  const [loginDropdownOpen1, setLoginDropdownOpen1] = useState(false);
+  const [loginDropdownOpen2, setLoginDropdownOpen2] = useState(false);
+  const countries = [
+    { code: '+91', emoji: '🇮🇳', name: 'India' },
+    { code: '+1', emoji: '🇺🇸', name: 'United States' },
+    { code: '+1', emoji: '🇨🇦', name: 'Canada' },
+    { code: '+44', emoji: '🇬🇧', name: 'United Kingdom' },
+    { code: '+971', emoji: '🇦🇪', name: 'United Arab Emirates' },
+    { code: '+61', emoji: '🇦🇺', name: 'Australia' },
+    { code: '+65', emoji: '🇸🇬', name: 'Singapore' },
+    { code: '+966', emoji: '🇸🇦', name: 'Saudi Arabia' },
+    { code: '+974', emoji: '🇶🇦', name: 'Qatar' },
+    { code: '+968', emoji: '🇴🇲', name: 'Oman' },
+    { code: '+973', emoji: '🇧🇭', name: 'Bahrain' },
+    { code: '+965', emoji: '🇰🇼', name: 'Kuwait' },
+    { code: '+49', emoji: '🇩🇪', name: 'Germany' },
+    { code: '+33', emoji: '🇫🇷', name: 'France' },
+    { code: '+60', emoji: '🇲🇾', name: 'Malaysia' },
+    { code: '+81', emoji: '🇯🇵', name: 'Japan' },
+    { code: '+64', emoji: '🇳🇿', name: 'New Zealand' },
+    { code: '+977', emoji: '🇳🇵', name: 'Nepal' },
+    { code: '+880', emoji: '🇧🇩', name: 'Bangladesh' },
+    { code: '+94', emoji: '🇱🇰', name: 'Sri Lanka' },
+    { code: '+27', emoji: '🇿🇦', name: 'South Africa' },
+  ];
 
   // ── Login form ──────────────────────────────────────────────────────────────
   const [loginMobile, setLoginMobile]   = useState('');
   const [loginError, setLoginError]     = useState('');
-  const [loggedInMember, setLoggedInMember] = useState(() => {
-    try {
-      const saved = localStorage.getItem('cleanz24_logged_in_member');
-      return saved ? JSON.parse(saved) : null;
-    } catch { return null; }
-  });
 
   // ── Admin – member CRUD ──────────────────────────────────────────────────────
   const [searchQuery,    setSearchQuery]    = useState('');
@@ -307,7 +338,7 @@ export default function Membership() {
     const e = {};
     if (!data.name.trim())         e.name          = 'Full Name is required';
     if (!data.mobile.trim())       e.mobile        = 'Mobile Number is required';
-    else if (!/^\d{10}$/.test(data.mobile.replace(/\D/g, ''))) e.mobile = 'Enter a valid 10-digit mobile number';
+    else if (data.mobile.replace(/\D/g, '').length < 7) e.mobile = 'Enter a valid mobile number';
     if (!data.email.trim())        e.email         = 'Email Address is required';
     else if (!/\S+@\S+\.\S+/.test(data.email))   e.email = 'Enter a valid email address';
     if (!data.vehicleNumber.trim()) e.vehicleNumber = 'Vehicle Number is required';
@@ -320,12 +351,17 @@ export default function Membership() {
     const errors = validateForm(formData);
     if (Object.keys(errors).length > 0) { setFormErrors(errors); return; }
     
+    const updatedFormData = {
+      ...formData,
+      mobile: `'${countryCode} ${formData.mobile}`
+    };
+
     const planDetails = activePlans.find(p => p.id === selectedPlan);
     const planPrice = planPrices[selectedPlan] || planDetails.defaultPrice;
     
     navigate('/car-spa/payment', { 
       state: { 
-        formData, 
+        formData: updatedFormData, 
         selectedPlan, 
         planDetails, 
         planPrice, 
@@ -337,7 +373,8 @@ export default function Membership() {
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     if (!loginMobile.trim()) { setLoginError('Please enter your mobile number.'); return; }
-    const found = members.find(m => m.mobile === loginMobile);
+    const fullLoginMobile = `${loginCountryCode} ${loginMobile}`;
+    const found = members.find(m => m.mobile === fullLoginMobile || m.mobile === loginMobile);
     if (found) {
       setLoggedInMember(found);
       localStorage.setItem('cleanz24_logged_in_member', JSON.stringify(found));
@@ -666,11 +703,101 @@ export default function Membership() {
                         <div className="row g-3 mb-3">
                           <div className="col-md-6">
                             <label htmlFor="mobile" className="form-label fw-bold small text-uppercase text-muted-custom">Mobile Number *</label>
-                            <input type="tel" id="mobile" value={formData.mobile} onChange={e => setFormData({ ...formData, mobile: e.target.value })}
-                              placeholder="Enter 10-digit mobile"
-                              className={`form-control py-3 rounded-0 bg-primary-custom text-white border-0 ${formErrors.mobile ? 'is-invalid' : ''}`}
-                              maxLength={10} required />
-                            {formErrors.mobile && <div className="invalid-feedback text-start">{formErrors.mobile}</div>}
+                            <div style={{ position: 'relative' }}>
+                              <button
+                                type="button"
+                                onClick={() => setDropdownOpen(!dropdownOpen)}
+                                style={{
+                                  position: 'absolute',
+                                  left: 0,
+                                  top: 0,
+                                  height: '100%',
+                                  width: '80px',
+                                  fontWeight: '600',
+                                  fontSize: '0.95rem',
+                                  color: 'var(--input-text, #fff)',
+                                  background: 'transparent',
+                                  border: 'none',
+                                  outline: 'none',
+                                  zIndex: 10,
+                                  cursor: 'pointer',
+                                  paddingLeft: '12px',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'flex-start',
+                                  gap: '4px'
+                                }}
+                              >
+                                <span>{countryEmoji} {countryCode}</span>
+                                <span style={{ fontSize: '0.65rem', color: '#64748b' }}>▼</span>
+                              </button>
+                              {dropdownOpen && (
+                                <>
+                                  <div 
+                                    onClick={() => setDropdownOpen(false)} 
+                                    style={{
+                                      position: 'fixed',
+                                      top: 0,
+                                      right: 0,
+                                      bottom: 0,
+                                      left: 0,
+                                      zIndex: 99,
+                                      background: 'transparent'
+                                    }}
+                                  />
+                                  <div
+                                    style={{
+                                      position: 'absolute',
+                                      top: '100%',
+                                      left: 0,
+                                      zIndex: 100,
+                                      background: '#1e293b',
+                                      border: '1px solid var(--card-border, #334155)',
+                                      borderRadius: '8px',
+                                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                                      width: '120px',
+                                      maxHeight: '180px',
+                                      overflowY: 'auto',
+                                      marginTop: '4px'
+                                    }}
+                                  >
+                                    {countries.map((c, i) => (
+                                      <div
+                                        key={i}
+                                        onClick={() => {
+                                          setCountryCode(c.code);
+                                          setCountryEmoji(c.emoji);
+                                          setDropdownOpen(false);
+                                        }}
+                                        style={{
+                                          padding: '8px 12px',
+                                          fontSize: '0.9rem',
+                                          color: 'var(--input-text, #fff)',
+                                          cursor: 'pointer',
+                                          background: countryCode === c.code && countryEmoji === c.emoji ? 'rgba(255,255,255,0.12)' : 'transparent',
+                                          display: 'flex',
+                                          alignItems: 'center',
+                                          gap: '8px',
+                                          transition: 'background 0.2s'
+                                        }}
+                                        onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; }}
+                                        onMouseLeave={(e) => { e.currentTarget.style.background = countryCode === c.code && countryEmoji === c.emoji ? 'rgba(255,255,255,0.12)' : 'transparent'; }}
+                                      >
+                                        <span>{c.emoji}</span>
+                                        <span>{c.code}</span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </>
+                              )}
+                              
+                              <input type="tel" id="mobile" value={formData.mobile} onChange={e => setFormData({ ...formData, mobile: e.target.value.replace(/\D/g, '') })}
+                                placeholder="Enter mobile number"
+                                className={`form-control py-3 rounded-0 bg-primary-custom text-white border-0 ${formErrors.mobile ? 'is-invalid' : ''}`}
+                                style={{ paddingLeft: '88px' }}
+                                required />
+                            </div>
+                            {formErrors.mobile && <div className="invalid-feedback text-start d-block">{formErrors.mobile}</div>}
                           </div>
                           <div className="col-md-6">
                             <label htmlFor="email" className="form-label fw-bold small text-uppercase text-muted-custom">Email Address *</label>
@@ -728,10 +855,100 @@ export default function Membership() {
                       <form onSubmit={handleLoginSubmit}>
                         <div className="mb-4">
                           <label htmlFor="loginMobile" className="form-label fw-bold small text-uppercase text-muted-custom">Registered Mobile Number</label>
-                          <input type="tel" id="loginMobile" value={loginMobile} onChange={e => setLoginMobile(e.target.value)}
-                            placeholder="Enter 10-digit mobile"
-                            className={`form-control py-3 rounded-0 bg-primary-custom text-white border-0 ${loginError ? 'is-invalid' : ''}`}
-                            maxLength={10} required />
+                          <div style={{ position: 'relative' }}>
+                            <button
+                              type="button"
+                              onClick={() => setLoginDropdownOpen1(!loginDropdownOpen1)}
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                height: '100%',
+                                width: '80px',
+                                fontWeight: '600',
+                                fontSize: '0.95rem',
+                                color: 'var(--input-text, #fff)',
+                                background: 'transparent',
+                                border: 'none',
+                                outline: 'none',
+                                zIndex: 10,
+                                cursor: 'pointer',
+                                paddingLeft: '12px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'flex-start',
+                                gap: '4px'
+                              }}
+                            >
+                              <span>{loginCountryEmoji} {loginCountryCode}</span>
+                              <span style={{ fontSize: '0.65rem', color: '#64748b' }}>▼</span>
+                            </button>
+                            {loginDropdownOpen1 && (
+                              <>
+                                <div 
+                                  onClick={() => setLoginDropdownOpen1(false)} 
+                                  style={{
+                                    position: 'fixed',
+                                    top: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    left: 0,
+                                    zIndex: 99,
+                                    background: 'transparent'
+                                  }}
+                                />
+                                <div
+                                  style={{
+                                    position: 'absolute',
+                                    top: '100%',
+                                    left: 0,
+                                    zIndex: 100,
+                                    background: '#1e293b',
+                                    border: '1px solid var(--card-border, #334155)',
+                                    borderRadius: '8px',
+                                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                                    width: '120px',
+                                    maxHeight: '180px',
+                                    overflowY: 'auto',
+                                    marginTop: '4px'
+                                  }}
+                                >
+                                  {countries.map((c, i) => (
+                                    <div
+                                      key={i}
+                                      onClick={() => {
+                                        setLoginCountryCode(c.code);
+                                        setLoginCountryEmoji(c.emoji);
+                                        setLoginDropdownOpen1(false);
+                                      }}
+                                      style={{
+                                        padding: '8px 12px',
+                                        fontSize: '0.9rem',
+                                        color: 'var(--input-text, #fff)',
+                                        cursor: 'pointer',
+                                        background: loginCountryCode === c.code && loginCountryEmoji === c.emoji ? 'rgba(255,255,255,0.12)' : 'transparent',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '8px',
+                                        transition: 'background 0.2s'
+                                      }}
+                                      onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; }}
+                                      onMouseLeave={(e) => { e.currentTarget.style.background = loginCountryCode === c.code && loginCountryEmoji === c.emoji ? 'rgba(255,255,255,0.12)' : 'transparent'; }}
+                                    >
+                                      <span>{c.emoji}</span>
+                                      <span>{c.code}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </>
+                            )}
+                            
+                            <input type="tel" id="loginMobile" value={loginMobile} onChange={e => setLoginMobile(e.target.value.replace(/\D/g, ''))}
+                              placeholder="Enter mobile number"
+                              className={`form-control py-3 rounded-0 bg-primary-custom text-white border-0 ${loginError ? 'is-invalid' : ''}`}
+                              style={{ paddingLeft: '88px' }}
+                              required />
+                          </div>
                           {loginError && <div className="invalid-feedback text-start d-block">{loginError}</div>}
                         </div>
                         <button type="submit" className="btn btn-primary btn-lg rounded-0 fw-bold btn-glow py-3 w-100">
@@ -797,10 +1014,100 @@ export default function Membership() {
                       <form onSubmit={handleLoginSubmit}>
                         <div className="mb-4">
                           <label htmlFor="loginMobile" className="form-label fw-bold small text-uppercase text-muted-custom">Registered Mobile Number</label>
-                          <input type="tel" id="loginMobile" value={loginMobile} onChange={e => setLoginMobile(e.target.value)}
-                            placeholder="Enter 10-digit mobile"
-                            className={`form-control py-3 rounded-0 bg-primary-custom text-white border-0 ${loginError ? 'is-invalid' : ''}`}
-                            maxLength={10} required />
+                          <div style={{ position: 'relative' }}>
+                            <button
+                              type="button"
+                              onClick={() => setLoginDropdownOpen2(!loginDropdownOpen2)}
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                height: '100%',
+                                width: '80px',
+                                fontWeight: '600',
+                                fontSize: '0.95rem',
+                                color: 'var(--input-text, #fff)',
+                                background: 'transparent',
+                                border: 'none',
+                                outline: 'none',
+                                zIndex: 10,
+                                cursor: 'pointer',
+                                paddingLeft: '12px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'flex-start',
+                                gap: '4px'
+                              }}
+                            >
+                              <span>{loginCountryEmoji} {loginCountryCode}</span>
+                              <span style={{ fontSize: '0.65rem', color: '#64748b' }}>▼</span>
+                            </button>
+                            {loginDropdownOpen2 && (
+                              <>
+                                <div 
+                                  onClick={() => setLoginDropdownOpen2(false)} 
+                                  style={{
+                                    position: 'fixed',
+                                    top: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    left: 0,
+                                    zIndex: 99,
+                                    background: 'transparent'
+                                  }}
+                                />
+                                <div
+                                  style={{
+                                    position: 'absolute',
+                                    top: '100%',
+                                    left: 0,
+                                    zIndex: 100,
+                                    background: '#1e293b',
+                                    border: '1px solid var(--card-border, #334155)',
+                                    borderRadius: '8px',
+                                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                                    width: '120px',
+                                    maxHeight: '180px',
+                                    overflowY: 'auto',
+                                    marginTop: '4px'
+                                  }}
+                                >
+                                  {countries.map((c, i) => (
+                                    <div
+                                      key={i}
+                                      onClick={() => {
+                                        setLoginCountryCode(c.code);
+                                        setLoginCountryEmoji(c.emoji);
+                                        setLoginDropdownOpen2(false);
+                                      }}
+                                      style={{
+                                        padding: '8px 12px',
+                                        fontSize: '0.9rem',
+                                        color: 'var(--input-text, #fff)',
+                                        cursor: 'pointer',
+                                        background: loginCountryCode === c.code && loginCountryEmoji === c.emoji ? 'rgba(255,255,255,0.12)' : 'transparent',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '8px',
+                                        transition: 'background 0.2s'
+                                      }}
+                                      onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; }}
+                                      onMouseLeave={(e) => { e.currentTarget.style.background = loginCountryCode === c.code && loginCountryEmoji === c.emoji ? 'rgba(255,255,255,0.12)' : 'transparent'; }}
+                                    >
+                                      <span>{c.emoji}</span>
+                                      <span>{c.code}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </>
+                            )}
+                            
+                            <input type="tel" id="loginMobile" value={loginMobile} onChange={e => setLoginMobile(e.target.value.replace(/\D/g, ''))}
+                              placeholder="Enter mobile number"
+                              className={`form-control py-3 rounded-0 bg-primary-custom text-white border-0 ${loginError ? 'is-invalid' : ''}`}
+                              style={{ paddingLeft: '88px' }}
+                              required />
+                          </div>
                           {loginError && <div className="invalid-feedback text-start d-block">{loginError}</div>}
                         </div>
                         <button type="submit" className="btn btn-primary btn-lg rounded-0 fw-bold btn-glow py-3 w-100">

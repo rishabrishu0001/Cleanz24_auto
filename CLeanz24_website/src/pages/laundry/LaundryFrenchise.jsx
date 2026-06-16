@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import SEOMeta from '../../components/SEOMeta';
-import { GOOGLE_SHEETS_FRANCHISE_SCRIPT_URL } from '../../config';
+import { GOOGLE_SHEETS_LAUNDRY_FRANCHISE_SCRIPT_URL } from '../../config';
 import storepic1 from '../../assets/storepic1.jpeg';
 import storepic2 from '../../assets/storepic2.jpeg';
 import storepic3 from '../../assets/storepic3.jpeg';
@@ -85,7 +85,7 @@ const getStyles = (dark) => `
     margin-bottom: 18px;
   }
   .lf-form input:focus { border-color: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,0.15); }
-  .lf-form input::placeholder { color: ${dark ? '#64748b' : '#A0AEC0'}; }
+  .lf-form input::placeholder { color: ${dark ? '#ffffff' : '#A0AEC0'}; }
   .lf-btn-submit {
     background: ${dark ? '#16a34a' : '#1a5caf'};
     color: #fff;
@@ -98,6 +98,12 @@ const getStyles = (dark) => `
     transition: background 0.2s, transform 0.15s;
   }
   .lf-btn-submit:hover { background: ${dark ? '#15803d' : '#154d9b'}; transform: translateY(-1px); }
+  .lf-btn-submit:disabled {
+    background: ${dark ? '#1e3a24' : '#6b8fb7'};
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
 
   /* ── STATS BAR ── */
   .lf-stats-bar {
@@ -373,6 +379,10 @@ const getStyles = (dark) => `
     font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.95rem;
     color: ${dark ? '#e2e8f0' : '#1A202C'};
     transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
   }
   .lf-location-pill:hover { border-color: #22c55e; color: ${dark ? '#4ade80' : '#1a7a2e'}; background: ${dark ? '#0d2214' : '#f0faf2'}; }
 
@@ -420,6 +430,33 @@ function LaundryFrenchise() {
   const { isDarkMode } = useOutletContext() || {};
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', city: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [countryCode, setCountryCode] = useState('+91');
+  const [countryEmoji, setCountryEmoji] = useState('🇮🇳');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const countries = [
+    { code: '+91', emoji: '🇮🇳', name: 'India' },
+    { code: '+1', emoji: '🇺🇸', name: 'United States' },
+    { code: '+1', emoji: '🇨🇦', name: 'Canada' },
+    { code: '+44', emoji: '🇬🇧', name: 'United Kingdom' },
+    { code: '+971', emoji: '🇦🇪', name: 'United Arab Emirates' },
+    { code: '+61', emoji: '🇦🇺', name: 'Australia' },
+    { code: '+65', emoji: '🇸🇬', name: 'Singapore' },
+    { code: '+966', emoji: '🇸🇦', name: 'Saudi Arabia' },
+    { code: '+974', emoji: '🇶🇦', name: 'Qatar' },
+    { code: '+968', emoji: '🇴🇲', name: 'Oman' },
+    { code: '+973', emoji: '🇧🇭', name: 'Bahrain' },
+    { code: '+965', emoji: '🇰🇼', name: 'Kuwait' },
+    { code: '+49', emoji: '🇩🇪', name: 'Germany' },
+    { code: '+33', emoji: '🇫🇷', name: 'France' },
+    { code: '+60', emoji: '🇲🇾', name: 'Malaysia' },
+    { code: '+81', emoji: '🇯🇵', name: 'Japan' },
+    { code: '+64', emoji: '🇳🇿', name: 'New Zealand' },
+    { code: '+977', emoji: '🇳🇵', name: 'Nepal' },
+    { code: '+880', emoji: '🇧🇩', name: 'Bangladesh' },
+    { code: '+94', emoji: '🇱🇰', name: 'Sri Lanka' },
+    { code: '+27', emoji: '🇿🇦', name: 'South Africa' },
+  ];
 
   const mediaMentions = [
     {
@@ -512,22 +549,43 @@ function LaundryFrenchise() {
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setFormData(prev => ({ ...prev, [id]: value }));
+    if (id === 'phone') {
+      setFormData(prev => ({ ...prev, [id]: value.replace(/\D/g, '') }));
+    } else {
+      setFormData(prev => ({ ...prev, [id]: value }));
+    }
+  };
+
+  const handleResetForm = () => {
+    setFormData({ name: '', phone: '', email: '', city: '' });
+    setSubmitted(false);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     try {
+      const dateStr = new Date().toISOString().split('T')[0];
       const payload = {
-        timestamp: new Date().toISOString().split('T')[0],
+        date: dateStr,
+        Date: dateStr,
+        timestamp: dateStr,
+        Timestamp: dateStr,
+        datetime: dateStr,
+        dateTime: dateStr,
+        createdAt: dateStr,
+        created_at: dateStr,
+        time: dateStr,
+        Time: dateStr,
         name: formData.name,
-        mobile: formData.phone,
+        mobile: `'${countryCode} ${formData.phone}`,
         email: formData.email,
         city: formData.city,
         modelType: 'General Inquiry'
       };
 
-      await fetch(GOOGLE_SHEETS_FRANCHISE_SCRIPT_URL, {
+      await fetch(GOOGLE_SHEETS_LAUNDRY_FRANCHISE_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: {
@@ -535,9 +593,25 @@ function LaundryFrenchise() {
         },
         body: JSON.stringify(payload)
       });
+
+      // Google Ads: Franchise form signup conversion
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'conversion', {
+          'send_to': 'AW-16562330559/Ly9XCOC_iLQaEL-3xNk9'
+        });
+      }
+
+      // Trigger Google Tag conversion event if present
+      if (window.gtag) {
+        window.gtag('event', 'laundry_franchise_lead', {
+          'event_category': 'Franchise',
+          'event_label': 'Laundry Franchise Submission'
+        });
+      }
     } catch (err) {
       console.error('Error submitting franchise inquiry:', err);
     } finally {
+      setIsSubmitting(false);
       setSubmitted(true);
     }
   };
@@ -663,6 +737,13 @@ function LaundryFrenchise() {
     { initials: 'RK', name: 'Rajesh Kumar', city: 'Gurugram, Haryana', model: 'Beta Model', milestone: '₹1.8L/month', quote: 'I opened my Cleanz24 franchise 8 months ago and we\'re already doing great business. The brand recognition gave us a head-start that competitors simply don\'t have.' },
     { initials: 'PS', name: 'Priya Sharma', city: 'New Delhi', model: 'Alpha Model', milestone: '₹90K/month', quote: 'Coming from a regular job, I was nervous about running my own business. Cleanz24\'s training and support made it incredibly smooth. ROI within 16 months!' },
     { initials: 'AM', name: 'Amit Mehta', city: 'Visakhapatnam, AP', model: 'Combo Model', milestone: '₹2.7L/month', quote: 'The Combo Model was the best investment decision of my life. Cleanz24\'s CRM dashboard and automated billing makes managing the store effortless.' },
+    { initials: 'SS', name: 'Sanjay Singhania', city: 'Jaipur, Rajasthan', model: 'Beta Model', milestone: '₹2.1L/month', quote: 'The technical training academy and standard operational guidelines made setup straightforward. We are now the leading laundry service in our area.' },
+    { initials: 'MN', name: 'Meera Nair', city: 'Bengaluru, Karnataka', model: 'Alpha Model', milestone: '₹1.1L/month', quote: 'Cleanz24\'s eco-friendly washing solutions and CRM system saved us hours on manual billing and attracted premium eco-conscious customers.' },
+    { initials: 'RJ', name: 'Rohan Joshi', city: 'Pune, Maharashtra', model: 'Hydro-Carbon Model', milestone: '₹3.4L/month', quote: 'Investing in the Hydro-Carbon Model was key for our luxury fabric dry-cleaning segment. The 99% oil recovery rate keeps operational costs low.' },
+    { initials: 'KR', name: 'Kavita Reddy', city: 'Hyderabad, Telangana', model: 'Combo Model', milestone: '₹2.9L/month', quote: 'Opening a franchise in Kokapet has been highly lucrative. The operations team guided us through the entire setup, and local marketing support was phenomenal.' },
+    { initials: 'VS', name: 'Vivek Saxena', city: 'Lucknow, UP', model: 'Beta Model', milestone: '₹1.9L/month', quote: 'The tech suite provided by Cleanz24 is exceptional. Our customers love the automated status updates and WhatsApp alerts, which makes operations highly streamlined.' },
+    { initials: 'ND', name: 'Neha Deshmukh', city: 'Mumbai, Maharashtra', model: 'Alpha Model', milestone: '₹1.3L/month', quote: 'Excellent hand-holding from site selection to the grand opening. The demand for premium dry cleaning in Pimpri-Chinchwad has exceeded all our expectations.' },
+    { initials: 'RT', name: 'Rajesh Tripathi', city: 'Patna, Bihar', model: 'Combo Model', milestone: '₹2.5L/month', quote: 'Unparalleled supply chain support for detergents and chemicals. The training programs enabled our staff to deliver consistent, top-tier quality from day one.' }
   ];
 
   const advantages = [
@@ -674,8 +755,45 @@ function LaundryFrenchise() {
     { title: 'Supply Chain', desc: 'Direct centralized supply of eco-friendly detergents, active foam solutions, and premium fabric care products directly to your store.' },
   ];
 
+  const [successStoryIndex, setSuccessStoryIndex] = useState(0);
+  const [successVisibleCards, setSuccessVisibleCards] = useState(3);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setSuccessVisibleCards(1);
+      } else if (window.innerWidth < 992) {
+        setSuccessVisibleCards(2);
+      } else {
+        setSuccessVisibleCards(3);
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const maxIndex = testimonials.length - successVisibleCards;
+    if (successStoryIndex > maxIndex) {
+      setSuccessStoryIndex(Math.max(0, maxIndex));
+    }
+  }, [successVisibleCards]);
+
+  // Google Ads: Franchise Page view conversion — fires on page load
+  useEffect(() => {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'conversion', {
+        'send_to': 'AW-16562330559/IThJCPHEmaIaEL-3xNk9',
+        'value': 1.0,
+        'currency': 'INR'
+      });
+    }
+  }, []);
+
   return (
     <div className="lf-page">
+
       <SEOMeta
         title="Laundry & Dry Cleaning Franchise Opportunities"
         description="Partner with Cleanz24. Open a highly profitable laundry & dry cleaning franchise in India. Full operations training, supply chain access, and CRM support."
@@ -707,7 +825,7 @@ function LaundryFrenchise() {
                   <p style={{ color: dark ? '#94a3b8' : '#4A5568', marginBottom: 16, fontSize: '0.92rem' }}>
                     Thank you, <strong>{formData.name}</strong>! Our team will call you at <strong>{formData.phone}</strong> within 24 hours.
                   </p>
-                  <button onClick={() => setSubmitted(false)}
+                  <button onClick={handleResetForm}
                     style={{ background: 'none', border: `1.5px solid ${dark ? '#4ade80' : '#22c55e'}`, color: dark ? '#4ade80' : '#1a7a2e', padding: '8px 24px', borderRadius: 6, fontWeight: 600, cursor: 'pointer', fontSize: '0.9rem' }}>
                     Submit Another
                   </button>
@@ -717,12 +835,102 @@ function LaundryFrenchise() {
                   <label htmlFor="name">Name <span>*</span></label>
                   <input id="name" type="text" placeholder="Enter your name" value={formData.name} onChange={handleChange} required />
                   <label htmlFor="phone">Phone Number <span>*</span></label>
-                  <input id="phone" type="tel" placeholder="Enter a valid phone number" value={formData.phone} onChange={handleChange} required />
+                  <div style={{ position: 'relative' }}>
+                    <button
+                      type="button"
+                      onClick={() => setDropdownOpen(!dropdownOpen)}
+                      style={{
+                        position: 'absolute',
+                        left: 0,
+                        top: 0,
+                        height: '100%',
+                        width: '80px',
+                        fontWeight: '600',
+                        fontSize: '0.9rem',
+                        color: dark ? '#e2e8f0' : '#1e293b',
+                        background: 'transparent',
+                        border: 'none',
+                        outline: 'none',
+                        zIndex: 10,
+                        cursor: 'pointer',
+                        paddingLeft: '12px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'flex-start',
+                        gap: '4px'
+                      }}
+                    >
+                      <span>{countryEmoji} {countryCode}</span>
+                      <span style={{ fontSize: '0.65rem', color: '#64748b' }}>▼</span>
+                    </button>
+                    {dropdownOpen && (
+                      <>
+                        <div 
+                          onClick={() => setDropdownOpen(false)} 
+                          style={{
+                            position: 'fixed',
+                            top: 0,
+                            right: 0,
+                            bottom: 0,
+                            left: 0,
+                            zIndex: 99,
+                            background: 'transparent'
+                          }}
+                        />
+                        <div
+                          style={{
+                            position: 'absolute',
+                            top: '100%',
+                            left: 0,
+                            zIndex: 100,
+                            background: dark ? '#1e293b' : '#ffffff',
+                            border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`,
+                            borderRadius: '8px',
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                            width: '120px',
+                            maxHeight: '180px',
+                            overflowY: 'auto',
+                            marginTop: '4px'
+                          }}
+                        >
+                          {countries.map((c, i) => (
+                            <div
+                              key={i}
+                              onClick={() => {
+                                setCountryCode(c.code);
+                                setCountryEmoji(c.emoji);
+                                setDropdownOpen(false);
+                              }}
+                              style={{
+                                padding: '8px 12px',
+                                fontSize: '0.9rem',
+                                color: dark ? '#e2e8f0' : '#1e293b',
+                                cursor: 'pointer',
+                                background: countryCode === c.code && countryEmoji === c.emoji ? dark ? 'rgba(255,255,255,0.12)' : '#f1f5f9' : 'transparent',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                transition: 'background 0.2s'
+                              }}
+                              onMouseEnter={(e) => { e.currentTarget.style.background = dark ? 'rgba(255,255,255,0.06)' : '#f8fafc'; }}
+                              onMouseLeave={(e) => { e.currentTarget.style.background = countryCode === c.code && countryEmoji === c.emoji ? dark ? 'rgba(255,255,255,0.12)' : '#f1f5f9' : 'transparent'; }}
+                            >
+                              <span>{c.emoji}</span>
+                              <span>{c.code}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                    <input id="phone" type="tel" placeholder="Enter a valid phone number" value={formData.phone} onChange={handleChange} style={{ paddingLeft: '88px', marginBottom: 0 }} required />
+                  </div>
                   <label htmlFor="email">Email <span>*</span></label>
                   <input id="email" type="email" placeholder="Enter a valid email id" value={formData.email} onChange={handleChange} required />
                   <label htmlFor="city">City <span>*</span></label>
                   <input id="city" type="text" placeholder="Enter your city" value={formData.city} onChange={handleChange} required />
-                  <button type="submit" className="lf-btn-submit">Submit</button>
+                  <button type="submit" className="lf-btn-submit" disabled={isSubmitting}>
+                    {isSubmitting ? 'Submitting...' : 'Submit'}
+                  </button>
                 </form>
               )}
             </div>
@@ -999,25 +1207,110 @@ function LaundryFrenchise() {
             <h2 className="lf-section-title">Success Stories from Our <span>Pan-India Network</span></h2>
             <div className="lf-divider mx-auto"></div>
           </div>
-          <div className="row g-4 justify-content-center">
-            {testimonials.map((t, i) => (
-              <div className="col-lg-4 col-md-6" key={i}>
-                <div className="lf-testimonial-card d-flex flex-column">
-                  <div className="d-flex align-items-center gap-3">
-                    <div className="lf-testimonial-avatar">{t.initials}</div>
-                    <div>
-                      <div style={{ fontWeight: 700, fontSize: '0.95rem', color: dark ? '#f1f5f9' : '#1A202C' }}>{t.name}</div>
-                      <div style={{ fontSize: '0.78rem', color: dark ? '#94a3b8' : '#718096' }}>{t.city}</div>
-                      <span className="lf-verified">✓ VERIFIED OWNER</span>
+          <div className="d-flex justify-content-center gap-3 mb-4">
+            <button
+              type="button"
+              onClick={() => setSuccessStoryIndex(prev => Math.max(0, prev - 1))}
+              disabled={successStoryIndex === 0}
+              className="btn rounded-circle d-flex align-items-center justify-content-center"
+              style={{
+                width: '44px',
+                height: '44px',
+                padding: 0,
+                opacity: successStoryIndex === 0 ? 0.3 : 1,
+                cursor: successStoryIndex === 0 ? 'not-allowed' : 'pointer',
+                border: `1.5px solid ${dark ? '#4ade80' : '#1a7a2e'}`,
+                color: dark ? '#4ade80' : '#1a7a2e',
+                background: 'transparent',
+                transition: 'all 0.2s ease',
+                fontWeight: 'bold',
+                fontSize: '1.2rem'
+              }}
+              onMouseEnter={(e) => { if (successStoryIndex !== 0) { e.currentTarget.style.background = dark ? '#4ade80' : '#1a7a2e'; e.currentTarget.style.color = dark ? '#1e293b' : '#fff'; } }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = dark ? '#4ade80' : '#1a7a2e'; }}
+            >
+              ←
+            </button>
+            <button
+              type="button"
+              onClick={() => setSuccessStoryIndex(prev => Math.min(testimonials.length - successVisibleCards, prev + 1))}
+              disabled={successStoryIndex >= testimonials.length - successVisibleCards}
+              className="btn rounded-circle d-flex align-items-center justify-content-center"
+              style={{
+                width: '44px',
+                height: '44px',
+                padding: 0,
+                opacity: successStoryIndex >= testimonials.length - successVisibleCards ? 0.3 : 1,
+                cursor: successStoryIndex >= testimonials.length - successVisibleCards ? 'not-allowed' : 'pointer',
+                border: `1.5px solid ${dark ? '#4ade80' : '#1a7a2e'}`,
+                color: dark ? '#4ade80' : '#1a7a2e',
+                background: 'transparent',
+                transition: 'all 0.2s ease',
+                fontWeight: 'bold',
+                fontSize: '1.2rem'
+              }}
+              onMouseEnter={(e) => { if (successStoryIndex < testimonials.length - successVisibleCards) { e.currentTarget.style.background = dark ? '#4ade80' : '#1a7a2e'; e.currentTarget.style.color = dark ? '#1e293b' : '#fff'; } }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = dark ? '#4ade80' : '#1a7a2e'; }}
+            >
+              →
+            </button>
+          </div>
+
+          <div style={{ overflow: 'hidden', width: '100%', padding: '10px 0' }}>
+            <div
+              style={{
+                display: 'flex',
+                gap: '24px',
+                transform: `translateX(calc(-${successStoryIndex} * (100% + 24px) / ${successVisibleCards}))`,
+                transition: 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                width: '100%'
+              }}
+            >
+              {testimonials.map((t, i) => (
+                <div
+                  key={i}
+                  style={{
+                    flex: `0 0 calc((100% - (${successVisibleCards} - 1) * 24px) / ${successVisibleCards})`,
+                    width: `calc((100% - (${successVisibleCards} - 1) * 24px) / ${successVisibleCards})`
+                  }}
+                >
+                  <div className="lf-testimonial-card d-flex flex-column h-100" style={{ margin: 0 }}>
+                    <div className="d-flex align-items-center gap-3">
+                      <div className="lf-testimonial-avatar">{t.initials}</div>
+                      <div>
+                        <div style={{ fontWeight: 700, fontSize: '0.95rem', color: dark ? '#f1f5f9' : '#1A202C' }}>{t.name}</div>
+                        <div style={{ fontSize: '0.78rem', color: dark ? '#94a3b8' : '#718096' }}>{t.city}</div>
+                        <span className="lf-verified">✓ VERIFIED OWNER</span>
+                      </div>
+                    </div>
+                    <p className="lf-testimonial-quote">"{t.quote}"</p>
+                    <div className="d-flex justify-content-between align-items-center mt-auto pt-3 lf-testimonial-divider">
+                      <span style={{ fontSize: '0.8rem', color: dark ? '#94a3b8' : '#718096', fontWeight: 600 }}>{t.model}</span>
+                      <span style={{ fontSize: '0.9rem', fontWeight: 700, color: dark ? '#4ade80' : '#1a7a2e' }}>{t.milestone}</span>
                     </div>
                   </div>
-                  <p className="lf-testimonial-quote">"{t.quote}"</p>
-                  <div className="d-flex justify-content-between align-items-center mt-auto pt-3 lf-testimonial-divider">
-                    <span style={{ fontSize: '0.8rem', color: dark ? '#94a3b8' : '#718096', fontWeight: 600 }}>{t.model}</span>
-                    <span style={{ fontSize: '0.9rem', fontWeight: 700, color: dark ? '#4ade80' : '#1a7a2e' }}>{t.milestone}</span>
-                  </div>
                 </div>
-              </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="d-flex justify-content-center gap-2 mt-4">
+            {Array.from({ length: testimonials.length - successVisibleCards + 1 }).map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setSuccessStoryIndex(idx)}
+                style={{
+                  width: successStoryIndex === idx ? '24px' : '8px',
+                  height: '8px',
+                  borderRadius: '4px',
+                  background: successStoryIndex === idx ? (dark ? '#4ade80' : '#1a7a2e') : (dark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.15)'),
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  padding: 0,
+                  outline: 'none'
+                }}
+              />
             ))}
           </div>
         </div>
@@ -1089,7 +1382,7 @@ function LaundryFrenchise() {
             <div className="lf-divider mx-auto"></div>
           </div>
           <div className="row g-3 justify-content-center">
-            {['Gurugram', 'New Delhi', 'Bhilwara', 'Visakhapatnam', 'Jatani', 'Jeypore', 'Chandigarh', 'Jaipur', 'Mumbai', 'Hyderabad', 'Bengaluru', 'Pune'].map((city, i) => (
+            {['Himachal Pradesh', 'Haryana', 'Delhi', 'Uttar Pradesh', 'Madhya Pradesh', 'Punjab', 'Gujarat', 'Maharashtra', 'Tamil Nadu', 'Telangana', 'Andhra Pradesh', 'Chhattisgarh', 'West Bengal', 'Assam', 'Kerala', 'Karnataka', 'Bihar', 'Odisha', 'Uttarakhand', 'Rajasthan', 'Puducherry'].map((city, i) => (
               <div className="col-6 col-md-3 col-lg-2" key={i}>
                 <div className="lf-location-pill">📍 {city}</div>
               </div>

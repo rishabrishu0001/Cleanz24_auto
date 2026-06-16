@@ -49,7 +49,7 @@
 }
 .laundry-app .store-search-field::placeholder { color: #9da9b8; }
 .laundry-app.laundry-dark .store-search-field { color: #e2e8f0; }
-.laundry-app.laundry-dark .store-search-field::placeholder { color: #5a7494; }
+.laundry-app.laundry-dark .store-search-field::placeholder { color: #ffffff; }
 .laundry-app .store-search-clear {
   background: none;
   border: none;

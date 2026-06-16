@@ -191,7 +191,7 @@ function Landing() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.6, duration: 0.6 }}
             >
-              PREMIER <br /><span style={{ color: '#00C96D' }}>LAUNDRY</span>
+              PREMIUM <br /><span style={{ color: '#00C96D' }}>LAUNDRY</span>
             </motion.h2>
             <motion.p 
               className="lead fw-light mb-4 text-light-custom" 
@@ -566,55 +566,78 @@ function Landing() {
 
         /* Mobile Adjustments */
         @media (max-width: 767px) {
+          .landing-container {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100vw !important;
+            height: 100vh !important;
+            height: 100dvh !important;
+            overflow: hidden !important;
+          }
+          .landing-container > .d-flex {
+            height: 100% !important;
+            min-height: 100% !important;
+            width: 100% !important;
+            overflow: hidden !important;
+          }
           .split-panel {
             position: relative !important;
-            height: auto !important;
-            min-height: 50vh !important;
-            padding-bottom: 2rem !important;
+            height: 50% !important;
+            min-height: 50% !important;
+            max-height: 50% !important;
+            padding: 0 !important;
             clip-path: none !important;
             width: 100% !important;
-            overflow: visible !important; /* Ensure buttons don't get clipped on smaller viewports */
+            overflow: hidden !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
           }
           .laundry-panel {
             background: radial-gradient(circle at center, rgba(0, 201, 109, 0.22) 0%, rgba(3, 10, 6, 0.99) 100%) !important;
-            padding-top: 40px;
           }
           .carspa-panel {
             background: radial-gradient(circle at center, rgba(212, 175, 55, 0.22) 0%, rgba(6, 13, 9, 0.99) 100%) !important;
           }
-          .laundry-content-wrapper {
-            transform: none !important;
-            padding: 1.5rem !important;
-            text-align: center !important;
-            margin: 40px auto 0 auto !important; /* Slightly reduced margin-top */
-          }
+          .laundry-content-wrapper,
           .carspa-content-wrapper {
             transform: none !important;
-            padding: 1.5rem !important;
+            padding: 0.5rem !important;
             text-align: center !important;
-            margin: 20px auto 0 auto !important;
+            margin: 0 auto !important;
+            width: 100% !important;
+            max-width: 320px !important;
           }
           
           /* Scale down typography & icons for mobile */
           .landing-content h2 {
-            font-size: 2.2rem !important; /* Smaller display title */
-            margin-bottom: 0.5rem !important;
+            font-size: 1.8rem !important; /* Smaller display title to fit 50vh */
+            margin-bottom: 0.25rem !important;
+            line-height: 1.2 !important;
           }
           .landing-content p {
-            font-size: 0.85rem !important; /* Tighter body text */
-            margin-bottom: 1rem !important;
+            font-size: 0.8rem !important; /* Tighter body text to fit 50vh */
+            margin-bottom: 0.75rem !important;
             padding: 0 10px;
+            line-height: 1.4 !important;
           }
           .landing-icon-wrap {
-            margin-bottom: 0.5rem !important;
+            margin-bottom: 0.4rem !important;
           }
-          .landing-icon-wrap svg {
-            width: 48px !important;
+          .landing-icon-wrap img {
             height: 48px !important;
           }
+          .landing-icon-wrap svg {
+            width: 40px !important;
+            height: 40px !important;
+          }
           .btn-portal {
-            padding: 10px 30px !important; /* Smaller button padding */
-            font-size: 0.78rem !important;
+            padding: 8px 24px !important; /* Smaller button padding to fit 50vh */
+            font-size: 0.75rem !important;
           }
           
           .laundry-panel:hover .laundry-content-wrapper,

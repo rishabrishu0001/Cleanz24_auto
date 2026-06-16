@@ -232,7 +232,7 @@ export default function AdminLogin() {
                       <input
                         type="tel"
                         value={phone}
-                        onChange={e => setPhone(e.target.value)}
+                        onChange={e => setPhone(e.target.value.replace(/\D/g, ''))}
                         placeholder="Enter 10-digit number"
                         maxLength={10}
                         style={{ ...inputStyle, paddingLeft: '52px' }}

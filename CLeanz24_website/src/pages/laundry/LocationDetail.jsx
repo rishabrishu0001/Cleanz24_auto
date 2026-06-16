@@ -341,7 +341,7 @@ export default function LocationDetail() {
             }}
           >
             <a
-              href={`https://wa.me/${primaryStore.whatsapp || '919266018365'}?text=Hi%20Cleanz24,%20I%20would%20like%20to%20book%20a%20laundry%20pickup%20in%20${city}`}
+              href={`https://wa.me/${primaryStore.whatsapp || '919138004800'}?text=Hi%20Cleanz24,%20I%20would%20like%20to%20book%20a%20laundry%20pickup%20in%20${city}`}
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -678,7 +678,7 @@ export default function LocationDetail() {
                         📞 Call Now
                       </a>
                       <a
-                        href={`https://wa.me/${store.whatsapp || '919266018365'}?text=Hi%20Cleanz24,%20I%20would%20like%20to%20book%20a%20laundry%20pickup`}
+                        href={`https://wa.me/${store.whatsapp || '919138004800'}?text=Hi%20Cleanz24,%20I%20would%20like%20to%20book%20a%20laundry%20pickup`}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{

@@ -1603,7 +1603,7 @@ export default function Blog() {
                       <p style={{ margin: '8px 0', fontSize: '15px' }}><strong>Franchise Support Line:</strong> {post.store.phone}</p>
                       <p style={{ margin: '8px 0', fontSize: '15px' }}><strong>Google Rating:</strong> {post.store.rating} ★ ({post.store.reviews} Verified Reviews)</p>
                       <div style={{ display: 'flex', gap: '10px', marginTop: '15px', flexWrap: 'wrap' }}>
-                        <a href={`tel:${post.store.phone.replace(/\s+/g, '')}`} className="btn btn-sm text-white" style={{ backgroundColor: '#2B6CB0', border: 'none', padding: '6px 16px', fontWeight: 600 }}>Call Chauffeur</a>
+                        <a href={`tel:+91${post.store.phone.replace(/\s+/g, '')}`} className="btn btn-sm text-white" style={{ backgroundColor: '#2B6CB0', border: 'none', padding: '6px 16px', fontWeight: 600 }}>Call Chauffeur</a>
                         <a href={`https://wa.me/${post.store.whatsapp}`} target="_blank" rel="noreferrer" className="btn btn-sm text-white" style={{ backgroundColor: '#28A745', border: 'none', padding: '6px 16px', fontWeight: 600 }}>WhatsApp Booking</a>
                         <Link to="/laundry/franchise" className="btn btn-sm btn-outline-primary" style={{ padding: '6px 16px', fontWeight: 600 }}>Franchise Info</Link>
                       </div>
@@ -1658,7 +1658,7 @@ export default function Blog() {
                       <p style={{ margin: '8px 0', fontSize: '15px' }}><strong>Phone:</strong> {post.store.phone}</p>
                       <p style={{ margin: '8px 0', fontSize: '15px' }}><strong>Google Customer Rating:</strong> {post.store.rating} ★ ({post.store.reviews} Verified Reviews)</p>
                       <div style={{ display: 'flex', gap: '10px', marginTop: '15px', flexWrap: 'wrap' }}>
-                        <a href={`tel:${post.store.phone.replace(/\s+/g, '')}`} className="btn btn-sm text-white" style={{ backgroundColor: '#2B6CB0', border: 'none', padding: '6px 16px', fontWeight: 600 }}>Call Store</a>
+                        <a href={`tel:+91${post.store.phone.replace(/\s+/g, '')}`} className="btn btn-sm text-white" style={{ backgroundColor: '#2B6CB0', border: 'none', padding: '6px 16px', fontWeight: 600 }}>Call Store</a>
                         <a href={`https://wa.me/${post.store.whatsapp}`} target="_blank" rel="noreferrer" className="btn btn-sm text-white" style={{ backgroundColor: '#28A745', border: 'none', padding: '6px 16px', fontWeight: 600 }}>WhatsApp Us</a>
                         <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(post.store.name + ' ' + post.store.address)}`} target="_blank" rel="noreferrer" className="btn btn-sm btn-outline-secondary" style={{ padding: '6px 16px', fontWeight: 600 }}>Get Directions</a>
                       </div>

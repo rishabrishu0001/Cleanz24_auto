@@ -49,33 +49,51 @@
   <!-- Laundry Subsite -->
   <url>
     <loc>https://cleanz24.com/laundry</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://cleanz24.com/laundry/services</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cleanz24.com/laundry/franchise</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://cleanz24.com/laundry/stores</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://cleanz24.com/laundry/blog</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://cleanz24.com/laundry/contact-us</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cleanz24.com/laundry/privacy-policy</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://cleanz24.com/laundry/terms-of-service</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
   </url>
 
   <!-- Key Laundry Blog Articles -->

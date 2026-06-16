@@ -59,7 +59,7 @@ export default function Services() {
       title: 'Premium Laundry',
       subtitle: 'Wash & Fold / Wash & Steam Iron',
       description: 'Hygienic daily washing using soft water and eco-friendly detergents.',
-      longDesc: 'Our everyday laundry service is designed to keep your clothes clean and fresh without any effort. We separate your garments by color and fabric type, wash them with premium pH-neutral detergents, and tumble-dry them gently. Your clothes are returned neatly folded or crisp-pressed and ready to wear.',
+      longDesc: 'Our everyday laundry service is designed to keep your clothes clean and fresh without any effort. We separate your garments by color and fabric type, wash them with pH-neutral detergents, and dry clean them gently. Your clothes are returned neatly folded or crisp-pressed and ready to wear.',
       icon: srvLaundryImg,
       highlights: [
         'Individual machine cycles per customer (no mixing)',
@@ -82,7 +82,7 @@ export default function Services() {
       icon: srvDryImg,
       highlights: [
         'Fabric diagnostics and care label analysis',
-        'State-of-the-art hydrocarbon dry cleaning machines',
+        'Wet cleaning and hydrocarbon dry cleaning machines',
         'Preserves delicate trims, sequins, and designer detailing',
         'Zero chemical odor or fabric stiffening'
       ],
@@ -135,7 +135,7 @@ export default function Services() {
       title: 'Home Furnishings',
       subtitle: 'Deep extraction washing',
       description: 'Deep extraction washing and sanitization for heavy home linens, curtains, sofas, and carpets.',
-      longDesc: 'Dust mites, pet dander, and allergens build up inside home furnishings over time. We provide deep injection-extraction cleaning and high-temperature steam sanitization to safely clean and deodorize heavy household fabrics.',
+      longDesc: 'Dust, mites, pet dander, and allergens build up inside home furnishings over time. We provide deep injection-extraction cleaning and high-temperature steam sanitization to safely clean and deodorize heavy household fabrics.',
       icon: srvHomeImg,
       highlights: [
         'High-pressure steam sanitization (kills 99.9% bacteria)',
@@ -184,7 +184,7 @@ export default function Services() {
               We Clean. <span style={{ background: 'linear-gradient(135deg, #3b82f6 0%, #10b981 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>You Shine.</span>
             </motion.h1>
             <motion.p variants={fadeInUp} className="lead mx-auto mb-5" style={{ maxWidth: '700px', color: dark ? '#cbd5e1' : '#475569', fontSize: '1.2rem', lineHeight: 1.6 }}>
-              Experience the pinnacle of fabric care. From everyday wear to delicate designer pieces, our state-of-the-art facilities and eco-friendly solvents ensure your wardrobe stays pristine.
+              Trust Cleanz24 to keep your wardrobe fresh and well-maintained. Our professional cleaning experts handle every garment with care, delivering exceptional results and convenience right to your doorstep.
             </motion.p>
             <motion.div variants={fadeInUp} className="d-flex justify-content-center gap-3 flex-wrap">
               <a href="#services-list" className="btn btn-lg px-5 py-3 rounded-pill fw-bold text-white shadow-lg" style={{ background: 'linear-gradient(135deg, #2563eb 0%, #4f46e5 100%)', border: 'none', transition: 'transform 0.3s' }} onMouseEnter={(e)=>e.currentTarget.style.transform='translateY(-3px)'} onMouseLeave={(e)=>e.currentTarget.style.transform='translateY(0)'}>
@@ -269,7 +269,7 @@ export default function Services() {
                     />
                     <div className="position-relative z-1 text-center">
                       <div className="badge px-4 py-2 rounded-pill fw-bold shadow-sm" style={{ background: '#ffffff', color: service.color, fontSize: '1rem' }}>
-                        {service.pricing}
+                        {/* {service.pricing} */}
                       </div>
                     </div>
                   </motion.div>
@@ -339,11 +339,11 @@ export default function Services() {
         <div className="container py-4 text-center position-relative z-2">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
             <div className="mb-4">
-              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
               </svg>
             </div>
-            <h2 className="display-5 fw-bold mb-4" style={{ fontFamily: "'Poppins', sans-serif" }}>The Cleanz24 Promise</h2>
+            <h2 className="display-5 fw-bold mb-4" style={{ fontFamily: "'Poppins', sans-serif", color: '#ffffff' }}>The Cleanz24 Promise</h2>
             <p className="lead mx-auto mb-5 text-white-50" style={{ maxWidth: '800px' }}>
               We treat every garment like a masterpiece. If you are not completely satisfied with our cleaning quality, we will re-process your item absolutely free of charge. Your satisfaction is woven into our fabric.
             </p>

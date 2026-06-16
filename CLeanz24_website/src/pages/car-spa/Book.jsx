@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { faqsData, storesData } from '../../data';
 import SEOMeta from '../../components/SEOMeta';
 import '../../styles/carSpa.css';
-import { GOOGLE_SHEETS_SCRIPT_URL } from '../../config';
+import { GOOGLE_SHEETS_CAR_SPA_SCRIPT_URL } from '../../config';
 import carwashingTransparent from '../../assets/carwashing_transparent.png';
 
 function Book({ isDarkMode, toggleTheme }) {
@@ -55,8 +55,8 @@ function Book({ isDarkMode, toggleTheme }) {
 
     if (id === 'mobile') {
       const digitsOnly = value.replace(/\D/g, '');
-      if (value && digitsOnly.length !== 10) {
-        errors.mobile = 'Please enter a valid 10-digit mobile number';
+      if (value && (digitsOnly.length < 7 || digitsOnly.length > 15)) {
+        errors.mobile = 'Please enter a valid mobile number';
       } else {
         delete errors.mobile;
       }
@@ -70,6 +70,22 @@ function Book({ isDarkMode, toggleTheme }) {
       }
     }
 
+    if (id === 'time') {
+      if (value) {
+        const [hours, minutes] = value.split(':').map(Number);
+        const totalMinutes = hours * 60 + minutes;
+        const minMinutes = 9 * 60;   // 9:00 AM
+        const maxMinutes = 18 * 60;  // 6:00 PM
+        if (totalMinutes < minMinutes || totalMinutes > maxMinutes) {
+          errors.time = 'Preferred time must be between 9:00 AM and 6:00 PM';
+        } else {
+          delete errors.time;
+        }
+      } else {
+        delete errors.time;
+      }
+    }
+
     setFormErrors(errors);
   };
 
@@ -79,17 +95,43 @@ function Book({ isDarkMode, toggleTheme }) {
     validateField(id, value);
   };
 
+  const handleResetForm = () => {
+    setFormData({
+      name: memberData?.name || '',
+      mobile: memberData?.mobile || '',
+      service: matchedService,
+      date: '',
+      time: '',
+      address: ''
+    });
+    setVehicleClass('sedan');
+    setFormErrors({});
+    setFormSubmitted(false);
+  };
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     // Final validation before submit
     const errors = {};
     const mobileDigits = formData.mobile.replace(/\D/g, '');
-    if (mobileDigits.length !== 10) {
-      errors.mobile = 'Please enter a valid 10-digit mobile number';
+    if (mobileDigits.length < 7 || mobileDigits.length > 15) {
+      errors.mobile = 'Please enter a valid mobile number';
     }
     if (formData.name.trim().length < 2) {
       errors.name = 'Name must be at least 2 characters';
+    }
+
+    if (formData.time) {
+      const [hours, minutes] = formData.time.split(':').map(Number);
+      const totalMinutes = hours * 60 + minutes;
+      const minMinutes = 9 * 60;
+      const maxMinutes = 18 * 60;
+      if (totalMinutes < minMinutes || totalMinutes > maxMinutes) {
+        errors.time = 'Preferred time must be between 9:00 AM and 6:00 PM';
+      }
+    } else {
+      errors.time = 'Preferred time is required';
     }
 
     if (Object.keys(errors).length > 0) {
@@ -113,7 +155,7 @@ function Book({ isDarkMode, toggleTheme }) {
         isMember: selectedPriceInfo.isMember
       };
 
-      await fetch(GOOGLE_SHEETS_SCRIPT_URL, {
+      await fetch(GOOGLE_SHEETS_CAR_SPA_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: {
@@ -268,9 +310,16 @@ function Book({ isDarkMode, toggleTheme }) {
             <a href="#book" className="btn btn-glow btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg text-decoration-none">
               Reserve Your Slot
             </a>
-            <Link to="/car-spa/services" className="btn btn-outline-primary-custom btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none">
+            <button 
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                window.dispatchEvent(new Event('open-packages-dropdown'));
+              }}
+              className="btn btn-outline-primary-custom btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none"
+            >
               View Pricing Matrix
-            </Link>
+            </button>
           </motion.div>
         </motion.div>
       </section>
@@ -356,7 +405,7 @@ function Book({ isDarkMode, toggleTheme }) {
                         </small>
                       </div>
                       
-                      <button className="btn btn-outline-primary-custom px-4 py-2 mt-3" onClick={() => setFormSubmitted(false)}>Schedule Another Appointment</button>
+                      <button className="btn btn-outline-primary-custom px-4 py-2 mt-3" onClick={handleResetForm}>Schedule Another Appointment</button>
                     </div>
                   ) : (
                     <form onSubmit={handleFormSubmit} className="position-relative z-1" noValidate>
@@ -382,7 +431,7 @@ function Book({ isDarkMode, toggleTheme }) {
                           type="tel" 
                           className={`form-control py-3 rounded-0 ${formErrors.mobile ? 'border-danger' : ''}`}
                           id="mobile" 
-                          placeholder="Enter 10-digit mobile number" 
+                          placeholder="Enter mobile number" 
                           required 
                           value={formData.mobile}
                           onChange={handleInputChange}
@@ -469,16 +518,21 @@ function Book({ isDarkMode, toggleTheme }) {
                           />
                         </div>
                         <div className="col-md-6">
-                          <label htmlFor="time" className="form-label fw-bold small text-uppercase text-muted-custom">Preferred Time *</label>
+                          <label htmlFor="time" className="form-label fw-bold small text-uppercase text-muted-custom">Preferred Time * (9 AM - 6 PM)</label>
                           <input 
                             type="time" 
-                            className="form-control py-3 rounded-0 text-white" 
+                            className={`form-control py-3 rounded-0 text-white ${formErrors.time ? 'border-danger' : ''}`}
                             id="time" 
                             required 
+                            min="09:00"
+                            max="18:00"
                             value={formData.time}
                             onChange={handleInputChange}
                             style={{ colorScheme: 'dark' }}
                           />
+                          {formErrors.time && (
+                            <small className="d-block mt-1" style={{ color: '#ff4d4d', fontSize: '0.78rem' }}>{formErrors.time}</small>
+                          )}
                         </div>
                       </div>
 

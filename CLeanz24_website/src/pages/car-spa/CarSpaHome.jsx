@@ -14,11 +14,12 @@ import neonCarRender from '../../assets/neon_car_render.png';
 import firstVideo from '../../assets/first_video.mp4';
 import carwash1Url from '../../assets/carwash1.json?url';
 import carwash3Url from '../../assets/carwash3.json?url';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useOutletContext } from 'react-router-dom';
 import '../../styles/carSpa.css';
 import SEOMeta from '../../components/SEOMeta';
 import { Player } from '@lottiefiles/react-lottie-player';
-import { GOOGLE_SHEETS_SCRIPT_URL } from '../../config';
+import { GOOGLE_SHEETS_CAR_SPA_SCRIPT_URL } from '../../config';
+import HiringWidget from '../../components/HiringWidget';
 
 // 1. BEFORE/AFTER SLIDER COMPONENT
 function BeforeAfterSlider() {
@@ -95,7 +96,8 @@ function BeforeAfterSlider() {
 }
 
 // 2. MAIN CAR SPA PAGE
-function CarSpa({ isDarkMode, toggleTheme }) {
+function CarSpa() {
+  const { isDarkMode, toggleTheme } = useOutletContext() || {};
   const location = useLocation();
   const [openFaqIndex, setOpenFaqIndex] = useState(-1);
   const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
@@ -133,6 +135,33 @@ function CarSpa({ isDarkMode, toggleTheme }) {
   // Booking Form State
   const [bookingSubmitted, setBookingSubmitted] = useState(false);
   const [mobileError, setMobileError] = useState('');
+  const [timeError, setTimeError] = useState('');
+  const [countryCode, setCountryCode] = useState('+91');
+  const [countryEmoji, setCountryEmoji] = useState('🇮🇳');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const countries = [
+    { code: '+91', emoji: '🇮🇳', name: 'India' },
+    { code: '+1', emoji: '🇺🇸', name: 'United States' },
+    { code: '+1', emoji: '🇨🇦', name: 'Canada' },
+    { code: '+44', emoji: '🇬🇧', name: 'United Kingdom' },
+    { code: '+971', emoji: '🇦🇪', name: 'United Arab Emirates' },
+    { code: '+61', emoji: '🇦🇺', name: 'Australia' },
+    { code: '+65', emoji: '🇸🇬', name: 'Singapore' },
+    { code: '+966', emoji: '🇸🇦', name: 'Saudi Arabia' },
+    { code: '+974', emoji: '🇶🇦', name: 'Qatar' },
+    { code: '+968', emoji: '🇴🇲', name: 'Oman' },
+    { code: '+973', emoji: '🇧🇭', name: 'Bahrain' },
+    { code: '+965', emoji: '🇰🇼', name: 'Kuwait' },
+    { code: '+49', emoji: '🇩🇪', name: 'Germany' },
+    { code: '+33', emoji: '🇫🇷', name: 'France' },
+    { code: '+60', emoji: '🇲🇾', name: 'Malaysia' },
+    { code: '+81', emoji: '🇯🇵', name: 'Japan' },
+    { code: '+64', emoji: '🇳🇿', name: 'New Zealand' },
+    { code: '+977', emoji: '🇳🇵', name: 'Nepal' },
+    { code: '+880', emoji: '🇧🇩', name: 'Bangladesh' },
+    { code: '+94', emoji: '🇱🇰', name: 'Sri Lanka' },
+    { code: '+27', emoji: '🇿🇦', name: 'South Africa' },
+  ];
   const [bookingData, setBookingData] = useState({
     name: '',
     mobile: '',
@@ -210,26 +239,55 @@ function CarSpa({ isDarkMode, toggleTheme }) {
   const handleBookingInputChange = (e) => {
     const { id, value } = e.target;
     setBookingData(prev => ({ ...prev, [id]: value }));
+    if (id === 'time') setTimeError('');
+  };
+
+  const handleResetBookingForm = () => {
+    setBookingData({
+      name: memberData?.name || '',
+      mobile: memberData?.mobile || '',
+      date: '',
+      time: '',
+      address: '',
+      service: 'CRYSTAL SHIELD'
+    });
+    setVehicleClass('sedan');
+    setMobileError('');
+    setTimeError('');
+    setBookingSubmitted(false);
   };
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
-    // Validate mobile number (10 digits)
-    const phoneRegex = /^[6-9]\d{9}$/;
+    // Validate mobile number
+    const phoneRegex = /^\d{7,15}$/;
     if (!phoneRegex.test(bookingData.mobile)) {
-      setMobileError('Please enter a valid 10-digit mobile number');
+      setMobileError('Please enter a valid mobile number');
       return;
     }
     setMobileError('');
+
+    // Validate preferred time (between 9 AM and 6 PM) if provided
+    if (bookingData.time) {
+      const [hours, minutes] = bookingData.time.split(':').map(Number);
+      const totalMinutes = hours * 60 + minutes;
+      const minMinutes = 9 * 60;   // 9:00 AM
+      const maxMinutes = 18 * 60;  // 6:00 PM
+      if (totalMinutes < minMinutes || totalMinutes > maxMinutes) {
+        setTimeError('Preferred time must be between 9:00 AM and 6:00 PM');
+        return;
+      }
+    }
+    setTimeError('');
     setIsSubmitting(true);
 
     try {
       const payload = {
         timestamp: new Date().toISOString().split('T')[0],
         name: bookingData.name,
-        mobile: bookingData.mobile,
+        mobile: `'${countryCode} ${bookingData.mobile}`,
         service: `${bookingData.service} (${vehicleClass.toUpperCase()})`,
         date: bookingData.date || 'N/A',
         time: bookingData.time || 'N/A',
@@ -240,7 +298,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
         isMember: selectedPriceInfo.isMember
       };
 
-      await fetch(GOOGLE_SHEETS_SCRIPT_URL, {
+      await fetch(GOOGLE_SHEETS_CAR_SPA_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: {
@@ -306,10 +364,10 @@ function CarSpa({ isDarkMode, toggleTheme }) {
   const typeKey = (carType || 'Sedan').toLowerCase();
   const packages = pricingPackagesData[typeKey] || pricingPackagesData['sedan'];
 
-  let recommendationTitle = "";
-  let recommendationPrice = "";
-  let recommendationDesc = "";
-  let progressScore = 50;
+  let recommendationTitle;
+  let recommendationPrice;
+  let recommendationDesc;
+  let progressScore;
 
   if (paintCondition <= 3) {
     recommendationTitle = packages[0].name;
@@ -446,9 +504,16 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                 <a href="#book" className="btn btn-glow btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg text-decoration-none" onClick={(e) => handleSmoothScroll(e, '#book')}>
                   Book Appointment
                 </a>
-                <Link to="/car-spa/services" className="btn btn-outline-primary-custom btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none">
+                <button 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window.dispatchEvent(new Event('open-packages-dropdown'));
+                  }}
+                  className="btn btn-outline-primary-custom btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none"
+                >
                   View Pricing Matrix
-                </Link>
+                </button>
               </>
             )}
           </motion.div>
@@ -591,25 +656,41 @@ function CarSpa({ isDarkMode, toggleTheme }) {
               <div className="premium-card h-100 p-4" style={{ background: 'var(--card-bg)', backdropFilter: 'blur(12px)', border: '1px solid var(--card-border)' }}>
                 <h4 className="text-center text-heading fw-bold mb-4" style={{ letterSpacing: '2px', fontSize: '1.1rem' }}>DYNAMIC PRICING ESTIMATOR</h4>
                 
-                <div className="bg-white rounded p-4 text-dark" style={{ color: '#000' }}>
-                  <h5 className="fw-bold mb-3 small text-uppercase" style={{ color: '#000', letterSpacing: '1px' }}>Calculate Treatment</h5>
+                <div className="rounded p-4" style={{ background: 'var(--process-card-bg)', border: '1px solid var(--card-border)', color: 'var(--text-main)' }}>
+                  <h5 className="fw-bold mb-3 small text-uppercase" style={{ color: 'var(--text-heading)', letterSpacing: '1px' }}>Calculate Treatment</h5>
                   
                   <div className="mb-3">
-                    <label className="form-label fw-bold small text-muted text-uppercase" style={{ fontSize: '0.68rem' }}>Vehicle Size Class</label>
+                    <label className="form-label fw-bold small text-uppercase" style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>Vehicle Size Class</label>
                     <select 
-                      className="form-select bg-light border-0 py-2 small"
+                      className="form-select border-0 small"
                       value={carType}
                       onChange={(e) => setCarType(e.target.value)}
+                      style={{
+                        backgroundImage: isDarkMode 
+                          ? `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%238899a6' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e")`
+                          : `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e")`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'right 1rem center',
+                        backgroundSize: '10px 12px',
+                        backgroundColor: isDarkMode ? '#121815' : '#ffffff',
+                        color: isDarkMode ? '#8899a6' : '#495057',
+                        border: isDarkMode ? '1px solid #26332a' : '1px solid #ced4da',
+                        borderRadius: '10px',
+                        padding: '12px 16px',
+                        fontSize: '0.9rem',
+                        transition: 'all 0.3s ease',
+                        boxShadow: 'none'
+                      }}
                     >
-                      <option value="Hatchback">Hatchback Class</option>
-                      <option value="Sedan">Sedan Class</option>
-                      <option value="SUV">SUV Class</option>
-                      <option value="Luxury">Luxury / Premium</option>
+                      <option value="Hatchback" style={{ background: isDarkMode ? '#121815' : '#ffffff', color: isDarkMode ? '#8899a6' : '#495057' }}>Hatchback Class</option>
+                      <option value="Sedan" style={{ background: isDarkMode ? '#121815' : '#ffffff', color: isDarkMode ? '#8899a6' : '#495057' }}>Sedan Class</option>
+                      <option value="SUV" style={{ background: isDarkMode ? '#121815' : '#ffffff', color: isDarkMode ? '#8899a6' : '#495057' }}>SUV Class</option>
+                      <option value="Luxury" style={{ background: isDarkMode ? '#121815' : '#ffffff', color: isDarkMode ? '#8899a6' : '#495057' }}>Luxury / Premium</option>
                     </select>
                   </div>
 
                   <div className="mb-4">
-                    <label className="form-label fw-bold small text-muted d-flex justify-content-between text-uppercase" style={{ fontSize: '0.68rem' }}>
+                    <label className="form-label fw-bold small d-flex justify-content-between text-uppercase" style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>
                       <span>Current Paint Swirl/Scratch Rating</span>
                       <span className="text-success fw-bold">Level {paintCondition}/10</span>
                     </label>
@@ -621,20 +702,20 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                       value={paintCondition}
                       onChange={(e) => setPaintCondition(Number(e.target.value))}
                     />
-                    <div className="d-flex justify-content-between px-1 text-muted small" style={{ fontSize: '0.65rem' }}>
+                    <div className="d-flex justify-content-between px-1 small" style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>
                       <span>New Paint</span><span>Swirled</span><span>Scratched</span><span>Dull/Oxidized</span>
                     </div>
                   </div>
 
                   <div className="mb-4">
-                    <label className="form-label fw-bold small text-muted text-uppercase" style={{ fontSize: '0.68rem' }}>Driving Exposure</label>
+                    <label className="form-label fw-bold small text-uppercase" style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>Driving Exposure</label>
                     <div className="d-flex gap-2">
                       {['Daily Commute', 'Weekend Use', 'Show Car'].map((habit) => (
                         <button 
                           key={habit}
                           type="button"
                           onClick={() => setDrivingHabit(habit)}
-                          className={`btn btn-sm flex-grow-1 py-2 ${drivingHabit === habit ? 'btn-success text-white' : 'btn-outline-secondary'}`}
+                          className={`btn btn-sm flex-grow-1 py-2 ${drivingHabit === habit ? 'btn-success text-white' : (isDarkMode ? 'btn-outline-light text-light' : 'btn-outline-secondary text-dark')}`}
                           style={{ fontSize: '0.72rem', fontWeight: 600 }}
                         >
                           {habit}
@@ -644,11 +725,11 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                   </div>
 
                   <div className="p-3 rounded" style={{ background: 'rgba(0,201,109,0.08)', border: '1px solid rgba(0,201,109,0.18)' }}>
-                    <h6 className="fw-bold text-dark mb-1 small text-uppercase" style={{ fontSize: '0.7rem', color: '#111' }}>Recommended Package:</h6>
-                    <p className="small text-muted mb-2 fw-semibold" style={{ color: '#222' }}>{recommendationTitle}</p>
+                    <h6 className="fw-bold mb-1 small text-uppercase" style={{ fontSize: '0.7rem', color: 'var(--text-heading)' }}>Recommended Package:</h6>
+                    <p className="small mb-2 fw-semibold" style={{ color: 'var(--text-main)' }}>{recommendationTitle}</p>
                     
                     <div className="d-flex justify-content-between align-items-center mb-2">
-                      <span className="small text-muted font-normal">Estimated price:</span>
+                      <span className="small font-normal" style={{ color: 'var(--text-muted)' }}>Estimated price:</span>
                       <span className="fw-bold text-success" style={{ fontSize: '1rem' }}>{recommendationPrice}</span>
                     </div>
 
@@ -659,16 +740,16 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                         style={{ width: `${progressScore}%`, transition: 'width 0.4s ease' }}
                       />
                     </div>
-                    <div className="d-flex justify-content-between mt-1" style={{fontSize: '0.65rem'}}>
-                      <span className="text-muted">Algorithm Match Score</span>
-                      <span className="text-muted fw-bold">{progressScore}% Match</span>
+                    <div className="d-flex justify-content-between mt-1" style={{fontSize: '0.65rem', color: 'var(--text-muted)'}}>
+                      <span>Algorithm Match Score</span>
+                      <span className="fw-bold">{progressScore}% Match</span>
                     </div>
                   </div>
 
                   <a 
                     href="#book" 
-                    className="btn btn-dark w-100 py-3 mt-3 fw-bold text-white text-uppercase rounded"
-                    style={{ fontSize: '0.8rem', letterSpacing: '1px' }}
+                    className="btn w-100 py-3 mt-3 fw-bold text-white text-uppercase rounded btn-glow"
+                    style={{ fontSize: '0.8rem', letterSpacing: '1px', background: '#00C96D', border: 'none' }}
                     onClick={(e) => {
                       setBookingData(prev => ({ ...prev, service: recommendationTitle }));
                       handleSmoothScroll(e, '#book');
@@ -861,9 +942,16 @@ function CarSpa({ isDarkMode, toggleTheme }) {
             />
           </div>
           <div className="d-flex justify-content-center gap-3 flex-wrap">
-            <Link to="/car-spa/services" className="btn btn-glow btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none">
+            <button 
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                window.dispatchEvent(new Event('open-packages-dropdown'));
+              }}
+              className="btn btn-glow btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none"
+            >
               View Packages & Detailed Process
-            </Link>
+            </button>
             <a href="#book" className="btn btn-outline-primary-custom btn-lg rounded-pill px-5 py-3 fw-bold text-decoration-none" onClick={(e) => handleSmoothScroll(e, '#book')}>
               Book Appointment
             </a>
@@ -956,6 +1044,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
       </section>
 
       {/* STORES LOCATOR SECTION */}
+      {/* 
       <section id="stores" className="py-5 store-locator-section position-relative border-top" style={{ borderColor: 'var(--card-border)' }}>
         <div className="container py-5 text-center">
           <motion.span
@@ -972,7 +1061,6 @@ function CarSpa({ isDarkMode, toggleTheme }) {
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant} className="mb-5" style={{ maxWidth: '580px', margin: '0 auto 3rem' }}>
             <div className="position-relative" ref={carSearchRef}>
-              {/* Search Bar */}
               <div className="car-search-pill d-flex align-items-center">
                 <span className="car-search-icon">📍</span>
                 <input
@@ -993,7 +1081,6 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                 )}
               </div>
 
-              {/* Dropdown Suggestions */}
               {showSearchDropdown && carDropdownSuggestions.length > 0 && (
                 <div className="car-dropdown-panel">
                   <div className="car-dropdown-header">
@@ -1033,7 +1120,6 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                 </div>
               )}
 
-              {/* No results */}
               {showSearchDropdown && searchQuery.length >= 2 && carDropdownSuggestions.length === 0 && (
                 <div className="car-dropdown-empty">
                   <div style={{ fontSize: '1.8rem' }}>🔍</div>
@@ -1070,7 +1156,12 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                     </div>
                     <p className="car-store-result-address">{store.address}</p>
                     <div className="car-store-result-rating">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" style={{ width: '16px' }} />
+                      <svg aria-hidden="true" viewBox="0 0 18 18" style={{ width: '16px', height: '16px', marginRight: '6px', display: 'inline-block', verticalAlign: 'middle' }}>
+                        <path fill="#4285F4" d="M17.64 9.2c0-.63-.06-1.25-.16-1.84H9v3.47h4.84c-.21 1.12-.84 2.07-1.8 2.7l2.8 2.17c1.63-1.5 2.8-3.72 2.8-6.5z"/>
+                        <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.2l-2.8-2.17c-.78.52-1.78.83-3.16.83-2.43 0-4.48-1.64-5.21-3.85L.94 12.8C2.42 15.75 5.48 18 9 18z"/>
+                        <path fill="#FBBC05" d="M3.79 10.61A5.4 5.4 0 0 1 3.5 9c0-.56.1-1.1.29-1.61L.94 5.2A8.96 8.96 0 0 0 0 9c0 1.39.32 2.71.94 3.8l2.85-2.19z"/>
+                        <path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35L15 2.1C13.46.7 11.42 0 9 0 5.48 0 2.42 2.25.94 5.2l2.85 2.19C4.52 5.22 6.57 3.58 9 3.58z"/>
+                      </svg>
                       <span style={{ fontSize: '0.78rem' }}>Google Rating</span>
                       <div className="ms-auto">
                         <strong style={{ fontSize: '0.85rem' }}>{store.rating}</strong>
@@ -1089,7 +1180,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
             ) : (
               <div className="col-12 py-5 text-center">
                 <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>&#128269;</div>
-                <p className="text-muted-custom fw-semibold">No stores found for "<span className="text-heading">{searchQuery}</span>"</p>
+                <p className="text-muted-custom fw-semibold">No stores found for "{searchQuery}"</p>
                 <p className="text-muted-custom" style={{ fontSize: '0.85rem' }}>Try: Noida, Delhi, Bengaluru, Hyderabad, Pune</p>
               </div>
             )}
@@ -1104,6 +1195,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
           )}
         </div>
       </section>
+      */}
 
       {/* CONVERTING LEAD FORM CARD */}
       <section id="book" className="py-5 bg-primary-custom">
@@ -1185,7 +1277,7 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                           Pickup Address: <strong>{bookingData.address}</strong>
                         </small>
                       </div>
-                      <button className="btn btn-outline-primary-custom px-4 py-2 mt-3" onClick={() => setBookingSubmitted(false)}>{memberData ? 'Schedule Another Pickup' : 'Schedule Another Wash'}</button>
+                      <button className="btn btn-outline-primary-custom px-4 py-2 mt-3" onClick={handleResetBookingForm}>{memberData ? 'Schedule Another Pickup' : 'Schedule Another Wash'}</button>
                     </div>
                   ) : (
                     <form onSubmit={handleBookingSubmit} className="position-relative z-1">
@@ -1213,20 +1305,109 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                       </div>
                       <div className="mb-3">
                         <label htmlFor="mobile" className="form-label fw-bold small text-uppercase text-muted-custom">Mobile Number *</label>
-                        <input 
-                          type="tel" 
-                          className={`form-control py-3 rounded-0 ${mobileError ? 'border-danger' : ''}`}
-                          id="mobile" 
-                          placeholder="Enter 10-digit mobile number" 
-                          required 
-                          maxLength={10}
-                          value={bookingData.mobile}
-                          onChange={(e) => {
-                            const val = e.target.value.replace(/\D/g, '');
-                            setBookingData(prev => ({ ...prev, mobile: val }));
-                            if (mobileError) setMobileError('');
-                          }}
-                        />
+                        <div style={{ position: 'relative' }}>
+                          <button
+                            type="button"
+                            onClick={() => setDropdownOpen(!dropdownOpen)}
+                            style={{
+                              position: 'absolute',
+                              left: 0,
+                              top: 0,
+                              height: '100%',
+                              width: '80px',
+                              fontWeight: '600',
+                              fontSize: '0.95rem',
+                              color: 'var(--input-text, #fff)',
+                              background: 'transparent',
+                              border: 'none',
+                              outline: 'none',
+                              zIndex: 10,
+                              cursor: 'pointer',
+                              paddingLeft: '12px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'flex-start',
+                              gap: '4px'
+                            }}
+                          >
+                            <span>{countryEmoji} {countryCode}</span>
+                            <span style={{ fontSize: '0.65rem', color: '#64748b' }}>▼</span>
+                          </button>
+                          {dropdownOpen && (
+                            <>
+                              <div 
+                                onClick={() => setDropdownOpen(false)} 
+                                style={{
+                                  position: 'fixed',
+                                  top: 0,
+                                  right: 0,
+                                  bottom: 0,
+                                  left: 0,
+                                  zIndex: 99,
+                                  background: 'transparent'
+                                }}
+                              />
+                              <div
+                                style={{
+                                  position: 'absolute',
+                                  top: '100%',
+                                  left: 0,
+                                  zIndex: 100,
+                                  background: '#1e293b',
+                                  border: '1px solid var(--card-border, #334155)',
+                                  borderRadius: '8px',
+                                  boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                                  width: '120px',
+                                  maxHeight: '180px',
+                                  overflowY: 'auto',
+                                  marginTop: '4px'
+                                }}
+                              >
+                                {countries.map((c, i) => (
+                                  <div
+                                    key={i}
+                                    onClick={() => {
+                                      setCountryCode(c.code);
+                                      setCountryEmoji(c.emoji);
+                                      setDropdownOpen(false);
+                                    }}
+                                    style={{
+                                      padding: '8px 12px',
+                                      fontSize: '0.9rem',
+                                      color: 'var(--input-text, #fff)',
+                                      cursor: 'pointer',
+                                      background: countryCode === c.code && countryEmoji === c.emoji ? 'rgba(255,255,255,0.12)' : 'transparent',
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      gap: '8px',
+                                      transition: 'background 0.2s'
+                                    }}
+                                    onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; }}
+                                    onMouseLeave={(e) => { e.currentTarget.style.background = countryCode === c.code && countryEmoji === c.emoji ? 'rgba(255,255,255,0.12)' : 'transparent'; }}
+                                  >
+                                    <span>{c.emoji}</span>
+                                    <span>{c.code}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </>
+                          )}
+                          
+                          <input 
+                            type="tel" 
+                            className={`form-control py-3 rounded-0 ${mobileError ? 'border-danger' : ''}`}
+                            id="mobile" 
+                            placeholder="Enter mobile number" 
+                            required 
+                            value={bookingData.mobile}
+                            onChange={(e) => {
+                              const val = e.target.value.replace(/\D/g, '');
+                              setBookingData(prev => ({ ...prev, mobile: val }));
+                              if (mobileError) setMobileError('');
+                            }}
+                            style={{ paddingLeft: '88px' }}
+                          />
+                        </div>
                         {mobileError && <small className="text-danger d-block mt-1">{mobileError}</small>}
                       </div>
                       <div className="mb-3">
@@ -1303,14 +1484,17 @@ function CarSpa({ isDarkMode, toggleTheme }) {
                           />
                         </div>
                         <div className="col-6">
-                          <label htmlFor="time" className="form-label fw-bold small text-uppercase text-muted-custom">Preferred Time</label>
+                          <label htmlFor="time" className="form-label fw-bold small text-uppercase text-muted-custom">Preferred Time (9 AM - 6 PM)</label>
                           <input 
                             type="time" 
-                            className="form-control py-3 rounded-0" 
+                            className={`form-control py-3 rounded-0 ${timeError ? 'border-danger' : ''}`}
                             id="time" 
+                            min="09:00"
+                            max="18:00"
                             value={bookingData.time}
                             onChange={handleBookingInputChange}
                           />
+                          {timeError && <small className="text-danger d-block mt-1">{timeError}</small>}
                         </div>
                       </div>
                       <div className="mb-4">
@@ -1347,6 +1531,9 @@ function CarSpa({ isDarkMode, toggleTheme }) {
       </section>
 
       {/* PREMIUM FOOTER SECTION */}
+
+      {/* We Are Hiring — fixed floating widget */}
+      <HiringWidget />
 
     </div>
   );

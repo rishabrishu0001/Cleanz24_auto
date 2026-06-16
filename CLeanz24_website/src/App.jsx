@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
 // ─── Landing Page ──────────────────────────────────────────────
 import LandingPage from './pages/LandingPage';
@@ -17,6 +17,7 @@ import AdminLogin from './pages/car-spa/AdminLogin';
 import AdminDashboard from './pages/car-spa/AdminDashboard';
 import AdminRoute from './pages/car-spa/AdminRoute';
 import CarSpaBlog from './pages/car-spa/CarSpaBlog';
+import CarSpaStores from './pages/car-spa/Stores';
 // ─── Laundry Section ───────────────────────────────────────────
 import LaundryLayout from './pages/laundry/LaundryLayout';
 import LaundryHome from './pages/laundry/LaundryHome';
@@ -30,6 +31,8 @@ import Contact from './pages/laundry/Contact';
 import LaundryBlog from './pages/laundry/Blog';
 import Locations from './pages/laundry/Locations';
 import LocationDetail from './pages/laundry/LocationDetail';
+import PrivacyPolicy from './pages/laundry/PrivacyPolicy';
+import TermsOfService from './pages/laundry/TermsOfService';
 
 /**
  * App — Central Router Configuration
@@ -49,6 +52,50 @@ function App() {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  // Intercept clicks on links pointing to the current page to scroll to top smoothly
+  useEffect(() => {
+    const handleLinkClick = (e) => {
+      const anchor = e.target.closest('a');
+      if (!anchor) return;
+
+      const href = anchor.getAttribute('href');
+      if (!href) return;
+
+      try {
+        const url = new URL(anchor.href, window.location.href);
+        if (
+          url.origin === window.location.origin &&
+          url.pathname === window.location.pathname &&
+          !url.hash
+        ) {
+          const startPosition = window.pageYOffset;
+          const duration = 800; // ms for a nice, rich smooth scroll
+          let start = null;
+
+          const easeInOutCubic = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+          window.requestAnimationFrame(function step(timestamp) {
+            if (!start) start = timestamp;
+            const progress = Math.min((timestamp - start) / duration, 1);
+            
+            window.scrollTo(0, startPosition * (1 - easeInOutCubic(progress)));
+            
+            if (progress < 1) {
+              window.requestAnimationFrame(step);
+            } else {
+              window.scrollTo(0, 0);
+            }
+          });
+        }
+      } catch (_err) {
+        // Ignore parsing errors for custom protocols like javascript: or mailto:
+      }
+    };
+
+    document.addEventListener('click', handleLinkClick);
+    return () => document.removeEventListener('click', handleLinkClick);
+  }, []);
+
   return (
     <Routes>
       {/* ── Landing Page ── */}
@@ -65,6 +112,7 @@ function App() {
         <Route path="franchise" element={<CarSpaFranchise />} />
         <Route path="blog" element={<CarSpaBlog />} />
         <Route path="blog/:slug" element={<CarSpaBlog />} />
+        <Route path="stores" element={<CarSpaStores />} />
       </Route>
 
       {/* ── Admin (outside CarSpaLayout, no header/footer) ── */}
@@ -87,6 +135,9 @@ function App() {
         <Route path="blog" element={<LaundryBlog />} />
         <Route path="blog/:slug" element={<LaundryBlog />} />
         <Route path="contact-us" element={<Contact />} />
+        <Route path="privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="terms-of-service" element={<TermsOfService />} />
+        <Route path="about-us" element={<Navigate to="/laundry/services" replace />} />
         <Route path=":citySlug" element={<LocationDetail />} />
       </Route>
     </Routes>

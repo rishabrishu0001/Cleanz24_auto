@@ -33,21 +33,21 @@ export default function FloatingActions() {
   return (
     <div className="floating-actions">
       {isMember && (
-        <a 
-          href="/car-spa#book" 
+        <a
+          href="/car-spa#book"
           onClick={handlePickupClick}
-          className="fab fab-pickup animate-btn" 
+          className="fab fab-pickup animate-btn"
           aria-label="Schedule Free Pickup"
           style={{ textDecoration: 'none' }}
         >
           <span style={{ fontSize: '1.6rem' }} title="Schedule Free Member Pickup">🚗</span>
         </a>
       )}
-      <a 
-        href="https://wa.me/919138004800?text=Hi%2C%20I%20am%20interested%20in%20Cleanz24%20services" 
-        target="_blank" 
-        rel="noreferrer" 
-        className="fab fab-whatsapp" 
+      <a
+        href="https://wa.me/919138004800?text=Hi%2C%20I%20am%20interested%20in%20Car%20Spa%20services"
+        target="_blank"
+        rel="noreferrer"
+        className="fab fab-whatsapp"
         aria-label="WhatsApp"
       >
         <svg viewBox="0 0 32 32" width="36" height="36" fill="currentColor">

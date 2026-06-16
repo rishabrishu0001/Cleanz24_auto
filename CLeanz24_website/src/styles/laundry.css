@@ -242,14 +242,327 @@
   color: var(--global-primary) !important;
 }
 
-/* Scroll Progress Bar */
-.laundry-app .scroll-progress-bar {
+/* Scroll Progress Bar (new class to avoid conflict) */
+.laundry-scroll-progress-bar {
   position: fixed;
   top: 0; left: 0; height: 4px;
   background: linear-gradient(90deg, var(--global-primary) 0%, var(--global-secondary) 100%);
   z-index: 9999;
   transition: width 0.1s ease;
 }
+
+/* Nav transparent state (on laundry hero) */
+.laundry-app .nav-full.nav-transparent .nav-link {
+  color: #ffffff !important;
+}
+
+/* Desktop theme btn */
+.laundry-theme-btn-desktop {
+  background: none;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  font-size: 1.1rem;
+  padding: 5px 9px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.laundry-app .nav-full.nav-transparent .laundry-theme-btn-desktop {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ─── LAUNDRY MOBILE HAMBURGER ─── */
+.laundry-mobile-toggle-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: rgba(43, 108, 176, 0.08);
+  border: 1px solid rgba(43, 108, 176, 0.2);
+  border-radius: 10px;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.laundry-mobile-toggle-btn:hover {
+  background: rgba(43, 108, 176, 0.15);
+  border-color: rgba(43, 108, 176, 0.4);
+}
+/* White bars on transparent (hero) bg */
+.laundry-app .nav-full.nav-transparent .laundry-mobile-toggle-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.laundry-hamburger-bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--global-palette3);
+  border-radius: 2px;
+  transition: all 0.35s cubic-bezier(0.6, 0, 0.4, 1);
+  transform-origin: center;
+}
+.laundry-app .nav-full.nav-transparent .laundry-hamburger-bar {
+  background: #fff;
+}
+.laundry-app.laundry-dark .laundry-hamburger-bar {
+  background: #fff;
+}
+.laundry-hamburger-bar.open:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.laundry-hamburger-bar.open:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.laundry-hamburger-bar.open:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ─── LAUNDRY MOBILE BACKDROP ─── */
+.laundry-mobile-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 1100;
+}
+
+/* ─── LAUNDRY MOBILE PANEL ─── */
+.laundry-mobile-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 88%;
+  max-width: 360px;
+  height: 100dvh;
+  background: linear-gradient(160deg, #ffffff 0%, #f0f7ff 60%, #ffffff 100%);
+  border-left: 2px solid rgba(43, 108, 176, 0.15);
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.15);
+}
+.laundry-app.laundry-dark .laundry-mobile-panel {
+  background: linear-gradient(160deg, #0f1f38 0%, #081426 60%, #0f1f38 100%);
+  border-left-color: rgba(43, 108, 176, 0.3);
+}
+
+/* Panel Header */
+.laundry-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 16px;
+  border-bottom: 1px solid rgba(43, 108, 176, 0.1);
+  background: rgba(43, 108, 176, 0.02);
+  flex-shrink: 0;
+}
+.laundry-panel-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.laundry-mobile-theme-btn {
+  background: rgba(43, 108, 176, 0.06);
+  border: 1px solid rgba(43, 108, 176, 0.15);
+  border-radius: 8px;
+  font-size: 1.05rem;
+  padding: 6px 9px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.laundry-mobile-close-btn {
+  background: rgba(43, 108, 176, 0.06);
+  border: 1px solid rgba(43, 108, 176, 0.15);
+  color: var(--global-palette3);
+  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.laundry-mobile-close-btn:hover {
+  background: rgba(231, 76, 60, 0.1);
+  border-color: rgba(231, 76, 60, 0.3);
+  color: #e74c3c;
+}
+.laundry-app.laundry-dark .laundry-mobile-theme-btn,
+.laundry-app.laundry-dark .laundry-mobile-close-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+/* Tagline strip */
+.laundry-panel-tagline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: linear-gradient(90deg, rgba(43, 108, 176, 0.06) 0%, rgba(0, 201, 109, 0.04) 100%);
+  border-bottom: 1px solid rgba(43, 108, 176, 0.08);
+  flex-shrink: 0;
+}
+.laundry-tagline-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--global-primary);
+}
+.laundry-tagline-phone {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #3C8B35;
+}
+
+/* Nav Links */
+.laundry-mobile-nav {
+  flex: 1;
+  padding: 12px 0;
+  overflow-y: auto;
+}
+.laundry-mobile-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 22px;
+  text-decoration: none !important;
+  color: var(--global-palette4);
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+  position: relative;
+}
+.laundry-app.laundry-dark .laundry-mobile-nav-item {
+  color: rgba(255, 255, 255, 0.75);
+}
+.laundry-mobile-nav-item:hover {
+  color: var(--global-primary);
+  background: rgba(43, 108, 176, 0.05);
+  border-left-color: rgba(43, 108, 176, 0.4);
+}
+.laundry-mobile-nav-item.active {
+  color: var(--global-primary);
+  background: rgba(43, 108, 176, 0.08);
+  border-left-color: var(--global-primary);
+}
+.laundry-mobile-nav-item.accent {
+  color: #3C8B35 !important;
+  font-weight: 700;
+}
+.laundry-nav-icon {
+  font-size: 1.1rem;
+  width: 22px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.laundry-nav-label {
+  flex: 1;
+}
+.laundry-nav-active-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--global-primary);
+  flex-shrink: 0;
+}
+
+/* Quick contact row */
+.laundry-mobile-contact-row {
+  display: flex;
+  gap: 10px;
+  padding: 12px 20px;
+  border-top: 1px solid rgba(43, 108, 176, 0.08);
+  border-bottom: 1px solid rgba(43, 108, 176, 0.08);
+  flex-shrink: 0;
+}
+.laundry-contact-pill {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 8px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none !important;
+  transition: all 0.25s;
+}
+.laundry-contact-pill.whatsapp {
+  background: rgba(37, 211, 102, 0.1);
+  color: #1a7a2e !important;
+  border: 1px solid rgba(37, 211, 102, 0.25);
+}
+.laundry-contact-pill.whatsapp:hover {
+  background: #25D366;
+  color: #fff !important;
+  border-color: #25D366;
+}
+.laundry-contact-pill.phone {
+  background: rgba(43, 108, 176, 0.08);
+  color: var(--global-primary) !important;
+  border: 1px solid rgba(43, 108, 176, 0.2);
+}
+.laundry-contact-pill.phone:hover {
+  background: var(--global-primary);
+  color: #fff !important;
+  border-color: var(--global-primary);
+}
+
+/* CTA Buttons */
+.laundry-mobile-cta {
+  padding: 16px 20px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.laundry-cta-primary {
+  display: block;
+  width: 100%;
+  padding: 13px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #3C8B35 0%, #2d6e28 100%);
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 0.92rem;
+  font-family: 'Poppins', sans-serif;
+  border-radius: 12px;
+  text-decoration: none !important;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 16px rgba(60, 139, 53, 0.3);
+}
+.laundry-cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(60, 139, 53, 0.4);
+  color: #fff !important;
+}
+.laundry-cta-outline {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  text-align: center;
+  background: transparent;
+  color: var(--global-primary) !important;
+  font-weight: 600;
+  font-size: 0.9rem;
+  font-family: 'Poppins', sans-serif;
+  border-radius: 12px;
+  text-decoration: none !important;
+  border: 1.5px solid rgba(43, 108, 176, 0.3);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.laundry-cta-outline:hover {
+  border-color: var(--global-primary);
+  background: rgba(43, 108, 176, 0.06);
+}
+
 
 /* Hero Section */
 .laundry-app .hero-section-new {
@@ -261,7 +574,7 @@
   padding: 160px 0 160px 0;
   color: #fff;
   overflow: hidden;
-  min-height: 85vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
 }
@@ -372,22 +685,21 @@
   align-items: flex-start;
 }
 
-.laundry-app .whatsapp-pill-btn {
+.laundry-app .whatsapp-circle-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
   background-color: #25D366;
   color: white !important;
-  font-weight: 700;
-  font-size: 14.5px;
-  padding: 12px 24px;
-  border-radius: 30px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
   text-decoration: none;
   box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
   transition: all 0.3s ease;
 }
 
-.laundry-app .whatsapp-pill-btn:hover {
+.laundry-app .whatsapp-circle-btn:hover {
   transform: translateY(-3px);
   background-color: #20ba5a;
   box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
@@ -1008,7 +1320,25 @@
 }
 
 .laundry-app.laundry-dark .hero-form-card .form-control::placeholder {
-  color: #718096;
+  color: #ffffff;
+}
+
+/* General night mode form overrides */
+.laundry-app.laundry-dark .form-control {
+  color: #ffffff !important;
+  border-color: #1b3252 !important;
+}
+
+.laundry-app.laundry-dark .form-control::placeholder,
+.laundry-app.laundry-dark input::placeholder,
+.laundry-app.laundry-dark textarea::placeholder {
+  color: #ffffff !important;
+  opacity: 0.8 !important;
+}
+
+.laundry-app.laundry-dark .contact-page button[type="button"],
+.laundry-app.laundry-dark .contact-page button[type="button"] span {
+  color: #ffffff !important;
 }
 
 .laundry-app.laundry-dark .hero-form-card .form-label {

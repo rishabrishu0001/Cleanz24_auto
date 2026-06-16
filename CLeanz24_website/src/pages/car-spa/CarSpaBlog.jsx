@@ -838,7 +838,6 @@ function Pagination({ current, total, onChange }) {
               minWidth: '36px',
               height: '36px',
               borderRadius: '4px',
-              border: 'none',
               cursor: 'pointer',
               fontSize: '15px',
               fontWeight: '700',
@@ -898,6 +897,36 @@ export default function CarSpaBlog() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Reset page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeCategory, searchQuery]);
+
+  // Sync sidebar search with state
+  useEffect(() => {
+    const input = document.getElementById('blog-search');
+    if (!input) return;
+    const handler = (e) => setSearchQuery(e.target.value);
+    input.addEventListener('input', handler);
+    return () => input.removeEventListener('input', handler);
+  }, []);
+
+  const filteredPosts = BLOG_POSTS.filter((post) => {
+    const matchesCategory =
+      activeCategory === 'All' || post.categories.includes(activeCategory);
+    const matchesSearch =
+      !searchQuery ||
+      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
+  const paginatedPosts = filteredPosts.slice(
+    (currentPage - 1) * POSTS_PER_PAGE,
+    currentPage * POSTS_PER_PAGE
+  );
 
   // 1. DETAIL VIEW RENDER
   if (slug) {
@@ -1044,37 +1073,6 @@ export default function CarSpaBlog() {
       </div>
     );
   }
-
-  // 2. GRID / LIST VIEW RENDER
-  const filteredPosts = BLOG_POSTS.filter((post) => {
-    const matchesCategory =
-      activeCategory === 'All' || post.categories.includes(activeCategory);
-    const matchesSearch =
-      !searchQuery ||
-      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
-
-  // Reset page when filters change
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [activeCategory, searchQuery]);
-
-  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
-  const paginatedPosts = filteredPosts.slice(
-    (currentPage - 1) * POSTS_PER_PAGE,
-    currentPage * POSTS_PER_PAGE
-  );
-
-  // Sync sidebar search with state
-  useEffect(() => {
-    const input = document.getElementById('blog-search');
-    if (!input) return;
-    const handler = (e) => setSearchQuery(e.target.value);
-    input.addEventListener('input', handler);
-    return () => input.removeEventListener('input', handler);
-  }, []);
 
   return (
     <div style={{ background: 'var(--bg-body)', minHeight: '100vh', color: 'var(--text-main)', transition: 'background 0.3s ease, color 0.3s ease' }}>

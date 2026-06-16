@@ -4,7 +4,8 @@ import { storesData as detailedStores } from '../../data';
 import SEOMeta from '../../components/SEOMeta';
 import storesBg from '../../assets/stores_bg.jpg';
 
-const storeLocationsGrouped = [
+// Grouped city data — available for state-filter UI (currently unused in render)
+const _storeLocationsGrouped = [
   { state: 'Bihar', cities: ['Purnia'] },
   { state: 'Chhattisgarh', cities: ['Arjunda'] },
   { state: 'Gujarat', cities: ['Nadiad'] },
@@ -14,7 +15,7 @@ const storeLocationsGrouped = [
   { state: 'Kerala', cities: ['Kannur', 'Kozhikode', 'Panoor', 'Parat', 'Trivandrum', 'Vaikom'] },
   { state: 'Madhya Pradesh', cities: ['Bhopal'] },
   { state: 'Maharashtra', cities: ['Alibag', 'Pune', 'Thane West'] },
-  { state: 'Odisha', cities: ['Angul', 'Berhampur', 'Bomikhal', 'Chandrasekharpur', 'Jatni', 'Jeypore', 'Kharakhia'] },
+  { state: 'Odisha', cities: ['Angul', 'Berhampur', 'Bomikhal', 'Chandrasekharpur', 'Jatni', 'Jeypore', 'Kharakhia', 'Palasuni'] },
   { state: 'Puducherry', cities: ['Mahe'] },
   { state: 'Punjab', cities: ['Amritsar', 'Bathinda', 'Kharar', 'Patiala'] },
   { state: 'Rajasthan', cities: ['Bhilwara', 'Sanchore', 'Udaipur'] },
@@ -27,9 +28,83 @@ const storeLocationsGrouped = [
 
 const popularSearches = ["Noida", "Bengaluru", "Hyderabad", "Pune", "Gurugram"];
 
+const comingSoonStores = [
+  {
+    id: 1,
+    name: "Cleanz24 Premium Laundry",
+    type: "Laundry",
+    city: "Hyderabad",
+    state: "Telangana",
+    area: "Kokapet",
+    timeline: "Opening July 2026",
+    status: "Under Construction"
+  },
+  {
+    id: 2,
+    name: "Cleanz24 Express Laundry",
+    type: "Laundry",
+    city: "Secunderabad",
+    state: "Telangana",
+    area: "Kowkoor",
+    timeline: "Opening July 2026",
+    status: "Fit-out Stage"
+  },
+  {
+    id: 3,
+    name: "Cleanz24 Premium Laundry",
+    type: "Laundry",
+    city: "Hyderabad",
+    state: "Telangana",
+    area: "Kukatpally",
+    timeline: "Opening July 2026",
+    status: "Under Construction"
+  },
+  {
+    id: 4,
+    name: "Cleanz24 Eco Laundry & Press",
+    type: "Laundry",
+    city: "Churu",
+    state: "Rajasthan",
+    area: "Main Market",
+    timeline: "Opening July 2026",
+    status: "Under Construction"
+  },
+  {
+    id: 5,
+    name: "Cleanz24 Eco Laundry & Press",
+    type: "Laundry",
+    city: "Siwara",
+    state: "Rajasthan",
+    area: "Main Market",
+    timeline: "Opening July 2026",
+    status: "Under Construction"
+  },
+  {
+    id: 6,
+    name: "Cleanz24 Premium Laundry",
+    type: "Laundry",
+    city: "Gopalganj",
+    state: "Bihar",
+    area: "Main Road",
+    timeline: "Opening July 2026",
+    status: "Under Construction"
+  },
+  {
+    id: 7,
+    name: "Cleanz24 Premium Laundry & Dry-Clean",
+    type: "Laundry",
+    city: "Pimpri-Chinchwad",
+    state: "Maharashtra",
+    area: "Pradhikaran",
+    timeline: "Opening July 2026",
+    status: "Fit-out Stage"
+  }
+];
+
 export default function Stores() {
   const { isDarkMode } = useOutletContext() || {};
   const [searchQuery, setSearchQuery] = useState('');
+  const [comingSoonFilter, setComingSoonFilter] = useState('All');
   const searchInputRef = useRef(null);
   const resultsRef = useRef(null);
 
@@ -215,7 +290,7 @@ export default function Stores() {
                       <div className="mb-4 pt-3 border-top" style={{ borderColor: '#f1f5f9' }}>
                         <div className="d-flex align-items-center gap-2 mb-2 text-muted small">
                           <span>📞</span>
-                          <span className="fw-semibold text-dark">+91 91380 04800</span>
+                          <span className="fw-semibold text">+91 91380 04800</span>
                         </div>
                          <div className="d-flex align-items-center gap-2 mb-3 text-muted small">
                           <span style={{ color: '#25D366', display: 'flex', alignItems: 'center' }}>
@@ -224,8 +299,12 @@ export default function Stores() {
                           <span className="text-success fw-semibold">Available on WhatsApp</span>
                         </div>
                         
-                        <div className="store-guides-section p-2 rounded mb-2" style={{ fontSize: '0.78rem', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
-                          <span className="fw-bold text-dark d-block mb-1">📖 Local Guides:</span>
+                        <div className="store-guides-section p-2 rounded mb-2" style={{ 
+                          fontSize: '0.78rem', 
+                          background: isDarkMode ? '#0b1a30' : '#f8fafc', 
+                          border: isDarkMode ? '1px solid #1b3252' : '1px solid #e2e8f0' 
+                        }}>
+                          <span className={`fw-bold d-block mb-1 ${isDarkMode ? 'text-white' : 'text-dark'}`}>📖 Local Guides:</span>
                           <div className="d-flex flex-column gap-1">
                             <Link 
                               to={`/laundry/blog/best-laundry-nearby-you-${store.city.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${store.id}`}
@@ -297,7 +376,7 @@ export default function Stores() {
         </div>
       </section>
 
-      {/* Interactive Browse by State Section */}
+      {/* Coming Soon Outlets Section */}
       <section 
         className="py-5 border-top"
         style={{
@@ -310,44 +389,86 @@ export default function Stores() {
         <div className="container">
           <div className="row justify-content-center text-center mb-5">
             <div className="col-lg-8">
-              <span className="text-uppercase text-primary fw-bold small tracking-wider">Quick Browse</span>
-              <h2 className="fw-bold text-dark mt-2">Browse Outlets By State</h2>
+              <span className="text-uppercase text-primary fw-bold small tracking-wider" style={{ color: 'var(--global-primary)' }}>Expansion Update</span>
+              <h2 className="fw-bold mt-2" style={{ color: isDarkMode ? '#fff' : '#1a202c' }}>Coming Soon Outlets</h2>
               <p className="text-muted mt-2">
-                Click on any city tag below to automatically filter stores and display the locations in that region.
+                We are expanding our presence rapidly! Check out our upcoming {[...new Set(comingSoonStores.map(s => s.type))].join(' and ')} franchise locations near you.
               </p>
             </div>
           </div>
 
+          {/* Filter Tabs */}
+          {[...new Set(comingSoonStores.map(s => s.type))].length > 1 && (
+            <div className="d-flex justify-content-center gap-2 mb-5 flex-wrap">
+              <button
+                onClick={() => setComingSoonFilter('All')}
+                className={`btn btn-sm px-4 py-2 rounded-pill fw-semibold ${comingSoonFilter === 'All' ? 'btn-primary text-white' : 'btn-outline-primary'}`}
+              >
+                All Outlets
+              </button>
+              <button
+                onClick={() => setComingSoonFilter('Laundry')}
+                className={`btn btn-sm px-4 py-2 rounded-pill fw-semibold ${comingSoonFilter === 'Laundry' ? 'btn-primary text-white' : 'btn-outline-primary'}`}
+              >
+                🧺 Laundry
+              </button>
+              <button
+                onClick={() => setComingSoonFilter('Car Spa')}
+                className={`btn btn-sm px-4 py-2 rounded-pill fw-semibold ${comingSoonFilter === 'Car Spa' ? 'btn-primary text-white' : 'btn-outline-primary'}`}
+              >
+                🚗 Car Spa
+              </button>
+            </div>
+          )}
+
           <div className="row g-4">
-            {storeLocationsGrouped.map((loc, idx) => (
-              <div key={idx} className="col-lg-4 col-md-6">
-                <div className="bg-light p-4 rounded-3 h-100 border border-light" style={{ border: '1px solid #edf2f7' }}>
-                  <h3 className="h5 fw-bold text-primary mb-3 border-bottom pb-2" style={{ color: 'var(--global-primary)' }}>
-                    {loc.state}
-                  </h3>
-                  <div className="d-flex flex-wrap gap-2">
-                    {loc.cities.map((city, cIdx) => (
-                      <button
-                        key={cIdx}
-                        onClick={() => handleCityClick(city)}
-                        className="btn btn-light btn-sm bg-white border px-3 py-2 rounded-pill text-muted fw-semibold transition"
-                        style={{ fontSize: '0.78rem', boxShadow: '0 1px 3px rgba(0,0,0,0.05)', border: '1px solid #f1f5f9' }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.borderColor = 'var(--global-primary)';
-                          e.currentTarget.style.color = 'var(--global-primary)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.borderColor = '#f1f5f9';
-                          e.currentTarget.style.color = '#6c757d';
+            {comingSoonStores
+              .filter(store => comingSoonFilter === 'All' || store.type === comingSoonFilter)
+              .map((store) => (
+                <div key={store.id} className="col-lg-4 col-md-6">
+                  <div 
+                    className="card h-100 border-0 shadow-sm rounded-3 p-4 text-start"
+                    style={{ 
+                      background: isDarkMode ? '#12253f' : '#ffffff',
+                      border: isDarkMode ? '1px solid #1b3252' : '1px solid #edf2f7',
+                      transition: 'all 0.3s ease'
+                    }}
+                  >
+                    <div className="d-flex justify-content-between align-items-start mb-3">
+                      <span 
+                        className={`badge rounded-pill px-3 py-1 fw-bold`} 
+                        style={{ 
+                          fontSize: '0.72rem',
+                          background: store.type === 'Laundry' 
+                            ? (isDarkMode ? 'rgba(59, 130, 246, 0.15)' : 'rgba(43, 108, 176, 0.1)') 
+                            : (isDarkMode ? 'rgba(16, 185, 129, 0.15)' : 'rgba(16, 185, 129, 0.1)'),
+                          color: store.type === 'Laundry' ? '#3b82f6' : '#10b981'
                         }}
                       >
-                        📍 {city}
-                      </button>
-                    ))}
+                        {store.type === 'Laundry' ? '🧺 Laundry' : '🚗 Car Spa'}
+                      </span>
+                      <span className="badge bg-warning bg-opacity-10 text-warning rounded-pill px-3 py-1 fw-bold" style={{ fontSize: '0.72rem' }}>
+                        {store.status}
+                      </span>
+                    </div>
+
+                    <h4 className="h5 fw-bold mb-1" style={{ color: isDarkMode ? '#fff' : '#1a202c' }}>{store.name}</h4>
+                    <p className="text-muted small mb-3">{store.area}, {store.city}, {store.state}</p>
+
+                    <div className="mt-auto pt-3 border-top d-flex align-items-center justify-content-between" style={{ borderColor: isDarkMode ? '#1b3252' : '#f1f5f9' }}>
+                      <span className="fw-semibold text-success small">📅 {store.timeline}</span>
+                      <a 
+                        href={`https://wa.me/919138004800?text=${encodeURIComponent(`Hi, I'm interested in the upcoming Cleanz24 ${store.type} outlet in ${store.city} (${store.area}).`)}`}
+                        target="_blank" 
+                        rel="noreferrer" 
+                        className="text-decoration-none text-primary small fw-bold"
+                      >
+                        Inquire →
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </section>

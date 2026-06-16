@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate, useOutletContext } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import '../../styles/carSpa.css';
 
@@ -169,6 +169,7 @@ function InheritedServicesAccordion({ title, services }) {
 
 export default function PackageDetails() {
   const { packageId } = useParams();
+  const { isDarkMode } = useOutletContext() || {};
   const navigate = useNavigate();
   const [selectedVehicleType, setSelectedVehicleType] = useState('hatchback');
   
@@ -201,16 +202,25 @@ export default function PackageDetails() {
   };
 
   return (
-    <div className="d-flex flex-column min-vh-100 bg-primary-custom bg-carbon" style={{ overflowX: 'hidden' }}>
+    <div className={`d-flex flex-column min-vh-100 ${isDarkMode ? 'bg-primary-custom bg-carbon text-white' : 'bg-white text-dark'}`} style={{ overflowX: 'hidden' }}>
       
       {/* Cinematic Hero Spotlight */}
-      <section className="position-relative text-center overflow-hidden d-flex align-items-center justify-content-center" style={{ minHeight: '60vh', background: '#000' }}>
+      <section 
+        className="position-relative text-center overflow-hidden d-flex align-items-center justify-content-center" 
+        style={{ 
+          minHeight: '60vh', 
+          background: isDarkMode ? '#000000' : 'linear-gradient(180deg, #ffffff 0%, #f3faf5 100%)',
+          borderBottom: isDarkMode ? 'none' : '1px solid #edf2f7'
+        }}
+      >
         {/* Animated Background Mesh */}
         <div
           style={{
             position: 'absolute',
             top: 0, left: 0, right: 0, bottom: 0,
-            backgroundImage: 'radial-gradient(rgba(0, 255, 136, 0.04) 1px, transparent 1px)',
+            backgroundImage: isDarkMode 
+              ? 'radial-gradient(rgba(0, 255, 136, 0.04) 1px, transparent 1px)' 
+              : 'radial-gradient(rgba(0, 201, 109, 0.08) 1px, transparent 1px)',
             backgroundSize: '30px 30px',
             opacity: 0.8,
             zIndex: 1
@@ -224,14 +234,16 @@ export default function PackageDetails() {
             top: '50%', left: '50%',
             transform: 'translate(-50%, -50%)',
             width: '60vw', height: '60vw',
-            background: 'radial-gradient(circle, rgba(0, 255, 136, 0.08) 0%, transparent 60%)',
+            background: isDarkMode 
+              ? 'radial-gradient(circle, rgba(0, 255, 136, 0.08) 0%, transparent 60%)' 
+              : 'radial-gradient(circle, rgba(0, 201, 109, 0.12) 0%, transparent 60%)',
             zIndex: 0,
             pointerEvents: 'none'
           }}
         />
 
         {/* Subtle Diagonal Lines */}
-        <div className="carbon-mesh-overlay position-absolute w-100 h-100 top-0 start-0 opacity-20" style={{ zIndex: 0 }} />
+        <div className={`carbon-mesh-overlay position-absolute w-100 h-100 top-0 start-0 ${isDarkMode ? 'opacity-20' : 'd-none'}`} style={{ zIndex: 0 }} />
 
         <div className="container position-relative z-2 py-5 mt-5">
           <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
@@ -241,21 +253,30 @@ export default function PackageDetails() {
             
             <motion.div variants={fadeUpVariant} className="d-flex align-items-center justify-content-center gap-3 mb-2 flex-wrap">
               <span className="fs-1">{pkg.icon}</span>
-              <h1 className="display-3 fw-black mb-0" style={{ fontWeight: 900, fontFamily: "'Oswald', sans-serif", backgroundImage: 'linear-gradient(135deg, var(--primary-color) 0%, #ffffff 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+              <h1 className="display-3 fw-black mb-0" style={{ fontWeight: 900, fontFamily: "'Oswald', sans-serif", backgroundImage: isDarkMode ? 'linear-gradient(135deg, var(--primary-color) 0%, #ffffff 100%)' : 'linear-gradient(135deg, var(--primary-color) 0%, #08140B 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                 {pkg.name}
               </h1>
             </motion.div>
 
-            <motion.p variants={fadeUpVariant} className="lead mx-auto mb-4" style={{ maxWidth: '650px', fontSize: '1.25rem', color: 'rgba(255,255,255,0.7)', fontStyle: 'italic' }}>
+            <motion.p variants={fadeUpVariant} className="lead mx-auto mb-4" style={{ maxWidth: '650px', fontSize: '1.25rem', color: isDarkMode ? 'rgba(255,255,255,0.7)' : '#4B6355', fontStyle: 'italic' }}>
               "{pkg.tagline}"
             </motion.p>
 
-            <motion.p variants={fadeUpVariant} className="text-white opacity-75 fs-5 mx-auto mb-4" style={{ maxWidth: '600px', lineHeight: '1.7' }}>
+            <motion.p variants={fadeUpVariant} className="fs-5 mx-auto mb-4" style={{ maxWidth: '600px', lineHeight: '1.7', color: isDarkMode ? 'rgba(255,255,255,0.75)' : '#1a202c' }}>
               {pkg.desc}
             </motion.p>
 
             <motion.div variants={fadeUpVariant} className="d-flex justify-content-center gap-3 flex-wrap mt-3">
-              <Link to="/car-spa" className="btn btn-outline-secondary px-4 py-2 text-white text-decoration-none">
+              <Link 
+                to="/car-spa" 
+                className="btn px-4 py-2 text-decoration-none"
+                style={{ 
+                  background: 'transparent',
+                  border: isDarkMode ? '1px solid rgba(255, 255, 255, 0.3)' : '1px solid rgba(0, 0, 0, 0.23)',
+                  color: isDarkMode ? '#ffffff' : '#08140B',
+                  fontWeight: 600
+                }}
+              >
                 ← Back to Car Spa
               </Link>
               <Link to={`/car-spa/book?package=${encodeURIComponent(pkg.name)}`} className="btn btn-glow px-4 py-2 text-decoration-none">

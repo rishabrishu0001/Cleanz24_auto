@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { 
@@ -10,47 +10,145 @@ import {
 import '../../styles/carSpa.css';
 import SEOMeta from '../../components/SEOMeta';
 import lastVideo from '../../assets/last_video.mp4';
+import { GOOGLE_SHEETS_CAR_SPA_FRANCHISE_SCRIPT_URL } from '../../config';
+
+const countries = [
+  { code: '+91', emoji: '🇮🇳', name: 'India' },
+  { code: '+1', emoji: '🇺🇸', name: 'United States' },
+  { code: '+44', emoji: '🇬🇧', name: 'United Kingdom' },
+  { code: '+971', emoji: '🇦🇪', name: 'United Arab Emirates' },
+  { code: '+1', emoji: '🇨🇦', name: 'Canada' },
+  { code: '+61', emoji: '🇦🇺', name: 'Australia' },
+  { code: '+65', emoji: '🇸🇬', name: 'Singapore' },
+  { code: '+64', emoji: '🇳🇿', name: 'New Zealand' },
+  { code: '+977', emoji: '🇳🇵', name: 'Nepal' },
+  { code: '+880', emoji: '🇧🇩', name: 'Bangladesh' },
+  { code: '+94', emoji: '🇱🇰', name: 'Sri Lanka' },
+  { code: '+27', emoji: '🇿🇦', name: 'South Africa' },
+];
 
 function Franchise({ isDarkMode, toggleTheme }) {
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     location: '',
-    budget: 'Premium Studio (₹20-25 Lacs)',
+    budget: 'Premium (₹20-25 Lacs)',
     message: ''
   });
   const [formErrors, setFormErrors] = useState({});
 
-  const [selectedModel, setSelectedModel] = useState('Premium Studio');
+  const [selectedModel, setSelectedModel] = useState('Premium');
   const [hoveredTimelineStep, setHoveredTimelineStep] = useState(null);
+
+  const [successStoryIndex, setSuccessStoryIndex] = useState(0);
+  const [successVisibleCards, setSuccessVisibleCards] = useState(3);
+  const [countryCode, setCountryCode] = useState('+91');
+  const [countryEmoji, setCountryEmoji] = useState('🇮🇳');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setSuccessVisibleCards(1);
+      } else if (window.innerWidth < 992) {
+        setSuccessVisibleCards(2);
+      } else {
+        setSuccessVisibleCards(3);
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const maxIndex = franchiseSuccessStories.length - successVisibleCards;
+    if (successStoryIndex > maxIndex) {
+      setSuccessStoryIndex(Math.max(0, maxIndex));
+    }
+  }, [successVisibleCards]);
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    setFormData((prev) => ({ ...prev, [id]: value }));
+    if (id === 'phone') {
+      setFormData((prev) => ({ ...prev, [id]: value.replace(/\D/g, '') }));
+    } else {
+      setFormData((prev) => ({ ...prev, [id]: value }));
+    }
+  };
+
+  const handleResetForm = () => {
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      location: '',
+      budget: 'Premium (₹20-25 Lacs)',
+      message: ''
+    });
+    setFormErrors({});
+    setFormSubmitted(false);
   };
 
   const validateForm = () => {
     const errors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^\d{10}$/;
+    const phoneRegex = /^\d{7,15}$/;
 
     if (!emailRegex.test(formData.email)) {
       errors.email = 'Please enter a valid email address';
     }
     if (!phoneRegex.test(formData.phone.replace(/[\s-]/g, ''))) {
-      errors.phone = 'Please enter a valid 10-digit phone number';
+      errors.phone = 'Please enter a valid phone number';
     }
     return errors;
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
     const errors = validateForm();
     setFormErrors(errors);
     if (Object.keys(errors).length === 0) {
-      setFormSubmitted(true);
+      setIsSubmitting(true);
+      try {
+        const dateStr = new Date().toISOString().split('T')[0];
+        const payload = {
+          date: dateStr,
+          Date: dateStr,
+          timestamp: dateStr,
+          Timestamp: dateStr,
+          datetime: dateStr,
+          dateTime: dateStr,
+          createdAt: dateStr,
+          created_at: dateStr,
+          time: dateStr,
+          Time: dateStr,
+          name: formData.name,
+          mobile: `'${countryCode} ${formData.phone}`,
+          email: formData.email,
+          city: formData.location,
+          modelType: formData.budget,
+          message: formData.message || 'N/A'
+        };
+
+        await fetch(GOOGLE_SHEETS_CAR_SPA_FRANCHISE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'text/plain',
+          },
+          body: JSON.stringify(payload)
+        });
+      } catch (err) {
+        console.error('Error submitting franchise inquiry:', err);
+      } finally {
+        setIsSubmitting(false);
+        setFormSubmitted(true);
+      }
     }
   };
 
@@ -132,7 +230,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
                 <line x1="12" y1="9" x2="12" y2="13" />
                 <line x1="12" y1="17" x2="12.01" y2="17" />
               </svg>
-              LIMITED TERRITORIES OPEN FOR 2026 — APPLY NOW
+               HIGH-GROWTH TERRITORIES AVAILABLE
             </span>
           </motion.div>
 
@@ -257,10 +355,10 @@ function Franchise({ isDarkMode, toggleTheme }) {
 
           <div className="row g-4">
             
-            {/* Model 1: Express Hub */}
+            {/* Model 1: Express */}
             <div className="col-lg-4">
               <div className="card h-100 p-4 premium-card text-start">
-                <h3 className="fw-bold h4 text-heading mb-1 text-gradient">Express Hub</h3>
+                <h3 className="fw-bold h4 text-heading mb-1 text-gradient">Express</h3>
                 <p className="text-muted-custom small mb-3">Designed for compact high-footfall spaces. Focuses on foam washing and express vacuuming.</p>
                 
                 <hr className="border-secondary my-2" style={{ opacity: 0.15 }} />
@@ -296,14 +394,14 @@ function Franchise({ isDarkMode, toggleTheme }) {
                   <li>Premium Microfiber cloth kit & basic compound compounds</li>
                   <li>Best for: High-density suburban startups</li>
                 </ul>
-                <button className="btn btn-outline-primary-custom w-100 py-3 mt-auto rounded-0" onClick={() => handleModelInquiry('Express Hub', 'Express Hub (₹10-12 Lacs)')}>Inquire Express</button>
+                <button className="btn btn-outline-primary-custom w-100 py-3 mt-auto rounded-0" onClick={() => handleModelInquiry('Express', 'Express (₹10-12 Lacs)')}>Inquire Express</button>
               </div>
             </div>
 
-            {/* Model 2: Premium Studio */}
+            {/* Model 2: Premium */}
             <div className="col-lg-4">
               <div className="card h-100 p-4 premium-card text-start highlighted">
-                <h3 className="fw-bold h4 text-heading mb-1 text-gradient">Premium Studio</h3>
+                <h3 className="fw-bold h4 text-heading mb-1 text-gradient">Premium</h3>
                 <p className="text-muted-custom small mb-3">Our standard studio setup. Handles deep cleaning wash, engine cleaning, and ceramic shield protection washes.</p>
                 
                 <hr className="border-secondary my-2" style={{ opacity: 0.15 }} />
@@ -340,14 +438,14 @@ function Franchise({ isDarkMode, toggleTheme }) {
                   <li>Upholstery Cleaner & Tornador Blow Gun</li>
                   <li>Best for: Major urban centers with premium demand</li>
                 </ul>
-                <button className="btn btn-glow w-100 py-3 mt-auto rounded-0" onClick={() => handleModelInquiry('Premium Studio', 'Premium Studio (₹20-25 Lacs)')}>Inquire Premium</button>
+                <button className="btn btn-glow w-100 py-3 mt-auto rounded-0" onClick={() => handleModelInquiry('Premium', 'Premium (₹20-25 Lacs)')}>Inquire Premium</button>
               </div>
             </div>
 
-            {/* Model 3: Elite Mega Hub */}
+            {/* Model 3: Elite Mega */}
             <div className="col-lg-4">
               <div className="card h-100 p-4 premium-card text-start">
-                <h3 className="fw-bold h4 text-heading mb-1 text-gradient">Elite Mega Hub</h3>
+                <h3 className="fw-bold h4 text-heading mb-1 text-gradient">Elite Mega</h3>
                 <p className="text-muted-custom small mb-3">Flagship mega washing workspace. Accommodates multiple high-speed washing tracks, deep cleaning bays, and a cafe lounge.</p>
                 
                 <hr className="border-secondary my-2" style={{ opacity: 0.15 }} />
@@ -384,7 +482,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
                   <li>Hydraulic scissor lift for coatings</li>
                   <li>Best for: Mega cities & luxury dealership tie-ups</li>
                 </ul>
-                <button className="btn btn-outline-primary-custom w-100 py-3 mt-auto rounded-0" onClick={() => handleModelInquiry('Elite Mega Hub', 'Elite Mega Hub (₹40+ Lacs)')}>Inquire Elite</button>
+                <button className="btn btn-outline-primary-custom w-100 py-3 mt-auto rounded-0" onClick={() => handleModelInquiry('Elite Mega', 'Elite Mega (₹40+ Lacs)')}>Inquire Elite</button>
               </div>
             </div>
 
@@ -430,7 +528,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
                     <span className="text-white">{roiProjections[selectedModel].investment}</span>
                   </div>
                   <div className="progress bg-dark" style={{ height: '6px' }}>
-                    <div className="progress-bar bg-warning" role="progressbar" style={{ width: selectedModel === 'Express Hub' ? '30%' : selectedModel === 'Premium Studio' ? '60%' : '100%' }}></div>
+                    <div className="progress-bar bg-warning" role="progressbar" style={{ width: selectedModel === 'Express' ? '30%' : selectedModel === 'Premium' ? '60%' : '100%' }}></div>
                   </div>
                 </div>
 
@@ -440,7 +538,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
                     <span className="text-white">{roiProjections[selectedModel].monthlyRevenue}</span>
                   </div>
                   <div className="progress bg-dark" style={{ height: '6px' }}>
-                    <div className="progress-bar bg-success" role="progressbar" style={{ width: selectedModel === 'Express Hub' ? '30%' : selectedModel === 'Premium Studio' ? '60%' : '100%' }}></div>
+                    <div className="progress-bar bg-success" role="progressbar" style={{ width: selectedModel === 'Express' ? '30%' : selectedModel === 'Premium' ? '60%' : '100%' }}></div>
                   </div>
                 </div>
 
@@ -450,7 +548,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
                     <span className="text-white">{roiProjections[selectedModel].carsPerDay} Cars / Day</span>
                   </div>
                   <div className="progress bg-dark" style={{ height: '6px' }}>
-                    <div className="progress-bar bg-info" role="progressbar" style={{ width: selectedModel === 'Express Hub' ? '35%' : selectedModel === 'Premium Studio' ? '60%' : '100%' }}></div>
+                    <div className="progress-bar bg-info" role="progressbar" style={{ width: selectedModel === 'Express' ? '35%' : selectedModel === 'Premium' ? '60%' : '100%' }}></div>
                   </div>
                 </div>
               </div>
@@ -680,31 +778,117 @@ function Franchise({ isDarkMode, toggleTheme }) {
             Hear from our active franchise owners who leveraged our branding, CRM dashboard, and chemical lines to build profitable car spa centers.
           </p>
 
-          <div className="row g-4 justify-content-center">
-            {franchiseSuccessStories.map((story, idx) => (
-              <div className="col-lg-4 col-md-6 text-start" key={idx}>
-                <div className="success-story-card h-100 p-4 d-flex flex-column">
-                  <div className="d-flex align-items-center gap-3 mb-4">
-                    <div className="success-story-avatar">
-                      {story.initials}
-                    </div>
-                    <div>
-                      <h5 className="fw-bold text-heading mb-0 small">{story.name}</h5>
-                      <div className="text-muted-custom text-xs" style={{ fontSize: '0.75rem' }}>{story.city}</div>
-                      <span className="badge bg-success py-1 px-2 mt-1" style={{ fontSize: '0.65rem', fontWeight: 600 }}>✓ VERIFIED OWNER</span>
-                    </div>
-                  </div>
-                  
-                  <p className="text-muted-custom italic small mb-4 flex-grow-1" style={{ lineHeight: '1.6', fontStyle: 'italic' }}>
-                    "{story.quote}"
-                  </p>
+          <div className="d-flex justify-content-center gap-3 mb-4">
+            <button
+              type="button"
+              onClick={() => setSuccessStoryIndex(prev => Math.max(0, prev - 1))}
+              disabled={successStoryIndex === 0}
+              className="btn btn-outline-success rounded-circle d-flex align-items-center justify-content-center"
+              style={{
+                width: '44px',
+                height: '44px',
+                padding: 0,
+                opacity: successStoryIndex === 0 ? 0.3 : 1,
+                cursor: successStoryIndex === 0 ? 'not-allowed' : 'pointer',
+                border: '1.5px solid var(--primary-color)',
+                color: 'var(--primary-color)',
+                background: 'transparent',
+                transition: 'all 0.2s ease',
+                fontWeight: 'bold',
+                fontSize: '1.2rem'
+              }}
+              onMouseEnter={(e) => { if (successStoryIndex !== 0) { e.currentTarget.style.background = 'var(--primary-color)'; e.currentTarget.style.color = '#000'; } }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--primary-color)'; }}
+            >
+              ←
+            </button>
+            <button
+              type="button"
+              onClick={() => setSuccessStoryIndex(prev => Math.min(franchiseSuccessStories.length - successVisibleCards, prev + 1))}
+              disabled={successStoryIndex >= franchiseSuccessStories.length - successVisibleCards}
+              className="btn btn-outline-success rounded-circle d-flex align-items-center justify-content-center"
+              style={{
+                width: '44px',
+                height: '44px',
+                padding: 0,
+                opacity: successStoryIndex >= franchiseSuccessStories.length - successVisibleCards ? 0.3 : 1,
+                cursor: successStoryIndex >= franchiseSuccessStories.length - successVisibleCards ? 'not-allowed' : 'pointer',
+                border: '1.5px solid var(--primary-color)',
+                color: 'var(--primary-color)',
+                background: 'transparent',
+                transition: 'all 0.2s ease',
+                fontWeight: 'bold',
+                fontSize: '1.2rem'
+              }}
+              onMouseEnter={(e) => { if (successStoryIndex < franchiseSuccessStories.length - successVisibleCards) { e.currentTarget.style.background = 'var(--primary-color)'; e.currentTarget.style.color = '#000'; } }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--primary-color)'; }}
+            >
+              →
+            </button>
+          </div>
 
-                  <div className="pt-3 border-top border-secondary border-opacity-10 d-flex justify-content-between align-items-center mt-auto">
-                    <span className="small text-muted-custom fw-semibold">{story.model}</span>
-                    <span className="fw-bold text-brand-primary" style={{ fontSize: '0.9rem' }}>{story.milestone}</span>
+          <div style={{ overflow: 'hidden', width: '100%', padding: '10px 0' }}>
+            <div
+              style={{
+                display: 'flex',
+                gap: '24px',
+                transform: `translateX(calc(-${successStoryIndex} * (100% + 24px) / ${successVisibleCards}))`,
+                transition: 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                width: '100%'
+              }}
+            >
+              {franchiseSuccessStories.map((story, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    flex: `0 0 calc((100% - (${successVisibleCards} - 1) * 24px) / ${successVisibleCards})`,
+                    width: `calc((100% - (${successVisibleCards} - 1) * 24px) / ${successVisibleCards})`
+                  }}
+                  className="text-start"
+                >
+                  <div className="success-story-card h-100 p-4 d-flex flex-column">
+                    <div className="d-flex align-items-center gap-3 mb-4">
+                      <div className="success-story-avatar">
+                        {story.initials}
+                      </div>
+                      <div>
+                        <h5 className="fw-bold text-heading mb-0 small">{story.name}</h5>
+                        <div className="text-muted-custom text-xs" style={{ fontSize: '0.75rem' }}>{story.city}</div>
+                        <span className="badge bg-success py-1 px-2 mt-1" style={{ fontSize: '0.65rem', fontWeight: 600 }}>✓ VERIFIED OWNER</span>
+                      </div>
+                    </div>
+                    
+                    <p className="text-muted-custom italic small mb-4 flex-grow-1" style={{ lineHeight: '1.6', fontStyle: 'italic' }}>
+                      "{story.quote}"
+                    </p>
+
+                    <div className="pt-3 border-top border-secondary border-opacity-10 d-flex justify-content-between align-items-center mt-auto">
+                      <span className="small text-muted-custom fw-semibold">{story.model}</span>
+                      <span className="fw-bold text-brand-primary" style={{ fontSize: '0.9rem' }}>{story.milestone}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="d-flex justify-content-center gap-2 mt-4">
+            {Array.from({ length: franchiseSuccessStories.length - successVisibleCards + 1 }).map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setSuccessStoryIndex(idx)}
+                style={{
+                  width: successStoryIndex === idx ? '24px' : '8px',
+                  height: '8px',
+                  borderRadius: '4px',
+                  background: successStoryIndex === idx ? 'var(--primary-color)' : 'rgba(255, 255, 255, 0.2)',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  padding: 0,
+                  outline: 'none'
+                }}
+              />
             ))}
           </div>
         </div>
@@ -745,13 +929,13 @@ function Franchise({ isDarkMode, toggleTheme }) {
                         </svg>
                       </div>
                       <h4 className="fw-bold text-heading mb-2">Application Received!</h4>
-                      <p className="text-muted-custom">Thank you, {formData.name}. Our expansion representative will call you within 24 hours at <strong className="text-white">{formData.phone}</strong>.</p>
+                      <p className="text-muted-custom">Thank you, {formData.name}. Our expansion representative will call you within 24 hours at <strong className="text-white">{countryCode} {formData.phone}</strong>.</p>
                       <div className="p-3 bg-secondary-custom rounded border border-success border-opacity-20 text-start mt-4 mb-3">
                         <small className="text-muted-custom">
                           Our location audit team has cataloged your requested territory: <strong>{formData.location}</strong>. We are checking slot availability and will email matching setup blueprints to <strong>{formData.email}</strong>.
                         </small>
                       </div>
-                      <button className="btn btn-outline-primary-custom px-4 py-2 mt-3" onClick={() => setFormSubmitted(false)}>Submit Another Inquiry</button>
+                      <button className="btn btn-outline-primary-custom px-4 py-2 mt-3" onClick={handleResetForm}>Submit Another Inquiry</button>
                     </div>
                   ) : (
                     <form onSubmit={handleFormSubmit}>
@@ -783,15 +967,104 @@ function Franchise({ isDarkMode, toggleTheme }) {
                         </div>
                         <div className="col-md-6">
                           <label htmlFor="phone" className="form-label fw-bold small text-uppercase text-muted-custom">Phone Number *</label>
-                          <input 
-                            type="tel" 
-                            className={`form-control py-3 rounded-0${formErrors.phone ? ' is-invalid' : ''}`} 
-                            id="phone" 
-                            placeholder="Enter 10-digit phone number" 
-                            required 
-                            value={formData.phone}
-                            onChange={(e) => { handleInputChange(e); setFormErrors(prev => ({ ...prev, phone: '' })); }}
-                          />
+                          <div style={{ position: 'relative' }}>
+                            <button
+                              type="button"
+                              onClick={() => setDropdownOpen(!dropdownOpen)}
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                height: '100%',
+                                width: '85px',
+                                fontWeight: '600',
+                                fontSize: '0.9rem',
+                                color: '#cbd5e1',
+                                background: 'transparent',
+                                border: 'none',
+                                outline: 'none',
+                                zIndex: 10,
+                                cursor: 'pointer',
+                                paddingLeft: '12px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'flex-start',
+                                gap: '4px'
+                              }}
+                            >
+                              <span>{countryEmoji} {countryCode}</span>
+                              <span style={{ fontSize: '0.65rem', color: '#94a3b8' }}>▼</span>
+                            </button>
+                            {dropdownOpen && (
+                              <>
+                                <div 
+                                  onClick={() => setDropdownOpen(false)} 
+                                  style={{
+                                    position: 'fixed',
+                                    top: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    left: 0,
+                                    zIndex: 99,
+                                    background: 'transparent'
+                                  }}
+                                />
+                                <div
+                                  style={{
+                                    position: 'absolute',
+                                    top: '100%',
+                                    left: 0,
+                                    zIndex: 100,
+                                    background: '#1e293b',
+                                    border: '1px solid #334155',
+                                    borderRadius: '8px',
+                                    boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
+                                    width: '120px',
+                                    maxHeight: '180px',
+                                    overflowY: 'auto',
+                                    marginTop: '4px'
+                                  }}
+                                >
+                                  {countries.map((c, i) => (
+                                    <div
+                                      key={i}
+                                      onClick={() => {
+                                        setCountryCode(c.code);
+                                        setCountryEmoji(c.emoji);
+                                        setDropdownOpen(false);
+                                      }}
+                                      style={{
+                                        padding: '8px 12px',
+                                        fontSize: '0.9rem',
+                                        color: '#cbd5e1',
+                                        cursor: 'pointer',
+                                        background: countryCode === c.code && countryEmoji === c.emoji ? 'rgba(255,255,255,0.1)' : 'transparent',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '8px',
+                                        transition: 'background 0.2s'
+                                      }}
+                                      onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}
+                                      onMouseLeave={(e) => { e.currentTarget.style.background = countryCode === c.code && countryEmoji === c.emoji ? 'rgba(255,255,255,0.1)' : 'transparent'; }}
+                                    >
+                                      <span>{c.emoji}</span>
+                                      <span>{c.code}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </>
+                            )}
+                            <input 
+                              type="tel" 
+                              className={`form-control py-3 rounded-0${formErrors.phone ? ' is-invalid' : ''}`} 
+                              id="phone" 
+                              placeholder="Enter phone number" 
+                              required 
+                              value={formData.phone}
+                              onChange={(e) => { handleInputChange(e); setFormErrors(prev => ({ ...prev, phone: '' })); }}
+                              style={{ paddingLeft: '92px' }}
+                            />
+                          </div>
                           {formErrors.phone && <div className="invalid-feedback d-block" style={{ fontSize: '0.78rem' }}>{formErrors.phone}</div>}
                         </div>
                       </div>
@@ -815,9 +1088,9 @@ function Franchise({ isDarkMode, toggleTheme }) {
                           value={formData.budget}
                           onChange={handleInputChange}
                         >
-                          <option>Express Hub (₹10-12 Lacs)</option>
-                          <option>Premium Studio (₹20-25 Lacs)</option>
-                          <option>Elite Mega Hub (₹40+ Lacs)</option>
+                          <option>Express (₹10-12 Lacs)</option>
+                          <option>Premium (₹20-25 Lacs)</option>
+                          <option>Elite Mega (₹40+ Lacs)</option>
                         </select>
                       </div>
                       <div className="mb-4">
@@ -833,7 +1106,17 @@ function Franchise({ isDarkMode, toggleTheme }) {
                       </div>
 
                       <div className="d-grid gap-2">
-                        <button type="submit" className="btn btn-primary btn-lg rounded-0 fw-bold btn-glow py-3">Submit Franchise Request</button>
+                        <button 
+                          type="submit" 
+                          className="btn btn-primary btn-lg rounded-0 fw-bold btn-glow py-3"
+                          disabled={isSubmitting}
+                          style={{
+                            cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                            opacity: isSubmitting ? 0.7 : 1
+                          }}
+                        >
+                          {isSubmitting ? 'Submitting...' : 'Submit Franchise Request'}
+                        </button>
                         <div className="text-center text-muted-custom small my-1">OR</div>
                         <a 
                           href={`https://wa.me/919138004800?text=Hi,%20I'm%20interested%20in%20a%20Cleanz24%20Wash%20Studio%20Franchise%20model.%20Please%20send%20details.`} 

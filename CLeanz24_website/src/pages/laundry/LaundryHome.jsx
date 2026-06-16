@@ -28,11 +28,11 @@ import media3Img from '../../assets/media_mention_3.png';
 import media4Img from '../../assets/media_mention_4.png';
 import storefrontImg from '../../assets/laundry_storefront2.png';
 import laundryHandImg from '../../assets/laundry_hand.png';
-import laundry2Img from '../../assets/laundry_2.jpg';
+// laundry2Img removed — unused
 
 export default function LaundryHome() {
-  // Booking Form State
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  // Form state (used in hero form if re-enabled)
+  const [_formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', mobile: '', address: '' });
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [recaptchaChecked, setRecaptchaChecked] = useState(false);
@@ -68,12 +68,14 @@ export default function LaundryHome() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleInputChange = (e) => {
+  // eslint-disable-next-line no-unused-vars
+  const _handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleFormSubmit = (e) => {
+  // eslint-disable-next-line no-unused-vars
+  const _handleFormSubmit = (e) => {
     e.preventDefault();
     if (!recaptchaChecked) {
       alert("Please check the 'I'm not a robot' box.");
@@ -108,6 +110,48 @@ export default function LaundryHome() {
       role: "Customer",
       image: testimonialManishImg,
       text: "I've been using Cleanz24 For Several Months now, and I couldn't be happier with their service. From the moment I first contacted them they've been nothing but professional and reliable. Here's what I love about them."
+    },
+    {
+      name: "Rohit Mehta",
+      role: "Business Executive",
+      initials: "RM",
+      text: "Their express dry cleaning service is an absolute lifesaver. I handed over my formal suits and shirts in the morning, and they were delivered back crisp, steam-ironed, and perfectly packaged by evening. Exceptional speed and quality!"
+    },
+    {
+      name: "Pooja Hegde",
+      role: "IT Professional",
+      initials: "PH",
+      text: "Being new to Bengaluru, finding a trusted laundry service was a challenge until I found Cleanz24. Their app booking is incredibly smooth, and their fabric care for delicate silk garments is premium. Totally worth the subscription!"
+    },
+    {
+      name: "Vikramjit Singh",
+      role: "Daily Subscriber",
+      initials: "VS",
+      text: "I've subscribed to their weekly laundry pack for 6 months. It's affordable, reliable, and consistent. The clothes smell fresh, are ironed flawlessly, and the door delivery saves me hours of household work every week."
+    },
+    {
+      name: "Neha Sharma",
+      role: "Creative Designer",
+      initials: "NS",
+      text: "I was extremely skeptical about sending my designer ethnic wear for dry cleaning, but Cleanz24 did an outstanding job. The gold embroidery was perfectly preserved, and the packaging was top-notch."
+    },
+    {
+      name: "Devendra Yadav",
+      role: "Store Manager",
+      initials: "DY",
+      text: "Cleanz24's shoes cleaning service is underrated. I sent three pairs of dirty white sneakers, and they came back looking almost brand new. Excellent stain removal on the canvas and soles!"
+    },
+    {
+      name: "Sneha Patel",
+      role: "Banker",
+      initials: "SP",
+      text: "With my busy 9-to-9 banking hours, laundry was a major chore. Their automatic scheduling is a lifesaver. The delivery guys are extremely polite, and the service is always on time."
+    },
+    {
+      name: "Aditya Rao",
+      role: "University Student",
+      initials: "AR",
+      text: "The student-friendly packages are perfect for my budget. They pick up my dirty bedsheets and clothes from the hostel gate and deliver them back smelling fresh. Highly recommended!"
     }
   ];
 
@@ -177,7 +221,7 @@ export default function LaundryHome() {
                 </p>
                 
                 {/* Floating/Action buttons next to text */}
-                <div className="d-flex flex-wrap gap-3 mt-4">
+                {/* <div className="d-flex flex-wrap gap-3 mt-4">
                   <Link to="/laundry/contact-us" className="btn-primary-custom">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
                     Schedule Your Pickup
@@ -186,7 +230,7 @@ export default function LaundryHome() {
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01C17.18 3.03 14.69 2 12.04 2zm5.83 14.09c-.25.7-.1.97-.24 1.45-.33 1.15-1.35 1.77-2.38 1.95-1.12.19-2.3-.22-3.32-.73-2.18-1.09-3.9-2.81-4.99-4.99-.51-1.02-.92-2.2-.73-3.32.18-1.03.8-2.05 1.95-2.38.48-.14.75.01 1.45-.24.28.56.84 1.68 1.12 2.24.14.28.01.56-.14.84-.28.56-.84 1.12-.56 1.4.56 1.12 1.4 1.96 2.52 2.52.28.28.84-.28 1.4-.56.28-.14.56-.28.84-.14.56.28 1.68.84 2.24 1.12.25.14.39.42.24.71z"/></svg>
                     Chat On Whatsapp
                   </a>
-                </div>
+                </div> */}
               </motion.div>
             </div>
           </div>
@@ -338,11 +382,11 @@ export default function LaundryHome() {
             className="services-grid-inline"
           >
             {[
-              { title: 'Laundry', desc: 'We wash, dry, and fold with precision for a spotless finish.', icon: srvLaundryImg, link: '/laundry/contact-us' },
-              { title: 'Dry Cleaning', desc: 'Professional care for suits, silks, and delicate fabrics.', icon: srvDryImg, link: '/laundry/contact-us' },
-              { title: 'Home Cleaning', desc: 'Professional cleaning for a healthier living space.', icon: srvHomeImg, link: '/laundry/contact-us' },
-              { title: 'Steam Ironing', desc: 'Wrinkle-free perfection, every time.', icon: srvIronImg, link: '/laundry/contact-us' },
-              { title: 'Shoe Cleaning', desc: 'Bring back the shine to your favorite pairs.', icon: srvShoeImg, link: '/laundry/contact-us' }
+              { title: 'Laundry', desc: 'We wash, dry, and fold with precision for a spotless finish.', icon: srvLaundryImg, link: '/laundry/services#laundry' },
+              { title: 'Dry Cleaning', desc: 'Professional care for suits, silks, and delicate fabrics.', icon: srvDryImg, link: '/laundry/services#dry-cleaning' },
+              { title: 'Home Cleaning', desc: 'Professional cleaning for a healthier living space.', icon: srvHomeImg, link: '/laundry/services#home-cleaning' },
+              { title: 'Steam Ironing', desc: 'Wrinkle-free perfection, every time.', icon: srvIronImg, link: '/laundry/services#steam-ironing' },
+              { title: 'Shoe Cleaning', desc: 'Bring back the shine to your favorite pairs.', icon: srvShoeImg, link: '/laundry/services#shoe-cleaning' }
             ].map((srv, idx) => (
               <motion.div key={idx} variants={fadeInUp} className="service-card-wrapper">
                 <div className="service-card-new">
@@ -555,11 +599,27 @@ export default function LaundryHome() {
                     className="row align-items-center text-start"
                   >
                     <div className="col-lg-3 col-md-4 text-center mb-4 mb-md-0">
-                      <img 
-                        src={testimonials[currentTestimonial].image} 
-                        alt={testimonials[currentTestimonial].name} 
-                        className="testimonial-user-img mb-3"
-                      />
+                      {testimonials[currentTestimonial].image ? (
+                        <img 
+                          src={testimonials[currentTestimonial].image} 
+                          alt={testimonials[currentTestimonial].name} 
+                          className="testimonial-user-img mb-3"
+                        />
+                      ) : (
+                        <div 
+                          className="testimonial-user-avatar mb-3 mx-auto d-flex align-items-center justify-content-center fw-bold text-white shadow-sm" 
+                          style={{ 
+                            width: '65px', 
+                            height: '65px', 
+                            borderRadius: '50%', 
+                            fontSize: '1.4rem', 
+                            backgroundColor: 'var(--global-primary)',
+                            border: '3px solid var(--global-primary)'
+                          }}
+                        >
+                          {testimonials[currentTestimonial].initials}
+                        </div>
+                      )}
                       <h5 className="fw-bold text-dark mb-0">{testimonials[currentTestimonial].name}</h5>
                       <span className="text-muted small">{testimonials[currentTestimonial].role}</span>
                     </div>
@@ -754,7 +814,12 @@ export default function LaundryHome() {
                     </div>
                     <p className="laundry-store-address">{store.address}</p>
                     <div className="laundry-store-rating">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" style={{ width: '16px' }} />
+                      <svg aria-hidden="true" viewBox="0 0 18 18" style={{ width: '16px', height: '16px', marginRight: '6px', display: 'inline-block', verticalAlign: 'middle' }}>
+                        <path fill="#4285F4" d="M17.64 9.2c0-.63-.06-1.25-.16-1.84H9v3.47h4.84c-.21 1.12-.84 2.07-1.8 2.7l2.8 2.17c1.63-1.5 2.8-3.72 2.8-6.5z"/>
+                        <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.2l-2.8-2.17c-.78.52-1.78.83-3.16.83-2.43 0-4.48-1.64-5.21-3.85L.94 12.8C2.42 15.75 5.48 18 9 18z"/>
+                        <path fill="#FBBC05" d="M3.79 10.61A5.4 5.4 0 0 1 3.5 9c0-.56.1-1.1.29-1.61L.94 5.2A8.96 8.96 0 0 0 0 9c0 1.39.32 2.71.94 3.8l2.85-2.19z"/>
+                        <path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35L15 2.1C13.46.7 11.42 0 9 0 5.48 0 2.42 2.25.94 5.2l2.85 2.19C4.52 5.22 6.57 3.58 9 3.58z"/>
+                      </svg>
                       <span style={{ fontSize: '0.78rem' }}>Google Rating</span>
                       <div className="ms-auto">
                         <strong style={{ fontSize: '0.85rem' }}>{store.rating}</strong>
@@ -765,7 +830,7 @@ export default function LaundryHome() {
                     <div className="laundry-store-actions">
                       <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store.name + ' ' + store.address)}`} target="_blank" rel="noreferrer" className="laundry-store-btn laundry-store-btn-outline">Directions</a>
                       <Link to="/laundry/contact-us" className="laundry-store-btn laundry-store-btn-primary">Schedule Pickup</Link>
-                      <a href={`tel:${store.phone.replace(/\s+/g, '')}`} className="laundry-store-btn laundry-store-btn-outline">Call</a>
+                      <a href={`tel:+91${store.phone.replace(/\s+/g, '')}`} className="laundry-store-btn laundry-store-btn-outline">Call</a>
                       <a href={`https://wa.me/${store.whatsapp}`} target="_blank" rel="noreferrer" className="laundry-store-btn laundry-store-btn-green">WhatsApp</a>
                     </div>
                   </div>
@@ -789,7 +854,7 @@ export default function LaundryHome() {
       </section>
 
       {/* ────────────────── 9. MOBILE APP DOWNLOAD PROMO ────────────────── */}
-      <section className="section-padding bg-white overflow-hidden pb-0">
+      <section className="section-padding bg-white overflow-hidden pb-5">
         <div className="container">
           <div className="row align-items-center">
             {/* Left promo info */}
@@ -799,13 +864,13 @@ export default function LaundryHome() {
               <p className="lead text-muted mb-4">
                 Download the Cleanz24 app to schedule pickups, track garment diagnostics, inspect item bills, and order contact-free express deliveries.
               </p>
-              <div className="d-flex flex-wrap gap-3 align-items-center mt-2">
+              <div className="d-flex flex-wrap gap-3 align-items-center mt-2 mb-4">
                 <a href="https://play.google.com/store" target="_blank" rel="noreferrer">
                   <img 
                     src={playStoreBadgeSvg} 
                     alt="Google Play Store" 
                     style={{ 
-                      height: '70px', 
+                      height: '53px', 
                       width: 'auto', 
                       objectFit: 'contain',
                       transition: 'transform 0.2s ease-in-out',
@@ -820,7 +885,7 @@ export default function LaundryHome() {
                     src={appStoreBadgeSvg} 
                     alt="Download on the App Store" 
                     style={{ 
-                      height: '70px', 
+                      height: '60px', 
                       width: 'auto', 
                       objectFit: 'contain',
                       transition: 'transform 0.2s ease-in-out',
@@ -877,10 +942,10 @@ export default function LaundryHome() {
           href="https://wa.me/919138004800" 
           target="_blank" 
           rel="noreferrer" 
-          className="whatsapp-pill-btn"
+          className="whatsapp-circle-btn"
+          aria-label="Chat on WhatsApp"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01C17.18 3.03 14.69 2 12.04 2zm5.83 14.09c-.25.7-.1.97-.24 1.45-.33 1.15-1.35 1.77-2.38 1.95-1.12.19-2.3-.22-3.32-.73-2.18-1.09-3.9-2.81-4.99-4.99-.51-1.02-.92-2.2-.73-3.32.18-1.03.8-2.05 1.95-2.38.48-.14.75.01 1.45-.24.28.56.84 1.68 1.12 2.24.14.28.01.56-.14.84-.28.56-.84 1.12-.56 1.4.56 1.12 1.4 1.96 2.52 2.52.28.28.84-.28 1.4-.56.28-.14.56-.28.84-.14.56.28 1.68.84 2.24 1.12.25.14.39.42.24.71z"/></svg>
-          Schedule Your Pickup
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01C17.18 3.03 14.69 2 12.04 2zm5.83 14.09c-.25.7-.1.97-.24 1.45-.33 1.15-1.35 1.77-2.38 1.95-1.12.19-2.3-.22-3.32-.73-2.18-1.09-3.9-2.81-4.99-4.99-.51-1.02-.92-2.2-.73-3.32.18-1.03.8-2.05 1.95-2.38.48-.14.75.01 1.45-.24.28.56.84 1.68 1.12 2.24.14.28.01.56-.14.84-.28.56-.84 1.12-.56 1.4.56 1.12 1.4 1.96 2.52 2.52.28.28.84-.28 1.4-.56.28-.14.56-.28.84-.14.56.28 1.68.84 2.24 1.12.25.14.39.42.24.71z"/></svg>
         </a>
         <a 
           href="tel:+919138004800" 
