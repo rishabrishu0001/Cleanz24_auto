@@ -104,6 +104,7 @@ import noidaSec41Interior from '../../assets/cleanz24_noida_sec41_interior.jpeg'
 
 // Wakad Pune
 import wakadPuneSignboard from '../../assets/cleanz24_wakad_pune_signboard.jpg';
+import wakadPuneStandee from '../../assets/cleanz24_wakad_pune_standee.jpg';
 import wakadPuneStorefrontEntrance from '../../assets/cleanz24_wakad_pune_storefront_entrance.jpg';
 import wakadPuneDeliveryCounter from '../../assets/cleanz24_wakad_pune_delivery_counter.jpg';
 import wakadPuneLgMachines from '../../assets/cleanz24_wakad_pune_lg_machines.jpg';
@@ -113,6 +114,7 @@ import wakadPuneReceptionDesk from '../../assets/cleanz24_wakad_pune_reception_d
 const STORE_IMAGES = {
   36: [
     wakadPuneSignboard,
+    wakadPuneStandee,
     wakadPuneStorefrontEntrance,
     wakadPuneDeliveryCounter,
     wakadPuneLgMachines,
