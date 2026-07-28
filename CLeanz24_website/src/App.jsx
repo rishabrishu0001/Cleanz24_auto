@@ -144,12 +144,21 @@ function App() {
         <Route path=":citySlug" element={<LocationDetail />} />
       </Route>
 
-      {/* ── Top-Level Short Link Redirects (Google Sitelinks & Direct Navigation) ── */}
+      {/* ── Top-Level Short Link & Legacy Sitelink Redirects ── */}
       <Route path="/stores" element={<Navigate to="/laundry/stores" replace />} />
       <Route path="/franchise" element={<Navigate to="/laundry/franchise" replace />} />
+      <Route path="/best-laundry-franchise" element={<Navigate to="/laundry/franchise" replace />} />
+      <Route path="/laundry-franchise" element={<Navigate to="/laundry/franchise" replace />} />
+      <Route path="/car-spa-franchise" element={<Navigate to="/car-spa/franchise" replace />} />
+      <Route path="/commercial-cleaning-services-for-offices-retail-and-business*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/commercial-cleaning*" element={<Navigate to="/laundry/services" replace />} />
       <Route path="/contact-us" element={<Navigate to="/laundry/contact-us" replace />} />
       <Route path="/contact" element={<Navigate to="/laundry/contact-us" replace />} />
       <Route path="/services" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/laundry-services" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/carspa" element={<Navigate to="/car-spa" replace />} />
+      <Route path="/car-spa-services" element={<Navigate to="/car-spa/services" replace />} />
+      <Route path="/car-spa-book" element={<Navigate to="/car-spa/book" replace />} />
       <Route path="/book" element={<Navigate to="/car-spa/book" replace />} />
       <Route path="/blog" element={<Navigate to="/laundry/blog" replace />} />
       <Route path="/blog/:slug" element={<Navigate to="/laundry/blog" replace />} />
