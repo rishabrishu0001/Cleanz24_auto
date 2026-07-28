@@ -110,8 +110,20 @@ import wakadPuneDeliveryCounter from '../../assets/cleanz24_wakad_pune_delivery_
 import wakadPuneLgMachines from '../../assets/cleanz24_wakad_pune_lg_machines.jpg';
 import wakadPuneReceptionDesk from '../../assets/cleanz24_wakad_pune_reception_desk.jpg';
 
+// Ravet Pune
+import ravetPuneStorefrontExterior from '../../assets/cleanz24_ravet_pune_storefront_exterior.jpg';
+import ravetPuneLgMachines from '../../assets/cleanz24_ravet_pune_lg_machines.jpg';
+import ravetPuneReceptionCounter from '../../assets/cleanz24_ravet_pune_reception_counter.jpg';
+import ravetPunePackagingShelves from '../../assets/cleanz24_ravet_pune_packaging_shelves.jpg';
+
 // Map of store id -> image arrays (add more stores here as images are added)
 const STORE_IMAGES = {
+  71: [
+    ravetPuneStorefrontExterior,
+    ravetPuneReceptionCounter,
+    ravetPuneLgMachines,
+    ravetPunePackagingShelves,
+  ],
   36: [
     wakadPuneSignboard,
     wakadPuneStandee,

@@ -864,6 +864,18 @@ export const storesData = [
     tags: ['Churu', 'Poonia Colony', 'Phatak', 'Rajasthan', 'Dry Cleaners'],
     rating: 4.7,
     reviews: 18
+  },
+  {
+    id: 71,
+    name: 'Cleanz24 - Ravet Pune',
+    address: 'Shop No. 1 & 2, Main Road, Near Shinde Petrol Pump, Ravet, Pimpri-Chinchwad, Pune, Maharashtra 412101',
+    phone: '70300 01610',
+    whatsapp: '917030001610',
+    city: 'Ravet',
+    state: 'Maharashtra',
+    tags: ['Pune', 'Ravet', 'Pimpri-Chinchwad', 'PCMC', 'Shinde Petrol Pump', '412101'],
+    rating: 4.9,
+    reviews: 38
   }
 ];
 
