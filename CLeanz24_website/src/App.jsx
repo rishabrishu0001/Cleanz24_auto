@@ -177,8 +177,8 @@ function App() {
 
       <Route path="/wash-and-fold*" element={<Navigate to="/laundry/services#laundry" replace />} />
 
-      <Route path="/commercial-cleaning-services-for-offices-retail-and-business*" element={<Navigate to="/laundry/services" replace />} />
-      <Route path="/commercial-cleaning*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/commercial-cleaning-services-for-offices-retail-and-business*" element={<Navigate to="/laundry/services#commercial-cleaning" replace />} />
+      <Route path="/commercial-cleaning*" element={<Navigate to="/laundry/services#commercial-cleaning" replace />} />
       <Route path="/contact-us" element={<Navigate to="/laundry/contact-us" replace />} />
       <Route path="/contact" element={<Navigate to="/laundry/contact-us" replace />} />
       <Route path="/services" element={<Navigate to="/laundry/services" replace />} />

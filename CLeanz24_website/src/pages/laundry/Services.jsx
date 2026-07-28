@@ -148,6 +148,25 @@ export default function Services() {
       color: '#ec4899', // Pink
       bgGradient: 'linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%)',
       darkBgGradient: 'linear-gradient(135deg, #831843 0%, #500724 100%)'
+    },
+    {
+      id: 'commercial-cleaning',
+      title: 'Commercial & Corporate B2B Care',
+      subtitle: 'Offices, Hotels, Spas & Retail Spaces',
+      description: 'Bulk laundry, uniform washing, and upholstery sanitization for corporate offices, hotels, spas, and gyms.',
+      longDesc: 'Cleanz24 provides specialized commercial cleaning and bulk laundry solutions tailored for corporate offices, boutique hotels, beauty spas, fitness clubs, and healthcare facilities. We offer scheduled doorstep logistics, GST invoicing, and customized B2B monthly contracts.',
+      icon: srvHomeImg,
+      highlights: [
+        'Bulk uniform & workwear laundering with barcode tracking',
+        'Hotel & spa linen, towel & table cover sanitization',
+        'Office sofa, carpet & upholstery deep extraction',
+        'Dedicated B2B account manager & GST monthly billing'
+      ],
+      pricing: 'Custom B2B Quotation / Monthly Contract',
+      bestFor: 'Corporate offices, hotels, guesthouses, spas, salons, fitness clubs, and restaurants.',
+      color: '#06b6d4', // Cyan
+      bgGradient: 'linear-gradient(135deg, #cffafe 0%, #a5f3fc 100%)',
+      darkBgGradient: 'linear-gradient(135deg, #164e63 0%, #083344 100%)'
     }
   ];
 
