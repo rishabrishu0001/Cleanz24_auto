@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm run build --workspace=CLeanz24_website",
+  "outputDirectory": "CLeanz24_website/dist",
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
