@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import { 
   statsCounterData, 
   franchiseSuccessStories, 
@@ -27,7 +27,10 @@ const countries = [
   { code: '+27', emoji: '🇿🇦', name: 'South Africa' },
 ];
 
-function Franchise({ isDarkMode, toggleTheme }) {
+function Franchise(props) {
+  const context = useOutletContext() || {};
+  const isDarkMode = props.isDarkMode ?? context.isDarkMode ?? true;
+  const toggleTheme = props.toggleTheme ?? context.toggleTheme;
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({

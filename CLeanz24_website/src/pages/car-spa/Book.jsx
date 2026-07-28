@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useOutletContext } from 'react-router-dom';
 import { faqsData, storesData } from '../../data';
 import SEOMeta from '../../components/SEOMeta';
 import '../../styles/carSpa.css';
 import { GOOGLE_SHEETS_CAR_SPA_SCRIPT_URL } from '../../config';
 import carwashingTransparent from '../../assets/carwashing_transparent.png';
 
-function Book({ isDarkMode, toggleTheme }) {
+function Book(props) {
+  const context = useOutletContext() || {};
+  const isDarkMode = props.isDarkMode ?? context.isDarkMode ?? true;
+  const toggleTheme = props.toggleTheme ?? context.toggleTheme;
   const [openFaqIndex, setOpenFaqIndex] = useState(-1);
   const [searchQuery, setSearchQuery] = useState('');
   

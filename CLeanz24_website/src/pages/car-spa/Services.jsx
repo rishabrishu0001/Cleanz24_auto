@@ -10,12 +10,15 @@ import carWashInterior from '../../assets/car_wash_interior.png';
 import carWashPageSpray from '../../assets/car_wash_spray.png';
 import serviceVideo from '../../assets/service_video.mp4';
 
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import '../../styles/carSpa.css';
 import SEOMeta from '../../components/SEOMeta';
 
 // 1. SERVICES PAGE COMPONENT
-function Services({ isDarkMode, toggleTheme }) {
+function Services(props) {
+  const context = useOutletContext() || {};
+  const isDarkMode = props.isDarkMode ?? context.isDarkMode ?? true;
+  const toggleTheme = props.toggleTheme ?? context.toggleTheme;
   const [selectedVehicleType, setSelectedVehicleType] = useState('sedan');
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
 
