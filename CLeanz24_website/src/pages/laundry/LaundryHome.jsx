@@ -279,7 +279,7 @@ export default function LaundryHome() {
     <div className="home-page-new">
       <SEOMeta
         title="Cleanz24 — India's Leading Premium Laundry & Dry Clean Studio"
-        description="Cleanz24 is India's leading Premium Laundry and Dry Clean Studio and Car spa studio. In Laundry industry we have 100+ Franchise operational across multiple cities and States across India. We also offer premium Car Spa services including foam wash, ceramic coating, PPF and car detailing."
+        description="Cleanz24 is India's leading Premium Laundry & Dry Clean Studio network with 100+ outlets across 17+ states. Professional garment care, organic dry cleaning, steam pressing, shoe spa, and free doorstep pickup & delivery."
         canonical="https://cleanz24.com/laundry"
       />
 

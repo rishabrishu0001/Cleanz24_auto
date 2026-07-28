@@ -150,6 +150,29 @@ function App() {
       <Route path="/best-laundry-franchise" element={<Navigate to="/laundry/franchise" replace />} />
       <Route path="/laundry-franchise" element={<Navigate to="/laundry/franchise" replace />} />
       <Route path="/car-spa-franchise" element={<Navigate to="/car-spa/franchise" replace />} />
+
+      {/* ── Service-Specific Sitelinks & Legacy SEO URLs ── */}
+      <Route path="/shoe-cleaning*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/shoe-spa*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/sneaker-cleaning*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/steam-ironing*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/steam-press*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/ironing*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/dry-cleaning*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/drycleaning*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/dry-cleaner*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/carpet-cleaning*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/curtain-cleaning*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/sofa-cleaning*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/bag-cleaning*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/leather-care*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/leather-cleaning*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/suit-cleaning*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/saree-cleaning*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/blanket-cleaning*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/wash-and-fold*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/wash-and-iron*" element={<Navigate to="/laundry/services" replace />} />
+
       <Route path="/commercial-cleaning-services-for-offices-retail-and-business*" element={<Navigate to="/laundry/services" replace />} />
       <Route path="/commercial-cleaning*" element={<Navigate to="/laundry/services" replace />} />
       <Route path="/contact-us" element={<Navigate to="/laundry/contact-us" replace />} />
