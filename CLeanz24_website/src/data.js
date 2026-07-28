@@ -684,11 +684,12 @@ export const storesData = [
     id: 54,
     name: 'Cleanz24 - Kondapur Hyderabad',
     address: '2nd Floor, Nagarjuna Ikon, Above Croma Junction, Hanuman Nagar, Kondapur, Hyderabad, Telangana 500081',
-    phone: '91380 04800',
-    whatsapp: '919138004800',
+    phone: '91542 43330',
+    whatsapp: '919154243330',
     city: 'Kondapur',
     state: 'Telangana',
-    rating: 4.7,
+    tags: ['Hyderabad', 'Kondapur', 'Nagarjuna Ikon', 'Hanuman Nagar', '500081', 'Singhania Laundry'],
+    rating: 4.8,
     reviews: 133
   },
   {

@@ -116,8 +116,22 @@ import ravetPuneLgMachines from '../../assets/cleanz24_ravet_pune_lg_machines.jp
 import ravetPuneReceptionCounter from '../../assets/cleanz24_ravet_pune_reception_counter.jpg';
 import ravetPunePackagingShelves from '../../assets/cleanz24_ravet_pune_packaging_shelves.jpg';
 
+// Kondapur Hyderabad
+import kondapurRoadsideSignboard from '../../assets/cleanz24_kondapur_roadside_signboard.jpg';
+import kondapurWallLogo from '../../assets/cleanz24_kondapur_wall_logo.jpg';
+import kondapurLgMachines from '../../assets/cleanz24_kondapur_lg_machines.jpg';
+import kondapurShelvingRacks from '../../assets/cleanz24_kondapur_shelving_racks.jpg';
+import kondapurSteamIroningStation from '../../assets/cleanz24_kondapur_steam_ironing_station.jpg';
+
 // Map of store id -> image arrays (add more stores here as images are added)
 const STORE_IMAGES = {
+  54: [
+    kondapurRoadsideSignboard,
+    kondapurWallLogo,
+    kondapurLgMachines,
+    kondapurShelvingRacks,
+    kondapurSteamIroningStation,
+  ],
   71: [
     ravetPuneStorefrontExterior,
     ravetPuneReceptionCounter,
