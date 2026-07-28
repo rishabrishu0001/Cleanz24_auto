@@ -211,7 +211,7 @@ export const storesData = [
     whatsapp: '919138004800',
     city: 'Noida Extension',
     state: 'Uttar Pradesh',
-    tags: ['Delhi NCR', 'Delhi', 'NCR', 'Ghaziabad'],
+    tags: ['Delhi NCR', 'Noida Extension', 'Greater Noida West', 'Nirala Aspire', '201306'],
     rating: 4.6,
     reviews: 74
   },
@@ -223,7 +223,7 @@ export const storesData = [
     whatsapp: '919138004800',
     city: 'Greater Noida',
     state: 'Uttar Pradesh',
-    tags: ['Delhi NCR', 'Delhi', 'NCR'],
+    tags: ['Delhi NCR', 'Greater Noida', 'Swarn Nagari', 'Swarn Plaza', '201315'],
     rating: 4.7,
     reviews: 85
   },
@@ -265,11 +265,12 @@ export const storesData = [
   {
     id: 11,
     name: 'Cleanz24 - Roorkee',
-    address: 'Roorkee, Uttarakhand',
+    address: 'A-76/11, Ground Floor, Bhandari Colony, Paniyala Road, Subhash Nagar, Roorkee, Distt. Haridwar, Uttarakhand - 247667',
     phone: '91380 04800',
     whatsapp: '919138004800',
     city: 'Roorkee',
     state: 'Uttarakhand',
+    tags: ['Roorkee', 'Haridwar', 'Subhash Nagar', 'Bhandari Colony', 'Uttarakhand'],
     rating: 4.8,
     reviews: 140
   },
@@ -303,6 +304,7 @@ export const storesData = [
     whatsapp: '919138004800',
     city: 'Gurugram',
     state: 'Haryana',
+    tags: ['Gurugram', 'Gurgaon', 'Sector 52', '122003', 'Snack & Sip Building'],
     rating: 4.8,
     reviews: 64
   },
@@ -347,6 +349,7 @@ export const storesData = [
     whatsapp: '919138004800',
     city: 'Kharar',
     state: 'Punjab',
+    tags: ['Kharar', 'Punjab', 'Sector 127', 'SBP City Square', '140307'],
     rating: 4.8,
     reviews: 108
   },
@@ -358,6 +361,7 @@ export const storesData = [
     whatsapp: '919138004800',
     city: 'Siliguri',
     state: 'West Bengal',
+    tags: ['Siliguri', 'West Bengal', 'Ashram Para', 'Hakim Para', '734001'],
     rating: 4.9,
     reviews: 119
   },
@@ -497,12 +501,13 @@ export const storesData = [
   },
   {
     id: 36,
-    name: 'Cleanz24 - Pune',
-    address: 'Sector 29, D Mart Road, Near Ravet Food Park, Ravet, Pune, Maharashtra 412101',
+    name: 'Cleanz24 - Wakad Pune',
+    address: 'PATIL ESTATE, Ground floor, Survey No. 75/1/1, Bhumkar Chowk Road, Tathawade, Tehsil Haveli, Pimpri-Chinchwad Municipal Corporation, Pune, Maharashtra - 411033 (Wakad)',
     phone: '91380 04800',
     whatsapp: '919138004800',
-    city: 'Pune',
+    city: 'Wakad',
     state: 'Maharashtra',
+    tags: ['Pune', 'Wakad', 'Tathawade', 'Bhumkar Chowk', 'Pimpri-Chinchwad', 'PCMC'],
     rating: 4.9,
     reviews: 55
   },
@@ -563,23 +568,25 @@ export const storesData = [
   },
   {
     id: 42,
-    name: 'Cleanz24 - Trivandrum',
-    address: 'TC 81/781, Thyvila Road, Near Baba Tourist Home, Thampanoor,Trivandrum-695001',
+    name: 'Cleanz24 - Thampanoor (Trivandrum)',
+    address: 'TC 81/781, Thyvila Road, Near Baba Tourist Home, Thampanoor, Trivandrum, Kerala 695001',
     phone: '91380 04800',
     whatsapp: '919138004800',
     city: 'Trivandrum',
     state: 'Kerala',
+    tags: ['Trivandrum', 'Thampanoor', 'Thyvila Road', 'Kerala', '695001'],
     rating: 4.7,
     reviews: 121
   },
   {
     id: 43,
-    name: 'Cleanz24 - Parat',
-    address: 'Near Ponnath juice and bakes, Kunnothuparamba road, Parat, Kerala -670692',
+    name: 'Cleanz24 - Parad / Parat',
+    address: 'Near Ponnath Juice and Bakes, Kunnothuparamba Road, Parad, Kerala - 670692',
     phone: '91380 04800',
     whatsapp: '919138004800',
-    city: 'Parat',
+    city: 'Parad',
     state: 'Kerala',
+    tags: ['Parad', 'Parat', 'Kannur', 'Kunnothuparamba', 'Kerala'],
     rating: 4.8,
     reviews: 132
   },
@@ -653,11 +660,12 @@ export const storesData = [
   {
     id: 52,
     name: 'Cleanz24 - Padmanabhanagar Bengaluru',
-    address: 'MVS Arcade, Basment Floor 4 Kadarenahakki Main Rd, Near Amma’s Pastries, RK Layout 2nd Stare, Padmanabhanagar, Bengaluru, Karnataka 560070',
+    address: 'MVG Arcade, Basement Floor 4, Kadarenahalli Main Rd, Next to Amma\'s Pastries, RK Layout 2nd Stage, Padmanabhanagar, Bengaluru, Karnataka 560070',
     phone: '91380 04800',
     whatsapp: '919138004800',
     city: 'Padmanabhanagar',
     state: 'Karnataka',
+    tags: ['Bengaluru', 'Bangalore', 'Padmanabhanagar', 'Kadarenahalli', '560070'],
     rating: 4.9,
     reviews: 111
   },
@@ -729,12 +737,13 @@ export const storesData = [
   },
   {
     id: 59,
-    name: 'Cleanz24 - Gopanpally Hyderabad',
-    address: 'Cleanz24 H.No.1-100/29/9/12, Gopanpally Village,Serilingampally Mandal, K.V. Rangareddy , Telangana -500046',
+    name: 'Cleanz24 - Gopanpally / Tellapur Hyderabad',
+    address: 'H.No.1-100/29/9/12, Gopanpally Village, Serilingampally Mandal, K.V. Rangareddy, Telangana - 500046 (Tellapur)',
     phone: '91380 04800',
     whatsapp: '919138004800',
     city: 'Gopanpally',
     state: 'Telangana',
+    tags: ['Hyderabad', 'Gopanpally', 'Tellapur', 'Serilingampally'],
     rating: 4.8,
     reviews: 68
   },
@@ -759,8 +768,107 @@ export const storesData = [
     state: 'Madhya Pradesh',
     rating: 4.6,
     reviews: 90
+  },
+  {
+    id: 62,
+    name: 'Cleanz24 - Pimpri-Chinchwad (Pradhikaran)',
+    address: 'Pradhikaran, Pimpri-Chinchwad, Maharashtra',
+    phone: '91380 04800',
+    whatsapp: '919138004800',
+    city: 'Pimpri-Chinchwad',
+    state: 'Maharashtra',
+    rating: 4.8,
+    reviews: 25
+  },
+  {
+    id: 63,
+    name: 'Cleanz24 - Siwara (Main Market)',
+    address: 'Main Market, Siwara, Rajasthan',
+    phone: '91380 04800',
+    whatsapp: '919138004800',
+    city: 'Siwara',
+    state: 'Rajasthan',
+    rating: 4.7,
+    reviews: 18
+  },
+
+
+  {
+    id: 65,
+    name: 'Cleanz24 - Hyderabad (Kukatpally)',
+    address: 'Door # - LIC-81, Green Hills Rd, Kukatpally Housing Board Colony, KPHB Phase 15, Baskin Robbins, Kukatpally, Hyderabad, Telangana 500072',
+    phone: '91380 04800',
+    whatsapp: '919138004800',
+    city: 'Hyderabad',
+    state: 'Telangana',
+    tags: ['Hyderabad', 'Kukatpally', 'KPHB'],
+    rating: 4.8,
+    reviews: 40
+  },
+  {
+    id: 66,
+    name: 'Cleanz24 - Kokapet Hyderabad',
+    address: 'SNAAPP224 (Food Court) Shop No.10, Survey No. 476/P, D. No. 1-1/476, Kokapet Circle, Manchirevula Village, Gandipet Mandal, Hyderabad, Telangana - 500075',
+    phone: '91380 04800',
+    whatsapp: '919138004800',
+    city: 'Kokapet',
+    state: 'Telangana',
+    tags: ['Hyderabad', 'Kokapet', 'Manchirevula', 'Gandipet', '500075'],
+    rating: 4.7,
+    reviews: 28
+  },
+  {
+    id: 67,
+    name: 'Cleanz24 - Vaishali (Ghaziabad)',
+    address: 'Shop No. 2, Plot No. 4/129, Sector 4, Near Paras Hospital, Vaishali, Ghaziabad, Uttar Pradesh - 201010',
+    phone: '91380 04800',
+    whatsapp: '919138004800',
+    city: 'Ghaziabad',
+    state: 'Uttar Pradesh',
+    tags: ['Delhi NCR', 'Ghaziabad', 'Vaishali'],
+    rating: 4.9,
+    reviews: 15
+  },
+  {
+    id: 68,
+    name: 'Cleanz24 - Kowkoor (Secunderabad)',
+    address: 'Shop:2 Lower ground floor, Janapriya Arcadia, Kowkoor, Alwal, Secunderabad, Telangana 500010',
+    phone: '91380 04800',
+    whatsapp: '919138004800',
+    city: 'Secunderabad',
+    state: 'Telangana',
+    tags: ['Hyderabad', 'Secunderabad', 'Alwal', 'Kowkoor', 'Billa Enterprise', '500010'],
+    rating: 4.8,
+    reviews: 18
+  },
+  {
+    id: 69,
+    name: 'Cleanz24 - IB Nagar (Hyderabad)',
+    address: 'Sri Aadi Lakshmi Enterprises, IB Nagar, Hyderabad, Telangana',
+    phone: '91380 04800',
+    whatsapp: '919138004800',
+    city: 'Hyderabad',
+    state: 'Telangana',
+    tags: ['Hyderabad', 'IB Nagar', 'Sri Aadi Lakshmi', 'Dry Clean Studio'],
+    rating: 4.8,
+    reviews: 22
+  },
+  {
+    id: 70,
+    name: 'Cleanz24 - Churu',
+    address: '21/22 Poonia Colony, Gali No. 8, Near Phatak, Churu, Rajasthan - 331001',
+    phone: '91380 04800',
+    whatsapp: '919138004800',
+    city: 'Churu',
+    state: 'Rajasthan',
+    tags: ['Churu', 'Poonia Colony', 'Phatak', 'Rajasthan', 'Dry Cleaners'],
+    rating: 4.7,
+    reviews: 18
   }
 ];
+
+
+
 
 export const pricingPackagesData = {
   hatchback: [

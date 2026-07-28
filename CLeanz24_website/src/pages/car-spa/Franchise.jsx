@@ -356,7 +356,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
           <div className="row g-4">
             
             {/* Model 1: Express */}
-            <div className="col-lg-4">
+            <div className="col-lg-4" id="franchise-model-express">
               <div className="card h-100 p-4 premium-card text-start">
                 <h3 className="fw-bold h4 text-heading mb-1 text-gradient">Express</h3>
                 <p className="text-muted-custom small mb-3">Designed for compact high-footfall spaces. Focuses on foam washing and express vacuuming.</p>
@@ -399,7 +399,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
             </div>
 
             {/* Model 2: Premium */}
-            <div className="col-lg-4">
+            <div className="col-lg-4" id="franchise-model-premium">
               <div className="card h-100 p-4 premium-card text-start highlighted">
                 <h3 className="fw-bold h4 text-heading mb-1 text-gradient">Premium</h3>
                 <p className="text-muted-custom small mb-3">Our standard studio setup. Handles deep cleaning wash, engine cleaning, and ceramic shield protection washes.</p>
@@ -443,7 +443,7 @@ function Franchise({ isDarkMode, toggleTheme }) {
             </div>
 
             {/* Model 3: Elite Mega */}
-            <div className="col-lg-4">
+            <div className="col-lg-4" id="franchise-model-elite-mega">
               <div className="card h-100 p-4 premium-card text-start">
                 <h3 className="fw-bold h4 text-heading mb-1 text-gradient">Elite Mega</h3>
                 <p className="text-muted-custom small mb-3">Flagship mega washing workspace. Accommodates multiple high-speed washing tracks, deep cleaning bays, and a cafe lounge.</p>

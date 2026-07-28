@@ -10,73 +10,23 @@ const storeLocationsGrouped = [
   { state: 'Haryana', cities: ['Gurugram', 'Panchkula'] },
   { state: 'Himachal Pradesh', cities: ['Una'] },
   { state: 'Karnataka', cities: ['HSR Layout', 'Padmanabhanagar', 'Varthur Hobli'] },
-  { state: 'Kerala', cities: ['Kannur', 'Kozhikode', 'Panoor', 'Parat', 'Trivandrum', 'Vaikom'] },
+  { state: 'Kerala', cities: ['Kannur', 'Kozhikode', 'Panoor', 'Parad', 'Parat', 'Trivandrum', 'Vaikom'] },
   { state: 'Madhya Pradesh', cities: ['Bhopal'] },
-  { state: 'Maharashtra', cities: ['Alibag', 'Pune', 'Thane West'] },
+  { state: 'Maharashtra', cities: ['Alibag', 'Pimpri-Chinchwad', 'Pune', 'Thane West', 'Wakad'] },
   { state: 'Odisha', cities: ['Angul', 'Berhampur', 'Bomikhal', 'Chandrasekharpur', 'Jatni', 'Jeypore', 'Kharakhia', 'Palasuni'] },
   { state: 'Puducherry', cities: ['Mahe'] },
   { state: 'Punjab', cities: ['Amritsar', 'Bathinda', 'Kharar', 'Patiala'] },
   { state: 'Rajasthan', cities: ['Bhilwara', 'Sanchore', 'Udaipur'] },
   { state: 'Tamil Nadu', cities: ['Kalaiyarkovil', 'Karungal'] },
-  { state: 'Telangana', cities: ['Beeramguda', 'Gachibowli', 'Gopanpally', 'Kondapur', 'Narsingi', 'Vanasthalipuram'] },
-  { state: 'Uttar Pradesh', cities: ['Bhinga', 'Greater Noida', 'Greater Noida West', 'Indirapuram', 'Noida', 'Noida Extension'] },
+  { state: 'Telangana', cities: ['Beeramguda', 'Gachibowli', 'Gopanpally', 'Kokapet', 'Kondapur', 'Kukatpally', 'Narsingi', 'Secunderabad', 'Tellapur', 'Vanasthalipuram'] },
+  { state: 'Uttar Pradesh', cities: ['Bhinga', 'Greater Noida', 'Greater Noida West', 'Indirapuram', 'Noida', 'Noida Extension', 'Vaishali'] },
   { state: 'Uttarakhand', cities: ['Karnaprayag', 'Roorkee'] },
   { state: 'West Bengal', cities: ['Siliguri'] }
 ];
 
-const popularSearches = ["Noida", "Bengaluru", "Hyderabad", "Pune", "Gurugram"];
+const popularSearches = ["Noida", "Bengaluru", "Hyderabad", "Secunderabad", "Pune", "Gurugram"];
 
 const comingSoonStores = [
-  {
-    id: 1,
-    name: "Cleanz24 Premium Laundry",
-    type: "Laundry",
-    city: "Hyderabad",
-    state: "Telangana",
-    area: "Kokapet",
-    timeline: "Opening July 2026",
-    status: "Under Construction"
-  },
-  {
-    id: 2,
-    name: "Cleanz24 Express Laundry",
-    type: "Laundry",
-    city: "Secunderabad",
-    state: "Telangana",
-    area: "Kowkoor",
-    timeline: "Opening July 2026",
-    status: "Fit-out Stage"
-  },
-  {
-    id: 3,
-    name: "Cleanz24 Premium Laundry",
-    type: "Laundry",
-    city: "Hyderabad",
-    state: "Telangana",
-    area: "Kukatpally",
-    timeline: "Opening July 2026",
-    status: "Under Construction"
-  },
-  {
-    id: 4,
-    name: "Cleanz24 Eco Laundry & Press",
-    type: "Laundry",
-    city: "Churu",
-    state: "Rajasthan",
-    area: "Main Market",
-    timeline: "Opening July 2026",
-    status: "Under Construction"
-  },
-  {
-    id: 5,
-    name: "Cleanz24 Eco Laundry & Press",
-    type: "Laundry",
-    city: "Siwara",
-    state: "Rajasthan",
-    area: "Main Market",
-    timeline: "Opening July 2026",
-    status: "Under Construction"
-  },
   {
     id: 6,
     name: "Cleanz24 Premium Laundry",
@@ -86,16 +36,6 @@ const comingSoonStores = [
     area: "Main Road",
     timeline: "Opening July 2026",
     status: "Under Construction"
-  },
-  {
-    id: 7,
-    name: "Cleanz24 Premium Laundry & Dry-Clean",
-    type: "Laundry",
-    city: "Pimpri-Chinchwad",
-    state: "Maharashtra",
-    area: "Pradhikaran",
-    timeline: "Opening July 2026",
-    status: "Fit-out Stage"
   },
   // Car Spa coming soon outlets
   {
@@ -165,7 +105,8 @@ export default function Stores() {
     store.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     store.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
     store.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    store.state.toLowerCase().includes(searchQuery.toLowerCase())
+    store.state.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (store.tags && store.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())))
   );
 
   return (

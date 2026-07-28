@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { storesData } from '../../data';
+import { generateStoreSlug } from './StoreDetail';
 import SEOMeta from '../../components/SEOMeta';
 
 // Helper to slugify
@@ -23,9 +24,18 @@ const CITY_LANDMARKS = {
   gurugram: ['Cyber City', 'Kingdom of Dreams', 'Ambience Mall', 'IFFCO Chowk', 'Sector 29 Market'],
   delhi: ['Connaught Place', 'India Gate', 'Red Fort', 'South Extension', 'Rajouri Garden'],
   mumbai: ['Gateway of India', 'Marine Drive', 'Bandra-Worli Sea Link', 'Juhu Beach', 'Chhatrapati Shivaji Terminal'],
-  pune: ['Shaniwar Wada', 'Koregaon Park', 'Viman Nagar', 'Fergusson College Road', 'Aundh'],
+  pune: ['Shaniwar Wada', 'Koregaon Park', 'Viman Nagar', 'Fergusson College Road', 'Aundh', 'Bhumkar Chowk Wakad'],
+  wakad: ['Bhumkar Chowk', 'PATIL ESTATE Tathawade', 'Phoenix Marketcity Wakad', 'Sayaji Hotel', 'Decathlon Wakad'],
   bangalore: ['MG Road', 'Lalbagh Botanical Garden', 'Indiranagar', 'Koramangala', 'Phoenix Marketcity'],
   hyderabad: ['Charminar', 'Golconda Fort', 'Gachibowli Stadium', 'HITEC City', 'Inorbit Mall'],
+  secunderabad: ['Secunderabad Railway Station', 'Hussain Sagar Lake', 'Paradise Circle', 'Clock Tower', 'Janapriya Arcadia Kowkoor'],
+  kowkoor: ['Janapriya Arcadia', 'Alwal Main Road', 'Bollaram Road', 'Lothkunta', 'Trimulgherry'],
+  gopanpally: ['Gopanpally Village', 'Wipro Circle', 'Financial District', 'Manthan International School', 'Tellapur Lake'],
+  tellapur: ['Gopanpally Village', 'Wipro Circle', 'Financial District', 'Manthan International School', 'Tellapur Lake'],
+  kokapet: ['Kokapet Circle', 'SNAAPP224 Food Court', 'Financial District', 'Gandipet Lake', 'Manchirevula Village'],
+  roorkee: ['IIT Roorkee', 'Bhandari Colony', 'Paniyala Road', 'Subhash Nagar', 'Roorkee Cantt'],
+  parad: ['Kunnothuparamba Road', 'Ponnath Juice & Bakes', 'Parat Town', 'Kannur Road'],
+  parat: ['Kunnothuparamba Road', 'Ponnath Juice & Bakes', 'Parat Town', 'Kannur Road'],
   dehradun: ['Clock Tower', 'Rajpur Road', 'Robber\'s Cave', 'Pacific Mall', 'Forest Research Institute'],
 };
 
@@ -37,9 +47,18 @@ const CITY_NEIGHBORHOODS = {
   gurugram: ['Sector 82', 'Sector 84', 'DLF Phase 3', 'Sushant Lok 1', 'Sector 56', 'Golf Course Road', 'Sohna Road'],
   delhi: ['Dwarka', 'Saket', 'Karol Bagh', 'Vasant Kunj', 'Greater Kailash', 'Preet Vihar', 'Pitampura', 'Janakpuri'],
   mumbai: ['Andheri West', 'Bandra West', 'Thane West', 'Alibag', 'Colaba', 'Borivali East', 'Juhu', 'Dadar'],
-  pune: ['Koregaon Park', 'Kothrud', 'Hinjewadi', 'Viman Nagar', 'Hadapsar', 'Baner', 'Kalyani Nagar', 'Aundh'],
+  pune: ['Koregaon Park', 'Kothrud', 'Hinjewadi', 'Viman Nagar', 'Hadapsar', 'Baner', 'Kalyani Nagar', 'Aundh', 'Wakad', 'Tathawade'],
+  wakad: ['PATIL ESTATE', 'Bhumkar Chowk Road', 'Tathawade', 'Dange Chowk', 'Hinjewadi IT Park Phase 1'],
   bangalore: ['HSR Layout', 'Jayanagar', 'Indiranagar', 'Koramangala', 'Whitefield', 'Varthur', 'Padmanabhanagar', 'Malleshwaram'],
-  hyderabad: ['Gachibowli', 'Kondapur', 'Narsingi', 'Beeramguda', 'Vanasthalipuram', 'Gopanpally', 'Madhapur', 'Jubilee Hills'],
+  hyderabad: ['Gachibowli', 'Kondapur', 'Narsingi', 'Beeramguda', 'Vanasthalipuram', 'Gopanpally', 'Tellapur', 'Madhapur', 'Jubilee Hills', 'Kukatpally', 'Kokapet'],
+  secunderabad: ['Kowkoor', 'Alwal', 'Bollaram', 'Trimulgherry', 'Sainikpuri', 'Maredpally'],
+  kowkoor: ['Janapriya Arcadia', 'Alwal', 'Old Alwal', 'Yapral', 'Bollaram Colony'],
+  gopanpally: ['Gopanpally Village', 'Tellapur Road', 'Serilingampally', 'Gopanpally Thanda', 'Wipro Circle'],
+  tellapur: ['Tellapur OSB', 'Gopanpally Village', 'Serilingampally', 'Mayfair Apartments', 'Aparna CyberLife'],
+  kokapet: ['Kokapet Circle', 'Manchirevula Village', 'Gandipet Mandal', 'Financial District Extension', 'Golden Mile Kokapet'],
+  roorkee: ['Bhandari Colony', 'Paniyala Road', 'Subhash Nagar', 'IIT Roorkee Campus', 'Civil Lines Roorkee'],
+  parad: ['Kunnothuparamba Road', 'Ponnath Juice Area', 'Parad Junction', 'Kannur District'],
+  parat: ['Kunnothuparamba Road', 'Ponnath Juice Area', 'Parat Junction', 'Kannur District'],
   dehradun: ['Rajpur Road', 'Jakhan', 'Dalanwala', 'Indira Nagar', 'Premnagar', 'Vasant Vihar', 'Chakrata Road'],
 };
 
@@ -661,7 +680,7 @@ export default function LocationDetail() {
                       <strong>⭐ Rating:</strong> {store.rating || '4.8'} ({store.reviews || '40'} reviews)
                     </div>
                     
-                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '10px' }}>
                       <a
                         href={`tel:+91${store.phone.replace(/\s+/g, '')}`}
                         style={{
@@ -698,6 +717,23 @@ export default function LocationDetail() {
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01C17.18 3.03 14.69 2 12.04 2zm5.83 14.09c-.25.7-.1.97-.24 1.45-.33 1.15-1.35 1.77-2.38 1.95-1.12.19-2.3-.22-3.32-.73-2.18-1.09-3.9-2.81-4.99-4.99-.51-1.02-.92-2.2-.73-3.32.18-1.03.8-2.05 1.95-2.38.48-.14.75.01 1.45-.24.28.56.84 1.68 1.12 2.24.14.28.01.56-.14.84-.28.56-.84 1.12-.56 1.4.56 1.12 1.4 1.96 2.52 2.52.28.28.84-.28 1.4-.56.28-.14.56-.28.84-.14.56.28 1.68.84 2.24 1.12.25.14.39.42.24.71z"/></svg> WhatsApp
                       </a>
                     </div>
+                    <Link
+                      to={`/laundry/store/${generateStoreSlug(store.name)}`}
+                      style={{
+                        display: 'block',
+                        background: 'linear-gradient(135deg, #1A365D 0%, #2563EB 100%)',
+                        color: '#fff',
+                        textDecoration: 'none',
+                        fontSize: '12px',
+                        fontWeight: 700,
+                        padding: '9px 14px',
+                        borderRadius: '8px',
+                        textAlign: 'center',
+                        boxShadow: '0 2px 8px rgba(37, 99, 235, 0.2)',
+                      }}
+                    >
+                      📸 View Store Photos &amp; Details →
+                    </Link>
                   </div>
                 ))}
 

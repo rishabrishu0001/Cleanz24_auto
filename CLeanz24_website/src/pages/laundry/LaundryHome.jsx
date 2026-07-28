@@ -2,9 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Player } from '@lottiefiles/react-lottie-player';
 import laundry1Url from '../../assets/laundry1.json?url';
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import { storesData } from '../../data';
 import SEOMeta from '../../components/SEOMeta';
+import { GOOGLE_SHEETS_LAUNDRY_SCRIPT_URL } from '../../config';
 
 // Import local assets
 import heroCircleImg from '../../assets/hero_laundry_circle.png';
@@ -31,11 +32,108 @@ import laundryHandImg from '../../assets/laundry_hand.png';
 // laundry2Img removed — unused
 
 export default function LaundryHome() {
+  const { isDarkMode } = useOutletContext() || {};
+
   // Form state (used in hero form if re-enabled)
   const [_formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', mobile: '', address: '' });
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [recaptchaChecked, setRecaptchaChecked] = useState(false);
+
+  // New Hero Contact Form States
+  const [contactFormData, setContactFormData] = useState({ name: '', mobile: '', city: '' });
+  const [contactSubmitted, setContactSubmitted] = useState(false);
+  const [isSubmittingContact, setIsSubmittingContact] = useState(false);
+  const [countryCode, setCountryCode] = useState('+91');
+  const [countryEmoji, setCountryEmoji] = useState('🇮🇳');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [showPopup, setShowPopup] = useState(true);
+
+  useEffect(() => {
+    if (showPopup) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showPopup]);
+
+  const countries = [
+    { code: '+91', emoji: '🇮🇳', name: 'India' },
+    { code: '+1', emoji: '🇺🇸', name: 'United States' },
+    { code: '+1', emoji: '🇨🇦', name: 'Canada' },
+    { code: '+44', emoji: '🇬🇧', name: 'United Kingdom' },
+    { code: '+971', emoji: '🇦🇪', name: 'United Arab Emirates' },
+    { code: '+61', emoji: '🇦🇺', name: 'Australia' },
+    { code: '+65', emoji: '🇸🇬', name: 'Singapore' },
+    { code: '+966', emoji: '🇸🇦', name: 'Saudi Arabia' },
+    { code: '+974', emoji: '🇶🇦', name: 'Qatar' },
+    { code: '+968', emoji: '🇴🇲', name: 'Oman' },
+    { code: '+973', emoji: '🇧🇭', name: 'Bahrain' },
+    { code: '+965', emoji: '🇰🇼', name: 'Kuwait' },
+    { code: '+49', emoji: '🇩🇪', name: 'Germany' },
+    { code: '+33', emoji: '🇫🇷', name: 'France' },
+    { code: '+60', emoji: '🇲🇾', name: 'Malaysia' },
+    { code: '+81', emoji: '🇯🇵', name: 'Japan' },
+    { code: '+64', emoji: '🇳🇿', name: 'New Zealand' },
+    { code: '+977', emoji: '🇳🇵', name: 'Nepal' },
+    { code: '+880', emoji: '🇧🇩', name: 'Bangladesh' },
+    { code: '+94', emoji: '🇱🇰', name: 'Sri Lanka' },
+    { code: '+27', emoji: '🇿🇦', name: 'South Africa' },
+  ];
+
+  const handleContactInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'mobile') {
+      setContactFormData({ ...contactFormData, [name]: value.replace(/\D/g, '') });
+    } else {
+      setContactFormData({ ...contactFormData, [name]: value });
+    }
+  };
+
+  const handleContactFormSubmit = async (e) => {
+    e.preventDefault();
+    if (isSubmittingContact) return;
+    setIsSubmittingContact(true);
+    try {
+      const payload = {
+        timestamp: new Date().toISOString().split('T')[0],
+        name: contactFormData.name,
+        mobile: `'${countryCode} ${contactFormData.mobile}`,
+        email: 'N/A',
+        service: 'Contact Inquiry / Pickup',
+        date: 'N/A',
+        time: 'N/A',
+        address: contactFormData.city || 'N/A',
+        type: 'Laundry Pickup / Contact Request',
+        source: 'Laundry',
+        price: 0,
+        isMember: false,
+        sheetName: 'washing leads'
+      };
+
+      await fetch(GOOGLE_SHEETS_LAUNDRY_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain',
+        },
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {
+      console.error('Error submitting contact form:', err);
+    } finally {
+      setIsSubmittingContact(false);
+      setContactSubmitted(true);
+      setTimeout(() => {
+        setContactSubmitted(false);
+        setContactFormData({ name: '', mobile: '', city: '' });
+        setShowPopup(false);
+      }, 4500);
+    }
+  };
 
   // Store Search State
   const [storeSearchQuery, setStoreSearchQuery] = useState('');
@@ -180,10 +278,12 @@ export default function LaundryHome() {
   return (
     <div className="home-page-new">
       <SEOMeta
-        title="Premium Laundry & Dry Cleaning Services"
-        description="Get professional laundry, eco-friendly dry cleaning, shoe cleaning, steam pressing, and home deep cleaning at Cleanz24. Free pickup & delivery above Rs. 300."
+        title="Cleanz24 — India's Leading Premium Laundry & Dry Clean Studio"
+        description="Cleanz24 is India's leading Premium Laundry and Dry Clean Studio and Car spa studio. In Laundry industry we have 100+ Franchise operational across multiple cities and States across India. We also offer premium Car Spa services including foam wash, ceramic coating, PPF and car detailing."
         canonical="https://cleanz24.com/laundry"
       />
+
+
       {/* ────────────────── 1. HERO SECTION ────────────────── */}
       <section className="hero-section-new">
         {/* Soap Bubbles Animation Overlay */}
@@ -198,9 +298,9 @@ export default function LaundryHome() {
         </div>
 
         <div className="container position-relative z-3">
-          <div className="row align-items-center">
+          <div className="row align-items-center g-5">
             {/* Hero Left Content */}
-            <div className="col-lg-10 text-start">
+            <div className="col-lg-8 text-start">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -211,26 +311,41 @@ export default function LaundryHome() {
                   laundry & dry cleaning service
                 </p>
                 
-                <h1 className="hero-title-new">
+                <h1 className="hero-title-new" style={{ fontSize: '46px' }}>
                   <span className="text-highlight">Best Laundry &amp; Dry Cleaning</span><br />
                   Store in India
                 </h1>
 
-                <p className="hero-discount-text">
+                <p className="hero-discount-text" style={{ marginBottom: '20px' }}>
                   Save up to 20% on your first order!
                 </p>
-                
-                {/* Floating/Action buttons next to text */}
-                {/* <div className="d-flex flex-wrap gap-3 mt-4">
-                  <Link to="/laundry/contact-us" className="btn-primary-custom">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-                    Schedule Your Pickup
-                  </Link>
-                  <a href="https://wa.me/919138004800" target="_blank" rel="noreferrer" className="btn-secondary-custom">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01C17.18 3.03 14.69 2 12.04 2zm5.83 14.09c-.25.7-.1.97-.24 1.45-.33 1.15-1.35 1.77-2.38 1.95-1.12.19-2.3-.22-3.32-.73-2.18-1.09-3.9-2.81-4.99-4.99-.51-1.02-.92-2.2-.73-3.32.18-1.03.8-2.05 1.95-2.38.48-.14.75.01 1.45-.24.28.56.84 1.68 1.12 2.24.14.28.01.56-.14.84-.28.56-.84 1.12-.56 1.4.56 1.12 1.4 1.96 2.52 2.52.28.28.84-.28 1.4-.56.28-.14.56-.28.84-.14.56.28 1.68.84 2.24 1.12.25.14.39.42.24.71z"/></svg>
-                    Chat On Whatsapp
-                  </a>
-                </div> */}
+
+                {/* CTA Action button to open popup */}
+                <div className="mt-4">
+                  <button 
+                    onClick={() => setShowPopup(true)} 
+                    className="btn-primary-custom"
+                    style={{
+                      padding: '16px 36px',
+                      fontSize: '1.05rem',
+                      borderRadius: '50px',
+                      boxShadow: '0 8px 25px rgba(60, 139, 53, 0.4)',
+                      background: 'linear-gradient(135deg, #3C8B35 0%, #27a243 100%)',
+                      color: '#fff',
+                      border: 'none',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '10px',
+                      transition: 'transform 0.2s, box-shadow 0.2s'
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 10px 30px rgba(60, 139, 53, 0.55)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 8px 25px rgba(60, 139, 53, 0.4)'; }}
+                  >
+                    🚀 Schedule Free Pickup
+                  </button>
+                </div>
               </motion.div>
             </div>
           </div>
@@ -937,7 +1052,7 @@ export default function LaundryHome() {
       </section>
 
       {/* ────────────────── STICKY WIDGETS AT BOTTOM-LEFT ────────────────── */}
-      <div className="laundry-sticky-widgets d-none d-md-flex">
+      <div className="laundry-sticky-widgets d-flex">
         <a 
           href="https://wa.me/919138004800" 
           target="_blank" 
@@ -955,6 +1070,332 @@ export default function LaundryHome() {
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
         </a>
       </div>
+
+      {/* ────────────────── POPUP BOOKING MODAL ────────────────── */}
+      <AnimatePresence>
+        {showPopup && (
+          <div 
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              backgroundColor: 'rgba(0, 0, 0, 0.65)',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 9999,
+              padding: '20px',
+            }}
+            onClick={() => setShowPopup(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              style={{
+                background: isDarkMode ? '#12253f' : '#ffffff',
+                borderRadius: '24px',
+                padding: '36px 32px 32px',
+                width: '100%',
+                maxWidth: '485px',
+                boxShadow: isDarkMode 
+                  ? '0 20px 50px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08)' 
+                  : '0 20px 50px rgba(0,0,0,0.15)',
+                border: isDarkMode ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.08)',
+                position: 'relative',
+                maxHeight: '90vh',
+                overflowY: 'auto',
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setShowPopup(false)}
+                style={{
+                  position: 'absolute',
+                  top: '20px',
+                  right: '20px',
+                  background: isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)',
+                  border: 'none',
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  color: isDarkMode ? '#ffffff' : '#0f172a',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '1rem',
+                  cursor: 'pointer',
+                  transition: 'background 0.2s',
+                  zIndex: 10,
+                }}
+                onMouseEnter={e => { e.currentTarget.style.background = isDarkMode ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.1)'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)'; }}
+              >
+                ✕
+              </button>
+
+              {contactSubmitted ? (
+                <div className="text-center py-4">
+                  <div style={{ fontSize: '3.5rem', marginBottom: 15 }}>✅</div>
+                  <h4 className="fw-bold mb-2" style={{ color: '#4ade80', fontFamily: 'Poppins, sans-serif' }}>Request Sent!</h4>
+                  <p style={{ color: isDarkMode ? 'rgba(255,255,255,0.8)' : '#334155', fontSize: '0.95rem', lineHeight: 1.6 }}>
+                    Thank you, <strong style={{ color: isDarkMode ? '#fff' : '#0f172a' }}>{contactFormData.name}</strong>!<br />
+                    Our team will call you at <strong style={{ color: '#3C8B35' }}>{countryCode} {contactFormData.mobile}</strong> within 24 hours.
+                  </p>
+                  <button
+                    onClick={() => { setContactSubmitted(false); setContactFormData({ name: '', mobile: '', email: '', message: '' }); }}
+                    className="btn-secondary-custom mt-3"
+                    style={{ padding: '10px 24px', fontSize: '0.9rem' }}
+                  >
+                    Submit Another
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleContactFormSubmit} noValidate>
+                  {/* Form Header */}
+                  <div style={{ marginBottom: '24px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+                      <div style={{
+                        width: '36px', height: '36px', borderRadius: '10px',
+                        background: 'linear-gradient(135deg, #3C8B35, #27a243)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        fontSize: '1rem', boxShadow: '0 4px 12px rgba(60,139,53,0.5)'
+                      }}>🚀</div>
+                      <h4 style={{
+                        fontFamily: 'Poppins, sans-serif',
+                        color: isDarkMode ? '#ffffff' : '#0f172a',
+                        fontSize: '1.25rem',
+                        fontWeight: 700,
+                        margin: 0,
+                        letterSpacing: '-0.3px'
+                      }}>
+                        Schedule Your Pickup
+                      </h4>
+                    </div>
+                    <p style={{ color: isDarkMode ? 'rgba(255,255,255,0.6)' : '#64748b', fontSize: '0.82rem', margin: 0, paddingLeft: '46px' }}>
+                      Free pickup • Same day service available
+                    </p>
+                  </div>
+
+                  {/* Divider */}
+                  <div style={{ height: '1px', background: isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.07)', marginBottom: '20px' }} />
+
+                  {/* Name */}
+                  <div style={{ marginBottom: '16px' }}>
+                    <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: isDarkMode ? 'rgba(255,255,255,0.7)' : '#475569', marginBottom: '6px', letterSpacing: '0.4px', textTransform: 'uppercase' }}>
+                      Full Name <span style={{ color: '#f87171' }}>*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={contactFormData.name}
+                      onChange={handleContactInputChange}
+                      placeholder="Enter your name"
+                      required
+                      style={{
+                        width: '100%',
+                        padding: '12px 14px',
+                        borderRadius: '10px',
+                        border: isDarkMode ? '1.5px solid rgba(255,255,255,0.12)' : '1.5px solid #cbd5e1',
+                        background: isDarkMode ? 'rgba(255,255,255,0.05)' : '#f8fafc',
+                        color: isDarkMode ? '#ffffff' : '#0f172a',
+                        fontSize: '0.92rem',
+                        outline: 'none',
+                        transition: 'border-color 0.2s, background 0.2s',
+                        fontFamily: 'inherit'
+                      }}
+                      onFocus={e => { e.target.style.borderColor = 'rgba(60,139,53,0.8)'; e.target.style.background = isDarkMode ? 'rgba(255,255,255,0.08)' : '#ffffff'; }}
+                      onBlur={e => { e.target.style.borderColor = isDarkMode ? 'rgba(255,255,255,0.12)' : '#cbd5e1'; e.target.style.background = isDarkMode ? 'rgba(255,255,255,0.05)' : '#f8fafc'; }}
+                    />
+                  </div>
+
+                  {/* Mobile */}
+                  <div style={{ marginBottom: '16px' }}>
+                    <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: isDarkMode ? 'rgba(255,255,255,0.7)' : '#475569', marginBottom: '6px', letterSpacing: '0.4px', textTransform: 'uppercase' }}>
+                      Mobile Number <span style={{ color: '#f87171' }}>*</span>
+                    </label>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      {/* Country Code Button */}
+                      <div style={{ position: 'relative', flexShrink: 0 }}>
+                        <button
+                          type="button"
+                          onClick={() => setDropdownOpen(!dropdownOpen)}
+                          style={{
+                            padding: '12px 12px',
+                            borderRadius: '10px',
+                            border: isDarkMode ? '1.5px solid rgba(255,255,255,0.12)' : '1.5px solid #cbd5e1',
+                            background: isDarkMode ? 'rgba(255,255,255,0.05)' : '#f8fafc',
+                            color: isDarkMode ? '#ffffff' : '#0f172a',
+                            fontSize: '0.88rem',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '4px',
+                            whiteSpace: 'nowrap',
+                            outline: 'none',
+                            transition: 'border-color 0.2s'
+                          }}
+                        >
+                          <span>{countryEmoji}</span>
+                          <span>{countryCode}</span>
+                          <span style={{ fontSize: '0.6rem', opacity: 0.7 }}>▼</span>
+                        </button>
+                        {dropdownOpen && (
+                          <>
+                            <div
+                              onClick={() => setDropdownOpen(false)}
+                              style={{ position: 'fixed', top: 0, right: 0, bottom: 0, left: 0, zIndex: 99 }}
+                            />
+                            <div style={{
+                              position: 'absolute',
+                              top: '100%',
+                              left: 0,
+                              zIndex: 100,
+                              background: isDarkMode ? '#1e2d1e' : '#ffffff',
+                              border: isDarkMode ? '1px solid rgba(60,139,53,0.4)' : '1px solid #e2e8f0',
+                              borderRadius: '10px',
+                              boxShadow: '0 8px 24px rgba(0,0,0,0.18)',
+                              width: '130px',
+                              maxHeight: '180px',
+                              overflowY: 'auto',
+                              marginTop: '4px'
+                            }}>
+                              {countries.map((c, i) => (
+                                <div
+                                  key={i}
+                                  onClick={() => { setCountryCode(c.code); setCountryEmoji(c.emoji); setDropdownOpen(false); }}
+                                  style={{
+                                    padding: '8px 12px',
+                                    fontSize: '0.88rem',
+                                    color: isDarkMode ? '#e2e8f0' : '#1e293b',
+                                    cursor: 'pointer',
+                                    background: countryCode === c.code ? 'rgba(60,139,53,0.15)' : 'transparent',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                    transition: 'background 0.15s'
+                                  }}
+                                  onMouseEnter={e => { e.currentTarget.style.background = isDarkMode ? 'rgba(255,255,255,0.08)' : '#f1f5f9'; }}
+                                  onMouseLeave={e => { e.currentTarget.style.background = countryCode === c.code ? 'rgba(60,139,53,0.15)' : 'transparent'; }}
+                                >
+                                  <span>{c.emoji}</span><span>{c.code}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </>
+                        )}
+                      </div>
+                      {/* Phone Input */}
+                      <input
+                        type="tel"
+                        name="mobile"
+                        value={contactFormData.mobile}
+                        onChange={handleContactInputChange}
+                        placeholder="Phone number"
+                        required
+                        style={{
+                          flex: 1,
+                          padding: '12px 14px',
+                          borderRadius: '10px',
+                          border: isDarkMode ? '1.5px solid rgba(255,255,255,0.12)' : '1.5px solid #cbd5e1',
+                          background: isDarkMode ? 'rgba(255,255,255,0.05)' : '#f8fafc',
+                          color: isDarkMode ? '#ffffff' : '#0f172a',
+                          fontSize: '0.92rem',
+                          outline: 'none',
+                          transition: 'border-color 0.2s, background 0.2s',
+                          fontFamily: 'inherit'
+                        }}
+                        onFocus={e => { e.target.style.borderColor = 'rgba(60,139,53,0.8)'; e.target.style.background = isDarkMode ? 'rgba(255,255,255,0.08)' : '#ffffff'; }}
+                        onBlur={e => { e.target.style.borderColor = isDarkMode ? 'rgba(255,255,255,0.12)' : '#cbd5e1'; e.target.style.background = isDarkMode ? 'rgba(255,255,255,0.05)' : '#f8fafc'; }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* City */}
+                  <div style={{ marginBottom: '24px' }}>
+                    <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: isDarkMode ? 'rgba(255,255,255,0.7)' : '#475569', marginBottom: '6px', letterSpacing: '0.4px', textTransform: 'uppercase' }}>
+                      City <span style={{ color: '#f87171' }}>*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="city"
+                      value={contactFormData.city}
+                      onChange={handleContactInputChange}
+                      placeholder="Enter your city"
+                      required
+                      style={{
+                        width: '100%',
+                        padding: '12px 14px',
+                        borderRadius: '10px',
+                        border: isDarkMode ? '1.5px solid rgba(255,255,255,0.12)' : '1.5px solid #cbd5e1',
+                        background: isDarkMode ? 'rgba(255,255,255,0.05)' : '#f8fafc',
+                        color: isDarkMode ? '#ffffff' : '#0f172a',
+                        fontSize: '0.92rem',
+                        outline: 'none',
+                        transition: 'border-color 0.2s, background 0.2s',
+                        fontFamily: 'inherit'
+                      }}
+                      onFocus={e => { e.target.style.borderColor = 'rgba(60,139,53,0.8)'; e.target.style.background = isDarkMode ? 'rgba(255,255,255,0.08)' : '#ffffff'; }}
+                      onBlur={e => { e.target.style.borderColor = isDarkMode ? 'rgba(255,255,255,0.12)' : '#cbd5e1'; e.target.style.background = isDarkMode ? 'rgba(255,255,255,0.05)' : '#f8fafc'; }}
+                    />
+                  </div>
+
+                  {/* Submit Button */}
+                  <button
+                    type="submit"
+                    disabled={isSubmittingContact}
+                    style={{
+                      width: '100%',
+                      padding: '14px 20px',
+                      borderRadius: '12px',
+                      border: 'none',
+                      background: isSubmittingContact
+                        ? 'rgba(60,139,53,0.5)'
+                        : 'linear-gradient(135deg, #3C8B35 0%, #27a243 100%)',
+                      color: '#ffffff',
+                      fontSize: '0.97rem',
+                      fontWeight: 700,
+                      cursor: isSubmittingContact ? 'not-allowed' : 'pointer',
+                      letterSpacing: '0.3px',
+                      boxShadow: isSubmittingContact ? 'none' : '0 4px 20px rgba(60,139,53,0.45)',
+                      transition: 'transform 0.15s, box-shadow 0.15s',
+                      fontFamily: 'inherit'
+                    }}
+                    onMouseEnter={e => { if (!isSubmittingContact) { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 6px 25px rgba(60,139,53,0.6)'; }}}
+                    onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(60,139,53,0.45)'; }}
+                  >
+                    {isSubmittingContact ? (
+                      <span>⏳ Submitting...</span>
+                    ) : (
+                      <span>🚀 Get Free Pickup</span>
+                    )}
+                  </button>
+
+                  {/* Trust badges */}
+                  <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', marginTop: '16px' }}>
+                    <span style={{ fontSize: '0.72rem', color: isDarkMode ? 'rgba(255,255,255,0.4)' : '#64748b', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      🔒 100% Safe
+                    </span>
+                    <span style={{ fontSize: '0.72rem', color: isDarkMode ? 'rgba(255,255,255,0.4)' : '#64748b', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      ⚡ Quick Response
+                    </span>
+                    <span style={{ fontSize: '0.72rem', color: isDarkMode ? 'rgba(255,255,255,0.4)' : '#64748b', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      🌟 Trusted Service
+                    </span>
+                  </div>
+                </form>
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

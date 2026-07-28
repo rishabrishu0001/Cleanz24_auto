@@ -31,6 +31,7 @@ import Contact from './pages/laundry/Contact';
 import LaundryBlog from './pages/laundry/Blog';
 import Locations from './pages/laundry/Locations';
 import LocationDetail from './pages/laundry/LocationDetail';
+import StoreDetail from './pages/laundry/StoreDetail';
 import PrivacyPolicy from './pages/laundry/PrivacyPolicy';
 import TermsOfService from './pages/laundry/TermsOfService';
 
@@ -121,9 +122,10 @@ function App() {
         <AdminRoute><AdminDashboard /></AdminRoute>
       } />
 
-      {/* ── Locations Central Directory ── */}
+      {/* ── Locations & Store Central Directory ── */}
       <Route element={<LaundryLayout />}>
         <Route path="/locations" element={<Locations />} />
+        <Route path="/store/:storeSlug" element={<StoreDetail />} />
       </Route>
 
       {/* ── Laundry Section ── */}
@@ -138,8 +140,26 @@ function App() {
         <Route path="privacy-policy" element={<PrivacyPolicy />} />
         <Route path="terms-of-service" element={<TermsOfService />} />
         <Route path="about-us" element={<Navigate to="/laundry/services" replace />} />
+        <Route path="store/:storeSlug" element={<StoreDetail />} />
         <Route path=":citySlug" element={<LocationDetail />} />
       </Route>
+
+      {/* ── Top-Level Short Link Redirects (Google Sitelinks & Direct Navigation) ── */}
+      <Route path="/stores" element={<Navigate to="/laundry/stores" replace />} />
+      <Route path="/franchise" element={<Navigate to="/laundry/franchise" replace />} />
+      <Route path="/contact-us" element={<Navigate to="/laundry/contact-us" replace />} />
+      <Route path="/contact" element={<Navigate to="/laundry/contact-us" replace />} />
+      <Route path="/services" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/book" element={<Navigate to="/car-spa/book" replace />} />
+      <Route path="/blog" element={<Navigate to="/laundry/blog" replace />} />
+      <Route path="/blog/:slug" element={<Navigate to="/laundry/blog" replace />} />
+      <Route path="/about" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/about-us" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/privacy-policy" element={<Navigate to="/laundry/privacy-policy" replace />} />
+      <Route path="/terms-of-service" element={<Navigate to="/laundry/terms-of-service" replace />} />
+
+      {/* ── Wildcard Catch-All Fallback (prevents broken/blank 404 pages) ── */}
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }

@@ -685,6 +685,21 @@
   align-items: flex-start;
 }
 
+/* Mobile: smaller buttons, lower z-index so popup stays on top */
+@media (max-width: 767px) {
+  .laundry-app .laundry-sticky-widgets {
+    left: 14px;
+    bottom: 20px;
+    gap: 10px;
+    z-index: 999;
+  }
+  .laundry-app .whatsapp-circle-btn,
+  .laundry-app .phone-circle-btn {
+    width: 44px;
+    height: 44px;
+  }
+}
+
 .laundry-app .whatsapp-circle-btn {
   display: inline-flex;
   align-items: center;
@@ -1732,4 +1747,234 @@
     padding: 90px 0 50px 0;
   }
 }
+
+
+/* ============================================================ */
+/*  LAUNDRY HOME PAGE – COMPREHENSIVE DARK MODE OVERRIDES       */
+/* ============================================================ */
+
+/* ── Section 2: Intro / Stats ── */
+.laundry-app.laundry-dark .home-intro-section,
+.laundry-app.laundry-dark section.bg-white,
+.laundry-app.laundry-dark section.bg-light {
+  background-color: #0b1a30 !important;
+}
+
+.laundry-app.laundry-dark .home-intro-section h2,
+.laundry-app.laundry-dark .home-intro-section h5,
+.laundry-app.laundry-dark section.bg-white h2,
+.laundry-app.laundry-dark section.bg-white h5 {
+  color: #ffffff !important;
+}
+
+.laundry-app.laundry-dark section.bg-white .text-muted,
+.laundry-app.laundry-dark section.bg-white .lead,
+.laundry-app.laundry-dark section.bg-light .text-muted {
+  color: #a0aec0 !important;
+}
+
+/* Trust badge card overlay on intro image */
+.laundry-app.laundry-dark .position-absolute.bg-white {
+  background-color: #12253f !important;
+  border-color: #1b3252 !important;
+}
+
+.laundry-app.laundry-dark .position-absolute.bg-white h6,
+.laundry-app.laundry-dark .position-absolute.bg-white .text-dark {
+  color: #ffffff !important;
+}
+
+.laundry-app.laundry-dark .position-absolute.bg-white .text-muted {
+  color: #a0aec0 !important;
+}
+
+/* ── Section 3: Services Grid ── */
+.laundry-app.laundry-dark .services-grid-inline section,
+.laundry-app.laundry-dark section.bg-light {
+  background-color: #081426 !important;
+}
+
+.laundry-app.laundry-dark .service-card-new {
+  background-color: #12253f;
+  border-color: #1b3252;
+}
+
+.laundry-app.laundry-dark .service-card-new h3 {
+  color: #ffffff !important;
+}
+
+.laundry-app.laundry-dark .service-card-new p {
+  color: #a0aec0 !important;
+}
+
+/* ── Section 4: Dirty Clothes / Process ── */
+.laundry-app.laundry-dark section.bg-white.overflow-hidden {
+  background-color: #0b1a30 !important;
+}
+
+.laundry-app.laundry-dark .process-step-item {
+  background-color: #10203a;
+  border-color: #1b3252;
+}
+
+.laundry-app.laundry-dark .process-step-item h4 {
+  color: #ffffff !important;
+}
+
+.laundry-app.laundry-dark .process-step-item p {
+  color: #a0aec0 !important;
+}
+
+/* ── Section 5: Stats Counter ── */
+.laundry-app.laundry-dark .stat-counter-section {
+  background: linear-gradient(135deg, #0a1f0a 0%, #0b1a30 100%) !important;
+}
+
+/* ── Section 6: Store Locator Inline ── */
+.laundry-app.laundry-dark .home-store-section {
+  background-color: #081426 !important;
+}
+
+.laundry-app.laundry-dark .store-search-input {
+  background-color: #12253f !important;
+  border-color: #1b3252 !important;
+  color: #e2e8f0 !important;
+}
+
+.laundry-app.laundry-dark .store-card {
+  background-color: #12253f !important;
+  border-color: #1b3252 !important;
+}
+
+.laundry-app.laundry-dark .store-card h5,
+.laundry-app.laundry-dark .store-card h6 {
+  color: #ffffff !important;
+}
+
+.laundry-app.laundry-dark .store-card p,
+.laundry-app.laundry-dark .store-card .text-muted {
+  color: #a0aec0 !important;
+}
+
+/* ── Section 7: Testimonials ── */
+.laundry-app.laundry-dark .testimonial-section {
+  background-color: #081426 !important;
+}
+
+/* ── Section 8: Media Mentions ── */
+.laundry-app.laundry-dark .media-mentions-section,
+.laundry-app.laundry-dark .home-media-section {
+  background-color: #0b1a30 !important;
+}
+
+.laundry-app.laundry-dark .media-mention-item,
+.laundry-app.laundry-dark .media-mention-card {
+  background-color: #12253f !important;
+  border-color: #1b3252 !important;
+}
+
+/* ── Section 9: App Download ── */
+.laundry-app.laundry-dark .app-download-section {
+  background: linear-gradient(135deg, #0a1f0a 0%, #081426 100%) !important;
+}
+
+/* ── Section 10: Home Page Sticky Widgets — no change needed, already colored ── */
+
+/* ── Generic bg overrides for inline-colored boxes ── */
+.laundry-app.laundry-dark .bg-light-green,
+.laundry-app.laundry-dark .split-booking-section {
+  background-color: #0b1d13 !important;
+}
+
+/* ── Home page section headings and subtitles ── */
+.laundry-app.laundry-dark .section-subtitle {
+  color: var(--global-secondary) !important;
+  opacity: 0.9;
+}
+
+/* ── Inline styled cards used in home ── */
+.laundry-app.laundry-dark .rounded-4.bg-white,
+.laundry-app.laundry-dark .bg-white.rounded-3,
+.laundry-app.laundry-dark .bg-white.rounded-4 {
+  background-color: #12253f !important;
+  border-color: #1b3252 !important;
+}
+
+/* ── App CTA / Footer Banner ── */
+.laundry-app.laundry-dark .home-cta-banner {
+  background: linear-gradient(135deg, #0a3d1a 0%, #0b1a30 100%) !important;
+}
+
+/* ── Know more button dark hover ── */
+.laundry-app.laundry-dark .know-more-btn {
+  color: #4ade80 !important;
+}
+
+.laundry-app.laundry-dark .know-more-btn:hover {
+  color: #22c55e !important;
+}
+
+/* ── Star ratings ── */
+.laundry-app.laundry-dark .star-icon,
+.laundry-app.laundry-dark .text-warning {
+  color: #f6c90e !important;
+}
+
+/* ── Horizontal rules and dividers ── */
+.laundry-app.laundry-dark hr {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* ── Process / How it Works flow cards ── */
+.laundry-app.laundry-dark .process-flow-step {
+  background-color: #12253f !important;
+  border-color: #1b3252 !important;
+}
+
+.laundry-app.laundry-dark .process-flow-step h5,
+.laundry-app.laundry-dark .process-flow-step h4 {
+  color: #ffffff !important;
+}
+
+.laundry-app.laundry-dark .process-flow-step p {
+  color: #a0aec0 !important;
+}
+
+/* ── Inline price tags / badges ── */
+.laundry-app.laundry-dark .badge.bg-light,
+.laundry-app.laundry-dark .badge.bg-white {
+  background-color: #1b3252 !important;
+  color: #e2e8f0 !important;
+}
+
+/* ── FAQ / accordion home blocks ── */
+.laundry-app.laundry-dark .accordion-item {
+  background-color: #12253f !important;
+  border-color: #1b3252 !important;
+}
+
+.laundry-app.laundry-dark .accordion-button {
+  background-color: #12253f !important;
+  color: #ffffff !important;
+}
+
+.laundry-app.laundry-dark .accordion-button:not(.collapsed) {
+  background-color: #1b3252 !important;
+  color: #4ade80 !important;
+}
+
+.laundry-app.laundry-dark .accordion-body {
+  background-color: #12253f !important;
+  color: #a0aec0 !important;
+}
+
+/* ── Mobile sticky widget dark ── */
+.laundry-app.laundry-dark .laundry-sticky-widgets a.whatsapp-btn {
+  box-shadow: 0 4px 15px rgba(37,211,102,0.35);
+}
+
+.laundry-app.laundry-dark .laundry-sticky-widgets a.call-btn {
+  box-shadow: 0 4px 15px rgba(60,139,53,0.35);
+}
+
 

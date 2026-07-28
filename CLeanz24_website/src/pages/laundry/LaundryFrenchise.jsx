@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useLocation } from 'react-router-dom';
 import SEOMeta from '../../components/SEOMeta';
 import { GOOGLE_SHEETS_LAUNDRY_FRANCHISE_SCRIPT_URL } from '../../config';
-import storepic1 from '../../assets/storepic1.jpeg';
-import storepic2 from '../../assets/storepic2.jpeg';
-import storepic3 from '../../assets/storepic3.jpeg';
+import storeimg1 from '../../assets/storeimg1.jpeg';
+import storeimg2 from '../../assets/storeimg2.jpeg';
+import storeimg3 from '../../assets/storeimg3.jpeg';
+import storeimg4 from '../../assets/storeimg4.jpeg';
+import storeimg5 from '../../assets/storeimg5.jpeg';
+import storeimg6 from '../../assets/storeimg6.jpeg';
+import storeimg7 from '../../assets/storeimg7.jpeg';
 
 /* ─── Dynamic Styles ─────────────────────────────────────────────── */
 const getStyles = (dark) => `
@@ -424,6 +428,108 @@ const getStyles = (dark) => `
   }
 `;
 
+/* ─── Hero Slideshow Component ──────────────────────────────────── */
+const storeImages = [
+  storeimg1,
+  storeimg2,
+  storeimg3,
+  storeimg4,
+  storeimg5,
+  storeimg6,
+  storeimg7
+];
+
+function HeroSlideshow({ dark }) {
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIdx(prev => (prev + 1) % storeImages.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div style={{ position: 'relative', width: '100%', height: '460px', borderRadius: 18, overflow: 'hidden', boxShadow: `0 12px 48px rgba(0,0,0,${dark ? '0.45' : '0.18'})` }}>
+      {storeImages.map((src, i) => (
+        <img
+          key={i}
+          src={src}
+          alt={`Cleanz24 Store ${i + 1}`}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            borderRadius: 18,
+            opacity: activeIdx === i ? 1 : 0,
+            transform: activeIdx === i ? 'scale(1.03)' : 'scale(1)',
+            transition: 'opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1)',
+            zIndex: activeIdx === i ? 2 : 1,
+          }}
+        />
+      ))}
+      {/* Gradient overlay at bottom */}
+      <div style={{
+        position: 'absolute',
+        bottom: 0, left: 0, right: 0,
+        height: '80px',
+        background: 'linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 100%)',
+        zIndex: 3,
+        borderRadius: '0 0 18px 18px',
+      }} />
+      {/* Dots */}
+      <div style={{
+        position: 'absolute',
+        bottom: 16,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        display: 'flex',
+        gap: 7,
+        zIndex: 4,
+      }}>
+        {storeImages.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setActiveIdx(i)}
+            style={{
+              width: activeIdx === i ? 22 : 8,
+              height: 8,
+              borderRadius: 4,
+              background: activeIdx === i ? '#22c55e' : 'rgba(255,255,255,0.55)',
+              border: 'none',
+              padding: 0,
+              cursor: 'pointer',
+              transition: 'width 0.35s ease, background 0.3s',
+              outline: 'none',
+            }}
+          />
+        ))}
+      </div>
+      {/* Store count badge */}
+      <div style={{
+        position: 'absolute',
+        top: 16,
+        right: 16,
+        background: 'rgba(26,122,46,0.92)',
+        color: '#fff',
+        borderRadius: 8,
+        padding: '6px 14px',
+        fontSize: '0.78rem',
+        fontFamily: 'Poppins, sans-serif',
+        fontWeight: 700,
+        letterSpacing: '0.5px',
+        zIndex: 4,
+        backdropFilter: 'blur(4px)',
+      }}>
+        📍 100+ Stores
+      </div>
+    </div>
+  );
+}
+
 /* ─── Component ─────────────────────────────────────────────────── */
 function LaundryFrenchise() {
   // Get isDarkMode from the LaundryLayout via Outlet context
@@ -434,6 +540,118 @@ function LaundryFrenchise() {
   const [countryCode, setCountryCode] = useState('+91');
   const [countryEmoji, setCountryEmoji] = useState('🇮🇳');
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  // Lead Popup State
+  const [showLeadPopup, setShowLeadPopup] = useState(false);
+  const [popupData, setPopupData] = useState({ name: '', phone: '', city: '' });
+  const [popupSubmitting, setPopupSubmitting] = useState(false);
+  const [popupSubmitted, setPopupSubmitted] = useState(false);
+  const [popupError, setPopupError] = useState('');
+
+  useEffect(() => {
+    const alreadySeen = sessionStorage.getItem('lf_popup_seen');
+    // Agar URL mein hash hai (#models etc.) toh popup skip karo
+    if (alreadySeen || window.location.hash) return;
+    const timer = setTimeout(() => setShowLeadPopup(true), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (showLeadPopup) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [showLeadPopup]);
+
+  // ── Hash Scroll Fix: scroll to #section after page renders ──
+  const location = useLocation();
+  useEffect(() => {
+    if (location.hash) {
+      // Popup band karo aur overflow reset karo
+      setShowLeadPopup(false);
+      document.body.style.overflow = '';
+
+      const id = location.hash.replace('#', '');
+      const tryScroll = (attempts = 0) => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else if (attempts < 15) {
+          setTimeout(() => tryScroll(attempts + 1), 100);
+        }
+      };
+      // Thoda wait karo taaki page fully render ho
+      setTimeout(() => tryScroll(), 300);
+    }
+  }, [location]);
+
+  const closeLeadPopup = () => {
+    sessionStorage.setItem('lf_popup_seen', '1');
+    setShowLeadPopup(false);
+  };
+
+  const handlePopupChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'phone') {
+      setPopupData(prev => ({ ...prev, phone: value.replace(/\D/g, '').slice(0, 10) }));
+    } else {
+      setPopupData(prev => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handlePopupSubmit = async (e) => {
+    e.preventDefault();
+    if (popupSubmitting) return;
+    if (!popupData.name.trim() || !popupData.phone.trim() || !popupData.city.trim()) {
+      setPopupError('Please fill all fields.');
+      return;
+    }
+    if (popupData.phone.length < 10) {
+      setPopupError('Enter a valid 10-digit phone number.');
+      return;
+    }
+    setPopupError('');
+    setPopupSubmitting(true);
+    try {
+      const dateStr = new Date().toISOString().split('T')[0];
+      const payload = {
+        date: dateStr, Date: dateStr, timestamp: dateStr, Timestamp: dateStr,
+        datetime: dateStr, dateTime: dateStr, createdAt: dateStr, created_at: dateStr,
+        time: dateStr, Time: dateStr,
+        name: popupData.name,
+        mobile: `'+91 ${popupData.phone}`,
+        email: '',
+        city: popupData.city,
+        modelType: 'Popup Lead'
+      };
+      await fetch(GOOGLE_SHEETS_LAUNDRY_FRANCHISE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload)
+      });
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'conversion', { 'send_to': 'AW-16562330559/Ly9XCOC_iLQaEL-3xNk9' });
+        window.gtag('event', 'laundry_franchise_lead', {
+          'event_category': 'Franchise',
+          'event_label': 'Laundry Franchise Popup Submission'
+        });
+      }
+      setPopupSubmitted(true);
+      sessionStorage.setItem('lf_popup_seen', '1');
+      // Pre-fill & auto-submit main form state so it shows "Already Submitted"
+      setFormData(prev => ({ ...prev, name: popupData.name, phone: popupData.phone, city: popupData.city }));
+      setSubmitted(true);
+      setTimeout(() => setShowLeadPopup(false), 3000);
+    } catch (err) {
+      console.error('Popup form error:', err);
+      setPopupError('Something went wrong. Please try again.');
+    } finally {
+      setPopupSubmitting(false);
+    }
+  };
   const countries = [
     { code: '+91', emoji: '🇮🇳', name: 'India' },
     { code: '+1', emoji: '🇺🇸', name: 'United States' },
@@ -721,7 +939,7 @@ function LaundryFrenchise() {
     { icon: '🏪', value: '100+', label: 'Franchise Locations' },
     { icon: '🌍', value: '21', label: 'States Covered' },
     { icon: '😊', value: '2 Lakhs+', label: 'Happy Customers' },
-    { icon: '📅', value: '8+', label: 'Years Experience' },
+    { icon: '📅', value: '50+', label: 'Years Cumulative Experience' },
   ];
 
   const timelineSteps = [
@@ -801,9 +1019,200 @@ function LaundryFrenchise() {
       />
       <style>{getStyles(dark)}</style>
 
+      {/* ── LEAD CAPTURE POPUP ── */}
+      {showLeadPopup && (
+        <div
+          id="lf-lead-popup-overlay"
+          style={{
+            position: 'fixed', inset: 0,
+            background: 'rgba(0,0,0,0.72)',
+            zIndex: 99999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '16px',
+            backdropFilter: 'blur(4px)',
+            animation: 'lfPopupFadeIn 0.35s ease'
+          }}
+        >
+          <style>{`
+            @keyframes lfPopupFadeIn { from { opacity:0; } to { opacity:1; } }
+            @keyframes lfPopupSlideUp { from { opacity:0; transform: translateY(40px) scale(0.96); } to { opacity:1; transform: translateY(0) scale(1); } }
+            #lf-lead-popup-box { animation: lfPopupSlideUp 0.4s cubic-bezier(.22,.68,0,1.3); }
+            .lf-popup-input {
+              width: 100%;
+              padding: 12px 16px;
+              border-radius: 10px;
+              border: 1.5px solid ${dark ? '#334155' : '#d1fae5'};
+              background: ${dark ? '#1e2d3d' : '#f0fdf4'};
+              color: ${dark ? '#e2e8f0' : '#1a202c'};
+              font-size: 0.95rem;
+              font-family: 'Inter', sans-serif;
+              outline: none;
+              transition: border-color 0.2s, box-shadow 0.2s;
+              margin-bottom: 14px;
+            }
+            .lf-popup-input:focus {
+              border-color: #22c55e;
+              box-shadow: 0 0 0 3px rgba(34,197,94,0.18);
+            }
+            .lf-popup-input::placeholder { color: ${dark ? '#64748b' : '#9ca3af'}; }
+            .lf-popup-btn {
+              width: 100%;
+              padding: 13px;
+              border-radius: 10px;
+              border: none;
+              background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+              color: #fff;
+              font-size: 1rem;
+              font-weight: 700;
+              font-family: 'Poppins', sans-serif;
+              cursor: pointer;
+              letter-spacing: 0.3px;
+              transition: opacity 0.2s, transform 0.15s;
+            }
+            .lf-popup-btn:hover:not(:disabled) { opacity: 0.92; transform: translateY(-1px); }
+            .lf-popup-btn:disabled { opacity: 0.65; cursor: not-allowed; }
+          `}</style>
+
+          <div
+            id="lf-lead-popup-box"
+            style={{
+              background: dark ? '#0f1b2d' : '#ffffff',
+              borderRadius: '20px',
+              width: '100%',
+              maxWidth: '440px',
+              padding: '36px 32px 28px',
+              position: 'relative',
+              boxShadow: '0 24px 64px rgba(0,0,0,0.45)',
+              border: `1.5px solid ${dark ? '#1e3a2f' : '#bbf7d0'}`,
+            }}
+          >
+            {/* Close button */}
+            <button
+              onClick={closeLeadPopup}
+              aria-label="Close"
+              style={{
+                position: 'absolute', top: 14, right: 16,
+                background: 'none', border: 'none',
+                fontSize: '1.5rem', cursor: 'pointer',
+                color: dark ? '#94a3b8' : '#64748b',
+                lineHeight: 1, padding: '4px 8px',
+                borderRadius: 6,
+                transition: 'color 0.2s'
+              }}
+            >✕</button>
+
+            {popupSubmitted ? (
+              <div style={{ textAlign: 'center', padding: '20px 0' }}>
+                <div style={{ fontSize: '3rem', marginBottom: 12 }}>🎉</div>
+                <div style={{
+                  fontFamily: 'Poppins, sans-serif', fontWeight: 700,
+                  fontSize: '1.25rem', color: '#16a34a', marginBottom: 8
+                }}>Thank You!</div>
+                <div style={{ color: dark ? '#94a3b8' : '#6b7280', fontSize: '0.92rem' }}>
+                  Our team will contact you within 24 hours.
+                </div>
+              </div>
+            ) : (
+              <>
+                {/* Badge */}
+                <div style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 6,
+                  background: '#dcfce7', borderRadius: 20,
+                  padding: '4px 12px', marginBottom: 16
+                }}>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#15803d', letterSpacing: '0.5px', fontFamily: 'Poppins, sans-serif' }}>FREE CONSULTATION</span>
+                </div>
+
+                <div style={{
+                  fontFamily: 'Poppins, sans-serif', fontWeight: 800,
+                  fontSize: '1.45rem', color: dark ? '#f1f5f9' : '#111827',
+                  lineHeight: 1.25, marginBottom: 6
+                }}>Get Franchise Details
+                  <span style={{ color: '#22c55e' }}> Instantly</span> 🚀
+                </div>
+                <div style={{
+                  fontSize: '0.85rem', color: dark ? '#94a3b8' : '#6b7280',
+                  marginBottom: 24, fontFamily: 'Inter, sans-serif'
+                }}>
+                  Investment starts at <strong style={{ color: dark ? '#4ade80' : '#15803d' }}>₹13 Lacs</strong>. ROI in 18–20 months.
+                </div>
+
+                <form onSubmit={handlePopupSubmit} noValidate>
+                  <input
+                    className="lf-popup-input"
+                    type="text"
+                    name="name"
+                    placeholder="Your Full Name *"
+                    value={popupData.name}
+                    onChange={handlePopupChange}
+                    autoFocus
+                  />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
+                    <span style={{
+                      background: dark ? '#1e2d3d' : '#f0fdf4',
+                      border: `1.5px solid ${dark ? '#334155' : '#d1fae5'}`,
+                      borderRadius: 10, padding: '12px 14px',
+                      fontSize: '0.95rem', fontWeight: 600,
+                      color: dark ? '#e2e8f0' : '#374151',
+                      whiteSpace: 'nowrap', flexShrink: 0
+                    }}>🇮🇳 +91</span>
+                    <input
+                      className="lf-popup-input"
+                      style={{ marginBottom: 0, flex: 1 }}
+                      type="tel"
+                      name="phone"
+                      placeholder="WhatsApp Number *"
+                      value={popupData.phone}
+                      onChange={handlePopupChange}
+                      maxLength={10}
+                      inputMode="numeric"
+                    />
+                  </div>
+                  <input
+                    className="lf-popup-input"
+                    type="text"
+                    name="city"
+                    placeholder="Your City *"
+                    value={popupData.city}
+                    onChange={handlePopupChange}
+                  />
+                  {popupError && (
+                    <div style={{ color: '#dc2626', fontSize: '0.82rem', marginBottom: 10, fontFamily: 'Inter, sans-serif' }}>
+                      ⚠️ {popupError}
+                    </div>
+                  )}
+                  <button
+                    type="submit"
+                    className="lf-popup-btn"
+                    disabled={popupSubmitting}
+                    id="lf-popup-submit-btn"
+                  >
+                    {popupSubmitting ? 'Submitting...' : '🚀 Get Free Franchise Details'}
+                  </button>
+                </form>
+
+                <div style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  gap: 16, marginTop: 16, flexWrap: 'wrap'
+                }}>
+                  {['100+ Locations', '21 States', '50+ Years Cumulative Exp.'].map(t => (
+                    <span key={t} style={{
+                      fontSize: '0.72rem', color: dark ? '#64748b' : '#9ca3af',
+                      display: 'flex', alignItems: 'center', gap: 4,
+                      fontFamily: 'Inter, sans-serif'
+                    }}>✅ {t}</span>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* ── HERO ── */}
-      <section className="lf-hero">
+      <section className="lf-hero" id="hero">
         <div className="container">
           <div className="row align-items-center g-5">
             <div className="col-lg-6">
@@ -818,20 +1227,26 @@ function LaundryFrenchise() {
                 </div>
               </div>
 
-              {submitted ? (
-                <div className="lf-success-box">
-                  <div style={{ fontSize: '2.5rem', marginBottom: 12 }}>✅</div>
-                  <h4 style={{ fontFamily: 'Poppins', fontWeight: 700, color: dark ? '#4ade80' : '#1a7a2e', marginBottom: 8 }}>Application Received!</h4>
-                  <p style={{ color: dark ? '#94a3b8' : '#4A5568', marginBottom: 16, fontSize: '0.92rem' }}>
-                    Thank you, <strong>{formData.name}</strong>! Our team will call you at <strong>{formData.phone}</strong> within 24 hours.
-                  </p>
-                  <button onClick={handleResetForm}
-                    style={{ background: 'none', border: `1.5px solid ${dark ? '#4ade80' : '#22c55e'}`, color: dark ? '#4ade80' : '#1a7a2e', padding: '8px 24px', borderRadius: 6, fontWeight: 600, cursor: 'pointer', fontSize: '0.9rem' }}>
-                    Submit Another
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="lf-form">
+              <div id="form">
+                {submitted ? (
+                  <div className="lf-success-box">
+                    <div style={{ fontSize: '2.5rem', marginBottom: 12 }}>✅</div>
+                    <h4 style={{ fontFamily: 'Poppins', fontWeight: 700, color: dark ? '#4ade80' : '#1a7a2e', marginBottom: 8 }}>Application Received!</h4>
+                    <p style={{ color: dark ? '#94a3b8' : '#4A5568', marginBottom: 4, fontSize: '0.92rem' }}>
+                      Thank you, <strong>{formData.name}</strong>! Our team will call you at <strong>+91 {formData.phone}</strong> within 24 hours.
+                    </p>
+                    {popupSubmitted && (
+                      <p style={{ color: dark ? '#64748b' : '#9ca3af', fontSize: '0.8rem', marginBottom: 16, fontStyle: 'italic' }}>
+                        ℹ️ Already submitted via quick form above. Want to add more details?
+                      </p>
+                    )}
+                    <button onClick={handleResetForm}
+                      style={{ background: 'none', border: `1.5px solid ${dark ? '#4ade80' : '#22c55e'}`, color: dark ? '#4ade80' : '#1a7a2e', padding: '8px 24px', borderRadius: 6, fontWeight: 600, cursor: 'pointer', fontSize: '0.9rem' }}>
+                      Submit Another
+                    </button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="lf-form" style={{ marginTop: '24px' }}>
                   <label htmlFor="name">Name <span>*</span></label>
                   <input id="name" type="text" placeholder="Enter your name" value={formData.name} onChange={handleChange} required />
                   <label htmlFor="phone">Phone Number <span>*</span></label>
@@ -933,29 +1348,19 @@ function LaundryFrenchise() {
                   </button>
                 </form>
               )}
+              </div>
             </div>
 
-            {/* Right: Images */}
+            {/* Right: Animated Image Slideshow */}
             <div className="col-lg-6 d-none d-lg-block">
-              <div className="row g-3">
-                <div className="col-5">
-                  <img src={storepic1} alt="Cleanz24 Store Interior"
-                    style={{ width: '100%', height: '420px', objectFit: 'cover', objectPosition: 'center', borderRadius: 14, boxShadow: `0 8px 32px rgba(0,0,0,${dark ? '0.4' : '0.15'})` }} />
-                </div>
-                <div className="col-7 d-flex flex-column gap-3">
-                  <img src={storepic2} alt="Cleanz24 Store 1"
-                    style={{ width: '100%', height: '200px', objectFit: 'cover', objectPosition: 'center', borderRadius: 14, boxShadow: `0 8px 32px rgba(0,0,0,${dark ? '0.4' : '0.15'})` }} />
-                  <img src={storepic3} alt="Cleanz24 Store 2"
-                    style={{ width: '100%', height: '200px', objectFit: 'cover', objectPosition: 'center', borderRadius: 14, boxShadow: `0 8px 32px rgba(0,0,0,${dark ? '0.4' : '0.15'})` }} />
-                </div>
-              </div>
+              <HeroSlideshow dark={dark} />
             </div>
           </div>
         </div>
       </section>
 
       {/* ── STATS BAR ── */}
-      <section className="lf-stats-bar">
+      <section className="lf-stats-bar" id="stats">
         <div className="container">
           <div className="row g-4 justify-content-center">
             {metrics.map((m, i) => (
@@ -972,7 +1377,7 @@ function LaundryFrenchise() {
       </section>
 
       {/* ── WHY CHOOSE ── */}
-      <section className="lf-section lf-section-alt">
+      <section className="lf-section lf-section-alt" id="why-franchise">
         <div className="container">
           <div className="text-center mb-5">
             <span className="lf-section-subtitle">THE OPPORTUNITY</span>
@@ -1009,7 +1414,7 @@ function LaundryFrenchise() {
           </div>
           <div className="row g-4 justify-content-center">
             {models.map((m, i) => (
-              <div className="col-lg-3 col-md-6" key={i}>
+              <div className="col-lg-3 col-md-6" key={i} id={`franchise-model-${m.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}>
                 <div className={`lf-model-card d-flex flex-column ${m.featured ? 'featured' : ''}`}>
                   {m.featured && <div className="lf-model-badge">MOST POPULAR</div>}
                   <div className="lf-model-tag">{m.tag}</div>
@@ -1050,7 +1455,7 @@ function LaundryFrenchise() {
       </section>
 
       {/* ── WHY CLEANZ24 ── */}
-      <section className="lf-section lf-section-green">
+      <section className="lf-section lf-section-green" id="why-cleanz24">
         <div className="container">
           <div className="row g-5 align-items-center">
             <div className="col-lg-5">
@@ -1084,7 +1489,7 @@ function LaundryFrenchise() {
       </section>
 
       {/* ── STEPS TIMELINE ── */}
-      <section className="lf-section">
+      <section className="lf-section" id="process">
         <div className="container">
           <div className="text-center mb-5">
             <span className="lf-section-subtitle">THE PROCESS</span>
@@ -1130,7 +1535,7 @@ function LaundryFrenchise() {
       </section>
 
       {/* ── BRAND PARTNERS ── */}
-      <section className="lf-section lf-section-alt">
+      <section className="lf-section lf-section-alt" id="partners">
         <div className="container">
           <div className="text-center mb-5">
             <span className="lf-section-subtitle">TRUSTED PARTNERSHIPS</span>
@@ -1200,7 +1605,7 @@ function LaundryFrenchise() {
       </section>
 
       {/* ── TESTIMONIALS ── */}
-      <section className="lf-section">
+      <section className="lf-section" id="testimonials">
         <div className="container">
           <div className="text-center mb-5">
             <span className="lf-section-subtitle">INVESTOR SUCCESS</span>
@@ -1317,7 +1722,7 @@ function LaundryFrenchise() {
       </section>
 
       {/* ── MEDIA MENTIONS ── */}
-      <section className="lf-section lf-section-alt">
+      <section className="lf-section lf-section-alt" id="media">
         <div className="container">
           <div className="text-center mb-5">
             <span className="lf-section-subtitle">IN THE NEWS</span>
@@ -1374,7 +1779,7 @@ function LaundryFrenchise() {
       </section>
 
       {/* ── LOCATIONS ── */}
-      <section className="lf-section lf-section-green">
+      <section className="lf-section lf-section-green" id="locations">
         <div className="container">
           <div className="text-center mb-5">
             <span className="lf-section-subtitle">WE ARE EXPANDING</span>
@@ -1402,6 +1807,9 @@ function LaundryFrenchise() {
               📱 WhatsApp Us Now
             </a>
             <a href="tel:+919138004800" className="lf-cta-btn-outline">📞 Call: +91 91380 04800</a>
+            <a href="/cleanz24_franchise_brochure.pdf" download="cleanz24_franchise_brochure.pdf" className="lf-cta-btn" style={{ background: '#22c55e', borderColor: '#22c55e' }}>
+              📥 Download Brochure
+            </a>
           </div>
         </div>
       </section>

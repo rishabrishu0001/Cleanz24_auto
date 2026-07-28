@@ -59,8 +59,8 @@ function Landing() {
   return (
     <div className="landing-container bg-black min-vh-100 position-relative overflow-hidden w-100">
       <SEOMeta
-        title="Premium Laundry & Car Spa Services"
-        description="Experience India's most premium services. Cleanz24 offers professional laundry, dry cleaning, premium car spa, detailing, ceramic coating and PPF wraps."
+        title="Cleanz24 — Premium Laundry & Dry Clean Studio & Car Spa Studio"
+        description="Cleanz24 is India's leading Premium Laundry and Dry Clean Studio and Car spa studio. In Laundry industry we have 100+ Franchise operational across multiple cities and States across India. We also offer premium Car Spa services including foam wash, ceramic coating, PPF and car detailing."
         canonical="https://cleanz24.com/"
       />
 
@@ -567,31 +567,28 @@ function Landing() {
         /* Mobile Adjustments */
         @media (max-width: 767px) {
           .landing-container {
-            position: fixed !important;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            position: relative !important;
             width: 100vw !important;
-            height: 100vh !important;
-            height: 100dvh !important;
-            overflow: hidden !important;
+            min-height: 100dvh !important;
+            height: auto !important;
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
           }
           .landing-container > .d-flex {
-            height: 100% !important;
-            min-height: 100% !important;
+            height: auto !important;
+            min-height: 100dvh !important;
             width: 100% !important;
-            overflow: hidden !important;
+            overflow: visible !important;
           }
           .split-panel {
             position: relative !important;
-            height: 50% !important;
-            min-height: 50% !important;
-            max-height: 50% !important;
-            padding: 0 !important;
+            height: auto !important;
+            min-height: 50dvh !important;
+            max-height: none !important;
+            padding: 2.5rem 0 !important;
             clip-path: none !important;
             width: 100% !important;
-            overflow: hidden !important;
+            overflow: visible !important;
             display: flex !important;
             flex-direction: column !important;
             align-items: center !important;

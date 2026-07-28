@@ -16,7 +16,7 @@ const stats = [
   { value: '100+', label: 'Stores Pan India' },
   { value: '17+', label: 'States Covered' },
   { value: '2L+', label: 'Happy Customers' },
-  { value: '10+', label: 'Years of Trust' },
+  { value: '50+', label: 'Years Cumulative Experience' },
 ];
 
 const milestones = [

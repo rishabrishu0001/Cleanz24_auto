@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 import { storesData as detailedStores } from '../../data';
+import { generateStoreSlug } from './StoreDetail';
 import SEOMeta from '../../components/SEOMeta';
 import storesBg from '../../assets/stores_bg.jpg';
 
@@ -12,73 +13,23 @@ const _storeLocationsGrouped = [
   { state: 'Haryana', cities: ['Gurugram', 'Panchkula'] },
   { state: 'Himachal Pradesh', cities: ['Una'] },
   { state: 'Karnataka', cities: ['HSR Layout', 'Padmanabhanagar', 'Varthur Hobli'] },
-  { state: 'Kerala', cities: ['Kannur', 'Kozhikode', 'Panoor', 'Parat', 'Trivandrum', 'Vaikom'] },
+  { state: 'Kerala', cities: ['Kannur', 'Kozhikode', 'Panoor', 'Parad', 'Parat', 'Trivandrum', 'Vaikom'] },
   { state: 'Madhya Pradesh', cities: ['Bhopal'] },
-  { state: 'Maharashtra', cities: ['Alibag', 'Pune', 'Thane West'] },
+  { state: 'Maharashtra', cities: ['Alibag', 'Pimpri-Chinchwad', 'Pune', 'Thane West', 'Wakad'] },
   { state: 'Odisha', cities: ['Angul', 'Berhampur', 'Bomikhal', 'Chandrasekharpur', 'Jatni', 'Jeypore', 'Kharakhia', 'Palasuni'] },
   { state: 'Puducherry', cities: ['Mahe'] },
   { state: 'Punjab', cities: ['Amritsar', 'Bathinda', 'Kharar', 'Patiala'] },
   { state: 'Rajasthan', cities: ['Bhilwara', 'Sanchore', 'Udaipur'] },
   { state: 'Tamil Nadu', cities: ['Kalaiyarkovil', 'Karungal'] },
-  { state: 'Telangana', cities: ['Beeramguda', 'Gachibowli', 'Gopanpally', 'Kondapur', 'Narsingi', 'Vanasthalipuram'] },
-  { state: 'Uttar Pradesh', cities: ['Bhinga', 'Greater Noida', 'Greater Noida West', 'Indirapuram', 'Noida', 'Noida Extension'] },
+  { state: 'Telangana', cities: ['Beeramguda', 'Gachibowli', 'Gopanpally', 'Kokapet', 'Kondapur', 'Kukatpally', 'Narsingi', 'Secunderabad', 'Tellapur', 'Vanasthalipuram'] },
+  { state: 'Uttar Pradesh', cities: ['Bhinga', 'Greater Noida', 'Greater Noida West', 'Indirapuram', 'Noida', 'Noida Extension', 'Vaishali'] },
   { state: 'Uttarakhand', cities: ['Karnaprayag', 'Roorkee'] },
   { state: 'West Bengal', cities: ['Siliguri'] }
 ];
 
-const popularSearches = ["Noida", "Bengaluru", "Hyderabad", "Pune", "Gurugram"];
+const popularSearches = ["Noida", "Bengaluru", "Hyderabad", "Secunderabad", "Pune", "Gurugram"];
 
 const comingSoonStores = [
-  {
-    id: 1,
-    name: "Cleanz24 Premium Laundry",
-    type: "Laundry",
-    city: "Hyderabad",
-    state: "Telangana",
-    area: "Kokapet",
-    timeline: "Opening July 2026",
-    status: "Under Construction"
-  },
-  {
-    id: 2,
-    name: "Cleanz24 Express Laundry",
-    type: "Laundry",
-    city: "Secunderabad",
-    state: "Telangana",
-    area: "Kowkoor",
-    timeline: "Opening July 2026",
-    status: "Fit-out Stage"
-  },
-  {
-    id: 3,
-    name: "Cleanz24 Premium Laundry",
-    type: "Laundry",
-    city: "Hyderabad",
-    state: "Telangana",
-    area: "Kukatpally",
-    timeline: "Opening July 2026",
-    status: "Under Construction"
-  },
-  {
-    id: 4,
-    name: "Cleanz24 Eco Laundry & Press",
-    type: "Laundry",
-    city: "Churu",
-    state: "Rajasthan",
-    area: "Main Market",
-    timeline: "Opening July 2026",
-    status: "Under Construction"
-  },
-  {
-    id: 5,
-    name: "Cleanz24 Eco Laundry & Press",
-    type: "Laundry",
-    city: "Siwara",
-    state: "Rajasthan",
-    area: "Main Market",
-    timeline: "Opening July 2026",
-    status: "Under Construction"
-  },
   {
     id: 6,
     name: "Cleanz24 Premium Laundry",
@@ -88,16 +39,6 @@ const comingSoonStores = [
     area: "Main Road",
     timeline: "Opening July 2026",
     status: "Under Construction"
-  },
-  {
-    id: 7,
-    name: "Cleanz24 Premium Laundry & Dry-Clean",
-    type: "Laundry",
-    city: "Pimpri-Chinchwad",
-    state: "Maharashtra",
-    area: "Pradhikaran",
-    timeline: "Opening July 2026",
-    status: "Fit-out Stage"
   }
 ];
 
@@ -126,7 +67,8 @@ export default function Stores() {
     store.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     store.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
     store.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    store.state.toLowerCase().includes(searchQuery.toLowerCase())
+    store.state.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (store.tags && store.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())))
   );
 
   return (
@@ -272,14 +214,28 @@ export default function Stores() {
                       <div className="d-flex align-items-start gap-2 mb-3">
                         <span className="fs-4">📍</span>
                         <div>
-                          <h4 className="h5 fw-bold text-dark mb-1">{store.name}</h4>
-                          <Link 
-                            to={`/laundry/${store.city.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
-                            className="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-1 font-semibold text-decoration-none" 
-                            style={{ fontSize: '0.72rem' }}
-                          >
-                            {store.city}, {store.state}
-                          </Link>
+                          <h4 className="h5 fw-bold text-dark mb-1">
+                            <Link 
+                              to={`/laundry/store/${generateStoreSlug(store.name)}`}
+                              className="text-dark text-decoration-none hover-primary"
+                            >
+                              {store.name}
+                            </Link>
+                          </h4>
+                          <div className="d-flex align-items-center gap-1 flex-wrap">
+                            <Link 
+                              to={`/laundry/${store.city.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+                              className="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-1 font-semibold text-decoration-none" 
+                              style={{ fontSize: '0.72rem' }}
+                            >
+                              {store.city}, {store.state}
+                            </Link>
+                            {[5, 6, 15, 19, 20, 42, 52, 66, 68, 69, 70].includes(store.id) && (
+                              <span className="badge bg-success bg-opacity-10 text-success rounded-pill px-2 py-1 font-semibold" style={{ fontSize: '0.7rem' }}>
+                                📸 Photos
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
                       
@@ -290,7 +246,7 @@ export default function Stores() {
                       <div className="mb-4 pt-3 border-top" style={{ borderColor: '#f1f5f9' }}>
                         <div className="d-flex align-items-center gap-2 mb-2 text-muted small">
                           <span>📞</span>
-                          <span className="fw-semibold text">+91 91380 04800</span>
+                          <span className="fw-semibold text">+91 {store.phone || '91380 04800'}</span>
                         </div>
                          <div className="d-flex align-items-center gap-2 mb-3 text-muted small">
                           <span style={{ color: '#25D366', display: 'flex', alignItems: 'center' }}>
@@ -329,7 +285,7 @@ export default function Stores() {
                       </div>
 
                       {/* Store Buttons */}
-                      <div className="d-flex gap-2">
+                      <div className="d-flex gap-2 flex-wrap">
                         <a 
                           href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store.name + ' ' + store.address)}`} 
                           target="_blank" 
@@ -337,17 +293,17 @@ export default function Stores() {
                           className="btn btn-outline-secondary btn-sm flex-grow-1 py-2 fw-semibold text-center text-decoration-none"
                           style={{ fontSize: '0.8rem' }}
                         >
-                          Directions
+                          📍 Directions
                         </a>
                         <a 
-                          href="tel:+919138004800" 
+                          href={`tel:+91${(store.phone || '9138004800').replace(/\s+/g, '')}`} 
                           className="btn btn-outline-primary btn-sm flex-grow-1 py-2 fw-semibold text-center text-decoration-none"
                           style={{ fontSize: '0.8rem' }}
                         >
-                          Call
+                          📞 Call
                         </a>
                         <a 
-                          href={`https://wa.me/${store.whatsapp}`} 
+                          href={`https://wa.me/${store.whatsapp || '919138004800'}`} 
                           target="_blank" 
                           rel="noreferrer" 
                           className="btn btn-success btn-sm flex-grow-1 py-2 fw-semibold text-center text-decoration-none text-white"
@@ -356,6 +312,14 @@ export default function Stores() {
                           WhatsApp
                         </a>
                       </div>
+                      {/* Individual Store Page Link */}
+                      <Link
+                        to={`/laundry/store/${generateStoreSlug(store.name)}`}
+                        className="btn btn-primary btn-sm w-100 py-2 fw-bold text-center text-decoration-none mt-2"
+                        style={{ fontSize: '0.82rem', background: 'linear-gradient(90deg,#1a365d,#2563EB)', border: 'none', borderRadius: '8px', letterSpacing: '0.3px' }}
+                      >
+                        📸 View Store &amp; Photos →
+                      </Link>
                     </div>
                   </div>
                 </div>
