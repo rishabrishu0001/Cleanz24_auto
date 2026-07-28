@@ -3380,7 +3380,7 @@ storesData.forEach((store) => {
   const citySlug = store.city.toLowerCase().replace(/[^a-z0-9]+/g, '-');
   
   // Post 1: Best Laundry Nearby You
-  GENERATED_STORE_POSTS.pu
+  GENERATED_STORE_POSTS.push({
     id: `g-nearby-${store.id}`,
     slug: `best-laundry-nearby-you-${citySlug}-${store.id}`,
     title: `Best Laundry Service Nearby You in ${store.city} - ${store.name}`,
