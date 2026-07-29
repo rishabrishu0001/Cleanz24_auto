@@ -2,19 +2,6 @@
   "buildCommand": "npm run build --workspace=CLeanz24_website",
   "outputDirectory": "CLeanz24_website/dist",
   "trailingSlash": false,
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.cleanz24.com"
-        }
-      ],
-      "destination": "https://cleanz24.com/:path*",
-      "permanent": true
-    }
-  ],
   "rewrites": [
     {
       "source": "/(.*)",
