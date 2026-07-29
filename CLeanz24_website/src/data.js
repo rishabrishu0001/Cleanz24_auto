@@ -889,6 +889,18 @@ export const storesData = [
     tags: ['Bhubaneswar', 'Jatni', 'Chandrasekharpur', 'BBSR', 'Somanath Complex', '752050'],
     rating: 4.8,
     reviews: 22
+  },
+  {
+    id: 73,
+    name: 'Cleanz24 - Old Town Bhubaneswar',
+    address: 'Shop No. 1 & 2, Near Post Office, Kharakhia Baidya Noth Sahi, Old Town, Bhubaneswar, Odisha 751002',
+    phone: '91380 04800',
+    whatsapp: '919138004800',
+    city: 'Old Town Bhubaneswar',
+    state: 'Odisha',
+    tags: ['Bhubaneswar', 'Old Town', 'Kharakhia', 'BBSR', '751002', 'Odisha'],
+    rating: 4.8,
+    reviews: 19
   }
 ];
 

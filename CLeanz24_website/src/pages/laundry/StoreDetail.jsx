@@ -96,6 +96,12 @@ import jatniInterior2 from '../../assets/cleanz24_jatni_interior_2.jpg';
 import jatniInterior3 from '../../assets/cleanz24_jatni_interior_3.jpg';
 import jatniSteamIroning from '../../assets/cleanz24_jatni_steam_ironing.jpg';
 
+// Old Town Bhubaneswar Odisha
+import oldtownBbsrStorefront from '../../assets/cleanz24_oldtown_bbsr_storefront.jpg';
+import oldtownBbsrReception from '../../assets/cleanz24_oldtown_bbsr_reception.jpg';
+import oldtownBbsrIroning from '../../assets/cleanz24_oldtown_bbsr_ironing.jpg';
+import oldtownBbsrLgMachines from '../../assets/cleanz24_oldtown_bbsr_lg_machines.jpg';
+
 // Nirala Aspire Noida Extension
 import niralaAspireStorefront from '../../assets/cleanz24_nirala_aspire_storefront.jpeg';
 import niralaAspireReception from '../../assets/cleanz24_nirala_aspire_reception.jpeg';
@@ -303,6 +309,12 @@ const STORE_IMAGES = {
     jatniInterior2,
     jatniInterior3,
     jatniSteamIroning,
+  ],
+  73: [
+    oldtownBbsrStorefront,
+    oldtownBbsrReception,
+    oldtownBbsrIroning,
+    oldtownBbsrLgMachines,
   ],
 };
 
