@@ -1,5 +1,6 @@
 import React from 'react';
 import { useOutletContext } from 'react-router-dom';
+import SEOMeta from '../../components/SEOMeta';
 
 export default function PrivacyPolicy() {
   const { isDarkMode } = useOutletContext() || {};
@@ -7,6 +8,11 @@ export default function PrivacyPolicy() {
 
   return (
     <div style={{ background: dark ? '#0a0f1d' : '#f8fafc', minHeight: '100vh', transition: 'background-color 0.3s ease' }}>
+      <SEOMeta
+        title="Privacy Policy"
+        description="Read Cleanz24's Privacy Policy to understand how we collect, use, and protect your personal information for our laundry and car spa services."
+        canonical="https://cleanz24.com/laundry/privacy-policy"
+      />
 
       {/* Content */}
       <div className="container" style={{ maxWidth: '860px', padding: '60px 20px 80px' }}>

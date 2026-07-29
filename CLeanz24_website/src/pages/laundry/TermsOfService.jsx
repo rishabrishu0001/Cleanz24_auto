@@ -1,5 +1,6 @@
 import React from 'react';
 import { useOutletContext } from 'react-router-dom';
+import SEOMeta from '../../components/SEOMeta';
 
 export default function TermsOfService() {
   const { isDarkMode } = useOutletContext() || {};
@@ -7,6 +8,11 @@ export default function TermsOfService() {
 
   return (
     <div style={{ background: dark ? '#0a0f1d' : '#f8fafc', minHeight: '100vh', transition: 'background-color 0.3s ease' }}>
+      <SEOMeta
+        title="Terms and Conditions"
+        description="Read Cleanz24's Terms and Conditions for using our premium laundry, dry cleaning, and car spa services across India."
+        canonical="https://cleanz24.com/laundry/terms-and-conditions"
+      />
 
       {/* Content */}
       <div className="container" style={{ maxWidth: '860px', padding: '60px 20px 80px' }}>
