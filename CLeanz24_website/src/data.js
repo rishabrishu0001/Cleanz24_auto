@@ -859,6 +859,18 @@ export const storesData = [
   },
 
   {
+    id: 72,
+    name: 'Cleanz24 - Jatni Khordha',
+    address: 'Plot No. 260, Somanath Complex, District Center, Chandrasekharpur, Jatni, Khordha, Odisha 752050',
+    phone: '91380 04800',
+    whatsapp: '919138004800',
+    city: 'Jatni Khordha',
+    state: 'Odisha',
+    tags: ['Khordha', 'Jatni', 'Chandrasekharpur', 'Somanath Complex', '752050', 'Odisha'],
+    rating: 4.8,
+    reviews: 22
+  },
+  {
     id: 73,
     name: 'Cleanz24 - Old Town Bhubaneswar',
     address: 'Shop No. 1 & 2, Near Post Office, Kharakhia Baidya Noth Sahi, Old Town, Bhubaneswar, Odisha 751002',
