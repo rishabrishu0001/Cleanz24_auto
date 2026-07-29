@@ -89,6 +89,13 @@ import patialaReception from '../../assets/cleanz24_patiala_reception.jpg';
 import patialaStorageShelves from '../../assets/cleanz24_patiala_storage_shelves.jpg';
 import patialaFabcareMachines from '../../assets/cleanz24_patiala_fabcare_machines.jpg';
 
+// Jatni Bhubaneswar Odisha
+import jatniInterior1 from '../../assets/cleanz24_jatni_interior_1.jpg';
+import jatniStorefront from '../../assets/cleanz24_jatni_storefront.jpg';
+import jatniInterior2 from '../../assets/cleanz24_jatni_interior_2.jpg';
+import jatniInterior3 from '../../assets/cleanz24_jatni_interior_3.jpg';
+import jatniSteamIroning from '../../assets/cleanz24_jatni_steam_ironing.jpg';
+
 // Nirala Aspire Noida Extension
 import niralaAspireStorefront from '../../assets/cleanz24_nirala_aspire_storefront.jpeg';
 import niralaAspireReception from '../../assets/cleanz24_nirala_aspire_reception.jpeg';
@@ -289,6 +296,13 @@ const STORE_IMAGES = {
     siliguriMachines,
     siliguriGarmentRack,
     siliguriPackaging,
+  ],
+  72: [
+    jatniStorefront,
+    jatniInterior1,
+    jatniInterior2,
+    jatniInterior3,
+    jatniSteamIroning,
   ],
 };
 
