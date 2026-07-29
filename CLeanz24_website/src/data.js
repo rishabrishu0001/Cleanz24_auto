@@ -870,6 +870,18 @@ export const storesData = [
     tags: ['Bhubaneswar', 'Old Town', 'Kharakhia', 'BBSR', '751002', 'Odisha'],
     rating: 4.8,
     reviews: 19
+  },
+  {
+    id: 74,
+    name: 'Cleanz24 - CDA Cuttack',
+    address: 'Plot No. C/13, Sector 6, Markat Nagar, CDA, Cuttack, Odisha 753014',
+    phone: '91380 04800',
+    whatsapp: '919138004800',
+    city: 'CDA Cuttack',
+    state: 'Odisha',
+    tags: ['Cuttack', 'CDA', 'Markat Nagar', 'Sector 6', '753014', 'Odisha'],
+    rating: 4.8,
+    reviews: 24
   }
 ];
 
