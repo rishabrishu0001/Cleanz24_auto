@@ -424,11 +424,11 @@ export const storesData = [
   },
   {
     id: 31,
-    name: 'Cleanz24 - Palasuni',
+    name: 'Cleanz24 - Palasuni Bhubaneswar',
     address: 'Plot No. 1582/5955, Satya Vihar, Palasuni, Rasulgarh, Odisha 751010',
     phone: '91380 04800',
     whatsapp: '919138004800',
-    city: 'Palasuni',
+    city: 'Palasuni Bhubaneswar',
     state: 'Odisha',
     rating: 4.8,
     reviews: 55
