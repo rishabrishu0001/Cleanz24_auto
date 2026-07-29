@@ -388,17 +388,6 @@ export const storesData = [
     reviews: 141
   },
 
-  {
-    id: 26,
-    name: 'Cleanz24 - Jatni',
-    address: 'infront of niser, Martha complex, Padanpur, Jatni, Odisha 752050',
-    phone: '91380 04800',
-    whatsapp: '919138004800',
-    city: 'Jatni',
-    state: 'Odisha',
-    rating: 4.7,
-    reviews: 65
-  },
 
   {
     id: 29,
