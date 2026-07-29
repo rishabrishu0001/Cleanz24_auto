@@ -17,7 +17,7 @@ export default function Footer() {
               <span className="fw-bold tracking-widest text-heading h5 mb-0" style={{ letterSpacing: '2px' }}>CLEANZ24</span>
             </Link>
             <p className="text-muted-custom pe-lg-3 mb-4" style={{ fontSize: '0.9rem', lineHeight: '1.7' }}>
-              Cleanz24 is India's leading Premium Laundry and Dry Clean Studio and Car spa studio. In Laundry industry we have 100+ Franchise operational across multiple cities and States across India.
+              Cleanz24 is India's leading Premium Laundry & Dry Clean Studio and Car Spa Studio network. In Laundry industry we have 100+ Franchise operational across multiple cities and States across India.
             </p>
 
             {/* Social Links */}
@@ -55,7 +55,7 @@ export default function Footer() {
               <li><Link to="/services" className="text-muted-custom text-decoration-none hover-brand">Foam & Pressure Wash</Link></li>
               <li><Link to="/services" className="text-muted-custom text-decoration-none hover-brand">Deep Detailing</Link></li>
               <li><Link to="/services" className="text-muted-custom text-decoration-none hover-brand">Ceramic Coating</Link></li>
-              <li><a href="https://www.cleanz24.com" target="_blank" rel="noreferrer" className="text-muted-custom text-decoration-none hover-brand">Laundry Services</a></li>
+              <li><a href="https://cleanz24.com" target="_blank" rel="noreferrer" className="text-muted-custom text-decoration-none hover-brand">Laundry Services</a></li>
             </ul>
           </div>
 

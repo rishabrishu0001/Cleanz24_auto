@@ -51,7 +51,7 @@ export default function Header({ isDarkMode, toggleTheme }) {
               <Link className={`nav-link text-heading mx-3 fw-medium hover-brand ${isActive('/car-spa') ? 'active-link' : ''}`} to="/car-spa">Home</Link>
               <Link className={`nav-link text-heading mx-3 fw-medium hover-brand ${isActive('/services') ? 'active-link' : ''}`} to="/services">Services</Link>
               <Link className={`nav-link text-heading mx-3 fw-medium hover-brand ${isActive('/franchise') ? 'active-link' : ''}`} to="/franchise">Franchise</Link>
-              <a href="https://www.cleanz24.com" target="_blank" rel="noreferrer" className="nav-link text-heading mx-3 fw-medium hover-brand" style={{ color: 'var(--accent-color)' }}>
+              <a href="https://cleanz24.com" target="_blank" rel="noreferrer" className="nav-link text-heading mx-3 fw-medium hover-brand" style={{ color: 'var(--accent-color)' }}>
                 Laundry
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" className="ms-1 opacity-50"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
               </a>

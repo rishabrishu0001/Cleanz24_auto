@@ -56,7 +56,7 @@ export default function Footer() {
               <li><Link to="/car-spa/services" className="text-muted-custom text-decoration-none hover-brand">Foam & Pressure Wash</Link></li>
               <li><Link to="/car-spa/services" className="text-muted-custom text-decoration-none hover-brand">Deep Detailing</Link></li>
               <li><Link to="/car-spa/services" className="text-muted-custom text-decoration-none hover-brand">Ceramic Coating</Link></li>
-              <li><a href="https://www.cleanz24.com" target="_blank" rel="noreferrer" className="text-muted-custom text-decoration-none hover-brand">Laundry Services</a></li>
+              <li><a href="https://cleanz24.com" target="_blank" rel="noreferrer" className="text-muted-custom text-decoration-none hover-brand">Laundry Services</a></li>
             </ul>
           </div>
 

@@ -68,6 +68,27 @@ import kokapetReception from '../../assets/cleanz24_kokapet_reception.jpeg';
 import kokapetIroningTable from '../../assets/cleanz24_kokapet_ironing_table.jpeg';
 import kokapetWallPoster from '../../assets/cleanz24_kokapet_wall_poster.jpeg';
 
+// Kukatpally Hyderabad
+import kukatpallyStorefrontEntrance from '../../assets/cleanz24_kukatpally_storefront_entrance.jpg';
+import kukatpallyReception from '../../assets/cleanz24_kukatpally_reception.jpg';
+import kukatpallySteamIroning from '../../assets/cleanz24_kukatpally_steam_ironing.jpg';
+import kukatpallyIroningStation from '../../assets/cleanz24_kukatpally_ironing_station.jpg';
+import kukatpallyDetergentsShelf from '../../assets/cleanz24_kukatpally_detergents_shelf.jpg';
+
+// Roorkee Uttarakhand
+import roorkeeStorefront from '../../assets/cleanz24_roorkee_storefront.jpg';
+import roorkeeFacade from '../../assets/cleanz24_roorkee_facade.jpg';
+import roorkeeReception from '../../assets/cleanz24_roorkee_reception.jpg';
+import roorkeeInteriorBranding from '../../assets/cleanz24_roorkee_interior_branding.jpg';
+import roorkeeLgMachinesShelving from '../../assets/cleanz24_roorkee_lg_machines_shelving.jpg';
+
+// Patiala Punjab
+import patialaSignboard from '../../assets/cleanz24_patiala_signboard.jpg';
+import patialaBuildingFacade from '../../assets/cleanz24_patiala_building_facade.jpg';
+import patialaReception from '../../assets/cleanz24_patiala_reception.jpg';
+import patialaStorageShelves from '../../assets/cleanz24_patiala_storage_shelves.jpg';
+import patialaFabcareMachines from '../../assets/cleanz24_patiala_fabcare_machines.jpg';
+
 // Nirala Aspire Noida Extension
 import niralaAspireStorefront from '../../assets/cleanz24_nirala_aspire_storefront.jpeg';
 import niralaAspireReception from '../../assets/cleanz24_nirala_aspire_reception.jpeg';
@@ -183,6 +204,27 @@ const STORE_IMAGES = {
     niralaAspireLoungeShelving,
     niralaAspireSteamIroning,
     niralaAspireCounter,
+  ],
+  11: [
+    roorkeeStorefront,
+    roorkeeFacade,
+    roorkeeReception,
+    roorkeeInteriorBranding,
+    roorkeeLgMachinesShelving,
+  ],
+  18: [
+    patialaSignboard,
+    patialaBuildingFacade,
+    patialaReception,
+    patialaStorageShelves,
+    patialaFabcareMachines,
+  ],
+  65: [
+    kukatpallyStorefrontEntrance,
+    kukatpallyReception,
+    kukatpallySteamIroning,
+    kukatpallyIroningStation,
+    kukatpallyDetergentsShelf,
   ],
   66: [
     kokapetStorefront,

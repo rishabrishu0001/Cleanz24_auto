@@ -29,7 +29,8 @@ export default function SEOMeta({
   schema
 }) {
   const displayTitle = title ? `${title} | Cleanz24` : 'Cleanz24 — Premium Laundry & Car Spa';
-  const currentUrl = canonical || (typeof window !== 'undefined' ? window.location.href : '');
+  const rawUrl = canonical || (typeof window !== 'undefined' ? window.location.href : 'https://cleanz24.com/');
+  const currentUrl = rawUrl.replace('://www.cleanz24.com', '://cleanz24.com');
 
   useEffect(() => {
     // Update page title

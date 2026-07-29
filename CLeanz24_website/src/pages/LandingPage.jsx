@@ -60,7 +60,7 @@ function Landing() {
     <div className="landing-container bg-black min-vh-100 position-relative overflow-hidden w-100">
       <SEOMeta
         title="Cleanz24 — Premium Laundry & Dry Clean Studio & Car Spa Studio"
-        description="Cleanz24 is India's leading Premium Laundry and Dry Clean Studio and Car spa studio. In Laundry industry we have 100+ Franchise operational across multiple cities and States across India. We also offer premium Car Spa services including foam wash, ceramic coating, PPF and car detailing."
+        description="Cleanz24 is India's leading Premium Laundry & Dry Clean Studio and Car Spa Studio network. In Laundry industry we have 100+ Franchise operational across multiple cities and States across India. We also offer premium Car Spa services including foam wash, ceramic coating, PPF and car detailing."
         canonical="https://cleanz24.com/"
       />
 
