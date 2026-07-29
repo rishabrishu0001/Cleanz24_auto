@@ -399,28 +399,7 @@ export const storesData = [
     rating: 4.7,
     reviews: 65
   },
-  {
-    id: 27,
-    name: 'Cleanz24 - Bomikhal Bhubaneswar',
-    address: 'Plot No. 169, Mahveer Bazar, Canal Road, Bomikhal, Bhubaneswar, Odisha 751010',
-    phone: '91380 04800',
-    whatsapp: '919138004800',
-    city: 'Bomikhal',
-    state: 'Odisha',
-    rating: 4.8,
-    reviews: 76
-  },
-  {
-    id: 28,
-    name: 'Cleanz24 - Kharakhia Bhubaneswar',
-    address: 'Shop No. 1 & 2, Near Post Office, Kharakhia Baidya Nath Sahi, Bhubaneswar, Odisha 751002',
-    phone: '91380 04800',
-    whatsapp: '919138004800',
-    city: 'Kharakhia',
-    state: 'Odisha',
-    rating: 4.9,
-    reviews: 87
-  },
+
   {
     id: 29,
     name: 'Cleanz24 - Chandrasekharpur Bhubaneswar',
