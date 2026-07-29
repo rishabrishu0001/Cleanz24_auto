@@ -857,18 +857,7 @@ export const storesData = [
     rating: 4.9,
     reviews: 38
   },
-  {
-    id: 72,
-    name: 'Cleanz24 - Jatni Bhubaneswar',
-    address: 'Plot No. 260, Somanath Complex, District Center, Chandrasekharpur, Jatni, Bhubaneswar, Odisha 752050',
-    phone: '91380 04800',
-    whatsapp: '919138004800',
-    city: 'Jatni',
-    state: 'Odisha',
-    tags: ['Bhubaneswar', 'Jatni', 'Chandrasekharpur', 'BBSR', 'Somanath Complex', '752050'],
-    rating: 4.8,
-    reviews: 22
-  },
+
   {
     id: 73,
     name: 'Cleanz24 - Old Town Bhubaneswar',
