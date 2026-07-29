@@ -882,6 +882,32 @@ export const storesData = [
     tags: ['Cuttack', 'CDA', 'Markat Nagar', 'Sector 6', '753014', 'Odisha'],
     rating: 4.8,
     reviews: 24
+  },
+  {
+    id: 75,
+    name: 'Cleanz24 - Cheriyamundam Malappuram',
+    address: 'Kurukkol, Tirur Puthanathani Road, Cheriyamundam (P.O), Malappuram District, Kerala 676106',
+    phone: '91380 04800',
+    whatsapp: '919138004800',
+    city: 'Cheriyamundam',
+    state: 'Kerala',
+    tags: ['Kerala', 'Malappuram', 'Cheriyamundam', 'Tirur', '676106', 'Opening Soon'],
+    rating: 4.9,
+    reviews: 12,
+    status: 'Opening Soon'
+  },
+  {
+    id: 76,
+    name: 'Cleanz24 - Kazhakkoottam Trivandrum',
+    address: 'Maple Square, Kariyil, Kazhakkoottam, Thiruvananthapuram, Kerala 695582',
+    phone: '91380 04800',
+    whatsapp: '919138004800',
+    city: 'Kazhakkoottam',
+    state: 'Kerala',
+    tags: ['Kerala', 'Trivandrum', 'Thiruvananthapuram', 'Kazhakkoottam', '695582', 'Opening Soon'],
+    rating: 4.9,
+    reviews: 15,
+    status: 'Opening Soon'
   }
 ];
 

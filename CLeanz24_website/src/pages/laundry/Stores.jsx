@@ -13,7 +13,7 @@ const _storeLocationsGrouped = [
   { state: 'Haryana', cities: ['Gurugram', 'Panchkula'] },
   { state: 'Himachal Pradesh', cities: ['Una'] },
   { state: 'Karnataka', cities: ['HSR Layout', 'Padmanabhanagar', 'Varthur Hobli'] },
-  { state: 'Kerala', cities: ['Kannur', 'Kozhikode', 'Panoor', 'Parad', 'Parat', 'Trivandrum', 'Vaikom'] },
+  { state: 'Kerala', cities: ['Cheriyamundam', 'Kannur', 'Kazhakkoottam', 'Kozhikode', 'Panoor', 'Parad', 'Parat', 'Trivandrum', 'Vaikom'] },
   { state: 'Madhya Pradesh', cities: ['Bhopal'] },
   { state: 'Maharashtra', cities: ['Alibag', 'Pimpri-Chinchwad', 'Pune', 'Thane West', 'Wakad'] },
   { state: 'Odisha', cities: ['Angul', 'Berhampur', 'Chandrasekharpur', 'CDA Cuttack', 'Jatni Khordha', 'Jeypore', 'Old Town Bhubaneswar', 'Palasuni Bhubaneswar'] },
