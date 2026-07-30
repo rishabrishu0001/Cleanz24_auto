@@ -56,6 +56,7 @@ export default function Services() {
   const servicesList = [
     {
       id: 'laundry',
+      detailSlug: 'premium-laundry',
       title: 'Premium Laundry',
       subtitle: 'Wash & Fold / Wash & Steam Iron',
       description: 'Hygienic daily washing using soft water and eco-friendly detergents.',
@@ -75,6 +76,7 @@ export default function Services() {
     },
     {
       id: 'dry-cleaning',
+      detailSlug: 'eco-friendly-dry-cleaning',
       title: 'Eco-Friendly Dry Cleaning',
       subtitle: 'Solvent-based deep cleaning',
       description: 'Gentle, solvent-based deep cleaning for delicate fabrics, designer garments, and formal wear.',
@@ -94,6 +96,7 @@ export default function Services() {
     },
     {
       id: 'steam-ironing',
+      detailSlug: 'steam-ironing',
       title: 'Steam Ironing',
       subtitle: 'Professional Steam Pressing',
       description: 'Professional vertical and vacuum steam ironing to give your clothes a crease-free, showroom finish.',
@@ -113,6 +116,7 @@ export default function Services() {
     },
     {
       id: 'shoe-cleaning',
+      detailSlug: 'shoe-handbag-spa',
       title: 'Shoe & Handbag Spa',
       subtitle: 'Restoration & Conditioning',
       description: 'Restoration, conditioning, and sanitization services for high-end sneakers, boots, and bags.',
@@ -132,6 +136,7 @@ export default function Services() {
     },
     {
       id: 'home-cleaning',
+      detailSlug: 'home-furnishing-cleaning',
       title: 'Home Furnishings',
       subtitle: 'Deep extraction washing',
       description: 'Deep extraction washing and sanitization for heavy home linens, curtains, sofas, and carpets.',
@@ -151,6 +156,7 @@ export default function Services() {
     },
     {
       id: 'commercial-cleaning',
+      detailSlug: 'commercial-laundry',
       title: 'Commercial & Corporate B2B Care',
       subtitle: 'Offices, Hotels, Spas & Retail Spaces',
       description: 'Bulk laundry, uniform washing, and upholstery sanitization for corporate offices, hotels, spas, and gyms.',
@@ -338,11 +344,11 @@ export default function Services() {
                     </div>
 
                     <div className="mt-auto d-flex gap-3 flex-wrap pt-2">
-                      <Link to="/laundry/contact-us" className="btn px-4 py-2.5 rounded-pill fw-bold shadow-sm" style={{ background: service.color, color: '#fff', border: 'none' }}>
-                        Book Service
+                      <Link to={`/laundry/services/${service.detailSlug || service.id}`} className="btn px-4 py-2.5 rounded-pill fw-bold shadow-sm" style={{ background: service.color, color: '#fff', border: 'none' }}>
+                        📖 View 1000+ Word Guide & Book
                       </Link>
                       <a href={`https://wa.me/919138004800?text=${encodeURIComponent(`Hi, I'm interested in booking the ${service.title} service.`)}`} target="_blank" rel="noreferrer" className="btn px-4 py-2.5 rounded-pill fw-bold" style={{ background: 'transparent', border: `2px solid ${service.color}`, color: service.color }}>
-                        Ask a Question
+                        💬 Ask a Question
                       </a>
                     </div>
                   </motion.div>
