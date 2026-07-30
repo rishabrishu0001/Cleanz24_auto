@@ -750,37 +750,7 @@ export default function ServiceDetailPage() {
               </div>
             </div>
 
-            {/* SECTION 5: PRICING CHART */}
-            <div className="p-4 rounded-4 mb-4" style={{ background: dark ? '#1e293b' : '#ffffff', border: `1px solid ${dark ? '#334155' : '#e2e8f0'}` }}>
-              <div className="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
-                <h2 className="h3 fw-bold mb-0" style={{ color: dark ? '#f8fafc' : '#0f172a' }}>
-                  Transparent Pricing & Turnaround
-                </h2>
-                <span className="badge bg-success px-3 py-2">No Hidden Charges</span>
-              </div>
-              <div className="table-responsive">
-                <table className="table align-middle" style={{ color: dark ? '#cbd5e1' : '#334155' }}>
-                  <thead>
-                    <tr style={{ background: dark ? '#0f172a' : '#f1f5f9' }}>
-                      <th>Service Name</th>
-                      <th>Price</th>
-                      <th>Turnaround</th>
-                      <th>Inclusions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {service.pricing.map((pr, i) => (
-                      <tr key={i} style={{ borderBottom: `1px solid ${dark ? '#334155' : '#e2e8f0'}` }}>
-                        <td className="fw-semibold">{pr.service}</td>
-                        <td className="fw-bold text-success">{pr.price}</td>
-                        <td><span className="badge bg-opacity-20 text-primary bg-primary px-2 py-1">{pr.turnaround}</span></td>
-                        <td className="small text-muted">{pr.note}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+
 
             {/* SECTION 6: CLEANZ24 VS LOCAL CLEANERS COMPARISON */}
             <div className="p-4 rounded-4 mb-4" style={{ background: dark ? '#1e293b' : '#ffffff', border: `1px solid ${dark ? '#334155' : '#e2e8f0'}` }}>
