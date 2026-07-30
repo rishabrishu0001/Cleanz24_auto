@@ -345,7 +345,7 @@ export default function Services() {
 
                     <div className="mt-auto d-flex gap-3 flex-wrap pt-2">
                       <Link to={`/laundry/services/${service.detailSlug || service.id}`} className="btn px-4 py-2.5 rounded-pill fw-bold shadow-sm" style={{ background: service.color, color: '#fff', border: 'none' }}>
-                        📖 View 1000+ Word Guide & Book
+                        ✨ View Details & Book
                       </Link>
                       <a href={`https://wa.me/919138004800?text=${encodeURIComponent(`Hi, I'm interested in booking the ${service.title} service.`)}`} target="_blank" rel="noreferrer" className="btn px-4 py-2.5 rounded-pill fw-bold" style={{ background: 'transparent', border: `2px solid ${service.color}`, color: service.color }}>
                         💬 Ask a Question
