@@ -1,6 +1,6 @@
 export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 export const GOOGLE_SHEETS_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SHEETS_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbxYT5JK8gK9uCZ9zYehZHcJgALe3-G6vUwbhdfdTR5exAt1qgXfGDgpiEPdaldFSKb7/exec';
-export const GOOGLE_SHEETS_FRANCHISE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SHEETS_FRANCHISE_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbwlp3Na_Utdtze__h39HnoypjgrFpNFkRnfIhtXs0L8C42Bo8ZQ07w8vWYCR250zZsisg/exec';
+export const GOOGLE_SHEETS_FRANCHISE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SHEETS_FRANCHISE_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbwgrxbbzmaqU8BT-l7xFSriJ-BNM01ad5Qo66ZOfR-XBF4ag9h1u1ErJcAN4J7LcM4p/exec';
 export const GOOGLE_SHEETS_FRANCHISE_SCRIPT_URL_2 = import.meta.env.VITE_GOOGLE_SHEETS_FRANCHISE_SCRIPT_URL_2 || '';
 
 // Laundry specific sheets

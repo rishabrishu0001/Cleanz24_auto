@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useOutletContext, useLocation } from 'react-router-dom';
+import { useOutletContext, useLocation, Link } from 'react-router-dom';
+import { FRANCHISE_CITIES } from './FranchiseCityPage';
 import SEOMeta from '../../components/SEOMeta';
 import { GOOGLE_SHEETS_LAUNDRY_FRANCHISE_SCRIPT_URL } from '../../config';
 import storeimg1 from '../../assets/storeimg1.jpeg';
@@ -626,7 +627,7 @@ function LaundryFrenchise() {
         city: popupData.city,
         modelType: 'Popup Lead'
       };
-      await fetch(GOOGLE_SHEETS_LAUNDRY_FRANCHISE_SCRIPT_URL, {
+      await fetch('https://script.google.com/macros/s/AKfycbwgrxbbzmaqU8BT-l7xFSriJ-BNM01ad5Qo66ZOfR-XBF4ag9h1u1ErJcAN4J7LcM4p/exec', {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain' },
@@ -803,7 +804,7 @@ function LaundryFrenchise() {
         modelType: 'General Inquiry'
       };
 
-      await fetch(GOOGLE_SHEETS_LAUNDRY_FRANCHISE_SCRIPT_URL, {
+      await fetch('https://script.google.com/macros/s/AKfycbwgrxbbzmaqU8BT-l7xFSriJ-BNM01ad5Qo66ZOfR-XBF4ag9h1u1ErJcAN4J7LcM4p/exec', {
         method: 'POST',
         mode: 'no-cors',
         headers: {
@@ -1783,15 +1784,30 @@ function LaundryFrenchise() {
         <div className="container">
           <div className="text-center mb-5">
             <span className="lf-section-subtitle">WE ARE EXPANDING</span>
-            <h2 className="lf-section-title">Cleanz24: India's Largest <span>Laundry & Dry Clean Stores</span></h2>
+            <h2 className="lf-section-title">Cleanz24: Franchise Locations <span>Across India</span></h2>
+            <p className="text-muted">Click any city below to view dedicated franchise details, ROI blueprint & local market data:</p>
             <div className="lf-divider mx-auto"></div>
           </div>
-          <div className="row g-3 justify-content-center">
-            {['Himachal Pradesh', 'Haryana', 'Delhi', 'Uttar Pradesh', 'Madhya Pradesh', 'Punjab', 'Gujarat', 'Maharashtra', 'Tamil Nadu', 'Telangana', 'Andhra Pradesh', 'Chhattisgarh', 'West Bengal', 'Assam', 'Kerala', 'Karnataka', 'Bihar', 'Odisha', 'Uttarakhand', 'Rajasthan', 'Puducherry'].map((city, i) => (
-              <div className="col-6 col-md-3 col-lg-2" key={i}>
-                <div className="lf-location-pill">📍 {city}</div>
-              </div>
-            ))}
+          <div className="lf-cities-scroll-container" style={{
+            maxHeight: '380px',
+            overflowY: 'auto',
+            padding: '20px 16px',
+            borderRadius: '16px',
+            background: dark ? 'rgba(15, 22, 35, 0.6)' : 'rgba(248, 250, 252, 0.8)',
+            border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`,
+            boxShadow: 'inset 0 2px 8px rgba(0,0,0,0.05)'
+          }}>
+            <div className="row g-3 justify-content-center">
+              {FRANCHISE_CITIES && FRANCHISE_CITIES.map((item, i) => (
+                <div className="col-6 col-md-3 col-lg-2" key={i}>
+                  <Link to={`/laundry/franchise/${item.slug}`} style={{ textDecoration: 'none' }}>
+                    <div className="lf-location-pill" style={{ cursor: 'pointer', transition: 'all 0.2s', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }} title={`${item.city}, ${item.state}`}>
+                      📍 {item.city}
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

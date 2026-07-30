@@ -26,6 +26,7 @@ import LaundryServices from './pages/laundry/Services';
 
 
 import LaundryFranchise from './pages/laundry/LaundryFrenchise';
+import FranchiseCityPage from './pages/laundry/FranchiseCityPage';
 import Stores from './pages/laundry/Stores';
 import Contact from './pages/laundry/Contact';
 import LaundryBlog from './pages/laundry/Blog';
@@ -133,6 +134,7 @@ function App() {
         <Route index element={<LaundryHome />} />
         <Route path="services" element={<LaundryServices />} />
         <Route path="franchise" element={<LaundryFranchise />} />
+        <Route path="franchise/:citySlug" element={<FranchiseCityPage />} />
         <Route path="stores" element={<Stores />} />
         <Route path="blog" element={<LaundryBlog />} />
         <Route path="blog/:slug" element={<LaundryBlog />} />

@@ -158,7 +158,7 @@ function Book(props) {
         isMember: selectedPriceInfo.isMember
       };
 
-      await fetch(GOOGLE_SHEETS_CAR_SPA_SCRIPT_URL, {
+      await fetch('https://script.google.com/macros/s/AKfycbx_JufRZRE54mcOfK2ph-Kdz3o0Nn-s7xhyPdbUoApuiFns_v-8JTY4LbjpZ_JAdlSY/exec', {
         method: 'POST',
         mode: 'no-cors',
         headers: {

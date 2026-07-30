@@ -138,7 +138,7 @@ function Franchise(props) {
           message: formData.message || 'N/A'
         };
 
-        await fetch(GOOGLE_SHEETS_CAR_SPA_FRANCHISE_SCRIPT_URL, {
+        await fetch('https://script.google.com/macros/s/AKfycbwuJjthW5Agp_jorAzJWMhCnF_Fpr0YmUd6cii2b1AO03wS28xJJLIDU5aXaMqLFibt/exec', {
           method: 'POST',
           mode: 'no-cors',
           headers: {
