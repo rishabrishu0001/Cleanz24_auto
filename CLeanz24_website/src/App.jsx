@@ -184,6 +184,8 @@ function App() {
       <Route path="/contact" element={<Navigate to="/laundry/contact-us" replace />} />
       <Route path="/services" element={<Navigate to="/laundry/services" replace />} />
       <Route path="/laundry-services" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/best-laundry-drycleaning*" element={<Navigate to="/laundry/services" replace />} />
+      <Route path="/best-laundry-and-dry-cleaning*" element={<Navigate to="/laundry/services" replace />} />
       <Route path="/carspa" element={<Navigate to="/car-spa" replace />} />
       <Route path="/car-spa-services" element={<Navigate to="/car-spa/services" replace />} />
       <Route path="/car-spa-book" element={<Navigate to="/car-spa/book" replace />} />
