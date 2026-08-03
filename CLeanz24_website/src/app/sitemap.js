@@ -7,15 +7,15 @@ export default async function sitemap() {
 
   const staticRoutes = [
     '',
-    '/laundry',
-    '/laundry/services',
-    '/laundry/stores',
-    '/laundry/franchise',
-    '/laundry/blog',
-    '/laundry/locations',
-    '/laundry/contact-us',
-    '/laundry/privacy-policy',
-    '/laundry/terms-of-service',
+    '/best-laundry-drycleaning',
+    '/best-laundry-drycleaning/services',
+    '/best-laundry-drycleaning/stores',
+    '/best-laundry-drycleaning/franchise-opportunities',
+    '/best-laundry-drycleaning/blog',
+    '/best-laundry-drycleaning/locations',
+    '/best-laundry-drycleaning/contact-us',
+    '/best-laundry-drycleaning/privacy-policy',
+    '/best-laundry-drycleaning/terms-of-service',
     '/car-spa',
     '/car-spa/services',
     '/car-spa/stores',
@@ -27,11 +27,11 @@ export default async function sitemap() {
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString().split('T')[0],
     changeFrequency: 'weekly',
-    priority: route === '' || route === '/laundry' ? 1.0 : 0.8,
+    priority: route === '' || route === '/best-laundry-drycleaning' ? 1.0 : 0.8,
   }));
 
   const blogRoutes = (Array.isArray(BLOG_POSTS) ? BLOG_POSTS : []).map((post) => ({
-    url: `${baseUrl}/laundry/blog/${post.slug}`,
+    url: `${baseUrl}/best-laundry-drycleaning/blog/${post.slug}`,
     lastModified: post.dateTime || new Date().toISOString().split('T')[0],
     changeFrequency: 'monthly',
     priority: 0.7,
@@ -40,7 +40,7 @@ export default async function sitemap() {
   const storeRoutes = (Array.isArray(storesData) ? storesData : []).map((store) => {
     const slug = store.slug || store.storeSlug || (store.name && store.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'));
     return {
-      url: `${baseUrl}/laundry/store/${slug}`,
+      url: `${baseUrl}/best-laundry-drycleaning/store/${slug}`,
       lastModified: new Date().toISOString().split('T')[0],
       changeFrequency: 'weekly',
       priority: 0.8,
@@ -48,7 +48,7 @@ export default async function sitemap() {
   });
 
   const cityRoutes = (Array.isArray(FRANCHISE_CITIES) ? FRANCHISE_CITIES : []).map((city) => ({
-    url: `${baseUrl}/laundry/franchise/${city.slug}`,
+    url: `${baseUrl}/best-laundry-drycleaning/franchise-opportunities/${city.slug}`,
     lastModified: new Date().toISOString().split('T')[0],
     changeFrequency: 'weekly',
     priority: 0.8,
@@ -61,7 +61,7 @@ export default async function sitemap() {
     for (const city of FRANCHISE_CITIES) {
       for (const s of servicesList) {
         cityServiceRoutes.push({
-          url: `${baseUrl}/laundry/franchise/${city.slug}/${s}`,
+          url: `${baseUrl}/best-laundry-drycleaning/franchise-opportunities/${city.slug}/${s}`,
           lastModified: new Date().toISOString().split('T')[0],
           changeFrequency: 'weekly',
           priority: 0.7,
@@ -77,7 +77,7 @@ export default async function sitemap() {
       const slug = store.slug || store.storeSlug || (store.name && store.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'));
       for (const s of storeServicesList) {
         storeServiceRoutes.push({
-          url: `${baseUrl}/laundry/store/${slug}/${s}`,
+          url: `${baseUrl}/best-laundry-drycleaning/store/${slug}/${s}`,
           lastModified: new Date().toISOString().split('T')[0],
           changeFrequency: 'weekly',
           priority: 0.7,
