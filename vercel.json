@@ -1,3 +1,4 @@
 {
-  "framework": "nextjs"
+  "buildCommand": "npm run build --workspace=CLeanz24_website",
+  "outputDirectory": "CLeanz24_website/.next"
 }
