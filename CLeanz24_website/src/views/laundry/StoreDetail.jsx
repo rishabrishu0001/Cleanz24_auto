@@ -479,7 +479,7 @@ export const generateStoreSlug = (name) => {
     .trim()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)+/g, '');
-  return `laundrying-services-${cleanLoc}`;
+  return `best-laundry-drycleaning-services-${cleanLoc}`;
 };
 
 const getShortSlug = (name) =>
