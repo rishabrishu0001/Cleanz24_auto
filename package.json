@@ -12,5 +12,8 @@
     "build": "npm run build --workspace=CLeanz24_website",
     "start:backend": "npm run start --workspace=CLeanz24_backend",
     "dev:backend": "npm run dev --workspace=CLeanz24_backend"
+  },
+  "dependencies": {
+    "next": "^16.2.12"
   }
 }
