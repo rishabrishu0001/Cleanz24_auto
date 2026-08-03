@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { usePathname } from 'next/navigation';
 import './FloatingActions.css';
 
 export default function FloatingActions() {
   const [isMember, setIsMember] = useState(() => {
     try { return !!localStorage.getItem('cleanz24_logged_in_member'); } catch { return false; }
   });
-  const location = useLocation();
+  const pathname = usePathname() || ''; const location = { pathname, state: {} };
 
   useEffect(() => {
     const checkAuth = () => {

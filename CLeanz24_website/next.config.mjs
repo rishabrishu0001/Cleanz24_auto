@@ -1,0 +1,72 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  turbopack: {
+    root: path.resolve(__dirname, '..'),
+  },
+  reactStrictMode: true,
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cleanz24.com',
+      },
+    ],
+  },
+  async redirects() {
+    return [
+      { source: '/best-laundry-dryclean', destination: '/laundry', permanent: true },
+      { source: '/best-laundry-dryclean/:path*', destination: '/laundry/:path*', permanent: true },
+      { source: '/best-laundry-drycleaning', destination: '/laundry', permanent: true },
+      { source: '/best-laundry-drycleaning/:path*', destination: '/laundry/:path*', permanent: true },
+      { source: '/stores', destination: '/laundry/stores', permanent: true },
+      { source: '/franchise', destination: '/laundry/franchise', permanent: true },
+      { source: '/best-laundry-franchise', destination: '/laundry/franchise', permanent: true },
+      { source: '/laundry-franchise', destination: '/laundry/franchise', permanent: true },
+      { source: '/car-spa-franchise', destination: '/car-spa/franchise', permanent: true },
+      { source: '/shoe-cleaning', destination: '/laundry/services/shoe-handbag-spa', permanent: true },
+      { source: '/shoe-spa', destination: '/laundry/services/shoe-handbag-spa', permanent: true },
+      { source: '/sneaker-cleaning', destination: '/laundry/services/shoe-handbag-spa', permanent: true },
+      { source: '/bag-cleaning', destination: '/laundry/services/shoe-handbag-spa', permanent: true },
+      { source: '/leather-care', destination: '/laundry/services/shoe-handbag-spa', permanent: true },
+      { source: '/leather-cleaning', destination: '/laundry/services/shoe-handbag-spa', permanent: true },
+      { source: '/steam-ironing', destination: '/laundry/services/steam-ironing', permanent: true },
+      { source: '/steam-press', destination: '/laundry/services/steam-ironing', permanent: true },
+      { source: '/ironing', destination: '/laundry/services/steam-ironing', permanent: true },
+      { source: '/wash-and-iron', destination: '/laundry/services/steam-ironing', permanent: true },
+      { source: '/dry-cleaning', destination: '/laundry/services/eco-friendly-dry-cleaning', permanent: true },
+      { source: '/drycleaning', destination: '/laundry/services/eco-friendly-dry-cleaning', permanent: true },
+      { source: '/dry-cleaner', destination: '/laundry/services/eco-friendly-dry-cleaning', permanent: true },
+      { source: '/suit-cleaning', destination: '/laundry/services/eco-friendly-dry-cleaning', permanent: true },
+      { source: '/saree-cleaning', destination: '/laundry/services/eco-friendly-dry-cleaning', permanent: true },
+      { source: '/carpet-cleaning', destination: '/laundry/services/home-furnishing-cleaning', permanent: true },
+      { source: '/curtain-cleaning', destination: '/laundry/services/home-furnishing-cleaning', permanent: true },
+      { source: '/sofa-cleaning', destination: '/laundry/services/home-furnishing-cleaning', permanent: true },
+      { source: '/blanket-cleaning', destination: '/laundry/services/home-furnishing-cleaning', permanent: true },
+      { source: '/wash-and-fold', destination: '/laundry/services/premium-laundry', permanent: true },
+      { source: '/commercial-cleaning', destination: '/laundry/services/commercial-laundry', permanent: true },
+      { source: '/contact-us', destination: '/laundry/contact-us', permanent: true },
+      { source: '/contact', destination: '/laundry/contact-us', permanent: true },
+      { source: '/services', destination: '/laundry/services', permanent: true },
+      { source: '/laundry-services', destination: '/laundry/services', permanent: true },
+      { source: '/best-laundry-and-dry-cleaning', destination: '/laundry/services', permanent: true },
+      { source: '/carspa', destination: '/car-spa', permanent: true },
+      { source: '/car-spa-services', destination: '/car-spa/services', permanent: true },
+      { source: '/car-spa-book', destination: '/car-spa/book', permanent: true },
+      { source: '/book', destination: '/car-spa/book', permanent: true },
+      { source: '/blog', destination: '/laundry/blog', permanent: true },
+      { source: '/about', destination: '/laundry/services', permanent: true },
+      { source: '/about-us', destination: '/laundry/services', permanent: true },
+      { source: '/privacy-policy', destination: '/laundry/privacy-policy', permanent: true },
+      { source: '/terms-of-service', destination: '/laundry/terms-of-service', permanent: true },
+    ];
+  },
+};
+
+export default nextConfig;

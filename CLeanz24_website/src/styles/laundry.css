@@ -13,7 +13,7 @@
   --global-primary: #2B6CB0;
   --global-secondary: #00C96D; /* Accent Green */
   --global-accent-green: #3C8B35; /* Olive-green from cleanz24.com */
-  --font-family-base: 'Rethink Sans', 'Poppins', sans-serif;
+  --font-family-base: 'Rethink Sans', var(--font-poppins), sans-serif;
 }
 
 .laundry-app {
@@ -35,7 +35,7 @@
 .laundry-app h4, 
 .laundry-app h5, 
 .laundry-app h6 {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-poppins), sans-serif;
   color: var(--global-palette3);
   font-weight: 700;
   line-height: 1.3;
@@ -430,7 +430,7 @@
   color: var(--global-palette4);
   font-size: 1rem;
   font-weight: 600;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-poppins), sans-serif;
   border-left: 3px solid transparent;
   transition: all 0.2s ease;
   position: relative;
@@ -529,7 +529,7 @@
   color: #fff !important;
   font-weight: 700;
   font-size: 0.92rem;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-poppins), sans-serif;
   border-radius: 12px;
   text-decoration: none !important;
   border: none;
@@ -551,7 +551,7 @@
   color: var(--global-primary) !important;
   font-weight: 600;
   font-size: 0.9rem;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-poppins), sans-serif;
   border-radius: 12px;
   text-decoration: none !important;
   border: 1.5px solid rgba(43, 108, 176, 0.3);

@@ -222,7 +222,7 @@
   font-size: 0.96rem;
   color: var(--text-heading);
   padding: 11px 0;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 .car-search-field::placeholder { color: var(--text-muted); }
 .car-search-clear {

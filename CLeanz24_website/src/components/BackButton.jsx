@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 /**
  * BackButton — Reusable "Back to Home" button
@@ -12,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
  * Uses useNavigate hook from react-router-dom.
  */
 export default function BackButton({ to = '/', label = '← Back to Home', style = {} }) {
-  const navigate = useNavigate();
+  const navigate = (p) => { if (typeof window !== 'undefined') window.location.href = p; };
 
   return (
     <button

@@ -64,11 +64,11 @@ html {
 }
 
 body, p, li, span, input, textarea, select, label {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-dm-sans), sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6, button, .btn, nav a, .cta-label {
-  font-family: 'Rajdhani', sans-serif;
+  font-family: var(--font-rajdhani), sans-serif;
 }
 
 body {
@@ -515,7 +515,7 @@ body.light-mode .mobile-member-name { color: #000; }
   color: rgba(255, 255, 255, 0.75);
   font-size: 1rem;
   font-weight: 600;
-  font-family: 'Rajdhani', sans-serif;
+  font-family: var(--font-rajdhani), sans-serif;
   letter-spacing: 0.5px;
   border: none;
   background: transparent;
@@ -614,7 +614,7 @@ body.light-mode .mobile-package-item {
 .pkg-acc-name {
   font-size: 0.85rem;
   font-weight: 700;
-  font-family: 'Rajdhani', sans-serif;
+  font-family: var(--font-rajdhani), sans-serif;
   letter-spacing: 0.5px;
 }
 .pkg-acc-badge {
@@ -636,10 +636,10 @@ body.light-mode .mobile-package-item {
   text-align: left;
   background: transparent;
   border: none;
-  color: var(--primary-color);
+  color: var(--primary-color) !important;
   font-size: 0.82rem;
   font-weight: 700;
-  font-family: 'Rajdhani', sans-serif;
+  font-family: var(--font-rajdhani), sans-serif;
   letter-spacing: 0.5px;
   cursor: pointer;
   transition: background 0.2s;
@@ -669,7 +669,7 @@ body.light-mode .mobile-cta-area {
   color: #000 !important;
   font-weight: 800;
   font-size: 0.9rem;
-  font-family: 'Rajdhani', sans-serif;
+  font-family: var(--font-rajdhani), sans-serif;
   letter-spacing: 1px;
   border-radius: 12px;
   text-decoration: none !important;
@@ -691,7 +691,7 @@ body.light-mode .mobile-cta-area {
   color: rgba(255, 255, 255, 0.8) !important;
   font-weight: 700;
   font-size: 0.88rem;
-  font-family: 'Rajdhani', sans-serif;
+  font-family: var(--font-rajdhani), sans-serif;
   letter-spacing: 0.5px;
   border-radius: 12px;
   text-decoration: none !important;
@@ -774,14 +774,14 @@ body.light-mode .text-gradient {
 .hero-section {
   background: radial-gradient(circle at center, rgba(0, 201, 109, 0.12) 0%, rgba(5, 5, 7, 0.75) 80%), 
               linear-gradient(to bottom, rgba(0, 0, 0, 0.35), var(--bg-body)), 
-              url('./assets/hero_bg_car.png') center/cover no-repeat;
+              url('../assets/hero_bg_car.png') center/cover no-repeat;
   height: 100vh; width: 100%;
   display: flex; align-items: center; justify-content: center; position: relative;
 }
 body.light-mode .hero-section {
   background: radial-gradient(circle at center, rgba(0, 201, 109, 0.08) 0%, rgba(5, 5, 7, 0.6) 80%), 
               linear-gradient(to bottom, rgba(0, 0, 0, 0.3), var(--bg-body)),
-              url('./assets/hero_bg_car.png') center/cover no-repeat;
+              url('../assets/hero_bg_car.png') center/cover no-repeat;
 }
 .hero-section .text-heading, .hero-section p {
   color: #ffffff !important;
@@ -1067,9 +1067,9 @@ body.light-mode .package-service-list li {
   box-shadow: 0 8px 25px rgba(0, 201, 109, 0.35) !important;
 }
 .btn-outline-primary-custom {
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
-  background: transparent;
+  border: 2px solid var(--primary-color) !important;
+  color: var(--primary-color) !important;
+  background: transparent !important;
   transition: all 0.3s;
   border-radius: 8px !important;
   text-transform: uppercase;
@@ -1077,9 +1077,9 @@ body.light-mode .package-service-list li {
   letter-spacing: 1.5px;
 }
 .btn-outline-primary-custom:hover {
-  background: var(--primary-color);
+  background: var(--primary-color) !important;
   color: #fff !important;
-  box-shadow: 0 8px 20px rgba(0, 201, 109, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 201, 109, 0.3) !important;
 }
 
 /* WhatsApp button variant */
@@ -2668,7 +2668,7 @@ body.light-mode .store-btn {
 }
 
 .pricing-matrix-dropdown-item .item-name {
-  font-family: 'Rajdhani', sans-serif;
+  font-family: var(--font-rajdhani), sans-serif;
   font-weight: 700;
   color: var(--text-heading);
   font-size: 0.95rem;
@@ -2676,7 +2676,7 @@ body.light-mode .store-btn {
 }
 
 .pricing-matrix-dropdown-item .item-desc {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-dm-sans), sans-serif;
   font-size: 0.72rem;
   color: var(--text-muted);
 }
@@ -2720,7 +2720,7 @@ body.light-mode .store-btn {
 
 .modal-title-custom {
   margin: 0;
-  font-family: 'Oswald', sans-serif;
+  font-family: var(--font-oswald), sans-serif;
   font-weight: 800;
   letter-spacing: 2px;
   color: #fff;
@@ -2812,7 +2812,7 @@ body.light-mode .store-btn {
 }
 
 .modal-package-link {
-  font-family: 'Oswald', sans-serif;
+  font-family: var(--font-oswald), sans-serif;
   font-size: 1rem;
   font-weight: 700;
   color: #fff;

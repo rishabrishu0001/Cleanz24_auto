@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { GOOGLE_SHEETS_HIRING_SCRIPT_URL } from '../config';
 
