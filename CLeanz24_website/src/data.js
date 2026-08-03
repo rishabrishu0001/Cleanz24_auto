@@ -764,7 +764,7 @@ export const storesData = [
 
   {
     id: 65,
-    name: 'Cleanz24 - Kukatpally (Hyderabad)',
+    name: 'Cleanz24 - Kukatpally Hyderabad',
     address: 'Door # - LIC-81, Green Hills Rd, Kukatpally Housing Board Colony, KPHB Phase 15, Baskin Robbins, Kukatpally, Hyderabad, Telangana 500072',
     phone: '91380 04800',
     whatsapp: '919138004800',
@@ -788,7 +788,7 @@ export const storesData = [
   },
   {
     id: 67,
-    name: 'Cleanz24 - Vaishali (Ghaziabad)',
+    name: 'Cleanz24 - Vaishali Ghaziabad',
     address: 'Shop No. 2, Plot No. 4/129, Sector 4, Near Paras Hospital, Vaishali, Ghaziabad, Uttar Pradesh - 201010',
     phone: '91380 04800',
     whatsapp: '919138004800',
@@ -800,7 +800,7 @@ export const storesData = [
   },
   {
     id: 68,
-    name: 'Cleanz24 - Kowkoor (Secunderabad)',
+    name: 'Cleanz24 - Kowkoor Secunderabad',
     address: 'Shop:2 Lower ground floor, Janapriya Arcadia, Kowkoor, Alwal, Secunderabad, Telangana 500010',
     phone: '91380 04800',
     whatsapp: '919138004800',
@@ -812,8 +812,8 @@ export const storesData = [
   },
   {
     id: 69,
-    name: 'Cleanz24 - IB Nagar (Hyderabad)',
-    address: 'Sri Aadi Lakshmi Enterprises, IB Nagar, Hyderabad, Telangana',
+    name: 'Cleanz24 - Vanasthalipuram Hyderabad',
+    address: 'Seshadri Heights Building, Door No-5-5-303/23/NR, Plot No.23&24, opp. ICICI Bank, Prashanth Nagar, Vanasthalipuram, Hyderabad, Telangana 500070',
     phone: '91380 04800',
     whatsapp: '919138004800',
     city: 'Hyderabad',
