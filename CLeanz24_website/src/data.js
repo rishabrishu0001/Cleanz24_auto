@@ -764,11 +764,11 @@ export const storesData = [
 
   {
     id: 65,
-    name: 'Cleanz24 - Hyderabad (Kukatpally)',
+    name: 'Cleanz24 - Kukatpally (Hyderabad)',
     address: 'Door # - LIC-81, Green Hills Rd, Kukatpally Housing Board Colony, KPHB Phase 15, Baskin Robbins, Kukatpally, Hyderabad, Telangana 500072',
     phone: '91380 04800',
     whatsapp: '919138004800',
-    city: 'Hyderabad',
+    city: 'Kukatpally',
     state: 'Telangana',
     tags: ['Hyderabad', 'Kukatpally', 'KPHB'],
     rating: 4.8,
