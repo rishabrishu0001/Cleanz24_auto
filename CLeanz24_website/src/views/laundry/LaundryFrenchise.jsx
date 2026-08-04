@@ -83,6 +83,8 @@ function HeroSlideshow({ dark }) {
         {storeImages.map((_, i) => (
           <button
             key={i}
+            type="button"
+            aria-label={`Go to slide ${i + 1}`}
             onClick={() => setActiveIdx(i)}
             style={{
               width: activeIdx === i ? 24 : 8,
@@ -335,6 +337,7 @@ function LaundryFrenchise() {
     } finally {
       setIsSubmitting(false);
     }
+  };
   // Data Collections
   const mediaMentions = [
     { name: 'The Times of India', icon: '📰', gradient: 'linear-gradient(135deg, #1f3a60 0%, #0f172a 100%)' },
@@ -1261,7 +1264,6 @@ function LaundryFrenchise() {
 
     </div>
   );
-}
 }
 
 export default LaundryFrenchise;

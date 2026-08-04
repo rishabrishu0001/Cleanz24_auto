@@ -7,9 +7,8 @@ import laundryLogo from '../../assets/laundry_logo_user.jpg';
 export default function LaundryLoading() {
   return (
     <div style={{
-      position: 'fixed',
-      inset: 0,
-      zIndex: 99999,
+      minHeight: '60vh',
+      padding: '60px 20px',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
