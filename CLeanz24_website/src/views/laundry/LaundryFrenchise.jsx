@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FRANCHISE_CITIES } from './FranchiseCityPage';
+import { FRANCHISE_CITIES } from '../../data/franchiseCities';
 import { GOOGLE_SHEETS_LAUNDRY_FRANCHISE_SCRIPT_URL } from '../../config';
 import storeimg1 from '../../assets/storeimg1.jpeg';
 import storeimg2 from '../../assets/storeimg2.jpeg';
@@ -47,7 +47,7 @@ function HeroSlideshow({ dark }) {
       {storeImages.map((src, i) => (
         <img
           key={i}
-          src={src?.src || src}
+          src={typeof src === 'string' ? src : (src?.src || '')}
           alt={`Cleanz24 Store ${i + 1}`}
           style={{
             position: 'absolute',
@@ -159,7 +159,7 @@ function LaundryFrenchise() {
     },
   };
 
-  const activeCalcData = CALCULATOR_DATA[calcTier][calcModel] || CALCULATOR_DATA.tier1.beta;
+  const activeCalcData = CALCULATOR_DATA[calcTier]?.[calcModel] || CALCULATOR_DATA.tier1.beta;
 
   // Lead Popup State (20s timer preserved)
   const [showLeadPopup, setShowLeadPopup] = useState(false);
@@ -171,41 +171,51 @@ function LaundryFrenchise() {
   // FAQ Accordion State
   const [activeFaq, setActiveFaq] = useState(null);
 
-  // 20-second Popup Trigger
+  // 20-second Popup Trigger with SSR Safety
   useEffect(() => {
-    const alreadySeen = sessionStorage.getItem('lf_popup_seen');
-    if (alreadySeen || window.location.hash) return;
+    let alreadySeen = false;
+    try {
+      if (typeof window !== 'undefined' && window.sessionStorage) {
+        alreadySeen = window.sessionStorage.getItem('lf_popup_seen');
+      }
+    } catch (e) {}
+    if (alreadySeen || (typeof window !== 'undefined' && window.location && window.location.hash)) return;
     const timer = setTimeout(() => setShowLeadPopup(true), 20000);
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
-    if (showLeadPopup) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
+    if (typeof document !== 'undefined') {
+      if (showLeadPopup) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
     }
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      if (typeof document !== 'undefined') {
+        document.body.style.overflow = '';
+      }
+    };
   }, [showLeadPopup]);
 
-  // Hash Scroll Fix
+  // Hash Scroll Fix (Uses pathname string dependency to prevent re-render loop)
   const pathname = usePathname() || '';
-  const location = { pathname, state: {} };
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.location.hash) {
+    if (typeof window !== 'undefined' && window.location && window.location.hash) {
       setShowLeadPopup(false);
-      document.body.style.overflow = '';
+      if (typeof document !== 'undefined') document.body.style.overflow = '';
       const id = window.location.hash.replace('#', '');
       setTimeout(() => {
         const el = document.getElementById(id);
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 300);
     }
-  }, [location]);
+  }, [pathname]);
 
   // Google Ads conversion tracking on page view
   useEffect(() => {
-    if (typeof window.gtag === 'function') {
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
       window.gtag('event', 'conversion', {
         'send_to': 'AW-16562330559/IThJCPHEmaIaEL-3xNk9',
         'value': 1.0,
@@ -215,7 +225,11 @@ function LaundryFrenchise() {
   }, []);
 
   const closeLeadPopup = () => {
-    sessionStorage.setItem('lf_popup_seen', '1');
+    try {
+      if (typeof window !== 'undefined' && window.sessionStorage) {
+        window.sessionStorage.setItem('lf_popup_seen', '1');
+      }
+    } catch (e) {}
     setShowLeadPopup(false);
   };
 
@@ -265,7 +279,11 @@ function LaundryFrenchise() {
         });
       }
       setPopupSubmitted(true);
-      sessionStorage.setItem('lf_popup_seen', '1');
+      try {
+        if (typeof window !== 'undefined' && window.sessionStorage) {
+          window.sessionStorage.setItem('lf_popup_seen', '1');
+        }
+      } catch (e) {}
       setTimeout(() => setShowLeadPopup(false), 2500);
     } catch (err) {
       console.error('Popup error:', err);
