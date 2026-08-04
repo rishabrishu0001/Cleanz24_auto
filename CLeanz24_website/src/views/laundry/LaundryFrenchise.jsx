@@ -335,13 +335,6 @@ function LaundryFrenchise() {
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  // ROI Calculator computed outputs
-  const calcMonthlyRev = (calcInvestment * 0.10).toFixed(1); // e.g. 15L -> 1.5L
-  const calcAnnualProfit = (calcMonthlyRev * 12 * 0.42).toFixed(1); // 42% net margin approx
-  const calcBreakeven = (calcInvestment / (calcMonthlyRev * 0.45)).toFixed(0); // ~18-20 mo
-
   // Data Collections
   const mediaMentions = [
     { name: 'The Times of India', icon: '📰', gradient: 'linear-gradient(135deg, #1f3a60 0%, #0f172a 100%)' },
@@ -1268,6 +1261,7 @@ function LaundryFrenchise() {
 
     </div>
   );
+}
 }
 
 export default LaundryFrenchise;
