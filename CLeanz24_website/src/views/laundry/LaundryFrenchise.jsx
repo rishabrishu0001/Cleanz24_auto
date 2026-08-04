@@ -124,7 +124,7 @@ function HeroSlideshow({ dark }) {
 
 /* ─── Main Franchise Page Component ─────────────────────────────── */
 function LaundryFrenchise() {
-  const { isDarkMode } = (() => ({ isDarkMode: false, toggleTheme: () => {} }))() || {};
+  const { isDarkMode } = (() => ({ isDarkMode: false, toggleTheme: () => { } }))() || {};
   const dark = !!isDarkMode;
 
   // Final Form State (Section 8)
@@ -180,7 +180,7 @@ function LaundryFrenchise() {
       if (typeof window !== 'undefined' && window.sessionStorage) {
         alreadySeen = window.sessionStorage.getItem('lf_popup_seen');
       }
-    } catch (e) {}
+    } catch (e) { }
     if (alreadySeen || (typeof window !== 'undefined' && window.location && window.location.hash)) return;
     const timer = setTimeout(() => setShowLeadPopup(true), 20000);
     return () => clearTimeout(timer);
@@ -231,7 +231,7 @@ function LaundryFrenchise() {
       if (typeof window !== 'undefined' && window.sessionStorage) {
         window.sessionStorage.setItem('lf_popup_seen', '1');
       }
-    } catch (e) {}
+    } catch (e) { }
     setShowLeadPopup(false);
   };
 
@@ -285,7 +285,7 @@ function LaundryFrenchise() {
         if (typeof window !== 'undefined' && window.sessionStorage) {
           window.sessionStorage.setItem('lf_popup_seen', '1');
         }
-      } catch (e) {}
+      } catch (e) { }
       setTimeout(() => setShowLeadPopup(false), 2500);
     } catch (err) {
       console.error('Popup error:', err);
@@ -459,7 +459,7 @@ function LaundryFrenchise() {
 
   return (
     <div style={{ fontFamily: "'Inter', sans-serif", background: dark ? '#0f172a' : '#ffffff', color: dark ? '#e2e8f0' : '#1e293b' }}>
-      
+
       {/* ── PERSISTENT POPUP MODAL (20s delay) ── */}
       {showLeadPopup && (
         <div
@@ -601,7 +601,7 @@ function LaundryFrenchise() {
                 fontSize: 'clamp(15px, 1.8vw, 18px)', fontWeight: 600,
                 color: dark ? '#94a3b8' : '#475569', marginBottom: 28, lineHeight: 1.5
               }}>
-                🏆 100+ Franchise Stores &nbsp;|&nbsp; 🌍 17+ States &nbsp;|&nbsp; 😊 50,000+ Happy Customers
+                🏆 100+ Franchise Stores &nbsp;|&nbsp; 🌍 21+ States &nbsp;|&nbsp; 😊 2,00,000+ Happy Customers
               </p>
 
               {/* Trust badges row */}
@@ -668,7 +668,7 @@ function LaundryFrenchise() {
               }}>
                 <div style={{ fontSize: '2.2rem', marginBottom: 12 }}>💼</div>
                 <div style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', color: dark ? '#94a3b8' : '#64748b', letterSpacing: '1px', marginBottom: 6 }}>Total Investment</div>
-                <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: 'clamp(20px, 2.5vw, 28px)', color: '#16a34a' }}>₹13L – ₹29L</div>
+                <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: 'clamp(20px, 2.5vw, 28px)', color: '#16a34a' }}>₹13L – ₹35L</div>
                 <div style={{ fontSize: '0.78rem', color: dark ? '#64748b' : '#94a3b8', marginTop: 4 }}>Turnkey Store Setup</div>
               </div>
             </div>
@@ -681,8 +681,8 @@ function LaundryFrenchise() {
                 boxShadow: '0 4px 16px rgba(0,0,0,0.03)', transition: 'transform 0.2s'
               }}>
                 <div style={{ fontSize: '2.2rem', marginBottom: 12 }}>📈</div>
-                <div style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', color: dark ? '#94a3b8' : '#64748b', letterSpacing: '1px', marginBottom: 6 }}>Monthly Revenue</div>
-                <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: 'clamp(20px, 2.5vw, 28px)', color: '#2563eb' }}>₹1.0L – ₹2.5L+</div>
+                <div style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', color: dark ? '#94a3b8' : '#64748b', letterSpacing: '1px', marginBottom: 6 }}>Monthly Profit</div>
+                <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: 'clamp(20px, 2.5vw, 28px)', color: '#2563eb' }}>₹1.0L – ₹3.5L+</div>
                 <div style={{ fontSize: '0.78rem', color: dark ? '#64748b' : '#94a3b8', marginTop: 4 }}>Predictable Cashflow</div>
               </div>
             </div>
@@ -837,7 +837,7 @@ function LaundryFrenchise() {
             <h2 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '2.2rem', color: dark ? '#f8fafc' : '#0f172a', marginTop: 6 }}>
               Why Invest in <span style={{ color: '#16a34a' }}>Cleanz24?</span>
             </h2>
-            
+
             {/* Unorganized Industry Stat Callout */}
             <div style={{
               display: 'inline-block', background: dark ? '#1e293b' : '#fef3c7',
