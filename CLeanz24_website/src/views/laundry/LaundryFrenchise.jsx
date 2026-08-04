@@ -14,6 +14,7 @@ import storeimg6 from '../../assets/storeimg6.jpeg';
 import storeimg7 from '../../assets/storeimg7.jpeg';
 
 const storeImages = [
+  '/assets/store_hero.jpg',
   storeimg1,
   storeimg2,
   storeimg3,
@@ -575,65 +576,77 @@ function LaundryFrenchise() {
 
       {/* ══════════════════ SECTION 1: HERO ══════════════════ */}
       <section style={{
-        background: dark ? 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' : 'linear-gradient(135deg, #f0fdf4 0%, #e6f4ea 100%)',
+        backgroundImage: 'url("/assets/store_hero.jpg")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
         padding: '100px 0 70px',
         position: 'relative', overflow: 'hidden'
       }}>
         <div className="container">
           <div className="row align-items-center g-5">
             <div className="col-lg-6">
-              {/* Trust Badge Header */}
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: dark ? 'rgba(34,197,94,0.15)' : '#dcfce7', border: '1px solid #86efac', padding: '6px 16px', borderRadius: 30, marginBottom: 20 }}>
-                <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#15803d', letterSpacing: '0.5px', textTransform: 'uppercase' }}>⭐ PROVEN BUSINESS MODEL</span>
-              </div>
-
-              {/* Headline */}
-              <h1 style={{
-                fontFamily: "'Poppins', sans-serif", fontWeight: 800,
-                fontSize: 'clamp(32px, 4.5vw, 52px)', lineHeight: 1.15,
-                color: dark ? '#f8fafc' : '#0f172a', marginBottom: 20
+              <div style={{
+                background: dark ? 'rgba(15, 23, 42, 0.85)' : 'rgba(255, 255, 255, 0.90)',
+                backdropFilter: 'blur(10px)',
+                borderRadius: 24,
+                padding: '32px',
+                border: `1px solid ${dark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}`,
+                boxShadow: '0 20px 40px rgba(0,0,0,0.12)'
               }}>
-                Start Your Own <span style={{ color: '#16a34a' }}>Cleanz24 Franchise</span> — 100+ Stores, Fast ROI
-              </h1>
-
-              {/* Subheadline: 1-line trust stat */}
-              <p style={{
-                fontSize: 'clamp(15px, 1.8vw, 18px)', fontWeight: 600,
-                color: dark ? '#94a3b8' : '#475569', marginBottom: 28, lineHeight: 1.5
-              }}>
-                🏆 100+ Franchise Stores &nbsp;|&nbsp; 🌍 21+ States &nbsp;|&nbsp; 😊 2,00,000+ Happy Customers
-              </p>
-
-              {/* Trust badges row */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap', marginBottom: 32 }}>
-                <div style={{ background: dark ? '#1e293b' : '#ffffff', padding: '8px 16px', borderRadius: 10, border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, fontSize: '0.85rem', fontWeight: 600, color: dark ? '#f8fafc' : '#1e293b' }}>
-                  🗓️ Est. 2018
+                {/* Trust Badge Header */}
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: dark ? 'rgba(34,197,94,0.15)' : '#dcfce7', border: '1px solid #86efac', padding: '6px 16px', borderRadius: 30, marginBottom: 20 }}>
+                  <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#15803d', letterSpacing: '0.5px', textTransform: 'uppercase' }}>⭐ PROVEN BUSINESS MODEL</span>
                 </div>
-                <div style={{ background: dark ? '#1e293b' : '#ffffff', padding: '8px 16px', borderRadius: 10, border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, fontSize: '0.85rem', fontWeight: 600, color: '#d97706' }}>
-                  ★ 4.8 / 5 Rating
-                </div>
-                <div style={{ background: dark ? '#1e293b' : '#ffffff', padding: '8px 16px', borderRadius: 10, border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, fontSize: '0.85rem', fontWeight: 600, color: dark ? '#f8fafc' : '#1e293b' }}>
-                  📰 Featured in TOI & NDTV
-                </div>
-              </div>
 
-              {/* Primary CTA (Scrolls to Calculator/Snapshot) */}
-              <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-                <a
-                  href="#calculator"
-                  style={{
-                    display: 'inline-flex', alignItems: 'center', gap: 10,
-                    background: 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)',
-                    color: '#fff', textDecoration: 'none', padding: '16px 36px',
-                    borderRadius: 12, fontWeight: 700, fontSize: '1.05rem',
-                    fontFamily: 'Poppins, sans-serif', boxShadow: '0 8px 24px rgba(22,163,74,0.3)',
-                    transition: 'transform 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                >
-                  Explore Franchise Opportunity ↓
-                </a>
+                {/* Headline */}
+                <h1 style={{
+                  fontFamily: "'Poppins', sans-serif", fontWeight: 800,
+                  fontSize: 'clamp(32px, 4.5vw, 52px)', lineHeight: 1.15,
+                  color: dark ? '#f8fafc' : '#0f172a', marginBottom: 20
+                }}>
+                  Start Your Own <span style={{ color: '#16a34a' }}>Cleanz24 Franchise</span> — 100+ Stores, Fast ROI
+                </h1>
+
+                {/* Subheadline: 1-line trust stat */}
+                <p style={{
+                  fontSize: 'clamp(15px, 1.8vw, 18px)', fontWeight: 600,
+                  color: dark ? '#94a3b8' : '#475569', marginBottom: 28, lineHeight: 1.5
+                }}>
+                  🏆 100+ Franchise Stores &nbsp;|&nbsp; 🌍 21+ States &nbsp;|&nbsp; 😊 2,00,000+ Happy Customers
+                </p>
+
+                {/* Trust badges row */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap', marginBottom: 32 }}>
+                  <div style={{ background: dark ? '#1e293b' : '#ffffff', padding: '8px 16px', borderRadius: 10, border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, fontSize: '0.85rem', fontWeight: 600, color: dark ? '#f8fafc' : '#1e293b' }}>
+                    🗓️ Est. 2018
+                  </div>
+                  <div style={{ background: dark ? '#1e293b' : '#ffffff', padding: '8px 16px', borderRadius: 10, border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, fontSize: '0.85rem', fontWeight: 600, color: '#d97706' }}>
+                    ★ 4.8 / 5 Rating
+                  </div>
+                  <div style={{ background: dark ? '#1e293b' : '#ffffff', padding: '8px 16px', borderRadius: 10, border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, fontSize: '0.85rem', fontWeight: 600, color: dark ? '#f8fafc' : '#1e293b' }}>
+                    📰 Featured in TOI & NDTV
+                  </div>
+                </div>
+
+                {/* Primary CTA (Scrolls to Calculator/Snapshot) */}
+                <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+                  <a
+                    href="#calculator"
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 10,
+                      background: 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)',
+                      color: '#fff', textDecoration: 'none', padding: '16px 36px',
+                      borderRadius: 12, fontWeight: 700, fontSize: '1.05rem',
+                      fontFamily: 'Poppins, sans-serif', boxShadow: '0 8px 24px rgba(22,163,74,0.3)',
+                      transition: 'transform 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+                    onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+                  >
+                    Explore Franchise Opportunity ↓
+                  </a>
+                </div>
               </div>
             </div>
 

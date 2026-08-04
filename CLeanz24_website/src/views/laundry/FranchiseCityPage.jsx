@@ -45,8 +45,8 @@ const INVESTMENT = [
 const PAGE_CSS = (dark) => `
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap');
   .fcp-page { font-family:'Inter',sans-serif; color:${dark?"#e2e8f0":"#1a202c"}; background:${dark?"#0f1623":"#fff"}; }
-  .fcp-hero { background:${dark?"linear-gradient(135deg,#0f1623 0%,#1a3a1a 100%)":"linear-gradient(135deg,#f0faf2 0%,#e8f5e9 100%)"}; padding:110px 0 70px; position:relative; overflow:hidden; }
-  .fcp-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 70% 50%, rgba(34,197,94,0.12) 0%, transparent 60%); pointer-events:none; }
+  .fcp-hero { background: url('/assets/store_hero.jpg') center/cover no-repeat; padding:110px 0 70px; position:relative; overflow:hidden; }
+  .fcp-hero::before { content:''; position:absolute; inset:0; background: ${dark ? 'rgba(15,22,35,0.85)' : 'rgba(255,255,255,0.85)'}; backdrop-filter: blur(6px); pointer-events:none; }
   .fcp-badge { display:inline-flex; align-items:center; gap:8px; background:${dark?"rgba(34,197,94,0.15)":"rgba(34,197,94,0.1)"}; border:1px solid ${dark?"rgba(34,197,94,0.3)":"rgba(34,197,94,0.4)"}; color:${dark?"#4ade80":"#16a34a"}; font-size:0.8rem; font-weight:600; padding:6px 16px; border-radius:99px; margin-bottom:20px; letter-spacing:0.05em; text-transform:uppercase; }
   .fcp-city-name { font-family:'Poppins',sans-serif; font-size:clamp(2.2rem,5vw,3.8rem); font-weight:900; color:${dark?"#f1f5f9":"#111"}; line-height:1.1; margin-bottom:8px; }
   .fcp-city-highlight { color:${dark?"#4ade80":"#16a34a"}; }
