@@ -162,7 +162,7 @@ export default function FranchiseCityPage() {
     }
   };
 
-  const canonicalUrl = "https://cleanz24.com/laundry/franchise/" + citySlug;
+  const canonicalUrl = "https://cleanz24.com/best-laundry-drycleaning/franchise-opportunities/" + citySlug;
   const pageTitle = "Best Laundry & Dry Cleaning Franchise in " + cityName + " | Cleanz24";
   const pageDesc = "Start the most profitable laundry & dry cleaning franchise in " + cityName + ", " + stateName + ". Investment starting ₹13 Lacs+, high profit margins, 100+ stores network. Enquire now!";
   const pageKeywords = ["laundry franchise in " + cityName, "dry cleaning franchise " + cityName, "best franchise opportunity in " + cityName, "profitable business in " + cityName, "laundry service near me " + cityName, "best laundry service " + cityName, "dry cleaning service near me " + cityName, "best business model " + cityName, "low investment franchise " + cityName, "Cleanz24 franchise " + cityName, ...HIGH_VALUE_KEYWORDS].join(", ");
@@ -190,8 +190,8 @@ export default function FranchiseCityPage() {
       <section className="fcp-hero">
         <div className="container">
           <nav className="fcp-breadcrumb" aria-label="breadcrumb">
-            <Link href="/laundry">Home</Link><span>›</span>
-            <Link href="/laundry/franchise">Franchise</Link><span>›</span>
+            <Link href="/best-laundry-drycleaning">Home</Link><span>›</span>
+            <Link href="/best-laundry-drycleaning/franchise-opportunities">Franchise</Link><span>›</span>
             <span>{cityName}</span>
           </nav>
           <span className="fcp-badge">🚀 100+ Stores Network — Franchise in {cityName}</span>
@@ -221,7 +221,7 @@ export default function FranchiseCityPage() {
           <p className="fcp-section-sub">Your franchise store will offer all premium laundry, dry cleaning & car spa services in {cityName}</p>
           <div className="fcp-service-cards">
             {SERVICES.map((s) => (
-              <Link href={`/laundry/franchise/${citySlug}/${s.slug}`} key={s.name} style={{ textDecoration: "none", color: "inherit" }}>
+              <Link href={`/best-laundry-drycleaning/franchise-opportunities/${citySlug}/${s.slug}`} key={s.name} style={{ textDecoration: "none", color: "inherit" }}>
                 <div className="fcp-service-card">
                   <div className="fcp-service-icon">{s.icon}</div>
                   <div className="fcp-service-name">{s.name}</div>

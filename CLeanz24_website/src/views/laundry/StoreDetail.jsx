@@ -151,11 +151,6 @@ import wakadPuneDeliveryCounter from '../../assets/cleanz24_wakad_pune_delivery_
 import wakadPuneLgMachines from '../../assets/cleanz24_wakad_pune_lg_machines.jpg';
 import wakadPuneReceptionDesk from '../../assets/cleanz24_wakad_pune_reception_desk.jpg';
 
-// Ravet Pune
-import ravetPuneStorefrontExterior from '../../assets/cleanz24_ravet_pune_storefront_exterior.jpg';
-import ravetPuneLgMachines from '../../assets/cleanz24_ravet_pune_lg_machines.jpg';
-import ravetPuneReceptionCounter from '../../assets/cleanz24_ravet_pune_reception_counter.jpg';
-import ravetPunePackagingShelves from '../../assets/cleanz24_ravet_pune_packaging_shelves.jpg';
 
 // Kondapur Hyderabad
 import kondapurBuildingFacadeCroma from '../../assets/cleanz24_kondapur_building_facade_croma.jpg';
@@ -319,12 +314,7 @@ const STORE_IMAGES = {
     kondapurVacuumIroningTables,
     kondapurSteamIroningStation,
   ],
-  71: [
-    ravetPuneStorefrontExterior,
-    ravetPuneReceptionCounter,
-    ravetPuneLgMachines,
-    ravetPunePackagingShelves,
-  ],
+
   36: [
     wakadPuneSignboard,
     wakadPuneStandee,
@@ -511,10 +501,10 @@ const buildKeywords = (s) => {
 const buildSchema = (s, slug) => [
   {
     '@context': 'https://schema.org', '@type': 'DryCleaningOrLaundry',
-    '@id': `https://cleanz24.com/laundry/store/${slug}`,
+    '@id': `https://cleanz24.com/best-laundry-drycleaning/store/${slug}`,
     name: s.name,
     description: `Professional laundry and dry cleaning in ${s.city}. Services: wash & fold, dry cleaning, steam ironing, stain removal, doorstep pickup & delivery.`,
-    url: `https://cleanz24.com/laundry/store/${slug}`,
+    url: `https://cleanz24.com/best-laundry-drycleaning/store/${slug}`,
     telephone: '+919138004800', email: 'happy2helpu@cleanz24.com',
     priceRange: '₹₹', paymentAccepted: 'Cash, UPI, Credit Card, Debit Card',
     address: {
@@ -696,7 +686,7 @@ export default function StoreDetail() {
           <div style={{ fontSize: '64px', marginBottom: '16px' }}>📍</div>
           <h1 style={{ fontSize: '24px', fontWeight: 800, color: theme.text, marginBottom: '12px' }}>Store Not Found</h1>
           <p style={{ color: theme.muted, marginBottom: '24px' }}>We couldn't find the requested store location.</p>
-          <Link href="/laundry/stores" style={{ background: theme.primary, color: '#fff', textDecoration: 'none', borderRadius: '30px', padding: '12px 28px', fontWeight: 700 }}>
+          <Link href="/best-laundry-drycleaning/stores" style={{ background: theme.primary, color: '#fff', textDecoration: 'none', borderRadius: '30px', padding: '12px 28px', fontWeight: 700 }}>
             View All Stores
           </Link>
         </div>
@@ -737,8 +727,8 @@ export default function StoreDetail() {
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           {/* Breadcrumb */}
           <div style={{ fontSize: '13px', opacity: 0.8, marginBottom: '24px', display: 'flex', gap: '8px', alignItems: 'center' }}>
-            <Link href="/laundry" style={{ color: '#fff', textDecoration: 'none' }}>Home</Link> › 
-            <Link href="/laundry/stores" style={{ color: '#fff', textDecoration: 'none' }}>Stores</Link> › 
+            <Link href="/best-laundry-drycleaning" style={{ color: '#fff', textDecoration: 'none' }}>Home</Link> › 
+            <Link href="/best-laundry-drycleaning/stores" style={{ color: '#fff', textDecoration: 'none' }}>Stores</Link> › 
             <span style={{ fontWeight: 700 }}>{loc}</span>
           </div>
 
@@ -1053,7 +1043,7 @@ export default function StoreDetail() {
               return (
                 <Link
                   key={idx}
-                  href={`/laundry/store/${storeSlug}/${svcSlug}`}
+                  href={`/best-laundry-drycleaning/store/${storeSlug}/${svcSlug}`}
                   style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
                 >
                   <motion.div
@@ -1265,11 +1255,11 @@ export default function StoreDetail() {
           </div>
 
           <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', fontSize: '14px', fontWeight: 700, paddingTop: '12px', borderTop: `1px solid ${theme.border}` }}>
-            <Link href="/laundry/stores" style={{ color: theme.primary, textDecoration: 'none' }}>← View All Cleanz24 Stores</Link>
+            <Link href="/best-laundry-drycleaning/stores" style={{ color: theme.primary, textDecoration: 'none' }}>← View All Cleanz24 Stores</Link>
             <span style={{ color: theme.border }}>|</span>
-            <Link href={`/laundry/${store.city.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} style={{ color: theme.primary, textDecoration: 'none' }}>All Stores in {store.city} →</Link>
+            <Link href={`/best-laundry-drycleaning/${store.city.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} style={{ color: theme.primary, textDecoration: 'none' }}>All Stores in {store.city} →</Link>
             <span style={{ color: theme.border }}>|</span>
-            <Link href="/laundry/franchise" style={{ color: theme.primary, textDecoration: 'none' }}>Franchise Opportunities →</Link>
+            <Link href="/best-laundry-drycleaning/franchise-opportunities" style={{ color: theme.primary, textDecoration: 'none' }}>Franchise Opportunities →</Link>
           </div>
         </div>
       </section>
@@ -1462,7 +1452,7 @@ function StoresNearYouSection({ currentStoreSlug, isDarkMode, theme }) {
                   </div>
 
                   {/* View Store Page Link */}
-                  <Link href={`/laundry/store/${stSlug}`}
+                  <Link href={`/best-laundry-drycleaning/store/${stSlug}`}
                     style={{
                       display: 'block',
                       textAlign: 'center',
@@ -1487,7 +1477,7 @@ function StoresNearYouSection({ currentStoreSlug, isDarkMode, theme }) {
 
         {/* View All Stores Pill Button */}
         <div style={{ textAlign: 'center' }}>
-          <Link href="/laundry/stores"
+          <Link href="/best-laundry-drycleaning/stores"
             style={{
               background: '#10B981',
               color: '#ffffff',

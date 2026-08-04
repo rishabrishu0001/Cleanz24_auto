@@ -14,7 +14,7 @@ const _storeLocationsGrouped = [
   { state: 'Gujarat', cities: ['Nadiad'] },
   { state: 'Haryana', cities: ['Gurugram', 'Panchkula'] },
   { state: 'Himachal Pradesh', cities: ['Una'] },
-  { state: 'Karnataka', cities: ['HSR Layout', 'Padmanabhanagar', 'Varthur Hobli'] },
+  { state: 'Karnataka', cities: ['Padmanabhanagar'] },
   { state: 'Kerala', cities: ['Cheriyamundam', 'Kannur', 'Kazhakkoottam', 'Kozhikode', 'Panoor', 'Parad', 'Parat', 'Trivandrum', 'Vaikom'] },
   { state: 'Madhya Pradesh', cities: ['Bhopal'] },
   { state: 'Maharashtra', cities: ['Alibag', 'Pimpri-Chinchwad', 'Pune', 'Thane West', 'Wakad'] },
@@ -91,7 +91,7 @@ export default function Stores() {
           {/* Breadcrumb */}
           <nav aria-label="breadcrumb" style={{ marginBottom: '30px', textAlign: 'center' }}>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', fontSize: '13px', color: isDarkMode ? 'rgba(255,255,255,0.7)' : '#4A5568', alignItems: 'center' }}>
-              <Link href="/laundry" style={{ color: isDarkMode ? '#90CDF4' : '#2B6CB0', textDecoration: 'none', fontWeight: 600 }}>Home</Link>
+              <Link href="/best-laundry-drycleaning" style={{ color: isDarkMode ? '#90CDF4' : '#2B6CB0', textDecoration: 'none', fontWeight: 600 }}>Home</Link>
               <span>›</span>
               <span style={{ color: isDarkMode ? '#fff' : '#1A202C', fontWeight: 600 }}>Stores</span>
             </div>
@@ -233,14 +233,14 @@ export default function Stores() {
                         <span className="fs-4">📍</span>
                         <div>
                           <h4 className="h5 fw-bold text-dark mb-1">
-                            <Link href={`/laundry/store/${generateStoreSlug(store.name)}`}
+                            <Link href={`/best-laundry-drycleaning/store/${generateStoreSlug(store.name)}`}
                               className="text-dark text-decoration-none hover-primary"
                             >
                               {store.name}
                             </Link>
                           </h4>
                           <div className="d-flex align-items-center gap-1 flex-wrap">
-                            <Link href={`/laundry/${store.city.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+                            <Link href={`/best-laundry-drycleaning/${store.city.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
                               className="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-1 font-semibold text-decoration-none" 
                               style={{ fontSize: '0.72rem' }}
                             >
@@ -278,17 +278,17 @@ export default function Stores() {
                         }}>
                           <span className={`fw-bold d-block mb-1 ${isDarkMode ? 'text-white' : 'text-dark'}`}>📖 Local Guides:</span>
                           <div className="d-flex flex-column gap-1">
-                            <Link href={`/laundry/blog/best-laundry-nearby-you-${store.city.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${store.id}`}
+                            <Link href={`/best-laundry-drycleaning/blog/best-laundry-nearby-you-${store.city.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${store.id}`}
                               className="text-decoration-none text-primary fw-semibold"
                             >
                               • Best Laundry Nearby
                             </Link>
-                            <Link href={`/laundry/blog/best-laundry-dry-cleaning-store-in-${store.city.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${store.id}`}
+                            <Link href={`/best-laundry-drycleaning/blog/best-laundry-dry-cleaning-store-in-${store.city.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${store.id}`}
                               className="text-decoration-none text-primary fw-semibold"
                             >
                               • Dry Cleaning Guide
                             </Link>
-                            <Link href={`/laundry/blog/trusted-laundry-store-in-${store.city.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${store.id}`}
+                            <Link href={`/best-laundry-drycleaning/blog/trusted-laundry-store-in-${store.city.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${store.id}`}
                               className="text-decoration-none text-primary fw-semibold"
                             >
                               • Trusted Store Guide
@@ -326,7 +326,7 @@ export default function Stores() {
                         </a>
                       </div>
                       {/* Individual Store Page Link */}
-                      <Link href={`/laundry/store/${generateStoreSlug(store.name)}`}
+                      <Link href={`/best-laundry-drycleaning/store/${generateStoreSlug(store.name)}`}
                         className="btn btn-primary btn-sm w-100 py-2 fw-bold text-center text-decoration-none mt-2"
                         style={{ fontSize: '0.82rem', background: 'linear-gradient(90deg,#1a365d,#2563EB)', border: 'none', borderRadius: '8px', letterSpacing: '0.3px' }}
                       >

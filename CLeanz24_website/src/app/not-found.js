@@ -9,7 +9,7 @@ export default function NotFound() {
         <h2 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#1A365D', marginBottom: '16px' }}>Page Not Found</h2>
         <p style={{ color: '#4A5568', marginBottom: '24px' }}>The page or studio resource you are looking for does not exist or has moved.</p>
         <Link
-          href="/laundry"
+          href="/best-laundry-drycleaning"
           className="btn btn-primary px-4 py-2"
           style={{ backgroundColor: '#2B6CB0', border: 'none', borderRadius: '30px', fontWeight: 600 }}
         >

@@ -12,7 +12,7 @@ export default function LaundryLayout() {
 
   const toggleTheme = () => setIsDarkMode(prev => !prev);
 
-  const isHome = location.pathname === '/laundry' || location.pathname === '/laundry/';
+  const isHome = location.pathname === '/best-laundry-drycleaning' || location.pathname === '/best-laundry-drycleaning/';
 
   return (
     <div className={`laundry-app d-flex flex-column min-vh-100 ${isDarkMode ? 'laundry-dark' : ''} ${isHome ? 'laundry-home-page' : 'laundry-subpage'}`}>

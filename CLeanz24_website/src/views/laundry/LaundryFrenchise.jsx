@@ -555,7 +555,7 @@ function LaundryFrenchise() {
     const alreadySeen = sessionStorage.getItem('lf_popup_seen');
     // Agar URL mein hash hai (#models etc.) toh popup skip karo
     if (alreadySeen || window.location.hash) return;
-    const timer = setTimeout(() => setShowLeadPopup(true), 10000);
+    const timer = setTimeout(() => setShowLeadPopup(true), 20000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -1805,7 +1805,7 @@ function LaundryFrenchise() {
             <div className="row g-3 justify-content-center">
               {FRANCHISE_CITIES && FRANCHISE_CITIES.map((item, i) => (
                 <div className="col-6 col-md-3 col-lg-2" key={i}>
-                  <Link href={`/laundry/franchise/${item.slug}`} style={{ textDecoration: 'none' }}>
+                  <Link href={`/best-laundry-drycleaning/franchise-opportunities/${item.slug}`} style={{ textDecoration: 'none' }}>
                     <div className="lf-location-pill" style={{ cursor: 'pointer', transition: 'all 0.2s', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }} title={`${item.city}, ${item.state}`}>
                       📍 {item.city}
                     </div>

@@ -156,11 +156,11 @@ export const FRANCHISE_CITIES = [
   { city: "Koramangala", state: "Karnataka", slug: "koramangala" },
   { city: "Whitefield", state: "Karnataka", slug: "whitefield" },
   { city: "Electronic City", state: "Karnataka", slug: "electronic-city" },
-  { city: "HSR Layout", state: "Karnataka", slug: "hsr-layout" },
+
   { city: "Marathahalli", state: "Karnataka", slug: "marathahalli" },
   { city: "Sarjapur Road", state: "Karnataka", slug: "sarjapur-road" },
   { city: "Padmanabhanagar", state: "Karnataka", slug: "padmanabhanagar-bangalore" },
-  { city: "Varthur Hobli", state: "Karnataka", slug: "varthur-hobli-bangalore" },
+
   { city: "Indiranagar", state: "Karnataka", slug: "indiranagar-bangalore" },
   { city: "Jayanagar", state: "Karnataka", slug: "jayanagar-bangalore" },
   { city: "Malleshwaram", state: "Karnataka", slug: "malleshwaram-bangalore" },
@@ -244,7 +244,7 @@ export const FRANCHISE_CITIES = [
   { city: "Hadapsar", state: "Maharashtra", slug: "hadapsar-pune" },
   { city: "Viman Nagar", state: "Maharashtra", slug: "viman-nagar-pune" },
   { city: "Pimpri-Chinchwad", state: "Maharashtra", slug: "pimpri-chinchwad" },
-  { city: "Ravet", state: "Maharashtra", slug: "ravet-pune" },
+
   { city: "Thane West", state: "Maharashtra", slug: "thane-west" },
   { city: "Alibag", state: "Maharashtra", slug: "alibag-maharashtra" },
   { city: "Nanded", state: "Maharashtra", slug: "nanded" },

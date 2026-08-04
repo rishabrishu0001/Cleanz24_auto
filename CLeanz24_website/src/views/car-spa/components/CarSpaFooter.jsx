@@ -108,8 +108,8 @@ export default function Footer() {
         <div className="border-top pt-4 d-flex flex-column flex-md-row justify-content-between align-items-center" style={{ borderColor: 'var(--card-border) !important' }}>
           <p className="mb-2 mb-md-0 text-muted-custom small">© {new Date().getFullYear()} Cleanz24. All rights reserved.</p>
           <div className="d-flex gap-3">
-            <Link href="/laundry/privacy-policy" className="text-muted-custom text-decoration-none small hover-brand">Privacy Policy</Link>
-            <Link href="/laundry/terms-of-service" className="text-muted-custom text-decoration-none small hover-brand">Terms of Service</Link>
+            <Link href="/best-laundry-drycleaning/privacy-policy" className="text-muted-custom text-decoration-none small hover-brand">Privacy Policy</Link>
+            <Link href="/best-laundry-drycleaning/terms-of-service" className="text-muted-custom text-decoration-none small hover-brand">Terms of Service</Link>
           </div>
         </div>
       </div>

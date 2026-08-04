@@ -11,7 +11,7 @@ const storeLocationsGrouped = [
   { state: 'Gujarat', cities: ['Nadiad'] },
   { state: 'Haryana', cities: ['Gurugram', 'Panchkula'] },
   { state: 'Himachal Pradesh', cities: ['Una'] },
-  { state: 'Karnataka', cities: ['HSR Layout', 'Padmanabhanagar', 'Varthur Hobli'] },
+  { state: 'Karnataka', cities: ['Padmanabhanagar'] },
   { state: 'Kerala', cities: ['Cheriyamundam', 'Kannur', 'Kazhakkoottam', 'Kozhikode', 'Panoor', 'Parad', 'Parat', 'Trivandrum', 'Vaikom'] },
   { state: 'Madhya Pradesh', cities: ['Bhopal'] },
   { state: 'Maharashtra', cities: ['Alibag', 'Pimpri-Chinchwad', 'Pune', 'Thane West', 'Wakad'] },
@@ -70,16 +70,7 @@ const comingSoonStores = [
     timeline: "Opening September 2026",
     status: "Fit-out Stage"
   },
-  {
-    id: 11,
-    name: "Cleanz24 Detailing Lab",
-    type: "Car Spa",
-    city: "Pune",
-    state: "Maharashtra",
-    area: "Ravet",
-    timeline: "Opening September 2026",
-    status: "Under Construction"
-  }
+
 ];
 
 export default function Stores() {

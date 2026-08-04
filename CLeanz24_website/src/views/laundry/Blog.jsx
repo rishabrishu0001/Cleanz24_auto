@@ -213,7 +213,7 @@ export const BLOG_POSTS = [
           No other franchise in India at the ₹13-29 lakh price point gives you: 24/7 operations + premium dry cleaning + eco-friendly processes + app-based management + B2B support + complete training. Cleanz24 is genuinely in a category of its own.
         </p>
         <p>
-          👉 <Link href="/laundry/franchise">Apply for a Cleanz24 Franchise — Enquire Now</Link>
+          👉 <Link href="/best-laundry-drycleaning/franchise-opportunities">Apply for a Cleanz24 Franchise — Enquire Now</Link>
         </p>
 
         <h3>#2 QSR / Food Franchise</h3>
@@ -447,7 +447,7 @@ export const BLOG_POSTS = [
           Every metric points in the same direction. For investors looking at the best franchise business in India under ₹30 lakhs, a Cleanz24 laundry franchise is the answer food franchises can no longer compete with.
         </p>
         <p>
-          👉 <Link href="/laundry/franchise">Calculate your potential returns with Cleanz24</Link>
+          👉 <Link href="/best-laundry-drycleaning/franchise-opportunities">Calculate your potential returns with Cleanz24</Link>
         </p>
 
         <h2>Is a Cleanz24 Franchise Right for You?</h2>
@@ -633,9 +633,9 @@ export const BLOG_POSTS = [
           Your competition is still thinking about it. The best time to open a Cleanz24 franchise was last year. The second best time is today.
         </p>
         <div style={{ display: 'flex', gap: '15px', marginTop: '20px', flexWrap: 'wrap' }}>
-          <Link href="/laundry/franchise" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Apply for Cleanz24 Franchise — Start for ₹13L</Link>
+          <Link href="/best-laundry-drycleaning/franchise-opportunities" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Apply for Cleanz24 Franchise — Start for ₹13L</Link>
           <a href="/cleanz24_franchise_brochure.pdf" download="cleanz24_franchise_brochure.pdf" className="btn btn-outline-primary px-4 py-2">Download Franchise Brochure</a>
-          <Link href="/laundry/franchise" className="btn btn-outline-primary px-4 py-2">Book a Free Franchise Consultation Call</Link>
+          <Link href="/best-laundry-drycleaning/franchise-opportunities" className="btn btn-outline-primary px-4 py-2">Book a Free Franchise Consultation Call</Link>
         </div>
       </>
     )
@@ -685,7 +685,7 @@ export const BLOG_POSTS = [
           <li><strong>Best For:</strong> Busy professionals and families seeking premium, round-the-clock convenience with no compromise on fabric safety.</li>
         </ul>
         <p>
-          👉 <Link href="/laundry/services">Experience premium fabric care today</Link>
+          👉 <Link href="/best-laundry-drycleaning/services">Experience premium fabric care today</Link>
         </p>
 
         <h3>2. Tumbledry — India's Largest Retail Cleaning Network</h3>
@@ -798,7 +798,7 @@ export const BLOG_POSTS = [
           Furthermore, Cleanz24 makes no compromises on garment safety. Their certified professionals utilize <strong>100% biodegradable and non-toxic solvents</strong> that preserve fabric color and soft texture without using harsh chemical agents. From premium silk sarees to sports sneakers and leather bags, Cleanz24 handles every item with expert diagnostics, making it the most trusted name in Indian garment care.
         </p>
         <p>
-          👉 <Link href="/laundry/contact-us">Book Your First Pickup with Cleanz24 today and experience the difference.</Link>
+          👉 <Link href="/best-laundry-drycleaning/contact-us">Book Your First Pickup with Cleanz24 today and experience the difference.</Link>
         </p>
 
         <h2>FAQ Section</h2>
@@ -825,7 +825,7 @@ export const BLOG_POSTS = [
           Book your first pickup with Cleanz24 today and experience the difference.
         </p>
         <p>
-          <Link href="/laundry/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book Your First Pickup</Link>
+          <Link href="/best-laundry-drycleaning/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book Your First Pickup</Link>
         </p>
       </>
     )
@@ -889,7 +889,7 @@ export const BLOG_POSTS = [
           <li><strong>Availability:</strong> Delhi NCR, Mumbai, Bangalore, Pune, Hyderabad, and major metro regions.</li>
         </ul>
         <p>
-          👉 <Link href="/laundry/contact-us">Book a Pickup</Link>
+          👉 <Link href="/best-laundry-drycleaning/contact-us">Book a Pickup</Link>
         </p>
 
         <h3>2. Tumbledry — India's Largest Retail Cleaning Chain</h3>
@@ -1106,7 +1106,7 @@ export const BLOG_POSTS = [
           Furthermore, Cleanz24 makes no compromises on garment safety. By utilizing <strong>100% biodegradable and non-toxic solvents</strong>, they protect your fabrics from chemical thinning while ensuring the process is safe for infants and adults with sensitive skin. Their service extends beyond standard apparel to offer comprehensive home care, covering carpets, heavy curtains, sneakers, and designer bags. With a transparent pricing model and professional fabric diagnostics, Cleanz24 delivers a premium service that modern urban India can rely on.
         </p>
         <p>
-          👉 <Link href="/laundry/contact-us">Book Your First Cleanz24 Pickup Now</Link>
+          👉 <Link href="/best-laundry-drycleaning/contact-us">Book Your First Cleanz24 Pickup Now</Link>
         </p>
 
         <h2>How to Choose the Right Laundry Service for You</h2>
@@ -1145,7 +1145,7 @@ export const BLOG_POSTS = [
           Ready to experience laundry done right? Cleanz24 is open 24/7—book your first pickup today and let the professionals take care of the rest.
         </p>
         <p>
-          <Link href="/laundry/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Schedule Your Cleanz24 Pickup</Link>
+          <Link href="/best-laundry-drycleaning/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Schedule Your Cleanz24 Pickup</Link>
         </p>
       </>
     )
@@ -1222,7 +1222,7 @@ export const BLOG_POSTS = [
           <li><strong>Ideal Cities:</strong> Metros and Tier-1 cities.</li>
         </ul>
         <p>
-          👉 <Link href="/laundry/franchise">Contact Cleanz24 Franchise Team</Link>
+          👉 <Link href="/best-laundry-drycleaning/franchise-opportunities">Contact Cleanz24 Franchise Team</Link>
         </p>
 
         <h3>2. Tumbledry Franchise — India's Largest Retail Laundry Network</h3>
@@ -1495,7 +1495,7 @@ export const BLOG_POSTS = [
           A Cleanz24 franchise is not just a business — it's a 24-hour income-generating machine built for modern India.
         </p>
         <p>
-          👉 <Link href="/laundry/franchise">Apply for Cleanz24 Franchise</Link>
+          👉 <Link href="/best-laundry-drycleaning/franchise-opportunities">Apply for Cleanz24 Franchise</Link>
         </p>
 
         <h2>Frequently Asked Questions (FAQ)</h2>
@@ -1521,7 +1521,7 @@ export const BLOG_POSTS = [
         <p>Laundry utilizes water and standard detergents to wash everyday casual wear. Dry cleaning uses specialized chemical solvents (such as Cleanz24's German eco-solvents) to clean delicate fabrics like silks, wools, and designer garments without water.</p>
 
         <h4>Q8: Does Cleanz24 offer franchise opportunities across India?</h4>
-        <p>Yes! Cleanz24 is actively expanding its footprint across India. The expansion team offers comprehensive support, from site selection to marketing launch. <Link href="/laundry/franchise">Contact Cleanz24 today</Link> to secure your exclusive territory.</p>
+        <p>Yes! Cleanz24 is actively expanding its footprint across India. The expansion team offers comprehensive support, from site selection to marketing launch. <Link href="/best-laundry-drycleaning/franchise-opportunities">Contact Cleanz24 today</Link> to secure your exclusive territory.</p>
 
         <h2>Conclusion</h2>
         <p>
@@ -1531,7 +1531,7 @@ export const BLOG_POSTS = [
           Among all the brands in this list, Cleanz24 stands out as the only franchise offering 24/7 operations, eco-friendly processes, and complete franchise support — all in one package. If you're ready to build a profitable, future-proof business, Cleanz24 could be the opportunity you've been waiting for.
         </p>
         <div style={{ display: 'flex', gap: '15px', marginTop: '20px', flexWrap: 'wrap' }}>
-          <Link href="/laundry/franchise" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Apply for Cleanz24 Franchise Today</Link>
+          <Link href="/best-laundry-drycleaning/franchise-opportunities" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Apply for Cleanz24 Franchise Today</Link>
           <a href="/cleanz24_franchise_brochure.pdf" download="cleanz24_franchise_brochure.pdf" className="btn btn-outline-primary px-4 py-2">Download Cleanz24 Franchise Brochure</a>
         </div>
       </>
@@ -1744,7 +1744,7 @@ export const BLOG_POSTS = [
           The laundry and dry cleaning sector in India is ripe for transformation, making 2026 the absolute best time to invest. By choosing a franchise partner that combines low investment requirements, top-tier technology, and green fabric care, you set your business up for decades of sustainable cash flow.
         </p>
         <p>
-          <strong>Ready to own a Cleanz24 franchise?</strong> <Link href="/laundry/franchise">Contact us today</Link> and take the first step toward a profitable, purpose-driven business.
+          <strong>Ready to own a Cleanz24 franchise?</strong> <Link href="/best-laundry-drycleaning/franchise-opportunities">Contact us today</Link> and take the first step toward a profitable, purpose-driven business.
         </p>
       </>
     )
@@ -2265,7 +2265,7 @@ export const BLOG_POSTS = [
           <li>✅ Dedicated customer support</li>
         </ul>
         <p>
-          <Link href="/laundry/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book Your First Pickup</Link>
+          <Link href="/best-laundry-drycleaning/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book Your First Pickup</Link>
         </p>
       </>
     ),
@@ -2330,7 +2330,7 @@ export const BLOG_POSTS = [
         <h2>Cleanz24's Expert Stain Removal Service</h2>
         <p>At <strong>Cleanz24</strong>, our stain removal specialists are trained to treat over 30 types of common and stubborn stains using professional-grade, fabric-safe treatments.</p>
         <p>
-          <Link href="/laundry/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book a Pickup with Cleanz24</Link>
+          <Link href="/best-laundry-drycleaning/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book a Pickup with Cleanz24</Link>
         </p>
       </>
     ),
@@ -2397,7 +2397,7 @@ export const BLOG_POSTS = [
         <h2>How Cleanz24 Uses Both Methods</h2>
         <p>At <strong>Cleanz24</strong>, we assess every garment individually — dry cleaning for deep cleaning, steam treatment for refreshing, and professional pressing for a crisp premium finish.</p>
         <p>
-          <Link href="/laundry/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Schedule a Pickup with Cleanz24</Link>
+          <Link href="/best-laundry-drycleaning/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Schedule a Pickup with Cleanz24</Link>
         </p>
       </>
     ),
@@ -2456,7 +2456,7 @@ export const BLOG_POSTS = [
         <h2>The Cleanz24 Monsoon Solution</h2>
         <p>At <strong>Cleanz24</strong>, our industrial dryers and professional cleaning process means your clothes come back <strong>completely dry, fresh-smelling, and ready to wear</strong> — no damp smell, no waiting, no stress.</p>
         <p>
-          <Link href="/laundry/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book Your Cleanz24 Pickup Today</Link>
+          <Link href="/best-laundry-drycleaning/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book Your Cleanz24 Pickup Today</Link>
         </p>
       </>
     ),
@@ -2512,7 +2512,7 @@ export const BLOG_POSTS = [
         <p>At <strong>Cleanz24</strong>, sustainability is built into how we operate. We use eco-safe, biodegradable cleaning agents — no Perc, no harsh solvents. Responsible packaging, controlled water usage, and fabric-safe processes that are gentle on your clothes and kind to the environment.</p>
         <p style={{ fontWeight: 700, fontStyle: 'italic' }}>Clean clothes. Clean conscience.</p>
         <p>
-          <Link href="/laundry/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book an Eco-Friendly Cleaning with Cleanz24</Link>
+          <Link href="/best-laundry-drycleaning/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book an Eco-Friendly Cleaning with Cleanz24</Link>
         </p>
       </>
     ),
@@ -2576,7 +2576,7 @@ export const BLOG_POSTS = [
         <h2>Cleanz24's Professional Leather Care Service</h2>
         <p>At <strong>Cleanz24</strong>, we offer specialist leather jacket cleaning and conditioning — deep clean without stripping natural oils, restoring suppleness and sheen, and re-conditioning for lasting durability.</p>
         <p>
-          <Link href="/laundry/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book a Leather Cleaning with Cleanz24</Link>
+          <Link href="/best-laundry-drycleaning/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book a Leather Cleaning with Cleanz24</Link>
         </p>
       </>
     ),
@@ -2643,7 +2643,7 @@ export const BLOG_POSTS = [
         <h2>Cleanz24's Home Fabric Cleaning Service</h2>
         <p>At <strong>Cleanz24</strong>, we go beyond garments — curtain cleaning, sofa and upholstery cleaning, carpet and rug deep cleaning, and mattress sanitisation. All using fabric-safe, eco-friendly cleaning agents.</p>
         <p>
-          <Link href="/laundry/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book a Home Cleaning Service with Cleanz24</Link>
+          <Link href="/best-laundry-drycleaning/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book a Home Cleaning Service with Cleanz24</Link>
         </p>
       </>
     ),
@@ -2714,7 +2714,7 @@ export const BLOG_POSTS = [
         <h2>Cleanz24's Shoe Cleaning Service</h2>
         <p>At <strong>Cleanz24</strong>, we offer professional shoe cleaning for sneakers, leather shoes, suede, and sandals — using material-specific techniques and professional-grade products that restore shoes to near-original condition.</p>
         <p>
-          <Link href="/laundry/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book a Shoe Cleaning with Cleanz24</Link>
+          <Link href="/best-laundry-drycleaning/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book a Shoe Cleaning with Cleanz24</Link>
         </p>
       </>
     ),
@@ -2788,7 +2788,7 @@ export const BLOG_POSTS = [
         <p>At <strong>Cleanz24</strong>, every garment receives a professional finish — industrial steam pressing equipment, fabric-specific temperature settings, shaped pressing bucks, and a finishing treatment for that crisp, premium look. The difference is visible the moment you open the bag.</p>
         <p style={{ fontWeight: 700, fontStyle: 'italic' }}>Step out looking sharp — every time.</p>
         <p>
-          <Link href="/laundry/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book a Professional Pressing Service with Cleanz24</Link>
+          <Link href="/best-laundry-drycleaning/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book a Professional Pressing Service with Cleanz24</Link>
         </p>
       </>
     ),
@@ -2846,7 +2846,7 @@ export const BLOG_POSTS = [
         <h2>Cleanz24: Laundry Done Right, Every Time</h2>
         <p>At <strong>Cleanz24</strong>, we sort garments individually, use the correct wash temperature for every fabric type, use professional-grade skin-safe detergents in precisely the right amounts, and inspect quality before every delivery. No myths. No shortcuts. Just clothes that look great and last longer.</p>
         <p>
-          <Link href="/laundry/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book Your First Cleanz24 Pickup Today</Link>
+          <Link href="/best-laundry-drycleaning/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book Your First Cleanz24 Pickup Today</Link>
         </p>
       </>
     ),
@@ -3145,9 +3145,9 @@ export const BLOG_POSTS = [
           Whether you're a customer looking for the best laundry care, or a laundry professional looking to grow your career — Cleanz24 is where standards are set.
         </p>
         <p>
-          <Link href="/laundry/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book a Pickup with Cleanz24</Link>
+          <Link href="/best-laundry-drycleaning/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book a Pickup with Cleanz24</Link>
           {' '}
-          <Link href="/laundry/franchise" className="btn btn-outline-primary px-4 py-2" style={{ marginLeft: '10px' }}>Explore Cleanz24 Franchise</Link>
+          <Link href="/best-laundry-drycleaning/franchise-opportunities" className="btn btn-outline-primary px-4 py-2" style={{ marginLeft: '10px' }}>Explore Cleanz24 Franchise</Link>
         </p>
       </>
     ),
@@ -3262,7 +3262,7 @@ export const BLOG_POSTS = [
           <li><strong>Receive your clothes</strong> — fresh, pressed, and packed, delivered to your door</li>
         </ol>
         <p>
-          <Link href="/laundry/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>📅 Schedule a Pickup Now</Link>
+          <Link href="/best-laundry-drycleaning/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>📅 Schedule a Pickup Now</Link>
         </p>
 
         <h2>Turnaround Times</h2>
@@ -3285,7 +3285,7 @@ export const BLOG_POSTS = [
           <li>🏙️ <strong>Pune</strong> — Kothrud, Wakad, Baner, Hinjewadi, Viman Nagar</li>
           <li>🏙️ <strong>Chennai, Kolkata, Ahmedabad</strong> — select zones, expanding</li>
         </ul>
-        <p>Not sure if we're in your area? <Link href="/laundry/contact-us" style={{ color: '#2B6CB0', fontWeight: 700 }}>Check availability here →</Link></p>
+        <p>Not sure if we're in your area? <Link href="/best-laundry-drycleaning/contact-us" style={{ color: '#2B6CB0', fontWeight: 700 }}>Check availability here →</Link></p>
 
         <h2>Pricing — Transparent and Upfront</h2>
         <p>No hidden charges. No surprise bills. Cleanz24's pick and drop service is priced per item or per kg, depending on the service:</p>
@@ -3342,8 +3342,8 @@ export const BLOG_POSTS = [
           Your first pickup is just one click away.
         </p>
         <p>
-          <Link href="/laundry/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none', marginRight: '12px' }}>🛵 Book Your First Pickup</Link>
-          <Link href="/laundry/stores" className="btn btn-outline-primary px-4 py-2">📍 Find a Store Near You</Link>
+          <Link href="/best-laundry-drycleaning/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none', marginRight: '12px' }}>🛵 Book Your First Pickup</Link>
+          <Link href="/best-laundry-drycleaning/stores" className="btn btn-outline-primary px-4 py-2">📍 Find a Store Near You</Link>
         </p>
       </>
     ),
@@ -3810,7 +3810,7 @@ function BlogCard({ post, isDarkMode }) {
             fontFamily: "'Poppins', sans-serif",
           }}
         >
-          <Link href={`/laundry/blog/${post.slug}`}
+          <Link href={`/best-laundry-drycleaning/blog/${post.slug}`}
             style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s ease' }}
             onMouseEnter={(e) => (e.currentTarget.style.color = '#2B6CB0')}
             onMouseLeave={(e) => (e.currentTarget.style.color = isDarkMode ? '#E2E8F0' : '#1A202C')}
@@ -3832,7 +3832,7 @@ function BlogCard({ post, isDarkMode }) {
           }}
         >
           <span>By</span>
-          <Link href="/laundry/blog"
+          <Link href="/best-laundry-drycleaning/blog"
             style={{ color: '#2B6CB0', fontWeight: 600, textDecoration: 'none' }}
           >
             {post.author}
@@ -3865,7 +3865,7 @@ function BlogCard({ post, isDarkMode }) {
             paddingTop: '16px',
           }}
         >
-          <Link href={`/laundry/blog/${post.slug}`}
+          <Link href={`/best-laundry-drycleaning/blog/${post.slug}`}
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -4008,7 +4008,7 @@ function BlogSidebar({ isDarkMode, activeCategory, onCategoryChange, posts }) {
         {recentPosts.map((post) => (
           <Link
             key={post.id}
-            href={`/laundry/blog/${post.slug}`}
+            href={`/best-laundry-drycleaning/blog/${post.slug}`}
             style={{
               display: 'flex',
               gap: '12px',
@@ -4048,7 +4048,7 @@ function BlogSidebar({ isDarkMode, activeCategory, onCategoryChange, posts }) {
         {['Laundry', 'Dry Cleaning', 'Home Cleaning', 'Steam Ironing', 'Shoe Cleaning'].map((service) => (
           <Link
             key={service}
-            href="/laundry"
+            href="/best-laundry-drycleaning"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -4269,7 +4269,7 @@ function renderStaticPostContent(post) {
         </p>
         
         <p>
-          Learn more about our franchise models by visiting our dedicated <Link href="/laundry/franchise" style={{ color: '#2B6CB0', fontWeight: '600' }}>Franchise Page</Link> or scheduling a call with our business development team.
+          Learn more about our franchise models by visiting our dedicated <Link href="/best-laundry-drycleaning/franchise-opportunities" style={{ color: '#2B6CB0', fontWeight: '600' }}>Franchise Page</Link> or scheduling a call with our business development team.
         </p>
       </>
     );
@@ -4362,7 +4362,7 @@ export default function Blog() {
         <div style={{ background: isDarkMode ? '#081426' : '#F7FAFC', minHeight: '100vh', color: isDarkMode ? '#fff' : '#000', padding: '100px 20px', textAlign: 'center' }}>
           <h2 className="mb-4">Article Not Found</h2>
           <p className="text-muted mb-4">The laundry article you are looking for does not exist or has been relocated.</p>
-          <Link href="/laundry/blog" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none', borderRadius: '4px' }}>Back to Blog</Link>
+          <Link href="/best-laundry-drycleaning/blog" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none', borderRadius: '4px' }}>Back to Blog</Link>
         </div>
       );
     }
@@ -4428,7 +4428,7 @@ export default function Blog() {
         <div className="container py-5 px-3">
           <div className="row">
             <div className="col-lg-8 text-start">
-              <Link href="/laundry/blog"
+              <Link href="/best-laundry-drycleaning/blog"
                 style={{
                   color: '#2B6CB0',
                   textDecoration: 'none',
@@ -4477,7 +4477,7 @@ export default function Blog() {
                       <div style={{ display: 'flex', gap: '10px', marginTop: '15px', flexWrap: 'wrap' }}>
                         <a href={`tel:+91${post.store.phone.replace(/\s+/g, '')}`} className="btn btn-sm text-white" style={{ backgroundColor: '#2B6CB0', border: 'none', padding: '6px 16px', fontWeight: 600 }}>Call Chauffeur</a>
                         <a href={`https://wa.me/${post.store.whatsapp}`} target="_blank" rel="noreferrer" className="btn btn-sm text-white" style={{ backgroundColor: '#28A745', border: 'none', padding: '6px 16px', fontWeight: 600 }}>WhatsApp Booking</a>
-                        <Link href="/laundry/franchise" className="btn btn-sm btn-outline-primary" style={{ padding: '6px 16px', fontWeight: 600 }}>Franchise Info</Link>
+                        <Link href="/best-laundry-drycleaning/franchise-opportunities" className="btn btn-sm btn-outline-primary" style={{ padding: '6px 16px', fontWeight: 600 }}>Franchise Info</Link>
                       </div>
                     </div>
 
@@ -4574,7 +4574,7 @@ export default function Blog() {
                 isDarkMode={isDarkMode}
                 activeCategory="All"
                 onCategoryChange={(cat) => {
-                  navigate('/laundry/blog');
+                  navigate('/best-laundry-drycleaning/blog');
                 }}
                 posts={ALL_BLOG_POSTS}
               />

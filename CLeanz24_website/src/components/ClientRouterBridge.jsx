@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
-import LaundryLoading from '../app/laundry/loading';
+import LaundryLoading from '../app/best-laundry-drycleaning/loading';
 import CarSpaLoading from '../app/car-spa/loading';
 
 export default function ClientRouterBridge({ children }) {

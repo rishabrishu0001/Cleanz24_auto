@@ -14,17 +14,17 @@ export default function Header({ isDarkMode, toggleTheme }) {
   const [windowWidth, setWindowWidth] = useState(() => typeof window !== 'undefined' ? window.innerWidth : 1200);
   const pathname = usePathname() || '';
 
-  const isHome = pathname === '/laundry' || pathname === '/laundry/';
+  const isHome = pathname === '/best-laundry-drycleaning' || pathname === '/best-laundry-drycleaning/';
   const isTransparent = isHome && !isScrolled;
   const isMobile = windowWidth < 992;
 
   const navLinks = [
-    { to: '/laundry', label: 'Home', icon: '🏠' },
-    { to: '/laundry/services', label: 'Services', icon: '👔' },
-    { to: '/laundry/franchise', label: 'Franchise', icon: '🤝' },
-    { to: '/laundry/stores', label: 'Stores', icon: '📍' },
-    { to: '/laundry/blog', label: 'Blog', icon: '📝' },
-    { to: '/laundry/contact-us', label: 'Contact', icon: '📞' },
+    { to: '/best-laundry-drycleaning', label: 'Home', icon: '🏠' },
+    { to: '/best-laundry-drycleaning/services', label: 'Services', icon: '👔' },
+    { to: '/best-laundry-drycleaning/franchise-opportunities', label: 'Franchise', icon: '🤝' },
+    { to: '/best-laundry-drycleaning/stores', label: 'Stores', icon: '📍' },
+    { to: '/best-laundry-drycleaning/blog', label: 'Blog', icon: '📝' },
+    { to: '/best-laundry-drycleaning/contact-us', label: 'Contact', icon: '📞' },
     { to: '/', label: '← Main Site', icon: '🔙', accent: true },
   ];
 
@@ -74,7 +74,7 @@ export default function Header({ isDarkMode, toggleTheme }) {
       >
         <div className="container">
           {/* Logo */}
-          <Link className="navbar-brand d-flex align-items-center text-decoration-none gap-2" href="/laundry">
+          <Link className="navbar-brand d-flex align-items-center text-decoration-none gap-2" href="/best-laundry-drycleaning">
             <div className="d-flex flex-column align-items-start">
               <Image src={logoImg} alt="Cleanz24" className="me-1 navbar-logo" style={{ height: isScrolled ? '36px' : '48px', width: 'auto', transition: 'height 0.4s ease', objectFit: 'contain' }} />
               <div className="logo-subtitle text-start mt-1"></div>
@@ -99,7 +99,7 @@ export default function Header({ isDarkMode, toggleTheme }) {
                 {navLinks.filter(l => !l.accent).map(link => (
                   <Link
                     key={link.to}
-                    className={`nav-link text-heading mx-2 fw-medium ${isActive(link.to) || (link.to !== '/laundry' && pathname.startsWith(link.to)) ? 'active-link' : ''}`}
+                    className={`nav-link text-heading mx-2 fw-medium ${isActive(link.to) || (link.to !== '/best-laundry-drycleaning' && pathname.startsWith(link.to)) ? 'active-link' : ''}`}
                     href={link.to}
                   >
                     {link.label}
@@ -119,7 +119,7 @@ export default function Header({ isDarkMode, toggleTheme }) {
 
                 <Link
                   className="btn-header-pickup px-4 ms-lg-2 fw-bold text-decoration-none"
-                  href="/laundry/contact-us"
+                  href="/best-laundry-drycleaning/contact-us"
                 >
                   Schedule Free Pickup
                   <span className="circle-arrow">
@@ -155,7 +155,7 @@ export default function Header({ isDarkMode, toggleTheme }) {
             >
               {/* Panel Header */}
               <div className="laundry-panel-header">
-                <Link href="/laundry" onClick={() => setMobileMenuOpen(false)}>
+                <Link href="/best-laundry-drycleaning" onClick={() => setMobileMenuOpen(false)}>
                   <Image src={logoImg} alt="Cleanz24" style={{ height: '40px', width: 'auto', borderRadius: '6px', objectFit: 'contain' }} />
                 </Link>
                 <div className="laundry-panel-header-right">
@@ -208,7 +208,7 @@ export default function Header({ isDarkMode, toggleTheme }) {
               {/* CTA Buttons */}
               <div className="laundry-mobile-cta">
                 <Link
-                  href="/laundry/contact-us"
+                  href="/best-laundry-drycleaning/contact-us"
                   className="laundry-cta-primary"
                   onClick={() => setMobileMenuOpen(false)}
                 >

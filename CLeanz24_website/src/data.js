@@ -168,7 +168,7 @@ export const faqsData = [
 export const storesData = [
   {
     id: 1,
-    name: 'Cleanz24 - Noida Sector 41',
+    name: 'Cleanz24 - Sector 41 Noida',
     address: 'Ground Floor, Shop No. 9, C Block Market, Sector 41, Noida, Uttar Pradesh 201303',
     phone: '91380 04800',
     whatsapp: '919138004800',
@@ -180,7 +180,7 @@ export const storesData = [
   },
   {
     id: 2,
-    name: 'Cleanz24 - Noida Sector 137',
+    name: 'Cleanz24 - Sector 137 Noida',
     address: 'Shop No. UG 14, Supertech Mart, Sector 137, Noida, Uttar Pradesh 201304',
     phone: '91380 04800',
     whatsapp: '919138004800',
@@ -193,7 +193,7 @@ export const storesData = [
 
   {
     id: 4,
-    name: 'Cleanz24 - Greater Noida West (Patwari)',
+    name: 'Cleanz24 - Patwari Greater Noida West',
     address: 'Shop No. 25, LGF, Patwari, Patwari, Greater Noida, Uttar Pradesh 201318',
     phone: '91380 04800',
     whatsapp: '919138004800',
@@ -205,7 +205,7 @@ export const storesData = [
   },
   {
     id: 5,
-    name: 'Cleanz24 - Noida Extension (Nirala Aspire)',
+    name: 'Cleanz24 - Nirala Aspire Noida Extension',
     address: 'Shop No. LG-16, Nirala Aspire Plaza, Noida Extension, Panchsheel Greens 2, Ghaziabad, Uttar Pradesh 201306',
     phone: '91380 04800',
     whatsapp: '919138004800',
@@ -217,7 +217,7 @@ export const storesData = [
   },
   {
     id: 6,
-    name: 'Cleanz24 - Greater Noida (Swarn Nagari)',
+    name: 'Cleanz24 - Swarn Nagari Greater Noida',
     address: 'UG-04, Swarn Nagari, Block A, Industrial Area, Sector Swarn Nagri, Greater Noida, Uttar Pradesh 201315',
     phone: '91380 04800',
     whatsapp: '919138004800',
@@ -287,7 +287,7 @@ export const storesData = [
   },
   {
     id: 13,
-    name: 'Cleanz24 - Panchkula Sector 10',
+    name: 'Cleanz24 - Sector 10 Panchkula',
     address: 'Booth No. 64–65, First Floor, Sector 10, Tricity, Panchkula, Haryana 134109',
     phone: '91380 04800',
     whatsapp: '919138004800',
@@ -298,7 +298,7 @@ export const storesData = [
   },
   {
     id: 15,
-    name: 'Cleanz24 - Gurugram Sector 52',
+    name: 'Cleanz24 - Sector 52 Gurugram',
     address: 'Sector 52, Shop No. 89, First Floor, Gurugram, Haryana 122003',
     phone: '91380 04800',
     whatsapp: '919138004800',
@@ -536,7 +536,7 @@ export const storesData = [
   },
   {
     id: 42,
-    name: 'Cleanz24 - Thampanoor (Trivandrum)',
+    name: 'Cleanz24 - Thampanoor Trivandrum',
     address: 'TC 81/781, Thyvila Road, Near Baba Tourist Home, Thampanoor, Trivandrum, Kerala 695001',
     phone: '91380 04800',
     whatsapp: '919138004800',
@@ -548,7 +548,7 @@ export const storesData = [
   },
   {
     id: 43,
-    name: 'Cleanz24 - Parad / Parat',
+    name: 'Cleanz24 - Parad Parat',
     address: 'Near Ponnath Juice and Bakes, Kunnothuparamba Road, Parad, Kerala - 670692',
     phone: '91380 04800',
     whatsapp: '919138004800',
@@ -603,28 +603,7 @@ export const storesData = [
     reviews: 67
   },
 
-  {
-    id: 50,
-    name: 'Cleanz24 - Varthur Hobli Bengaluru',
-    address: 'Shop No. 108, 1st Floor, 141/1, Gunjur Village, Varthur Hobli, Bengaluru, Karnataka 560087',
-    phone: '91380 04800',
-    whatsapp: '919138004800',
-    city: 'Varthur Hobli',
-    state: 'Karnataka',
-    rating: 4.7,
-    reviews: 89
-  },
-  {
-    id: 51,
-    name: 'Cleanz24 - HSR Layout Bengaluru',
-    address: 'Basement 567/10, 7th Street, 23rd Main Rd, 1st Sector, HSR Layout, Bengaluru, Karnataka 560102',
-    phone: '91380 04800',
-    whatsapp: '919138004800',
-    city: 'HSR Layout',
-    state: 'Karnataka',
-    rating: 4.8,
-    reviews: 100
-  },
+
   {
     id: 52,
     name: 'Cleanz24 - Padmanabhanagar Bengaluru',
@@ -706,7 +685,7 @@ export const storesData = [
   },
   {
     id: 59,
-    name: 'Cleanz24 - Gopanpally / Tellapur Hyderabad',
+    name: 'Cleanz24 - Gopanpally Tellapur Hyderabad',
     address: 'H.No.1-100/29/9/12, Gopanpally Village, Serilingampally Mandal, K.V. Rangareddy, Telangana - 500046 (Tellapur)',
     phone: '91380 04800',
     whatsapp: '919138004800',
@@ -740,7 +719,7 @@ export const storesData = [
   },
   {
     id: 62,
-    name: 'Cleanz24 - Pimpri-Chinchwad (Pradhikaran)',
+    name: 'Cleanz24 - Pradhikaran Pimpri-Chinchwad',
     address: 'Pradhikaran, Pimpri-Chinchwad, Maharashtra',
     phone: '91380 04800',
     whatsapp: '919138004800',
@@ -751,7 +730,7 @@ export const storesData = [
   },
   {
     id: 63,
-    name: 'Cleanz24 - Siwara (Main Market)',
+    name: 'Cleanz24 - Main Market Siwara',
     address: 'Main Market, Siwara, Rajasthan',
     phone: '91380 04800',
     whatsapp: '919138004800',
@@ -834,18 +813,7 @@ export const storesData = [
     rating: 4.7,
     reviews: 18
   },
-  {
-    id: 71,
-    name: 'Cleanz24 - Ravet Pune',
-    address: 'Shop No. 1 & 2, Main Road, Near Shinde Petrol Pump, Ravet, Pimpri-Chinchwad, Pune, Maharashtra 412101',
-    phone: '91380 04800',
-    whatsapp: '919138004800',
-    city: 'Ravet',
-    state: 'Maharashtra',
-    tags: ['Pune', 'Ravet', 'Pimpri-Chinchwad', 'PCMC', 'Shinde Petrol Pump', '412101'],
-    rating: 4.9,
-    reviews: 38
-  },
+
 
   {
     id: 72,

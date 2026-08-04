@@ -344,7 +344,7 @@ export default function Services() {
                     </div>
 
                     <div className="mt-auto d-flex gap-3 flex-wrap pt-2">
-                      <Link href={`/laundry/services/${service.detailSlug || service.id}`} className="btn px-4 py-2.5 rounded-pill fw-bold shadow-sm" style={{ background: service.color, color: '#fff', border: 'none' }}>
+                      <Link href={`/best-laundry-drycleaning/services/${service.detailSlug || service.id}`} className="btn px-4 py-2.5 rounded-pill fw-bold shadow-sm" style={{ background: service.color, color: '#fff', border: 'none' }}>
                         ✨ View Details & Book
                       </Link>
                       <a href={`https://wa.me/919138004800?text=${encodeURIComponent(`Hi, I'm interested in booking the ${service.title} service.`)}`} target="_blank" rel="noreferrer" className="btn px-4 py-2.5 rounded-pill fw-bold" style={{ background: 'transparent', border: `2px solid ${service.color}`, color: service.color }}>
@@ -465,7 +465,7 @@ export default function Services() {
               Join thousands of satisfied customers who trust Cleanz24 with their wardrobe. Schedule your first pickup today and enjoy up to 20% off.
             </p>
             <div className="d-flex justify-content-center gap-4 flex-wrap">
-              <Link href="/laundry/contact-us" className="btn btn-light btn-lg px-5 py-3 rounded-pill fw-bold text-primary shadow-lg" style={{ transition: 'transform 0.3s' }} onMouseEnter={(e)=>e.currentTarget.style.transform='scale(1.05)'} onMouseLeave={(e)=>e.currentTarget.style.transform='scale(1)'}>
+              <Link href="/best-laundry-drycleaning/contact-us" className="btn btn-light btn-lg px-5 py-3 rounded-pill fw-bold text-primary shadow-lg" style={{ transition: 'transform 0.3s' }} onMouseEnter={(e)=>e.currentTarget.style.transform='scale(1.05)'} onMouseLeave={(e)=>e.currentTarget.style.transform='scale(1)'}>
                 Schedule Free Pickup
               </Link>
               <a href="tel:+919138004800" className="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-bold shadow-lg" style={{ transition: 'background 0.3s' }} onMouseEnter={(e)=>{e.currentTarget.style.background='rgba(255,255,255,0.1)'}} onMouseLeave={(e)=>{e.currentTarget.style.background='transparent'}}>

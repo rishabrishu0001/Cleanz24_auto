@@ -54,7 +54,7 @@ export default function LaundryHome() {
   useEffect(() => {
     const alreadySeen = sessionStorage.getItem('lh_popup_seen');
     if (alreadySeen) return;
-    const timer = setTimeout(() => setShowPopup(true), 10000);
+    const timer = setTimeout(() => setShowPopup(true), 20000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -424,8 +424,8 @@ export default function LaundryHome() {
               </div>
 
               <div className="mt-5 d-flex gap-3">
-                <Link href="/laundry/contact-us" className="btn-primary-custom">Get Started</Link>
-                <Link href="/laundry/contact-us" className="btn-outline-custom">Learn More</Link>
+                <Link href="/best-laundry-drycleaning/contact-us" className="btn-primary-custom">Get Started</Link>
+                <Link href="/best-laundry-drycleaning/contact-us" className="btn-outline-custom">Learn More</Link>
               </div>
             </div>
 
@@ -506,11 +506,11 @@ export default function LaundryHome() {
             className="services-grid-inline"
           >
             {[
-              { title: 'Laundry', desc: 'We wash, dry, and fold with precision for a spotless finish.', icon: srvLaundryImg, link: '/laundry/services#laundry' },
-              { title: 'Dry Cleaning', desc: 'Professional care for suits, silks, and delicate fabrics.', icon: srvDryImg, link: '/laundry/services#dry-cleaning' },
-              { title: 'Home Cleaning', desc: 'Professional cleaning for a healthier living space.', icon: srvHomeImg, link: '/laundry/services#home-cleaning' },
-              { title: 'Steam Ironing', desc: 'Wrinkle-free perfection, every time.', icon: srvIronImg, link: '/laundry/services#steam-ironing' },
-              { title: 'Shoe Cleaning', desc: 'Bring back the shine to your favorite pairs.', icon: srvShoeImg, link: '/laundry/services#shoe-cleaning' }
+              { title: 'Laundry', desc: 'We wash, dry, and fold with precision for a spotless finish.', icon: srvLaundryImg, link: '/best-laundry-drycleaning/services#laundry' },
+              { title: 'Dry Cleaning', desc: 'Professional care for suits, silks, and delicate fabrics.', icon: srvDryImg, link: '/best-laundry-drycleaning/services#dry-cleaning' },
+              { title: 'Home Cleaning', desc: 'Professional cleaning for a healthier living space.', icon: srvHomeImg, link: '/best-laundry-drycleaning/services#home-cleaning' },
+              { title: 'Steam Ironing', desc: 'Wrinkle-free perfection, every time.', icon: srvIronImg, link: '/best-laundry-drycleaning/services#steam-ironing' },
+              { title: 'Shoe Cleaning', desc: 'Bring back the shine to your favorite pairs.', icon: srvShoeImg, link: '/best-laundry-drycleaning/services#shoe-cleaning' }
             ].map((srv, idx) => (
               <motion.div key={idx} variants={fadeInUp} className="service-card-wrapper">
                 <div className="service-card-new">
@@ -566,7 +566,7 @@ export default function LaundryHome() {
                 Our laundry experts handle it with high-grade machinery and eco-friendly solutions. We separate your clothing by fabric type and care label to keep your wardrobe in showroom condition.
               </p>
               <div className="d-flex align-items-center gap-3">
-                <Link href="/laundry/contact-us" className="btn-primary-custom">Schedule Free Pickup</Link>
+                <Link href="/best-laundry-drycleaning/contact-us" className="btn-primary-custom">Schedule Free Pickup</Link>
                 <a href="tel:+919138004800" className="btn-outline-custom">Call us: 9138004800</a>
               </div>
             </div>
@@ -691,7 +691,7 @@ export default function LaundryHome() {
             Managing dirty laundry can be an uphill battle when juggling a busy schedule. Our express pickup & dropoff services make dry cleaning seamless, reliable, and prompt.
           </p>
           <div className="d-flex justify-content-center gap-3 flex-wrap">
-            <Link href="/laundry/contact-us" className="btn-secondary-custom">
+            <Link href="/best-laundry-drycleaning/contact-us" className="btn-secondary-custom">
               Schedule Free Pickup
             </Link>
             <a href="https://wa.me/919138004800" target="_blank" rel="noreferrer" className="btn-outline-light-custom">
@@ -819,7 +819,7 @@ export default function LaundryHome() {
           </div>
 
           <div className="text-center mt-5">
-            <Link href="/laundry/contact-us" className="btn-primary-custom">Schedule Free Pickup Now</Link>
+            <Link href="/best-laundry-drycleaning/contact-us" className="btn-primary-custom">Schedule Free Pickup Now</Link>
           </div>
         </div>
       </section>
@@ -956,7 +956,7 @@ export default function LaundryHome() {
                     </div>
                     <div className="laundry-store-actions">
                       <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store.name + ' ' + store.address)}`} target="_blank" rel="noreferrer" className="laundry-store-btn laundry-store-btn-outline">Directions</a>
-                      <Link href="/laundry/contact-us" className="laundry-store-btn laundry-store-btn-primary">Schedule Pickup</Link>
+                      <Link href="/best-laundry-drycleaning/contact-us" className="laundry-store-btn laundry-store-btn-primary">Schedule Pickup</Link>
                       <a href={`tel:+91${store.phone.replace(/\s+/g, '')}`} className="laundry-store-btn laundry-store-btn-outline">Call</a>
                       <a href={`https://wa.me/${store.whatsapp}`} target="_blank" rel="noreferrer" className="laundry-store-btn laundry-store-btn-green">WhatsApp</a>
                     </div>
@@ -973,7 +973,7 @@ export default function LaundryHome() {
           </div>
 
           <div className="text-center">
-            <Link href="/laundry/stores" className="btn-secondary-custom px-4 py-3 text-decoration-none d-inline-block">
+            <Link href="/best-laundry-drycleaning/stores" className="btn-secondary-custom px-4 py-3 text-decoration-none d-inline-block">
               View All Stores
             </Link>
           </div>

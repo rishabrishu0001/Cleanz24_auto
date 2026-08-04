@@ -22,7 +22,7 @@ export default function Error({ error, reset }) {
             Try Again
           </button>
           <Link
-            href="/laundry"
+            href="/best-laundry-drycleaning"
             className="btn btn-outline-secondary px-4 py-2"
             style={{ borderRadius: '30px' }}
           >

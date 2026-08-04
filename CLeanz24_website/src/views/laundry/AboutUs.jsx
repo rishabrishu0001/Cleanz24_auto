@@ -64,7 +64,7 @@ export default function AboutUs() {
               Fresh, Clean, and Always Reliable — India's fastest-growing laundry & dry-cleaning franchise network.
             </p>
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <Link href="/laundry/contact-us"
+              <Link href="/best-laundry-drycleaning/contact-us"
                 style={{
                   background: '#fff', color: '#1a7a2e', padding: '12px 28px', borderRadius: '50px',
                   fontWeight: 700, textDecoration: 'none', fontSize: '0.9rem', letterSpacing: '0.5px',
@@ -72,7 +72,7 @@ export default function AboutUs() {
                 }}>
                 📱 Get In Touch
               </Link>
-              <Link href="/laundry/franchise"
+              <Link href="/best-laundry-drycleaning/franchise-opportunities"
                 style={{
                   background: 'rgba(255,255,255,0.15)', color: '#fff', padding: '12px 28px', borderRadius: '50px',
                   fontWeight: 600, textDecoration: 'none', fontSize: '0.9rem', border: '1px solid rgba(255,255,255,0.35)',
@@ -259,7 +259,7 @@ export default function AboutUs() {
               style={{ justifyContent: 'center' }}>
               📱 Schedule Your Free Pickup
             </a>
-            <Link href="/laundry/franchise" className="btn-primary-custom px-5 py-3 fs-5"
+            <Link href="/best-laundry-drycleaning/franchise-opportunities" className="btn-primary-custom px-5 py-3 fs-5"
               style={{ justifyContent: 'center', background: 'rgba(255,255,255,0.15)', border: '2px solid rgba(255,255,255,0.5)' }}>
               🤝 Own a Franchise
             </Link>

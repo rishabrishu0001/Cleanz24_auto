@@ -12,7 +12,7 @@ export default function Footer() {
 
           {/* Column 1: Brand */}
           <div className="col-lg-4 mb-4 mb-lg-0">
-            <Link className="navbar-brand d-flex align-items-center mb-4 text-decoration-none" href="/laundry">
+            <Link className="navbar-brand d-flex align-items-center mb-4 text-decoration-none" href="/best-laundry-drycleaning">
               <Image src={logoImg} alt="Cleanz24" height={30} className="me-2" style={{ width: 'auto', objectFit: 'contain' }} />
               {/* <span className="fw-bold tracking-widest text-heading h5 mb-0" style={{ letterSpacing: '2px' }}>CLEANZ24</span> */}
             </Link>
@@ -41,11 +41,11 @@ export default function Footer() {
           <div className="col-lg-2 col-md-4 col-6">
             <h4 className="h6 fw-bold mb-4 position-relative pb-2 footer-heading text-heading">Quick Links</h4>
             <ul className="list-unstyled footer-links">
-              <li><Link href="/laundry" className="text-muted-custom text-decoration-none hover-brand">Home</Link></li>
-              <li><Link href="/laundry/services" className="text-muted-custom text-decoration-none hover-brand">Services</Link></li>
-              <li><Link href="/laundry/franchise" className="text-muted-custom text-decoration-none hover-brand">Franchise</Link></li>
-              <li><Link href="/laundry/stores" className="text-muted-custom text-decoration-none hover-brand">Our Stores</Link></li>
-              <li><Link href="/laundry/contact-us" className="text-muted-custom text-decoration-none hover-brand">Contact Us</Link></li>
+              <li><Link href="/best-laundry-drycleaning" className="text-muted-custom text-decoration-none hover-brand">Home</Link></li>
+              <li><Link href="/best-laundry-drycleaning/services" className="text-muted-custom text-decoration-none hover-brand">Services</Link></li>
+              <li><Link href="/best-laundry-drycleaning/franchise-opportunities" className="text-muted-custom text-decoration-none hover-brand">Franchise</Link></li>
+              <li><Link href="/best-laundry-drycleaning/stores" className="text-muted-custom text-decoration-none hover-brand">Our Stores</Link></li>
+              <li><Link href="/best-laundry-drycleaning/contact-us" className="text-muted-custom text-decoration-none hover-brand">Contact Us</Link></li>
             </ul>
           </div>
 
@@ -53,11 +53,11 @@ export default function Footer() {
           <div className="col-lg-2 col-md-4 col-6">
             <h4 className="h6 fw-bold mb-4 position-relative pb-2 footer-heading text-heading">Services</h4>
             <ul className="list-unstyled footer-links">
-              <li><Link href="/laundry/services#laundry" className="text-muted-custom text-decoration-none hover-brand">Wash & Fold Laundry</Link></li>
-              <li><Link href="/laundry/services#dry-cleaning" className="text-muted-custom text-decoration-none hover-brand">Dry Cleaning</Link></li>
-              <li><Link href="/laundry/services#home-cleaning" className="text-muted-custom text-decoration-none hover-brand">Home Cleaning</Link></li>
-              <li><Link href="/laundry/services#steam-ironing" className="text-muted-custom text-decoration-none hover-brand">Steam Ironing</Link></li>
-              <li><Link href="/laundry/services#shoe-cleaning" className="text-muted-custom text-decoration-none hover-brand">Shoe Cleaning</Link></li>
+              <li><Link href="/best-laundry-drycleaning/services#laundry" className="text-muted-custom text-decoration-none hover-brand">Wash & Fold Laundry</Link></li>
+              <li><Link href="/best-laundry-drycleaning/services#dry-cleaning" className="text-muted-custom text-decoration-none hover-brand">Dry Cleaning</Link></li>
+              <li><Link href="/best-laundry-drycleaning/services#home-cleaning" className="text-muted-custom text-decoration-none hover-brand">Home Cleaning</Link></li>
+              <li><Link href="/best-laundry-drycleaning/services#steam-ironing" className="text-muted-custom text-decoration-none hover-brand">Steam Ironing</Link></li>
+              <li><Link href="/best-laundry-drycleaning/services#shoe-cleaning" className="text-muted-custom text-decoration-none hover-brand">Shoe Cleaning</Link></li>
             </ul>
           </div>
 
@@ -109,8 +109,8 @@ export default function Footer() {
         <div className="border-top pt-4 d-flex flex-column flex-md-row justify-content-between align-items-center" style={{ borderColor: 'rgba(255, 255, 255, 0.08) !important' }}>
           <p className="mb-2 mb-md-0 text-muted-custom small">© {new Date().getFullYear()} Cleanz24. All rights reserved.</p>
           <div className="d-flex gap-3">
-            <Link href="/laundry/privacy-policy" className="text-muted-custom text-decoration-none small hover-brand">Privacy Policy</Link>
-            <Link href="/laundry/terms-of-service" className="text-muted-custom text-decoration-none small hover-brand">Terms of Service</Link>
+            <Link href="/best-laundry-drycleaning/privacy-policy" className="text-muted-custom text-decoration-none small hover-brand">Privacy Policy</Link>
+            <Link href="/best-laundry-drycleaning/terms-of-service" className="text-muted-custom text-decoration-none small hover-brand">Terms of Service</Link>
           </div>
         </div>
       </div>

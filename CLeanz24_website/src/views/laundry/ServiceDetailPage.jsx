@@ -625,7 +625,7 @@ export default function ServiceDetailPage() {
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb mb-3" style={{ fontSize: '0.88rem' }}>
               <li className="breadcrumb-item"><Link href="/" style={{ color: dark ? '#94a3b8' : '#64748b', textDecoration: 'none' }}>Home</Link></li>
-              <li className="breadcrumb-item"><Link href="/laundry/services" style={{ color: dark ? '#94a3b8' : '#64748b', textDecoration: 'none' }}>Services</Link></li>
+              <li className="breadcrumb-item"><Link href="/best-laundry-drycleaning/services" style={{ color: dark ? '#94a3b8' : '#64748b', textDecoration: 'none' }}>Services</Link></li>
               <li className="breadcrumb-item active" style={{ color: service.color, fontWeight: 600 }}>{service.title}</li>
             </ol>
           </nav>

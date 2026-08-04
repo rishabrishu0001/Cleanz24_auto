@@ -393,7 +393,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              <Link href="/laundry/stores" className="btn-primary-custom px-4 py-3 text-decoration-none d-inline-block" style={{ borderRadius: '8px' }}>
+              <Link href="/best-laundry-drycleaning/stores" className="btn-primary-custom px-4 py-3 text-decoration-none d-inline-block" style={{ borderRadius: '8px' }}>
                 View All Stores
               </Link>
             </div>

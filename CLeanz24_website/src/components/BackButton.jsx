@@ -5,8 +5,8 @@ import React from 'react';
  * 
  * Usage:
  *   <BackButton />                        → goes to "/" (default)
- *   <BackButton to="/laundry" />          → goes to a specific route
- *   <BackButton label="Back to Laundry" to="/laundry" />
+ *   <BackButton to="/best-laundry-drycleaning" />          → goes to a specific route
+ *   <BackButton label="Back to Laundry" to="/best-laundry-drycleaning" />
  * 
  * Uses useNavigate hook from react-router-dom.
  */
