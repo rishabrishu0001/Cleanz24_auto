@@ -575,44 +575,49 @@ function LaundryFrenchise() {
 
       {/* ══════════════════ SECTION 1: HERO ══════════════════ */}
       <section style={{
-        background: dark ? 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' : 'linear-gradient(135deg, #f0fdf4 0%, #e6f4ea 100%)',
-        padding: '100px 0 70px',
+        backgroundImage: 'linear-gradient(135deg, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.76) 100%), url("/assets/franchise_hero_bg.jpg")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        padding: '110px 0 80px',
         position: 'relative', overflow: 'hidden'
       }}>
-        <div className="container">
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
           <div className="row align-items-center g-5">
             <div className="col-lg-6">
               {/* Trust Badge Header */}
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: dark ? 'rgba(34,197,94,0.15)' : '#dcfce7', border: '1px solid #86efac', padding: '6px 16px', borderRadius: 30, marginBottom: 20 }}>
-                <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#15803d', letterSpacing: '0.5px', textTransform: 'uppercase' }}>⭐ PROVEN BUSINESS MODEL</span>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(34,197,94,0.22)', border: '1px solid rgba(74,222,128,0.5)', padding: '6px 16px', borderRadius: 30, marginBottom: 20, backdropFilter: 'blur(8px)' }}>
+                <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#4ade80', letterSpacing: '0.5px', textTransform: 'uppercase' }}>⭐ PROVEN BUSINESS MODEL</span>
               </div>
 
               {/* Headline */}
               <h1 style={{
                 fontFamily: "'Poppins', sans-serif", fontWeight: 800,
                 fontSize: 'clamp(32px, 4.5vw, 52px)', lineHeight: 1.15,
-                color: dark ? '#f8fafc' : '#0f172a', marginBottom: 20
+                color: '#ffffff', marginBottom: 20,
+                textShadow: '0 4px 20px rgba(0,0,0,0.5)'
               }}>
-                Start Your Own <span style={{ color: '#16a34a' }}>Cleanz24 Franchise</span> — 100+ Stores, Fast ROI
+                Start Your Own <span style={{ color: '#4ade80', textShadow: '0 0 25px rgba(74,222,128,0.4)' }}>Cleanz24 Franchise</span> — 100+ Stores, Fast ROI
               </h1>
 
               {/* Subheadline: 1-line trust stat */}
               <p style={{
                 fontSize: 'clamp(15px, 1.8vw, 18px)', fontWeight: 600,
-                color: dark ? '#94a3b8' : '#475569', marginBottom: 28, lineHeight: 1.5
+                color: '#cbd5e1', marginBottom: 28, lineHeight: 1.5,
+                textShadow: '0 2px 10px rgba(0,0,0,0.5)'
               }}>
                 🏆 100+ Franchise Stores &nbsp;|&nbsp; 🌍 21+ States &nbsp;|&nbsp; 😊 2,00,000+ Happy Customers
               </p>
 
               {/* Trust badges row */}
               <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap', marginBottom: 32 }}>
-                <div style={{ background: dark ? '#1e293b' : '#ffffff', padding: '8px 16px', borderRadius: 10, border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, fontSize: '0.85rem', fontWeight: 600 }}>
+                <div style={{ background: 'rgba(255,255,255,0.12)', backdropFilter: 'blur(8px)', padding: '8px 16px', borderRadius: 10, border: '1px solid rgba(255,255,255,0.2)', fontSize: '0.85rem', fontWeight: 600, color: '#ffffff' }}>
                   🗓️ Est. 2018
                 </div>
-                <div style={{ background: dark ? '#1e293b' : '#ffffff', padding: '8px 16px', borderRadius: 10, border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, fontSize: '0.85rem', fontWeight: 600, color: '#d97706' }}>
+                <div style={{ background: 'rgba(255,255,255,0.12)', backdropFilter: 'blur(8px)', padding: '8px 16px', borderRadius: 10, border: '1px solid rgba(255,255,255,0.2)', fontSize: '0.85rem', fontWeight: 600, color: '#fbbf24' }}>
                   ★ 4.8 / 5 Rating
                 </div>
-                <div style={{ background: dark ? '#1e293b' : '#ffffff', padding: '8px 16px', borderRadius: 10, border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, fontSize: '0.85rem', fontWeight: 600 }}>
+                <div style={{ background: 'rgba(255,255,255,0.12)', backdropFilter: 'blur(8px)', padding: '8px 16px', borderRadius: 10, border: '1px solid rgba(255,255,255,0.2)', fontSize: '0.85rem', fontWeight: 600, color: '#ffffff' }}>
                   📰 Featured in TOI & NDTV
                 </div>
               </div>
@@ -626,7 +631,7 @@ function LaundryFrenchise() {
                     background: 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)',
                     color: '#fff', textDecoration: 'none', padding: '16px 36px',
                     borderRadius: 12, fontWeight: 700, fontSize: '1.05rem',
-                    fontFamily: 'Poppins, sans-serif', boxShadow: '0 8px 24px rgba(22,163,74,0.3)',
+                    fontFamily: 'Poppins, sans-serif', boxShadow: '0 8px 24px rgba(22,163,74,0.4)',
                     transition: 'transform 0.2s'
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
@@ -639,7 +644,7 @@ function LaundryFrenchise() {
 
             {/* Right: Responsive Store Slideshow */}
             <div className="col-lg-6">
-              <HeroSlideshow dark={dark} />
+              <HeroSlideshow dark={true} />
             </div>
           </div>
         </div>
