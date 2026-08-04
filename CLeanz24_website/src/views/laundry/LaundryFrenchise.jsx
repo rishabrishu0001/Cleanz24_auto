@@ -453,7 +453,7 @@ function HeroSlideshow({ dark }) {
   }, []);
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '460px', borderRadius: 18, overflow: 'hidden', boxShadow: `0 12px 48px rgba(0,0,0,${dark ? '0.45' : '0.18'})` }}>
+    <div style={{ position: 'relative', width: '100%', height: 'clamp(260px, 45vh, 460px)', borderRadius: 18, overflow: 'hidden', boxShadow: `0 12px 48px rgba(0,0,0,${dark ? '0.45' : '0.18'})` }}>
       {storeImages.map((src, i) => (
         <img
           key={i}
@@ -1357,8 +1357,8 @@ function LaundryFrenchise() {
               </div>
             </div>
 
-            {/* Right: Animated Image Slideshow */}
-            <div className="col-lg-6 d-none d-lg-block">
+            {/* Right: Animated Image Slideshow (Visible on Desktop & Mobile) */}
+            <div className="col-lg-6 mt-4 mt-lg-0">
               <HeroSlideshow dark={dark} />
             </div>
           </div>
