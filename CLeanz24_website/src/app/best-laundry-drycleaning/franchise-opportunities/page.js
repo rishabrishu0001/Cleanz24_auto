@@ -34,9 +34,86 @@ export const metadata = {
 };
 
 export default function Page() {
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Cleanz24',
+    url: 'https://cleanz24.com',
+    logo: 'https://cleanz24.com/logo_laundry.jpg',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+91-9138004800',
+      contactType: 'customer service',
+      areaServed: 'IN',
+      availableLanguage: ['en', 'hi'],
+    },
+  };
+
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Laundry & Dry Cleaning Franchise',
+    provider: {
+      '@type': 'Organization',
+      name: 'Cleanz24',
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'India',
+    },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Cleanz24 Franchise Models',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Alpha Franchise Model',
+            description: 'Entry-level studio setup for laundry and pressing',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Beta Franchise Model',
+            description: 'High-capacity laundry & dry cleaning setup',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Combo Commercial Model',
+            description: 'B2B & B2C commercial laundry setup',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Hydro-Carbon Model',
+            description: 'Ultra-premium eco-friendly hydrocarbon dry cleaning',
+          },
+        },
+      ],
+    },
+  };
+
   return (
-    <Suspense fallback={<div className="py-5 text-center">Loading...</div>}>
-      <LaundryFranchise  />
-    </Suspense>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <Suspense fallback={<div className="py-5 text-center">Loading...</div>}>
+        <LaundryFranchise />
+      </Suspense>
+    </>
   );
 }
