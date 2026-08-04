@@ -131,8 +131,35 @@ function LaundryFrenchise() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // ROI Calculator State (Section 3)
-  const [calcCity, setCalcCity] = useState('Delhi / NCR');
-  const [calcInvestment, setCalcInvestment] = useState(15); // in Lacs
+  const [calcTier, setCalcTier] = useState('tier1'); // 'tier1', 'tier2', 'tier3'
+  const [calcModel, setCalcModel] = useState('beta'); // 'alpha', 'beta', 'combo', 'hydro'
+
+  // Exact Business Metrics Matrix
+  const CALCULATOR_DATA = {
+    tier1: {
+      name: 'Delhi NCR, Mumbai, Pune, Bengaluru, Hyderabad (Tier-1)',
+      alpha: { name: 'Alpha Model', investment: '₹13 Lacs', revenue: '₹2 – 4 Lakhs', profit: '₹12 – 18 Lakhs', payback: '20 – 24 Months' },
+      beta: { name: 'Beta Model', investment: '₹15 Lacs', revenue: '₹4 – 5 Lakhs', profit: '₹15 – 24 Lakhs', payback: '18 – 22 Months' },
+      combo: { name: 'Combo Model', investment: '₹22 Lacs', revenue: '₹6 – 8 Lakhs', profit: '₹18 – 30 Lakhs', payback: '18 – 22 Months' },
+      hydro: { name: 'Hydro-Carbon Model', investment: '₹35 Lacs+', revenue: '₹7 – 10 Lakhs', profit: '₹24 – 36 Lakhs', payback: '18 – 22 Months' },
+    },
+    tier2: {
+      name: 'Tier-2 Cities (Lucknow, Jaipur, Patna, etc.)',
+      alpha: { name: 'Alpha Model', investment: '₹13 Lacs', revenue: '₹2 – 3 Lakhs', profit: '₹12 – 18 Lakhs', payback: '20 – 24 Months' },
+      beta: { name: 'Beta Model', investment: '₹15 Lacs', revenue: '₹3 – 4 Lakhs', profit: '₹15 – 20 Lakhs', payback: '18 – 22 Months' },
+      combo: { name: 'Combo Model', investment: '₹22 Lacs', revenue: '₹4 – 6 Lakhs', profit: '₹20 – 24 Lakhs', payback: '18 – 22 Months' },
+      hydro: { name: 'Hydro-Carbon Model', investment: '₹35 Lacs+', revenue: '₹6 – 8 Lakhs', profit: '₹24 – 30 Lakhs', payback: '18 – 22 Months' },
+    },
+    tier3: {
+      name: 'Tier-3 Cities / Regional Towns',
+      alpha: { name: 'Alpha Model', investment: '₹13 Lacs', revenue: '₹1.5 – 2.5 Lakhs', profit: '₹8 – 12 Lakhs', payback: '20 – 24 Months' },
+      beta: { name: 'Beta Model', investment: '₹15 Lacs', revenue: '₹2.5 – 3.5 Lakhs', profit: '₹15 – 24 Lakhs', payback: '18 – 22 Months' },
+      combo: { name: 'Combo Model', investment: '₹22 Lacs', revenue: '₹3.5 – 5 Lakhs', profit: '₹18 – 22 Lakhs', payback: '18 – 22 Months' },
+      hydro: { name: 'Hydro-Carbon Model', investment: '₹35 Lacs+', revenue: '₹5 – 7 Lakhs', profit: '₹22 – 28 Lakhs', payback: '18 – 22 Months' },
+    },
+  };
+
+  const activeCalcData = CALCULATOR_DATA[calcTier][calcModel] || CALCULATOR_DATA.tier1.beta;
 
   // Lead Popup State (20s timer preserved)
   const [showLeadPopup, setShowLeadPopup] = useState(false);
@@ -374,10 +401,10 @@ function LaundryFrenchise() {
       tag: 'Premium Dry-Clean',
       title: 'HYDRO-CARBON MODEL',
       sub: 'Ultra-premium eco-friendly hydrocarbon dry-cleaning studio setup.',
-      investment: '₹29 Lacs+',
+      investment: '₹35 Lacs+',
       area: '500 Sq.Ft (Minimum)',
-      profit: '2.5 Lacs/Month+',
-      roi: '18-20 Months',
+      profit: '2.5 - 3.0 Lacs/Month+',
+      roi: '18-22 Months',
       features: [
         '10Kg Hydrocarbon Dry-Clean Machine (99% Recovery)',
         '10Kg Stacker (Washer & Extractor)',
@@ -686,7 +713,7 @@ function LaundryFrenchise() {
               Calculate Your Estimated <span style={{ color: '#16a34a' }}>Franchise Returns</span>
             </h2>
             <p style={{ color: dark ? '#94a3b8' : '#64748b', fontSize: '0.95rem', maxWidth: 600, margin: '8px auto 0' }}>
-              Select your city tier and budget to project monthly revenue &amp; payback period.
+              Select your city tier and franchise model to view exact projected revenue, annual profit &amp; payback period.
             </p>
           </div>
 
@@ -698,45 +725,47 @@ function LaundryFrenchise() {
             <div className="row g-4 align-items-center">
               {/* Inputs */}
               <div className="col-lg-6">
-                <label style={{ fontWeight: 700, fontSize: '0.9rem', marginBottom: 8, display: 'block' }}>1. Select Target City / Region</label>
+                <label style={{ fontWeight: 700, fontSize: '0.9rem', marginBottom: 8, display: 'block' }}>1. Select Location / City Tier</label>
                 <select
-                  value={calcCity}
-                  onChange={(e) => setCalcCity(e.target.value)}
+                  value={calcTier}
+                  onChange={(e) => setCalcTier(e.target.value)}
                   style={{
                     width: '100%', padding: '14px 16px', borderRadius: 12,
                     border: `1.5px solid ${dark ? '#334155' : '#e2e8f0'}`,
                     background: dark ? '#0f172a' : '#f8fafc', color: dark ? '#f8fafc' : '#0f172a',
-                    fontWeight: 600, fontSize: '0.95rem', outline: 'none', marginBottom: 24
+                    fontWeight: 600, fontSize: '0.92rem', outline: 'none', marginBottom: 20
                   }}
                 >
-                  <option>Delhi / NCR</option>
-                  <option>Mumbai / Thane</option>
-                  <option>Bengaluru</option>
-                  <option>Hyderabad</option>
-                  <option>Pune</option>
-                  <option>Tier 2 City (Lucknow, Jaipur, Patna, etc.)</option>
-                  <option>Tier 3 / Regional Hub</option>
+                  <option value="tier1">Delhi NCR, Mumbai, Pune, Bengaluru, Hyderabad (Tier-1)</option>
+                  <option value="tier2">Tier-2 Cities (Lucknow, Jaipur, Patna, etc.)</option>
+                  <option value="tier3">Tier-3 Cities / Regional Towns</option>
                 </select>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                  <label style={{ fontWeight: 700, fontSize: '0.9rem' }}>2. Planned Investment Budget</label>
-                  <span style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, color: '#16a34a', fontSize: '1.1rem' }}>₹{calcInvestment} Lakhs</span>
-                </div>
-
-                <input
-                  type="range"
-                  min={13}
-                  max={30}
-                  step={1}
-                  value={calcInvestment}
-                  onChange={(e) => setCalcInvestment(Number(e.target.value))}
-                  style={{ width: '100%', accentColor: '#16a34a', height: 8, borderRadius: 4, cursor: 'pointer' }}
-                />
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', color: dark ? '#94a3b8' : '#64748b', marginTop: 6 }}>
-                  <span>₹13L (Alpha)</span>
-                  <span>₹15L (Beta)</span>
-                  <span>₹22L (Combo)</span>
-                  <span>₹29L (Hydro-Carbon)</span>
+                <label style={{ fontWeight: 700, fontSize: '0.9rem', marginBottom: 8, display: 'block' }}>2. Select Franchise Model</label>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+                  {[
+                    { id: 'alpha', label: 'Alpha Model', inv: '₹13 Lacs' },
+                    { id: 'beta', label: 'Beta Model', inv: '₹15 Lacs' },
+                    { id: 'combo', label: 'Combo Model', inv: '₹22 Lacs' },
+                    { id: 'hydro', label: 'Hydro-Carbon', inv: '₹35 Lacs+' },
+                  ].map((m) => (
+                    <button
+                      key={m.id}
+                      type="button"
+                      onClick={() => setCalcModel(m.id)}
+                      style={{
+                        padding: '12px 10px', borderRadius: 10,
+                        border: calcModel === m.id ? '2px solid #16a34a' : `1.5px solid ${dark ? '#334155' : '#e2e8f0'}`,
+                        background: calcModel === m.id ? (dark ? 'rgba(22,163,74,0.2)' : '#ecfdf5') : (dark ? '#0f172a' : '#f8fafc'),
+                        color: calcModel === m.id ? '#16a34a' : (dark ? '#cbd5e1' : '#334155'),
+                        fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer', textAlign: 'center',
+                        transition: 'all 0.2s'
+                      }}
+                    >
+                      <div>{m.label}</div>
+                      <div style={{ fontSize: '0.75rem', fontWeight: 600, opacity: 0.85, marginTop: 2 }}>{m.inv}</div>
+                    </button>
+                  ))}
                 </div>
               </div>
 
@@ -744,23 +773,25 @@ function LaundryFrenchise() {
               <div className="col-lg-6">
                 <div style={{
                   background: dark ? 'linear-gradient(135deg, #0f172a 0%, #1e2d3d 100%)' : 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%)',
-                  borderRadius: 20, padding: 24, border: '1px solid #86efac'
+                  borderRadius: 20, padding: 24, border: '1.5px solid #86efac'
                 }}>
-                  <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#15803d', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 16 }}>ESTIMATED OUTCOMES FOR {calcCity.toUpperCase()}</div>
-
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, paddingBottom: 12, borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
-                    <span style={{ fontSize: '0.9rem', fontWeight: 600 }}>Est. Monthly Revenue:</span>
-                    <span style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.2rem', color: '#16a34a' }}>₹{calcMonthlyRev} Lakhs</span>
+                  <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#15803d', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 16 }}>
+                    🎯 ESTIMATED METRICS: {activeCalcData.name.toUpperCase()} ({activeCalcData.investment})
                   </div>
 
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, paddingBottom: 12, borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
-                    <span style={{ fontSize: '0.9rem', fontWeight: 600 }}>Est. Annual Net Profit:</span>
-                    <span style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.2rem', color: '#2563eb' }}>₹{calcAnnualProfit} Lakhs</span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, paddingBottom: 12, borderBottom: '1px solid rgba(0,0,0,0.08)' }}>
+                    <span style={{ fontSize: '0.9rem', fontWeight: 600 }}>Monthly Revenue:</span>
+                    <span style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.25rem', color: '#16a34a' }}>{activeCalcData.revenue} / mo</span>
+                  </div>
+
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, paddingBottom: 12, borderBottom: '1px solid rgba(0,0,0,0.08)' }}>
+                    <span style={{ fontSize: '0.9rem', fontWeight: 600 }}>Annual Net Profit:</span>
+                    <span style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.25rem', color: '#2563eb' }}>{activeCalcData.profit} / yr</span>
                   </div>
 
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span style={{ fontSize: '0.9rem', fontWeight: 600 }}>Payback Period:</span>
-                    <span style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.2rem', color: '#d97706' }}>~{calcBreakeven} Months</span>
+                    <span style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.25rem', color: '#d97706' }}>{activeCalcData.payback}</span>
                   </div>
                 </div>
               </div>
