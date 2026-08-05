@@ -156,7 +156,7 @@ const INVESTMENT = [
   { tier: "ALPHA MODEL", investment: "₹13 Lacs+", area: "250 Sq.Ft (Minimum)", revenue: "₹1 Lakh/Month+", roi: "18-20 Months", badge: "Starter" },
   { tier: "BETA MODEL", investment: "₹15 Lacs+", area: "250 Sq.Ft (Minimum)", revenue: "₹1.5 Lacs/Month+", roi: "18-20 Months", badge: "Most Popular" },
   { tier: "COMBO MODEL", investment: "₹22 Lacs+", area: "400 Sq.Ft (Minimum)", revenue: "₹2 Lacs/Month+", roi: "18-20 Months", badge: "Commercial Combo" },
-  { tier: "HYDRO-CARBON MODEL", investment: "₹29 Lacs+", area: "500 Sq.Ft (Minimum)", revenue: "₹2.5 Lacs/Month+", roi: "18-20 Months", badge: "Premium Dry-Clean" },
+  { tier: "HYDRO-CARBON MODEL", investment: "₹35 Lacs+", area: "500 Sq.Ft (Minimum)", revenue: "₹2.5 Lacs/Month+", roi: "18-20 Months", badge: "Premium Dry-Clean" },
 ];
 
 const PAGE_CSS = (dark) => `
@@ -300,7 +300,7 @@ export default function FranchiseCityPage() {
     "@graph": [
       { "@type": "LocalBusiness", name: "Cleanz24 Laundry & Dry Cleaning - " + cityName, description: pageDesc, url: canonicalUrl, telephone: "+919138004800", address: { "@type": "PostalAddress", addressLocality: cityName, addressRegion: stateName, addressCountry: "IN" }, priceRange: "₹₹", aggregateRating: { "@type": "AggregateRating", ratingValue: "4.8", reviewCount: "500" } },
       { "@type": "FAQPage", mainEntity: [
-        { "@type": "Question", name: "How much does a Cleanz24 franchise cost in " + cityName + "?", acceptedAnswer: { "@type": "Answer", text: "A Cleanz24 franchise in " + cityName + " starts at ₹13 Lacs+ for the Alpha Model, ₹15 Lacs+ for Beta Model, ₹22 Lacs+ for Combo Model, and ₹29 Lacs+ for Hydro-Carbon Model." } },
+        { "@type": "Question", name: "How much does a Cleanz24 franchise cost in " + cityName + "?", acceptedAnswer: { "@type": "Answer", text: "A Cleanz24 franchise in " + cityName + " starts at ₹13 Lacs+ for the Alpha Model, ₹15 Lacs+ for Beta Model, ₹22 Lacs+ for Combo Model, and ₹35 Lacs+ for Hydro-Carbon Model." } },
         { "@type": "Question", name: "Is laundry franchise the best profitable business in " + cityName + "?", acceptedAnswer: { "@type": "Answer", text: "Yes! Cleanz24 franchise delivers 35-45% net profit margins in " + cityName + ". Franchise partners earn ₹1-2.5 Lacs+ per month with full brand & CRM support." } },
         { "@type": "Question", name: "What is the best franchise opportunity in " + cityName + "?", acceptedAnswer: { "@type": "Answer", text: "Cleanz24 is India's leading laundry & dry cleaning franchise with 100+ stores across 21 states. Proven ROI in 18-20 months." } },
         { "@type": "Question", name: "Where can I find the best dry cleaning service near me in " + cityName + "?", acceptedAnswer: { "@type": "Answer", text: "Cleanz24 is the best laundry & dry cleaning service near you in " + cityName + ". Call +91 91380 04800 for store details & franchise opportunities." } },
@@ -447,7 +447,7 @@ export default function FranchiseCityPage() {
                       <option value="ALPHA MODEL">ALPHA MODEL — ₹13 Lacs+ (Starter)</option>
                       <option value="BETA MODEL">BETA MODEL — ₹15 Lacs+ (Most Popular)</option>
                       <option value="COMBO MODEL">COMBO MODEL — ₹22 Lacs+ (Commercial)</option>
-                      <option value="HYDRO-CARBON MODEL">HYDRO-CARBON MODEL — ₹29 Lacs+ (Premium)</option>
+                      <option value="HYDRO-CARBON MODEL">HYDRO-CARBON MODEL — ₹35 Lacs+ (Premium)</option>
                     </select>
 
                     {error ? <p style={{ color: "#e53e3e", fontSize: "0.88rem", marginBottom: "12px" }}>{error}</p> : null}
@@ -463,13 +463,101 @@ export default function FranchiseCityPage() {
         </div>
       </section>
 
+      {/* 1000+ WORDS SEO ARTICLE GUIDE FOR CITY FRANCHISE */}
+      <section className="fcp-section" style={{ background: dark ? '#0f1623' : '#ffffff', borderTop: `1px solid ${dark ? '#334155' : '#e2e8f0'}` }}>
+        <div className="container" style={{ maxWidth: '1000px', lineHeight: '1.8' }}>
+          <h2 className="fcp-section-title" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', marginBottom: '20px' }}>
+            Complete Guide: Opening a Profitable <span style={{ color: dark ? '#4ade80' : '#16a34a' }}>Cleanz24 Franchise in {cityName}</span>
+          </h2>
+          <p style={{ fontSize: '1rem', color: dark ? '#cbd5e1' : '#475569', marginBottom: '24px' }}>
+            Starting a business in <strong>{cityName}, {stateName}</strong> requires choosing an industry with consistent consumer demand, predictable cashflows, and high net profit margins. Among various retail and service business models, the laundry and dry cleaning sector stands out as one of the most resilient, recession-proof, and lucrative opportunities in India today. As urban lifestyles in {cityName} accelerate, working professionals, families, and commercial establishments increasingly outsource their garment care, sneaker spa, and home upholstery cleaning needs to professional studios.
+          </p>
+          <p style={{ fontSize: '1rem', color: dark ? '#cbd5e1' : '#475569', marginBottom: '24px' }}>
+            Cleanz24 is India's leading tech-enabled laundry and dry cleaning franchise network, boasting over <strong>100+ active stores across 21+ states</strong>. By bringing modern European hydrocarbon cleaning technology, automated POS billing software, and doorstep pickup-and-delivery logistics to {cityName}, Cleanz24 empowers franchise partners to launch a turnkey business with fast ROI (18-20 months) and healthy 35-45% net profit margins.
+          </p>
+
+          <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.4rem', color: dark ? '#f1f5f9' : '#0f172a', marginTop: '36px', marginBottom: '16px' }}>
+            1. Why {cityName} is the Ideal Market for a Premium Laundry Studio
+          </h3>
+          <p style={{ fontSize: '0.98rem', color: dark ? '#94a3b8' : '#475569', marginBottom: '20px' }}>
+            The demand for organized laundry and eco-friendly dry cleaning in {cityName} has grown rapidly over the past few years. Traditional unorganized local dhobis often use harsh chemical detergents, hard tap water, and unhygienic wash methods that lead to fabric damage, color bleeding, and shrinkage. High-income households, corporate employees, and fashion-conscious residents in {cityName} are actively seeking organized alternatives that offer fabric safety, hygienic soft-water processing, and doorstep convenience.
+          </p>
+          <p style={{ fontSize: '0.98rem', color: dark ? '#94a3b8' : '#475569', marginBottom: '24px' }}>
+            Furthermore, real estate development and residential township expansion in {cityName} create dense customer catchments within a 3 to 5 km radius of a Cleanz24 studio. By offering services ranging from daily wash & fold to silk saree dry cleaning, suit pressing, sneaker spa, luxury bag restoration, and sofa shampooing, a single Cleanz24 outlet in {cityName} addresses multiple recurring revenue streams under one roof.
+          </p>
+
+          <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.4rem', color: dark ? '#f1f5f9' : '#0f172a', marginTop: '36px', marginBottom: '16px' }}>
+            2. Comprehensive Turnkey Support Provided by Cleanz24 in {cityName}
+          </h3>
+          <p style={{ fontSize: '0.98rem', color: dark ? '#94a3b8' : '#475569', marginBottom: '20px' }}>
+            When you sign up for a Cleanz24 franchise in {cityName}, you receive end-to-end operational, technical, and marketing backing from our core expansion team:
+          </p>
+          <ul style={{ paddingLeft: '24px', color: dark ? '#cbd5e1' : '#334155', marginBottom: '28px' }}>
+            <li style={{ marginBottom: '12px' }}><strong>Location Intelligence & Site Approval:</strong> Our real estate research team analyzes footfall density, competitor presence, and neighborhood demographics in {cityName} to approve the optimal store location.</li>
+            <li style={{ marginBottom: '12px' }}><strong>Turnkey Interior Design & Equipment Setup:</strong> We manage store layout design, branding signages, commercial laundry machinery installation, steam pressing tables, and chemical dosing setups.</li>
+            <li style={{ marginBottom: '12px' }}><strong>Staff Recruitment & Master Training:</strong> Our master trainers conduct a rigorous 7-day hands-on training program for your store operators on fabric classification, stain removal, machine operation, and customer service.</li>
+            <li style={{ marginBottom: '12px' }}><strong>Proprietary POS & App Logistics:</strong> Access our cloud-based POS billing software, customer mobile app, automatic WhatsApp order status alerts, and daily sales analytics dashboard.</li>
+            <li style={{ marginBottom: '12px' }}><strong>Digital Marketing & Local SEO Dominance:</strong> We set up your store's Google Business Profile, run targeted meta campaigns, and publish custom localized SEO pages to drive high-intent leads in {cityName} from Day 1.</li>
+          </ul>
+
+          <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.4rem', color: dark ? '#f1f5f9' : '#0f172a', marginTop: '36px', marginBottom: '16px' }}>
+            3. Versatile Franchise Investment Models Tailored for {cityName}
+          </h3>
+          <p style={{ fontSize: '0.98rem', color: dark ? '#94a3b8' : '#475569', marginBottom: '20px' }}>
+            To suit different budget capabilities and commercial spaces in {cityName}, Cleanz24 offers four structured investment tiers:
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px', marginBottom: '32px' }}>
+            <div style={{ background: dark ? '#1e293b' : '#f8fafc', border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, borderRadius: '14px', padding: '20px' }}>
+              <div style={{ fontWeight: 800, color: '#16a34a', fontSize: '1.1rem', marginBottom: '6px' }}>ALPHA MODEL (₹13 Lacs+)</div>
+              <p style={{ fontSize: '0.88rem', color: dark ? '#94a3b8' : '#64748b', margin: 0 }}>Ideal for residential neighborhoods (250 sq.ft min area). Equipped with 15kg washer-extractor stackers, steam press tables, and soft-water detergents. Generates ₹1L+ monthly profit.</p>
+            </div>
+            <div style={{ background: dark ? '#1e293b' : '#f8fafc', border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, borderRadius: '14px', padding: '20px' }}>
+              <div style={{ fontWeight: 800, color: '#16a34a', fontSize: '1.1rem', marginBottom: '6px' }}>BETA MODEL (₹15 Lacs+)</div>
+              <p style={{ fontSize: '0.88rem', color: dark ? '#94a3b8' : '#64748b', margin: 0 }}>Our most popular model for high-density areas in {cityName}. Includes extra washer stackers, sneaker spa kit, and full digital marketing. Generates ₹1.5L+ monthly profit.</p>
+            </div>
+            <div style={{ background: dark ? '#1e293b' : '#f8fafc', border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, borderRadius: '14px', padding: '20px' }}>
+              <div style={{ fontWeight: 800, color: '#16a34a', fontSize: '1.1rem', marginBottom: '6px' }}>COMBO MODEL (₹22 Lacs+)</div>
+              <p style={{ fontSize: '0.88rem', color: dark ? '#94a3b8' : '#64748b', margin: 0 }}>Commercial setup handling bulk B2B orders (hotels, hostels, corporate) plus retail B2C. Features 18kg standalone machines. Generates ₹2L+ monthly profit.</p>
+            </div>
+            <div style={{ background: dark ? '#1e293b' : '#f8fafc', border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, borderRadius: '14px', padding: '20px' }}>
+              <div style={{ fontWeight: 800, color: '#16a34a', fontSize: '1.1rem', marginBottom: '6px' }}>HYDRO-CARBON MODEL (₹35 Lacs+)</div>
+              <p style={{ fontSize: '0.88rem', color: dark ? '#94a3b8' : '#64748b', margin: 0 }}>Ultra-premium studio with eco-friendly hydrocarbon dry cleaning machinery for delicate silks, leather jackets, and luxury wear. Generates ₹2.5L+ monthly profit.</p>
+            </div>
+          </div>
+
+          <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.4rem', color: dark ? '#f1f5f9' : '#0f172a', marginTop: '36px', marginBottom: '16px' }}>
+            4. Step-by-Step Path to Launch Your Studio in {cityName}
+          </h3>
+          <p style={{ fontSize: '0.98rem', color: dark ? '#94a3b8' : '#475569', marginBottom: '20px' }}>
+            Launching your Cleanz24 studio in {cityName} follows a streamlined, fast-track 30 to 45-day roadmap:
+          </p>
+          <ol style={{ paddingLeft: '24px', color: dark ? '#cbd5e1' : '#334155', marginBottom: '28px' }}>
+            <li style={{ marginBottom: '10px' }}><strong>Initial Consultation & Application:</strong> Fill out the inquiry form above to receive the detailed brochure and schedule a call with our franchise manager.</li>
+            <li style={{ marginBottom: '10px' }}><strong>Franchise Agreement & Zone Reservation:</strong> Lock in your target territory in {cityName} with exclusive territorial rights.</li>
+            <li style={{ marginBottom: '10px' }}><strong>Site Finalization & Interior Fit-Out:</strong> Our team assists in landlord negotiations, store blueprint design, electrical wiring, plumbing, and signage installation.</li>
+            <li style={{ marginBottom: '10px' }}><strong>Machinery Delivery & Staff Onboarding:</strong> Commercial machines are installed and calibrated, while your staff undergoes comprehensive training.</li>
+            <li style={{ marginBottom: '10px' }}><strong>Grand Opening Campaign:</strong> We launch local digital campaigns, flyer distributions, and inaugural discount offers to ensure strong opening day footfall in {cityName}.</li>
+          </ol>
+
+          <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.4rem', color: dark ? '#f1f5f9' : '#0f172a', marginTop: '36px', marginBottom: '16px' }}>
+            5. Frequently Searched Franchise & Service Topics in {cityName}
+          </h3>
+          <p style={{ fontSize: '0.98rem', color: dark ? '#94a3b8' : '#475569', marginBottom: '20px' }}>
+            As a franchise owner in {cityName}, your studio will automatically rank for and serve popular local searches such as <em>"best laundry franchise in {cityName}"</em>, <em>"dry cleaning business opportunity in {cityName}"</em>, <em>"low investment high return franchise near me"</em>, <em>"doorstep laundry delivery in {cityName}"</em>, and <em>"sneaker shoe spa in {cityName}"</em>.
+          </p>
+          <p style={{ fontSize: '0.98rem', color: dark ? '#94a3b8' : '#475569', marginBottom: '12px' }}>
+            Ready to build a stable, scalable, and highly profitable business in <strong>{cityName}, {stateName}</strong>? Submit your inquiry form today or contact our franchise team at <strong>+91 91380 04800</strong> to get started.
+          </p>
+        </div>
+      </section>
+
       {/* FAQs */}
       <section className="fcp-section">
         <div className="container" style={{ maxWidth: "760px" }}>
           <h2 className="fcp-section-title">FAQs — Cleanz24 Franchise in {cityName}</h2>
           <div style={{ marginTop: "32px", display: "flex", flexDirection: "column", gap: "20px" }}>
             {[
-              { q: "How much does a Cleanz24 franchise cost in " + cityName + "?", a: "A Cleanz24 franchise in " + cityName + " starts at ₹13 Lacs+ for Alpha Model, ₹15 Lacs+ for Beta Model, ₹22 Lacs+ for Combo Model, and ₹29 Lacs+ for Hydro-Carbon Model." },
+              { q: "How much does a Cleanz24 franchise cost in " + cityName + "?", a: "A Cleanz24 franchise in " + cityName + " starts at ₹13 Lacs+ for Alpha Model, ₹15 Lacs+ for Beta Model, ₹22 Lacs+ for Combo Model, and ₹35 Lacs+ for Hydro-Carbon Model." },
               { q: "Is laundry franchise the best profitable business in " + cityName + "?", a: "Yes! Laundry is a recession-proof business. Cleanz24 franchise delivers 35-45% net profit margins in " + cityName + ". Partners earn ₹1-2.5 Lacs+ per month." },
               { q: "Where can I find the best dry cleaning service near me in " + cityName + "?", a: "Cleanz24 is the best dry cleaning & laundry service near you in " + cityName + ". Call +91 91380 04800 or WhatsApp for store details." },
               { q: "What support does Cleanz24 provide to franchise partners in " + cityName + "?", a: "Full support: site selection, store setup, staff training, tech & CRM platform, marketing & SEO, supply chain, and dedicated franchise manager for " + cityName + "." },

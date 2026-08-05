@@ -1235,8 +1235,8 @@ function LaundryFrenchise() {
                   >
                     <option>₹13L - ₹15L (Alpha Model)</option>
                     <option>₹15L - ₹20L (Beta Model)</option>
-                    <option>₹20L - ₹25L (Combo Model)</option>
-                    <option>₹25L+ (Hydro-Carbon Studio)</option>
+                    <option>₹22L - ₹25L (Combo Model)</option>
+                    <option>₹35L+ (Hydro-Carbon Studio)</option>
                   </select>
                 </div>
 
