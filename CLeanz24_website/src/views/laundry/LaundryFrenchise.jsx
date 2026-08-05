@@ -129,7 +129,7 @@ function LaundryFrenchise() {
   const dark = !!isDarkMode;
 
   // Final Form State (Section 8)
-  const [formData, setFormData] = useState({ name: '', phone: '', city: '', budget: '₹13L - ₹15L (Alpha Model)' });
+  const [formData, setFormData] = useState({ name: '', phone: '', email: '', city: '', budget: '₹13L - ₹15L (Alpha Model)' });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -315,6 +315,7 @@ function LaundryFrenchise() {
         date: dateStr, Date: dateStr, timestamp: dateStr,
         name: formData.name,
         mobile: `'+91 ${formData.phone}`,
+        email: formData.email || 'N/A',
         city: formData.city,
         budget: formData.budget,
         modelType: 'Main Franchise Form'
@@ -539,6 +540,19 @@ function LaundryFrenchise() {
                       color: dark ? '#f8fafc' : '#0f172a', marginBottom: 12, outline: 'none'
                     }}
                     required
+                  />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email Address (Optional)"
+                    value={popupData.email}
+                    onChange={handlePopupChange}
+                    style={{
+                      width: '100%', padding: '12px 14px', borderRadius: 10,
+                      border: `1.5px solid ${dark ? '#334155' : '#e2e8f0'}`,
+                      background: dark ? '#0f172a' : '#f8fafc',
+                      color: dark ? '#f8fafc' : '#0f172a', marginBottom: 12, outline: 'none'
+                    }}
                   />
                   <input
                     type="text"
@@ -1168,9 +1182,27 @@ function LaundryFrenchise() {
                   </div>
                 </div>
 
-                {/* Field 3: City */}
+                {/* Field 3: Email */}
                 <div style={{ marginBottom: 18 }}>
-                  <label style={{ fontWeight: 700, fontSize: '0.88rem', marginBottom: 6, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>3. Target City / Area *</label>
+                  <label style={{ fontWeight: 700, fontSize: '0.88rem', marginBottom: 6, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>3. Email Address</label>
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder="e.g. yourname@gmail.com"
+                    value={formData.email}
+                    onChange={handleFormChange}
+                    style={{
+                      width: '100%', padding: '14px 16px', borderRadius: 12,
+                      border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
+                      background: dark ? '#0f172a' : '#f8fafc',
+                      color: dark ? '#f8fafc' : '#0f172a', fontSize: '0.95rem', outline: 'none'
+                    }}
+                  />
+                </div>
+
+                {/* Field 4: City */}
+                <div style={{ marginBottom: 18 }}>
+                  <label style={{ fontWeight: 700, fontSize: '0.88rem', marginBottom: 6, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>4. Target City / Area *</label>
                   <input
                     id="city"
                     type="text"
@@ -1187,9 +1219,9 @@ function LaundryFrenchise() {
                   />
                 </div>
 
-                {/* Field 4: Investment Budget */}
+                {/* Field 5: Investment Budget */}
                 <div style={{ marginBottom: 28 }}>
-                  <label style={{ fontWeight: 700, fontSize: '0.88rem', marginBottom: 6, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>4. Investment Budget Range *</label>
+                  <label style={{ fontWeight: 700, fontSize: '0.88rem', marginBottom: 6, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>5. Investment Budget Range *</label>
                   <select
                     id="budget"
                     value={formData.budget}
