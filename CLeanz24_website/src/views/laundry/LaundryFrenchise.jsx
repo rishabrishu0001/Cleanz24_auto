@@ -619,7 +619,7 @@ function LaundryFrenchise() {
                 {/* Trust badges row */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap', marginBottom: 32 }}>
                   <div style={{ background: dark ? '#1e293b' : '#ffffff', padding: '8px 16px', borderRadius: 10, border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, fontSize: '0.85rem', fontWeight: 600, color: dark ? '#f8fafc' : '#1e293b' }}>
-                    🗓️ Est. 2018
+                    🗓️ Est. 2025
                   </div>
                   <div style={{ background: dark ? '#1e293b' : '#ffffff', padding: '8px 16px', borderRadius: 10, border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, fontSize: '0.85rem', fontWeight: 600, color: '#d97706' }}>
                     ★ 4.8 / 5 Rating

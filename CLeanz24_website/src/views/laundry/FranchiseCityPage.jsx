@@ -46,11 +46,11 @@ const PAGE_CSS = (dark) => `
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap');
   .fcp-page { font-family:'Inter',sans-serif; color:${dark?"#e2e8f0":"#1a202c"}; background:${dark?"#0f1623":"#fff"}; }
   .fcp-hero { background: url('/assets/store_hero.jpg') center/cover no-repeat; padding:110px 0 70px; position:relative; overflow:hidden; }
-  .fcp-hero::before { content:''; position:absolute; inset:0; background: ${dark ? 'rgba(15,22,35,0.85)' : 'rgba(255,255,255,0.85)'}; backdrop-filter: blur(6px); pointer-events:none; }
-  .fcp-badge { display:inline-flex; align-items:center; gap:8px; background:${dark?"rgba(34,197,94,0.15)":"rgba(34,197,94,0.1)"}; border:1px solid ${dark?"rgba(34,197,94,0.3)":"rgba(34,197,94,0.4)"}; color:${dark?"#4ade80":"#16a34a"}; font-size:0.8rem; font-weight:600; padding:6px 16px; border-radius:99px; margin-bottom:20px; letter-spacing:0.05em; text-transform:uppercase; }
-  .fcp-city-name { font-family:'Poppins',sans-serif; font-size:clamp(2.2rem,5vw,3.8rem); font-weight:900; color:${dark?"#f1f5f9":"#111"}; line-height:1.1; margin-bottom:8px; }
-  .fcp-city-highlight { color:${dark?"#4ade80":"#16a34a"}; }
-  .fcp-hero-sub { font-size:1.1rem; color:${dark?"#94a3b8":"#4a5568"}; max-width:560px; margin:16px 0 32px; line-height:1.7; }
+  .fcp-hero::before { content:''; position:absolute; inset:0; background: ${dark ? 'rgba(15,22,35,0.72)' : 'rgba(0,0,0,0.48)'}; pointer-events:none; }
+  .fcp-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(34,197,94,0.2); border:1px solid rgba(34,197,94,0.5); color:#4ade80; font-size:0.8rem; font-weight:600; padding:6px 16px; border-radius:99px; margin-bottom:20px; letter-spacing:0.05em; text-transform:uppercase; text-shadow:none; }
+  .fcp-city-name { font-family:'Poppins',sans-serif; font-size:clamp(2.2rem,5vw,3.8rem); font-weight:900; color:#fff; line-height:1.1; margin-bottom:8px; text-shadow:0 2px 12px rgba(0,0,0,0.6); }
+  .fcp-city-highlight { color:#4ade80; }
+  .fcp-hero-sub { font-size:1.1rem; color:rgba(255,255,255,0.88); max-width:560px; margin:16px 0 32px; line-height:1.7; text-shadow:0 1px 6px rgba(0,0,0,0.5); }
   .fcp-hero-btns { display:flex; gap:14px; flex-wrap:wrap; }
   .fcp-btn-primary { background:linear-gradient(135deg,#16a34a,#15803d); color:#fff; border:none; border-radius:8px; padding:14px 32px; font-size:1rem; font-weight:700; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:all 0.2s; box-shadow:0 4px 20px rgba(22,163,74,0.35); }
   .fcp-btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(22,163,74,0.45); }
@@ -95,7 +95,7 @@ const PAGE_CSS = (dark) => `
   .fcp-form input::placeholder { color:${dark?"#64748b":"#9ca3af"}; }
   .fcp-keywords { display:flex; flex-wrap:wrap; gap:10px; margin-top:32px; }
   .fcp-keyword { background:${dark?"rgba(34,197,94,0.1)":"rgba(34,197,94,0.08)"}; border:1px solid ${dark?"rgba(34,197,94,0.25)":"rgba(34,197,94,0.3)"}; color:${dark?"#4ade80":"#15803d"}; font-size:0.8rem; font-weight:600; padding:5px 14px; border-radius:99px; }
-  .fcp-breadcrumb { display:flex; align-items:center; gap:8px; font-size:0.85rem; color:${dark?"#64748b":"#9ca3af"}; margin-bottom:24px; flex-wrap:wrap; }
+  .fcp-breadcrumb { display:flex; align-items:center; gap:8px; font-size:0.85rem; color:rgba(255,255,255,0.7); margin-bottom:24px; flex-wrap:wrap; }
   .fcp-breadcrumb a { color:${dark?"#4ade80":"#16a34a"}; text-decoration:none; }
   .fcp-breadcrumb a:hover { text-decoration:underline; }
   .fcp-success { text-align:center; padding:40px 20px; }
