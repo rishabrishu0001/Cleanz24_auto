@@ -45,7 +45,7 @@ const INVESTMENT = [
 const PAGE_CSS = (dark) => `
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap');
   .fcp-page { font-family:'Inter',sans-serif; color:${dark?"#e2e8f0":"#1a202c"}; background:${dark?"#0f1623":"#fff"}; }
-  .fcp-hero { background: url('/assets/store_hero.jpg') center/cover no-repeat; padding:110px 0 70px; position:relative; overflow:hidden; }
+  .fcp-hero { background: url('/assets/store_hero.jpg') center/cover no-repeat; padding:110px 0 50px; position:relative; overflow:hidden; min-height:580px; display:flex; align-items:flex-end; }
   .fcp-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(22,163,74,0.15); border:1px solid rgba(22,163,74,0.4); color:#15803d; font-size:0.8rem; font-weight:600; padding:6px 16px; border-radius:99px; margin-bottom:20px; letter-spacing:0.05em; text-transform:uppercase; }
   .fcp-city-name { font-family:'Poppins',sans-serif; font-size:clamp(2.2rem,5vw,3.8rem); font-weight:900; color:#0f172a; line-height:1.1; margin-bottom:8px; }
   .fcp-city-highlight { color:#16a34a; }
@@ -101,7 +101,19 @@ const PAGE_CSS = (dark) => `
   .fcp-success-icon { font-size:3rem; margin-bottom:12px; }
   .fcp-success-title { font-family:'Poppins',sans-serif; font-size:1.4rem; font-weight:700; color:${dark?"#4ade80":"#16a34a"}; margin-bottom:8px; }
   .fcp-success-text { color:${dark?"#94a3b8":"#6b7280"}; font-size:0.95rem; }
-  @media(max-width:768px) { .fcp-hero { padding:90px 0 50px; } .fcp-form-wrap { padding:24px; } }
+  @media(max-width:768px) {
+    .fcp-hero { padding:60px 0 30px; min-height:520px; background-position: center top; }
+    .fcp-hero-glass { padding:20px 18px !important; margin:0 8px; border-radius:16px !important; }
+    .fcp-city-name { font-size:1.8rem !important; }
+    .fcp-hero-sub { font-size:0.92rem !important; margin:10px 0 20px !important; }
+    .fcp-badge { font-size:0.7rem !important; padding:4px 12px !important; }
+    .fcp-btn-primary, .fcp-btn-secondary { padding:11px 18px !important; font-size:0.88rem !important; }
+    .fcp-stats { grid-template-columns:repeat(2,1fr); gap:12px; margin:20px 0 0; }
+    .fcp-stat { padding:14px 10px; }
+    .fcp-stat-val { font-size:1.4rem; }
+    .fcp-form-wrap { padding:24px; }
+    .fcp-section { padding:40px 0; }
+  }
 `;
 
 export default function FranchiseCityPage() {
@@ -187,19 +199,22 @@ export default function FranchiseCityPage() {
       
       {/* HERO */}
       <section className="fcp-hero">
-        <div className="container">
-          <div style={{
-            display: 'inline-block',
-            background: 'rgba(255,255,255,0.88)',
-            backdropFilter: 'blur(12px)',
-            WebkitBackdropFilter: 'blur(12px)',
-            borderRadius: '20px',
-            padding: '32px 36px',
-            border: '1px solid rgba(255,255,255,0.6)',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.10)',
-            maxWidth: '680px',
-            width: '100%',
-          }}>
+        <div className="container" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', minHeight: 'inherit' }}>
+          <div
+            className="fcp-hero-glass"
+            style={{
+              display: 'inline-block',
+              background: 'rgba(255,255,255,0.90)',
+              backdropFilter: 'blur(14px)',
+              WebkitBackdropFilter: 'blur(14px)',
+              borderRadius: '20px',
+              padding: '32px 36px',
+              border: '1px solid rgba(255,255,255,0.7)',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+              maxWidth: '680px',
+              width: '100%',
+            }}
+          >
             <nav className="fcp-breadcrumb" aria-label="breadcrumb">
               <Link href="/best-laundry-drycleaning">Home</Link><span>›</span>
               <Link href="/best-laundry-drycleaning/franchise-opportunities">Franchise</Link><span>›</span>
@@ -216,6 +231,7 @@ export default function FranchiseCityPage() {
           <div className="fcp-stats">{STATS.map((s) => (<div className="fcp-stat" key={s.label}><div className="fcp-stat-val">{s.value}</div><div className="fcp-stat-label">{s.label}</div></div>))}</div>
         </div>
       </section>
+
 
 
       {/* WHY CLEANZ24 */}
