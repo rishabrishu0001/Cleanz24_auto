@@ -20,6 +20,18 @@ const getShortSlug = (name) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)+/g, '');
 
+export async function generateStaticParams() {
+  const list = Array.isArray(storesData) ? storesData : [];
+  const paramsList = [];
+  for (const s of list) {
+    if (s && s.name) {
+      paramsList.push({ storeSlug: generateStoreSlug(s.name) });
+      paramsList.push({ storeSlug: getShortSlug(s.name) });
+    }
+  }
+  return paramsList;
+}
+
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const storeSlug = resolvedParams?.storeSlug || '';

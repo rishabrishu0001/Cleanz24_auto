@@ -1,5 +1,13 @@
 import React, { Suspense } from 'react';
 import LocationDetail from '../../../views/laundry/LocationDetail';
+import { FRANCHISE_CITIES } from '../../../data/franchiseCities';
+
+export async function generateStaticParams() {
+  const citiesList = Array.isArray(FRANCHISE_CITIES) ? FRANCHISE_CITIES : [];
+  return citiesList.map((c) => ({
+    citySlug: c.slug,
+  }));
+}
 
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;

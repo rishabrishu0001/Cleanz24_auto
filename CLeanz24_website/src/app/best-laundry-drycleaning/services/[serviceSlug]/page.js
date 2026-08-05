@@ -1,6 +1,13 @@
 import React, { Suspense } from 'react';
 import ServiceDetailPage, { SERVICE_DETAILS_DATA } from '../../../../views/laundry/ServiceDetailPage';
 
+export async function generateStaticParams() {
+  const slugs = SERVICE_DETAILS_DATA ? Object.keys(SERVICE_DETAILS_DATA) : [];
+  return slugs.map((s) => ({
+    serviceSlug: s,
+  }));
+}
+
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const serviceSlug = resolvedParams?.serviceSlug;

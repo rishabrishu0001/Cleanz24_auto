@@ -91,6 +91,23 @@ const HIGH_VALUE_PHRASES = (cityName) => [
   `Affordable Suit Dry Cleaning in ${cityName}`
 ];
 
+export async function generateStaticParams() {
+  const citiesList = Array.isArray(FRANCHISE_CITIES) ? FRANCHISE_CITIES : [];
+  const servicesList = ['wash-and-fold', 'dry-cleaning', 'steam-ironing', 'shoe-cleaning', 'bag-cleaning', 'sofa-and-carpet'];
+  const paramsList = [];
+  for (const city of citiesList) {
+    if (city && city.slug) {
+      for (const s of servicesList) {
+        paramsList.push({
+          citySlug: city.slug,
+          serviceSlug: s,
+        });
+      }
+    }
+  }
+  return paramsList;
+}
+
 export async function generateMetadata({ params }) {
   const { citySlug, serviceSlug } = await params;
   const cityData = FRANCHISE_CITIES.find(c => c.slug === citySlug);

@@ -1,12 +1,129 @@
 'use client';
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { GOOGLE_SHEETS_LAUNDRY_FRANCHISE_SCRIPT_URL } from "../../config";
 
 import { FRANCHISE_CITIES, HIGH_VALUE_KEYWORDS } from "../../data/franchiseCities";
 export { FRANCHISE_CITIES, HIGH_VALUE_KEYWORDS };
+
+import storeimg1 from '../../assets/storeimg1.jpeg';
+import storeimg2 from '../../assets/storeimg2.jpeg';
+import storeimg3 from '../../assets/storeimg3.jpeg';
+import storeimg4 from '../../assets/storeimg4.jpeg';
+import storeimg5 from '../../assets/storeimg5.jpeg';
+import storeimg6 from '../../assets/storeimg6.jpeg';
+import storeimg7 from '../../assets/storeimg7.jpeg';
+
+const storeImages = [
+  '/assets/store_hero.jpg',
+  storeimg1,
+  storeimg2,
+  storeimg3,
+  storeimg4,
+  storeimg5,
+  storeimg6,
+  storeimg7
+];
+
+function HeroSlideshow({ dark }) {
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIdx(prev => (prev + 1) % storeImages.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div style={{
+      position: 'relative',
+      width: '100%',
+      height: 'clamp(280px, 45vh, 460px)',
+      borderRadius: 20,
+      overflow: 'hidden',
+      boxShadow: `0 16px 48px rgba(0,0,0,${dark ? '0.5' : '0.15'})`,
+      border: `1px solid ${dark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}`
+    }}>
+      {storeImages.map((src, i) => (
+        <img
+          key={i}
+          src={typeof src === 'string' ? src : (src?.src || '')}
+          alt={`Cleanz24 Store ${i + 1}`}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            borderRadius: 20,
+            opacity: activeIdx === i ? 1 : 0,
+            transform: activeIdx === i ? 'scale(1.03)' : 'scale(1)',
+            transition: 'opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1)',
+            zIndex: activeIdx === i ? 2 : 1,
+          }}
+        />
+      ))}
+      <div style={{
+        position: 'absolute',
+        bottom: 0, left: 0, right: 0,
+        height: '90px',
+        background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%)',
+        zIndex: 3,
+      }} />
+      <div style={{
+        position: 'absolute',
+        bottom: 16,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        display: 'flex',
+        gap: 7,
+        zIndex: 4,
+      }}>
+        {storeImages.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            aria-label={`Go to slide ${i + 1}`}
+            onClick={() => setActiveIdx(i)}
+            style={{
+              width: activeIdx === i ? 24 : 8,
+              height: 8,
+              borderRadius: 4,
+              background: activeIdx === i ? '#22c55e' : 'rgba(255,255,255,0.6)',
+              border: 'none',
+              padding: 0,
+              cursor: 'pointer',
+              transition: 'width 0.35s ease, background 0.3s',
+              outline: 'none',
+            }}
+          />
+        ))}
+      </div>
+      <div style={{
+        position: 'absolute',
+        top: 16,
+        right: 16,
+        background: 'rgba(22, 101, 52, 0.95)',
+        color: '#fff',
+        borderRadius: 30,
+        padding: '6px 16px',
+        fontSize: '0.8rem',
+        fontFamily: 'Poppins, sans-serif',
+        fontWeight: 700,
+        letterSpacing: '0.5px',
+        zIndex: 4,
+        backdropFilter: 'blur(6px)',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
+      }}>
+        📍 100+ Stores Across India
+      </div>
+    </div>
+  );
+}
 
 
 
@@ -45,11 +162,11 @@ const INVESTMENT = [
 const PAGE_CSS = (dark) => `
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap');
   .fcp-page { font-family:'Inter',sans-serif; color:${dark?"#e2e8f0":"#1a202c"}; background:${dark?"#0f1623":"#fff"}; }
-  .fcp-hero { background: url('/assets/store_hero.jpg') center/cover no-repeat; padding:110px 0 50px; position:relative; overflow:hidden; min-height:580px; display:flex; align-items:flex-end; }
+  .fcp-hero { background: url('/assets/store_hero.jpg') center/cover no-repeat; padding:100px 0 70px; position:relative; overflow:hidden; }
   .fcp-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(22,163,74,0.15); border:1px solid rgba(22,163,74,0.4); color:#15803d; font-size:0.8rem; font-weight:600; padding:6px 16px; border-radius:99px; margin-bottom:20px; letter-spacing:0.05em; text-transform:uppercase; }
-  .fcp-city-name { font-family:'Poppins',sans-serif; font-size:clamp(2.2rem,5vw,3.8rem); font-weight:900; color:#0f172a; line-height:1.1; margin-bottom:8px; }
+  .fcp-city-name { font-family:'Poppins',sans-serif; font-size:clamp(2.2rem,5vw,3.8rem); font-weight:900; color:${dark?"#f1f5f9":"#0f172a"}; line-height:1.1; margin-bottom:8px; }
   .fcp-city-highlight { color:#16a34a; }
-  .fcp-hero-sub { font-size:1.1rem; color:#334155; max-width:560px; margin:16px 0 32px; line-height:1.7; }
+  .fcp-hero-sub { font-size:1.1rem; color:${dark?"#94a3b8":"#334155"}; max-width:560px; margin:16px 0 32px; line-height:1.7; }
   .fcp-hero-btns { display:flex; gap:14px; flex-wrap:wrap; }
   .fcp-btn-primary { background:linear-gradient(135deg,#16a34a,#15803d); color:#fff; border:none; border-radius:8px; padding:14px 32px; font-size:1rem; font-weight:700; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:all 0.2s; box-shadow:0 4px 20px rgba(22,163,74,0.35); }
   .fcp-btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(22,163,74,0.45); }
@@ -94,7 +211,7 @@ const PAGE_CSS = (dark) => `
   .fcp-form input::placeholder { color:${dark?"#64748b":"#9ca3af"}; }
   .fcp-keywords { display:flex; flex-wrap:wrap; gap:10px; margin-top:32px; }
   .fcp-keyword { background:${dark?"rgba(34,197,94,0.1)":"rgba(34,197,94,0.08)"}; border:1px solid ${dark?"rgba(34,197,94,0.25)":"rgba(34,197,94,0.3)"}; color:${dark?"#4ade80":"#15803d"}; font-size:0.8rem; font-weight:600; padding:5px 14px; border-radius:99px; }
-  .fcp-breadcrumb { display:flex; align-items:center; gap:8px; font-size:0.85rem; color:#475569; margin-bottom:24px; flex-wrap:wrap; }
+  .fcp-breadcrumb { display:flex; align-items:center; gap:8px; font-size:0.85rem; color:${dark?"#94a3b8":"#475569"}; margin-bottom:24px; flex-wrap:wrap; }
   .fcp-breadcrumb a { color:${dark?"#4ade80":"#16a34a"}; text-decoration:none; }
   .fcp-breadcrumb a:hover { text-decoration:underline; }
   .fcp-success { text-align:center; padding:40px 20px; }
@@ -102,13 +219,13 @@ const PAGE_CSS = (dark) => `
   .fcp-success-title { font-family:'Poppins',sans-serif; font-size:1.4rem; font-weight:700; color:${dark?"#4ade80":"#16a34a"}; margin-bottom:8px; }
   .fcp-success-text { color:${dark?"#94a3b8":"#6b7280"}; font-size:0.95rem; }
   @media(max-width:768px) {
-    .fcp-hero { padding:60px 0 30px; min-height:520px; background-position: center top; }
-    .fcp-hero-glass { padding:20px 18px !important; margin:0 8px; border-radius:16px !important; }
+    .fcp-hero { padding:60px 0 40px; }
+    .fcp-hero-glass { padding:24px 20px !important; border-radius:20px !important; }
     .fcp-city-name { font-size:1.8rem !important; }
     .fcp-hero-sub { font-size:0.92rem !important; margin:10px 0 20px !important; }
     .fcp-badge { font-size:0.7rem !important; padding:4px 12px !important; }
     .fcp-btn-primary, .fcp-btn-secondary { padding:11px 18px !important; font-size:0.88rem !important; }
-    .fcp-stats { grid-template-columns:repeat(2,1fr); gap:12px; margin:20px 0 0; }
+    .fcp-stats { grid-template-columns:repeat(2,1fr); gap:12px; margin:30px 0 0; }
     .fcp-stat { padding:14px 10px; }
     .fcp-stat-val { font-size:1.4rem; }
     .fcp-form-wrap { padding:24px; }
@@ -195,37 +312,45 @@ export default function FranchiseCityPage() {
 
   return (
     <div className="fcp-page">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
       <style>{PAGE_CSS(dark)}</style>
       
       {/* HERO */}
       <section className="fcp-hero">
-        <div className="container" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', minHeight: 'inherit' }}>
-          <div
-            className="fcp-hero-glass"
-            style={{
-              display: 'inline-block',
-              background: 'rgba(255,255,255,0.90)',
-              backdropFilter: 'blur(14px)',
-              WebkitBackdropFilter: 'blur(14px)',
-              borderRadius: '20px',
-              padding: '32px 36px',
-              border: '1px solid rgba(255,255,255,0.7)',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
-              maxWidth: '680px',
-              width: '100%',
-            }}
-          >
-            <nav className="fcp-breadcrumb" aria-label="breadcrumb">
-              <Link href="/best-laundry-drycleaning">Home</Link><span>›</span>
-              <Link href="/best-laundry-drycleaning/franchise-opportunities">Franchise</Link><span>›</span>
-              <span style={{ color: '#475569' }}>{cityName}</span>
-            </nav>
-            <span className="fcp-badge">🚀 100+ Stores Network — Franchise in {cityName}</span>
-            <h1 className="fcp-city-name">Best Laundry & Dry Cleaning<br /><span className="fcp-city-highlight">Franchise in {cityName}</span></h1>
-            <p className="fcp-hero-sub">Join India's most profitable laundry franchise network (100+ Stores) in <strong>{cityName}, {stateName}</strong>. Investment starting ₹13 Lacs+ · High returns · Full support · 18-20 Mo ROI.</p>
-            <div className="fcp-hero-btns">
-              <a href="#apply-now" className="fcp-btn-primary">📋 Apply for Franchise</a>
-              <a href={waLink} target="_blank" rel="noreferrer" className="fcp-btn-secondary">💬 WhatsApp Us</a>
+        <div className="container">
+          <div className="row align-items-center g-5">
+            <div className="col-lg-6">
+              <div
+                className="fcp-hero-glass"
+                style={{
+                  background: dark ? 'rgba(15, 23, 42, 0.85)' : 'rgba(255, 255, 255, 0.90)',
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)',
+                  borderRadius: 24,
+                  padding: '32px',
+                  border: `1px solid ${dark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}`,
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.12)',
+                }}
+              >
+                <nav className="fcp-breadcrumb" aria-label="breadcrumb">
+                  <Link href="/best-laundry-drycleaning">Home</Link><span>›</span>
+                  <Link href="/best-laundry-drycleaning/franchise-opportunities">Franchise</Link><span>›</span>
+                  <span style={{ color: dark ? '#94a3b8' : '#475569' }}>{cityName}</span>
+                </nav>
+                <span className="fcp-badge">🚀 100+ Stores Network — Franchise in {cityName}</span>
+                <h1 className="fcp-city-name">Best Laundry & Dry Cleaning<br /><span className="fcp-city-highlight">Franchise in {cityName}</span></h1>
+                <p className="fcp-hero-sub">Join India's most profitable laundry franchise network (100+ Stores) in <strong>{cityName}, {stateName}</strong>. Investment starting ₹13 Lacs+ · High returns · Full support · 18-20 Mo ROI.</p>
+                <div className="fcp-hero-btns">
+                  <a href="#apply-now" className="fcp-btn-primary">📋 Apply for Franchise</a>
+                  <a href={waLink} target="_blank" rel="noreferrer" className="fcp-btn-secondary">💬 WhatsApp Us</a>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6">
+              <HeroSlideshow dark={dark} />
             </div>
           </div>
           <div className="fcp-stats">{STATS.map((s) => (<div className="fcp-stat" key={s.label}><div className="fcp-stat-val">{s.value}</div><div className="fcp-stat-label">{s.label}</div></div>))}</div>
