@@ -164,7 +164,7 @@ function LaundryFrenchise() {
 
   const activeCalcData = CALCULATOR_DATA[calcTier]?.[calcModel] || CALCULATOR_DATA.tier1.beta;
 
-  // Lead Popup State (20s timer preserved)
+  // Lead Popup State (10s timer)
   const [showLeadPopup, setShowLeadPopup] = useState(false);
   const [popupData, setPopupData] = useState({ name: '', phone: '', email: '', city: '' });
   const [popupSubmitting, setPopupSubmitting] = useState(false);
@@ -174,7 +174,7 @@ function LaundryFrenchise() {
   // FAQ Accordion State
   const [activeFaq, setActiveFaq] = useState(null);
 
-  // 20-second Popup Trigger with SSR Safety
+  // 10-second Popup Trigger with SSR Safety
   useEffect(() => {
     let alreadySeen = false;
     try {
@@ -183,7 +183,7 @@ function LaundryFrenchise() {
       }
     } catch (e) { }
     if (alreadySeen || (typeof window !== 'undefined' && window.location && window.location.hash)) return;
-    const timer = setTimeout(() => setShowLeadPopup(true), 20000);
+    const timer = setTimeout(() => setShowLeadPopup(true), 10000);
     return () => clearTimeout(timer);
   }, []);
 

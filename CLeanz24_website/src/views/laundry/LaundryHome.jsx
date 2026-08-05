@@ -54,7 +54,7 @@ export default function LaundryHome() {
   useEffect(() => {
     const alreadySeen = sessionStorage.getItem('lh_popup_seen');
     if (alreadySeen) return;
-    const timer = setTimeout(() => setShowPopup(true), 20000);
+    const timer = setTimeout(() => setShowPopup(true), 5000);
     return () => clearTimeout(timer);
   }, []);
 
