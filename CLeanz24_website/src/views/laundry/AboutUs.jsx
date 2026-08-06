@@ -72,7 +72,7 @@ export default function AboutUs() {
                 }}>
                 📱 Get In Touch
               </Link>
-              <Link href="/best-laundry-drycleaning/franchise-opportunities"
+              <Link href="/franchise-opportunities-in-india"
                 style={{
                   background: 'rgba(255,255,255,0.15)', color: '#fff', padding: '12px 28px', borderRadius: '50px',
                   fontWeight: 600, textDecoration: 'none', fontSize: '0.9rem', border: '1px solid rgba(255,255,255,0.35)',
@@ -259,7 +259,7 @@ export default function AboutUs() {
               style={{ justifyContent: 'center' }}>
               📱 Schedule Your Free Pickup
             </a>
-            <Link href="/best-laundry-drycleaning/franchise-opportunities" className="btn-primary-custom px-5 py-3 fs-5"
+            <Link href="/franchise-opportunities-in-india" className="btn-primary-custom px-5 py-3 fs-5"
               style={{ justifyContent: 'center', background: 'rgba(255,255,255,0.15)', border: '2px solid rgba(255,255,255,0.5)' }}>
               🤝 Own a Franchise
             </Link>

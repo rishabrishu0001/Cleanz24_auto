@@ -610,7 +610,7 @@ function LaundryFrenchise() {
               }}>
                 {/* Trust Badge Header */}
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: dark ? 'rgba(34,197,94,0.15)' : '#dcfce7', border: '1px solid #86efac', padding: '6px 16px', borderRadius: 30, marginBottom: 20 }}>
-                  <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#15803d', letterSpacing: '0.5px', textTransform: 'uppercase' }}>⭐ PROVEN BUSINESS MODEL</span>
+                  <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#15803d', letterSpacing: '0.5px', textTransform: 'uppercase' }}>⭐ BEST LAUNDRY FRANCHISE IN INDIA</span>
                 </div>
 
                 {/* Headline */}
@@ -619,7 +619,7 @@ function LaundryFrenchise() {
                   fontSize: 'clamp(32px, 4.5vw, 52px)', lineHeight: 1.15,
                   color: dark ? '#f8fafc' : '#0f172a', marginBottom: 20
                 }}>
-                  Start Your Own <span style={{ color: '#16a34a' }}>Cleanz24 Franchise</span> — 100+ Stores, Fast ROI
+                  Best Laundry Franchise in India — Start Your <span style={{ color: '#16a34a' }}>Cleanz24 Franchise</span>
                 </h1>
 
                 {/* Subheadline: 1-line trust stat */}
@@ -627,7 +627,7 @@ function LaundryFrenchise() {
                   fontSize: 'clamp(15px, 1.8vw, 18px)', fontWeight: 600,
                   color: dark ? '#94a3b8' : '#475569', marginBottom: 28, lineHeight: 1.5
                 }}>
-                  🏆 100+ Franchise Stores &nbsp;|&nbsp; 🌍 21+ States &nbsp;|&nbsp; 😊 2,00,000+ Happy Customers
+                  🚀 Fastest Growing Laundry and Drycleaning Chain in India &nbsp;|&nbsp; 🏆 100+ Stores &nbsp;|&nbsp; 🌍 21+ States &nbsp;|&nbsp; 😊 2,00,000+ Happy Customers
                 </p>
 
                 {/* Trust badges row */}

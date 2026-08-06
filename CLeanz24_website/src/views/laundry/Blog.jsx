@@ -213,7 +213,7 @@ export const BLOG_POSTS = [
           No other franchise in India at the ₹13-29 lakh price point gives you: 24/7 operations + premium dry cleaning + eco-friendly processes + app-based management + B2B support + complete training. Cleanz24 is genuinely in a category of its own.
         </p>
         <p>
-          👉 <Link href="/best-laundry-drycleaning/franchise-opportunities">Apply for a Cleanz24 Franchise — Enquire Now</Link>
+          👉 <Link href="/franchise-opportunities-in-india">Apply for a Cleanz24 Franchise — Enquire Now</Link>
         </p>
 
         <h3>#2 QSR / Food Franchise</h3>
@@ -447,7 +447,7 @@ export const BLOG_POSTS = [
           Every metric points in the same direction. For investors looking at the best franchise business in India under ₹30 lakhs, a Cleanz24 laundry franchise is the answer food franchises can no longer compete with.
         </p>
         <p>
-          👉 <Link href="/best-laundry-drycleaning/franchise-opportunities">Calculate your potential returns with Cleanz24</Link>
+          👉 <Link href="/franchise-opportunities-in-india">Calculate your potential returns with Cleanz24</Link>
         </p>
 
         <h2>Is a Cleanz24 Franchise Right for You?</h2>
@@ -633,9 +633,9 @@ export const BLOG_POSTS = [
           Your competition is still thinking about it. The best time to open a Cleanz24 franchise was last year. The second best time is today.
         </p>
         <div style={{ display: 'flex', gap: '15px', marginTop: '20px', flexWrap: 'wrap' }}>
-          <Link href="/best-laundry-drycleaning/franchise-opportunities" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Apply for Cleanz24 Franchise — Start for ₹13L</Link>
+          <Link href="/franchise-opportunities-in-india" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Apply for Cleanz24 Franchise — Start for ₹13L</Link>
           <a href="/cleanz24_franchise_brochure.pdf" download="cleanz24_franchise_brochure.pdf" className="btn btn-outline-primary px-4 py-2">Download Franchise Brochure</a>
-          <Link href="/best-laundry-drycleaning/franchise-opportunities" className="btn btn-outline-primary px-4 py-2">Book a Free Franchise Consultation Call</Link>
+          <Link href="/franchise-opportunities-in-india" className="btn btn-outline-primary px-4 py-2">Book a Free Franchise Consultation Call</Link>
         </div>
       </>
     )
@@ -1222,7 +1222,7 @@ export const BLOG_POSTS = [
           <li><strong>Ideal Cities:</strong> Metros and Tier-1 cities.</li>
         </ul>
         <p>
-          👉 <Link href="/best-laundry-drycleaning/franchise-opportunities">Contact Cleanz24 Franchise Team</Link>
+          👉 <Link href="/franchise-opportunities-in-india">Contact Cleanz24 Franchise Team</Link>
         </p>
 
         <h3>2. Tumbledry Franchise — India's Largest Retail Laundry Network</h3>
@@ -1495,7 +1495,7 @@ export const BLOG_POSTS = [
           A Cleanz24 franchise is not just a business — it's a 24-hour income-generating machine built for modern India.
         </p>
         <p>
-          👉 <Link href="/best-laundry-drycleaning/franchise-opportunities">Apply for Cleanz24 Franchise</Link>
+          👉 <Link href="/franchise-opportunities-in-india">Apply for Cleanz24 Franchise</Link>
         </p>
 
         <h2>Frequently Asked Questions (FAQ)</h2>
@@ -1521,7 +1521,7 @@ export const BLOG_POSTS = [
         <p>Laundry utilizes water and standard detergents to wash everyday casual wear. Dry cleaning uses specialized chemical solvents (such as Cleanz24's German eco-solvents) to clean delicate fabrics like silks, wools, and designer garments without water.</p>
 
         <h4>Q8: Does Cleanz24 offer franchise opportunities across India?</h4>
-        <p>Yes! Cleanz24 is actively expanding its footprint across India. The expansion team offers comprehensive support, from site selection to marketing launch. <Link href="/best-laundry-drycleaning/franchise-opportunities">Contact Cleanz24 today</Link> to secure your exclusive territory.</p>
+        <p>Yes! Cleanz24 is actively expanding its footprint across India. The expansion team offers comprehensive support, from site selection to marketing launch. <Link href="/franchise-opportunities-in-india">Contact Cleanz24 today</Link> to secure your exclusive territory.</p>
 
         <h2>Conclusion</h2>
         <p>
@@ -1531,7 +1531,7 @@ export const BLOG_POSTS = [
           Among all the brands in this list, Cleanz24 stands out as the only franchise offering 24/7 operations, eco-friendly processes, and complete franchise support — all in one package. If you're ready to build a profitable, future-proof business, Cleanz24 could be the opportunity you've been waiting for.
         </p>
         <div style={{ display: 'flex', gap: '15px', marginTop: '20px', flexWrap: 'wrap' }}>
-          <Link href="/best-laundry-drycleaning/franchise-opportunities" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Apply for Cleanz24 Franchise Today</Link>
+          <Link href="/franchise-opportunities-in-india" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Apply for Cleanz24 Franchise Today</Link>
           <a href="/cleanz24_franchise_brochure.pdf" download="cleanz24_franchise_brochure.pdf" className="btn btn-outline-primary px-4 py-2">Download Cleanz24 Franchise Brochure</a>
         </div>
       </>
@@ -1744,7 +1744,7 @@ export const BLOG_POSTS = [
           The laundry and dry cleaning sector in India is ripe for transformation, making 2026 the absolute best time to invest. By choosing a franchise partner that combines low investment requirements, top-tier technology, and green fabric care, you set your business up for decades of sustainable cash flow.
         </p>
         <p>
-          <strong>Ready to own a Cleanz24 franchise?</strong> <Link href="/best-laundry-drycleaning/franchise-opportunities">Contact us today</Link> and take the first step toward a profitable, purpose-driven business.
+          <strong>Ready to own a Cleanz24 franchise?</strong> <Link href="/franchise-opportunities-in-india">Contact us today</Link> and take the first step toward a profitable, purpose-driven business.
         </p>
       </>
     )
@@ -3147,7 +3147,7 @@ export const BLOG_POSTS = [
         <p>
           <Link href="/best-laundry-drycleaning/contact-us" className="btn btn-primary px-4 py-2" style={{ backgroundColor: '#2B6CB0', border: 'none' }}>Book a Pickup with Cleanz24</Link>
           {' '}
-          <Link href="/best-laundry-drycleaning/franchise-opportunities" className="btn btn-outline-primary px-4 py-2" style={{ marginLeft: '10px' }}>Explore Cleanz24 Franchise</Link>
+          <Link href="/franchise-opportunities-in-india" className="btn btn-outline-primary px-4 py-2" style={{ marginLeft: '10px' }}>Explore Cleanz24 Franchise</Link>
         </p>
       </>
     ),
@@ -4269,7 +4269,7 @@ function renderStaticPostContent(post) {
         </p>
         
         <p>
-          Learn more about our franchise models by visiting our dedicated <Link href="/best-laundry-drycleaning/franchise-opportunities" style={{ color: '#2B6CB0', fontWeight: '600' }}>Franchise Page</Link> or scheduling a call with our business development team.
+          Learn more about our franchise models by visiting our dedicated <Link href="/franchise-opportunities-in-india" style={{ color: '#2B6CB0', fontWeight: '600' }}>Franchise Page</Link> or scheduling a call with our business development team.
         </p>
       </>
     );
@@ -4477,7 +4477,7 @@ export default function Blog() {
                       <div style={{ display: 'flex', gap: '10px', marginTop: '15px', flexWrap: 'wrap' }}>
                         <a href={`tel:+91${post.store.phone.replace(/\s+/g, '')}`} className="btn btn-sm text-white" style={{ backgroundColor: '#2B6CB0', border: 'none', padding: '6px 16px', fontWeight: 600 }}>Call Chauffeur</a>
                         <a href={`https://wa.me/${post.store.whatsapp}`} target="_blank" rel="noreferrer" className="btn btn-sm text-white" style={{ backgroundColor: '#28A745', border: 'none', padding: '6px 16px', fontWeight: 600 }}>WhatsApp Booking</a>
-                        <Link href="/best-laundry-drycleaning/franchise-opportunities" className="btn btn-sm btn-outline-primary" style={{ padding: '6px 16px', fontWeight: 600 }}>Franchise Info</Link>
+                        <Link href="/franchise-opportunities-in-india" className="btn btn-sm btn-outline-primary" style={{ padding: '6px 16px', fontWeight: 600 }}>Franchise Info</Link>
                       </div>
                     </div>
 

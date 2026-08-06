@@ -337,7 +337,7 @@ export default function FranchiseCityPage() {
               >
                 <nav className="fcp-breadcrumb" aria-label="breadcrumb">
                   <Link href="/best-laundry-drycleaning">Home</Link><span>›</span>
-                  <Link href="/best-laundry-drycleaning/franchise-opportunities">Franchise</Link><span>›</span>
+                  <Link href="/franchise-opportunities-in-india">Franchise</Link><span>›</span>
                   <span style={{ color: dark ? '#94a3b8' : '#475569' }}>{cityName}</span>
                 </nav>
                 <span className="fcp-badge">🚀 100+ Stores Network — Franchise in {cityName}</span>

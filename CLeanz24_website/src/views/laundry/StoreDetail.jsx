@@ -1259,7 +1259,7 @@ export default function StoreDetail() {
             <span style={{ color: theme.border }}>|</span>
             <Link href={`/best-laundry-drycleaning/${store.city.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} style={{ color: theme.primary, textDecoration: 'none' }}>All Stores in {store.city} →</Link>
             <span style={{ color: theme.border }}>|</span>
-            <Link href="/best-laundry-drycleaning/franchise-opportunities" style={{ color: theme.primary, textDecoration: 'none' }}>Franchise Opportunities →</Link>
+            <Link href="/franchise-opportunities-in-india" style={{ color: theme.primary, textDecoration: 'none' }}>Franchise Opportunities →</Link>
           </div>
         </div>
       </section>

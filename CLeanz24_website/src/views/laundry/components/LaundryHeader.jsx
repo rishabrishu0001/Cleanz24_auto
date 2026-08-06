@@ -21,7 +21,7 @@ export default function Header({ isDarkMode, toggleTheme }) {
   const navLinks = [
     { to: '/best-laundry-drycleaning', label: 'Home', icon: '🏠' },
     { to: '/best-laundry-drycleaning/services', label: 'Services', icon: '👔' },
-    { to: '/best-laundry-drycleaning/franchise-opportunities', label: 'Franchise', icon: '🤝' },
+    { to: '/franchise-opportunities-in-india', label: 'Franchise', icon: '🤝' },
     { to: '/best-laundry-drycleaning/stores', label: 'Stores', icon: '📍' },
     { to: '/best-laundry-drycleaning/blog', label: 'Blog', icon: '📝' },
     { to: '/best-laundry-drycleaning/contact-us', label: 'Contact', icon: '📞' },
@@ -215,7 +215,7 @@ export default function Header({ isDarkMode, toggleTheme }) {
                   🚚 Schedule Free Pickup
                 </Link>
                 <Link
-                  href="/best-laundry-franchise"
+                  href="/franchise-opportunities-in-india"
                   className="laundry-cta-outline"
                   onClick={() => setMobileMenuOpen(false)}
                 >

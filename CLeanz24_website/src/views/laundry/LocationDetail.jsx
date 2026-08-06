@@ -719,7 +719,7 @@ export default function LocationDetail() {
                 <span style={{ color: '#CBD5E0' }}>|</span>
                 <Link href="/best-laundry-drycleaning/locations" style={{ color: '#2B6CB0', textDecoration: 'none' }}>All Locations →</Link>
                 <span style={{ color: '#CBD5E0' }}>|</span>
-                <Link href="/best-laundry-drycleaning/franchise-opportunities" style={{ color: '#2B6CB0', textDecoration: 'none' }}>Franchise Opportunities →</Link>
+                <Link href="/franchise-opportunities-in-india" style={{ color: '#2B6CB0', textDecoration: 'none' }}>Franchise Opportunities →</Link>
               </div>
 
             </div>

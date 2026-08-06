@@ -43,7 +43,7 @@ export default function Footer() {
             <ul className="list-unstyled footer-links">
               <li><Link href="/best-laundry-drycleaning" className="text-muted-custom text-decoration-none hover-brand">Home</Link></li>
               <li><Link href="/best-laundry-drycleaning/services" className="text-muted-custom text-decoration-none hover-brand">Services</Link></li>
-              <li><Link href="/best-laundry-drycleaning/franchise-opportunities" className="text-muted-custom text-decoration-none hover-brand">Franchise</Link></li>
+              <li><Link href="/franchise-opportunities-in-india" className="text-muted-custom text-decoration-none hover-brand">Franchise</Link></li>
               <li><Link href="/best-laundry-drycleaning/stores" className="text-muted-custom text-decoration-none hover-brand">Our Stores</Link></li>
               <li><Link href="/best-laundry-drycleaning/contact-us" className="text-muted-custom text-decoration-none hover-brand">Contact Us</Link></li>
             </ul>
