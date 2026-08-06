@@ -11,6 +11,7 @@ export default async function sitemap() {
     '/best-laundry-drycleaning/services',
     '/best-laundry-drycleaning/stores',
     '/franchise-opportunities-in-india',
+    '/best-laundry-drycleaning/franchise-opportunities-in-india',
     '/best-laundry-drycleaning/franchise-opportunities',
     '/best-laundry-drycleaning/blog',
     '/best-laundry-drycleaning/locations',
