@@ -24,7 +24,6 @@ const nextConfig = {
       { source: '/franchise-opportunities', destination: '/franchise-opportunities-in-india', permanent: true },
       { source: '/best-laundry-franchise', destination: '/franchise-opportunities-in-india', permanent: true },
       { source: '/laundry-franchise', destination: '/franchise-opportunities-in-india', permanent: true },
-      { source: '/best-laundry-drycleaning/franchise-opportunities', destination: '/franchise-opportunities-in-india', permanent: true },
       { source: '/car-spa-franchise', destination: '/car-spa/franchise', permanent: true },
       { source: '/shoe-cleaning', destination: '/best-laundry-drycleaning/services/shoe-handbag-spa', permanent: true },
       { source: '/shoe-spa', destination: '/best-laundry-drycleaning/services/shoe-handbag-spa', permanent: true },
