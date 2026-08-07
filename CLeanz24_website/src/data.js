@@ -206,24 +206,24 @@ export const storesData = [
   {
     id: 5,
     name: 'Cleanz24 - Nirala Aspire Noida Extension',
-    address: 'Shop No. LG-16, Nirala Aspire Plaza, Noida Extension, Panchsheel Greens 2, Ghaziabad, Uttar Pradesh 201306',
+    address: 'LG -06, NIRALA ASPIRE, Panchsheel Greens 2, Greater Noida, Ghaziabad, Uttar Pradesh 201318',
     phone: '91380 04800',
     whatsapp: '919138004800',
     city: 'Noida Extension',
     state: 'Uttar Pradesh',
-    tags: ['Delhi NCR', 'Noida Extension', 'Greater Noida West', 'Nirala Aspire', '201306'],
+    tags: ['Delhi NCR', 'Noida Extension', 'Greater Noida West', 'Nirala Aspire', '201318'],
     rating: 4.6,
     reviews: 74
   },
   {
     id: 6,
     name: 'Cleanz24 - Swarn Nagari Greater Noida',
-    address: 'UG-04, Swarn Nagari, Block A, Industrial Area, Sector Swarn Nagri, Greater Noida, Uttar Pradesh 201315',
+    address: 'Shop No 04 UG Floor Swarn Plaza Bironda Pi ll Advocate Society Swarn Nagari Greater Noida, Greater Noida, Uttar Pradesh 201310',
     phone: '91380 04800',
     whatsapp: '919138004800',
     city: 'Greater Noida',
     state: 'Uttar Pradesh',
-    tags: ['Delhi NCR', 'Greater Noida', 'Swarn Nagari', 'Swarn Plaza', '201315'],
+    tags: ['Delhi NCR', 'Greater Noida', 'Swarn Nagari', 'Swarn Plaza', '201310'],
     rating: 4.7,
     reviews: 85
   },
@@ -333,7 +333,7 @@ export const storesData = [
   {
     id: 18,
     name: 'Cleanz24 - Patiala',
-    address: 'SCO No. 258, Ground Floor, Near First Cry, Urban Estate Phase-1, Patiala, Punjab 147002',
+    address: 'Ground Floor, SCO no 258, near First cry, Phase I, Urban Estate, Patiala, Punjab 147002',
     phone: '91380 04800',
     whatsapp: '919138004800',
     city: 'Patiala',
@@ -344,7 +344,7 @@ export const storesData = [
   {
     id: 19,
     name: 'Cleanz24 - Kharar',
-    address: 'SBP City Square, SCO 28-C, Sector 127, Kharar, Punjab 140307',
+    address: 'Scooty, BJBF Residency, SBP,City Square, Sector 127, Kharar, Punjab 140307',
     phone: '91380 04800',
     whatsapp: '919138004800',
     city: 'Kharar',
@@ -470,7 +470,7 @@ export const storesData = [
   {
     id: 36,
     name: 'Cleanz24 - Wakad Pune',
-    address: 'PATIL ESTATE, Ground floor, Survey No. 75/1/1, Bhumkar Chowk Road, Tathawade, Tehsil Haveli, Pimpri-Chinchwad Municipal Corporation, Pune, Maharashtra - 411033 (Wakad)',
+    address: 'GROUND FLOOR, PATIL ESTATE, Bhumkar Chowk Rd, Ashok Nagar, Tathawade, Pimpri-Chinchwad, Maharashtra 411033',
     phone: '91380 04800',
     whatsapp: '919138004800',
     city: 'Wakad',
@@ -607,7 +607,7 @@ export const storesData = [
   {
     id: 52,
     name: 'Cleanz24 - Padmanabhanagar Bengaluru',
-    address: 'MVG Arcade, Basement Floor 4, Kadarenahalli Main Rd, Next to Amma\'s Pastries, RK Layout 2nd Stage, Padmanabhanagar, Bengaluru, Karnataka 560070',
+    address: 'Basment Floor 4, MVS Arcade, Main Rd, near Amma\'s Pastries, RK Layout, 2nd Stare, Padmanabhanagar, Kadarenahakki, Bengaluru, Karnataka 560070',
     phone: '91380 04800',
     whatsapp: '919138004800',
     city: 'Padmanabhanagar',
@@ -675,7 +675,7 @@ export const storesData = [
   {
     id: 58,
     name: 'Cleanz24 - Gachibowli Hyderabad',
-    address: 'Shop address: kk crest building, shop no.4 & 5 on third floor, at- P.Janardhan Reddy Nagar, Gachibowli, Hyderabad-500032, Telengana',
+    address: 'Kk crest bld shop no4, 3rd floor, P Janardhan Reddy Nagar, Gachibowli, Hyderabad, Telangana 500032',
     phone: '91380 04800',
     whatsapp: '919138004800',
     city: 'Gachibowli',
@@ -686,7 +686,7 @@ export const storesData = [
   {
     id: 59,
     name: 'Cleanz24 - Gopanpally Tellapur Hyderabad',
-    address: 'H.No.1-100/29/9/12, Gopanpally Village, Serilingampally Mandal, K.V. Rangareddy, Telangana - 500046 (Tellapur)',
+    address: '1-100/29/9/12, H, K. V, Gopanpalle, Serilingampalle (M), Hyderabad, Telangana 500046',
     phone: '91380 04800',
     whatsapp: '919138004800',
     city: 'Gopanpally',
@@ -744,7 +744,7 @@ export const storesData = [
   {
     id: 65,
     name: 'Cleanz24 - Kukatpally Hyderabad',
-    address: 'Door # - LIC-81, Green Hills Rd, Kukatpally Housing Board Colony, KPHB Phase 15, Baskin Robbins, Kukatpally, Hyderabad, Telangana 500072',
+    address: 'Door No, LIC -18, Green Hills Rd, near Baskin Robbins, Kukatpally Housing Board Colony, KPHB Phase 15, Kukatpally, Hyderabad, Telangana 500072',
     phone: '91380 04800',
     whatsapp: '919138004800',
     city: 'Kukatpally',
@@ -768,7 +768,7 @@ export const storesData = [
   {
     id: 67,
     name: 'Cleanz24 - Vaishali Ghaziabad',
-    address: 'Shop No. 2, Plot No. 4/129, Sector 4, Near Paras Hospital, Vaishali, Ghaziabad, Uttar Pradesh - 201010',
+    address: 'Shop No-2, Plot no.4/129, near Paras Hospital, GDA Market, Sector 4, Vaishali, Ghaziabad, Uttar Pradesh 201010',
     phone: '91380 04800',
     whatsapp: '919138004800',
     city: 'Ghaziabad',
@@ -780,7 +780,7 @@ export const storesData = [
   {
     id: 68,
     name: 'Cleanz24 - Kowkoor Secunderabad',
-    address: 'Shop:2 Lower ground floor, Janapriya Arcadia, Kowkoor, Alwal, Secunderabad, Telangana 500010',
+    address: 'Shop No. 2, Lower Ground Floor, Janapriya Arcadia, Kowkoor, Alwal, Secunderabad Telangana-50010, Hyderabad, Telangana 500010',
     phone: '91380 04800',
     whatsapp: '919138004800',
     city: 'Secunderabad',
@@ -804,7 +804,7 @@ export const storesData = [
   {
     id: 70,
     name: 'Cleanz24 - Churu',
-    address: '21/22 Poonia Colony, Gali No. 8, Near Phatak, Churu, Rajasthan - 331001',
+    address: '21/22, 8, Poonia Colony Rd, Churu, Rajasthan 331001',
     phone: '91380 04800',
     whatsapp: '919138004800',
     city: 'Churu',
