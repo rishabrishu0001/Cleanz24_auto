@@ -717,17 +717,7 @@ export const storesData = [
     rating: 4.6,
     reviews: 90
   },
-  {
-    id: 62,
-    name: 'Cleanz24 - Pradhikaran Pimpri-Chinchwad',
-    address: 'Pradhikaran, Pimpri-Chinchwad, Maharashtra',
-    phone: '91380 04800',
-    whatsapp: '919138004800',
-    city: 'Pimpri-Chinchwad',
-    state: 'Maharashtra',
-    rating: 4.8,
-    reviews: 25
-  },
+
   {
     id: 63,
     name: 'Cleanz24 - Main Market Siwara',

@@ -14,7 +14,7 @@ const storeLocationsGrouped = [
   { state: 'Karnataka', cities: ['Padmanabhanagar'] },
   { state: 'Kerala', cities: ['Cheriyamundam', 'Kannur', 'Kazhakkoottam', 'Kozhikode', 'Panoor', 'Parad', 'Parat', 'Trivandrum', 'Vaikom'] },
   { state: 'Madhya Pradesh', cities: ['Bhopal'] },
-  { state: 'Maharashtra', cities: ['Alibag', 'Pimpri-Chinchwad', 'Pune', 'Thane West', 'Wakad'] },
+  { state: 'Maharashtra', cities: ['Alibag', 'Pune', 'Thane West', 'Wakad'] },
   { state: 'Odisha', cities: ['Angul', 'Berhampur', 'Chandrasekharpur', 'CDA Cuttack', 'Jatni Khordha', 'Jeypore', 'Old Town Bhubaneswar', 'Palasuni Bhubaneswar'] },
   { state: 'Puducherry', cities: ['Mahe'] },
   { state: 'Punjab', cities: ['Amritsar', 'Bathinda', 'Kharar', 'Patiala'] },
