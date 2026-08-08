@@ -206,7 +206,7 @@ export const storesData = [
   {
     id: 5,
     name: 'Cleanz24 - Nirala Aspire Noida Extension',
-    address: 'LG -06, NIRALA ASPIRE, Panchsheel Greens 2, Greater Noida, Ghaziabad, Uttar Pradesh 201318',
+    address: 'LG -06, NIRALA ASPIRE, Greater Noida, Uttar Pradesh 201318',
     phone: '91380 04800',
     whatsapp: '919138004800',
     city: 'Noida Extension',
