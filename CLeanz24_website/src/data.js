@@ -866,6 +866,19 @@ export const storesData = [
     rating: 4.9,
     reviews: 15,
     status: 'Opening Soon'
+  },
+  {
+    id: 77,
+    name: 'Cleanz24 - Sector 3 Udaipur',
+    address: 'Sector-3, 100 Feet Road, Mali Colony, Near Hanuman Mandir, Udaipur, Rajasthan 313002',
+    phone: '92171 08496',
+    whatsapp: '919217108496',
+    city: 'Udaipur',
+    state: 'Rajasthan',
+    tags: ['Rajasthan', 'Udaipur', 'Sector 3', 'Mali Colony', '100 Feet Road', '313002', 'Opening Soon'],
+    rating: 4.9,
+    reviews: 0,
+    status: 'Opening Soon'
   }
 ];
 

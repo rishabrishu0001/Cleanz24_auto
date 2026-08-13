@@ -176,7 +176,7 @@ export default async function CityServicePage({ params }) {
         '@type': 'BreadcrumbList',
         'itemListElement': [
           { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://cleanz24.com/best-laundry-drycleaning' },
-          { '@type': 'ListItem', 'position': 2, 'name': 'Franchise', 'item': 'https://cleanz24.com/best-laundry-drycleaning/franchise-opportunities' },
+          { '@type': 'ListItem', 'position': 2, 'name': 'Franchise', 'item': 'https://cleanz24.com/best-laundry-drycleaning/franchise-opportunities-in-india' },
           { '@type': 'ListItem', 'position': 3, 'name': cityName, 'item': `https://cleanz24.com/best-laundry-drycleaning/franchise-opportunities/${citySlug}` },
           { '@type': 'ListItem', 'position': 4, 'name': serviceData.name, 'item': `https://cleanz24.com/best-laundry-drycleaning/franchise-opportunities/${citySlug}/${serviceSlug}` }
         ]
@@ -398,7 +398,7 @@ export default async function CityServicePage({ params }) {
           <nav style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: '20px' }}>
             <Link href="/best-laundry-drycleaning" style={{ color: '#16a34a', textDecoration: 'none', fontWeight: '500' }}>Home</Link>
             <span style={{ margin: '0 8px' }}>›</span>
-            <Link href="/best-laundry-drycleaning/franchise-opportunities" style={{ color: '#16a34a', textDecoration: 'none', fontWeight: '500' }}>Franchise</Link>
+            <Link href="/best-laundry-drycleaning/franchise-opportunities-in-india" style={{ color: '#16a34a', textDecoration: 'none', fontWeight: '500' }}>Franchise</Link>
             <span style={{ margin: '0 8px' }}>›</span>
             <Link href={`/best-laundry-drycleaning/franchise-opportunities/${citySlug}`} style={{ color: '#16a34a', textDecoration: 'none', fontWeight: '500' }}>{cityName}</Link>
             <span style={{ margin: '0 8px' }}>›</span>

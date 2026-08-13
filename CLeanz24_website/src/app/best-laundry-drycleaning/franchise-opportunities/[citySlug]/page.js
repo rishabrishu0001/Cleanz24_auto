@@ -19,7 +19,7 @@ export async function generateMetadata({ params }) {
   const stateName = item ? item.state : 'India';
 
   const title = `Best Laundry & Dry Cleaning Franchise in ${cityName}, ${stateName} | Cleanz24 Studio`;
-  const description = `Start the most profitable Cleanz24 Laundry & Dry Cleaning Franchise in ${cityName}, ${stateName}. Low investment starting ₹13L, 35-45% net margin, 18-20 month ROI. 100+ stores across India. Enquire now!`;
+  const description = `Start a highly profitable Cleanz24 Laundry & Dry Cleaning Franchise in ${cityName}, ${stateName}. Complete store setup, modern machinery, branding & operational support. Enquire now!`;
   const url = `https://cleanz24.com/best-laundry-drycleaning/franchise-opportunities/${citySlug}`;
 
   return {

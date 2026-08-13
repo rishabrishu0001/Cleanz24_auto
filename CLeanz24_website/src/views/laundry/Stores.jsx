@@ -41,6 +41,42 @@ const comingSoonStores = [
     area: "Main Road",
     timeline: "Opening July 2026",
     status: "Under Construction"
+  },
+  {
+    id: 7,
+    name: "Cleanz24 - Sector 3 Udaipur",
+    type: "Laundry",
+    city: "Udaipur",
+    state: "Rajasthan",
+    area: "Sector-3, 100 Feet Road, Mali Colony, Near Hanuman Mandir",
+    address: "Sector-3, 100 Feet Road, Mali Colony, Near Hanuman Mandir, Udaipur, Rajasthan 313002",
+    phone: "9217108496",
+    timeline: "Opening Soon",
+    status: "Opening Soon"
+  },
+  {
+    id: 8,
+    name: "Cleanz24 - Kurukkol Malappuram",
+    type: "Laundry",
+    city: "Malappuram",
+    state: "Kerala",
+    area: "Kurukkol, Tirur Puthanathani Road, Cheriyamundam",
+    address: "Kurukkol, Tirur Puthanathani Road, Cheriyamundam (P.O), Malappuram District, Kerala 676106",
+    phone: "9138004800",
+    timeline: "Opening Soon",
+    status: "Opening Soon"
+  },
+  {
+    id: 9,
+    name: "Cleanz24 - Kazhakkoottam Thiruvananthapuram",
+    type: "Laundry",
+    city: "Thiruvananthapuram",
+    state: "Kerala",
+    area: "Maple Square, Kariyil, Kazhakkoottam",
+    address: "Maple Square, Kariyil, Kazhakkoottam, Thiruvananthapuram, Kerala 695582",
+    phone: "9138004800",
+    timeline: "Opening Soon",
+    status: "Opening Soon"
   }
 ];
 
@@ -439,12 +475,17 @@ export default function Stores() {
                     </div>
 
                     <h4 className="h5 fw-bold mb-1" style={{ color: isDarkMode ? '#fff' : '#1a202c' }}>{store.name}</h4>
-                    <p className="text-muted small mb-3">{store.area}, {store.city}, {store.state}</p>
+                    <p className="text-muted small mb-1">📍 {store.address || `${store.area}, ${store.city}, ${store.state}`}</p>
+                    {store.phone && (
+                      <p className="small mb-3" style={{ color: isDarkMode ? '#94a3b8' : '#475569' }}>
+                        📞 +91 {store.phone}
+                      </p>
+                    )}
 
                     <div className="mt-auto pt-3 border-top d-flex align-items-center justify-content-between" style={{ borderColor: isDarkMode ? '#1b3252' : '#f1f5f9' }}>
                       <span className="fw-semibold text-success small">📅 {store.timeline}</span>
                       <a 
-                        href={`https://wa.me/919138004800?text=${encodeURIComponent(`Hi, I'm interested in the upcoming Cleanz24 ${store.type} outlet in ${store.city} (${store.area}).`)}`}
+                        href={`https://wa.me/91${store.phone || '9138004800'}?text=${encodeURIComponent(`Hi Cleanz24, I'm interested in the upcoming outlet in ${store.city} (${store.area || store.city}).`)}`}
                         target="_blank" 
                         rel="noreferrer" 
                         className="text-decoration-none text-primary small fw-bold"
