@@ -39,6 +39,7 @@ const comingSoonStores = [
     city: "Gopalganj",
     state: "Bihar",
     area: "Main Road",
+    phone: "9138004800",
     timeline: "Opening July 2026",
     status: "Under Construction"
   },
@@ -50,8 +51,8 @@ const comingSoonStores = [
     state: "Rajasthan",
     area: "Sector-3, 100 Feet Road, Mali Colony, Near Hanuman Mandir",
     address: "Sector-3, 100 Feet Road, Mali Colony, Near Hanuman Mandir, Udaipur, Rajasthan 313002",
-    phone: "9217108496",
-    timeline: "Opening Soon",
+    phone: "9138004800",
+    timeline: "Opening 15 August ",
     status: "Opening Soon"
   },
   {
