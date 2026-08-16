@@ -49,33 +49,15 @@ export default function LaundryHome() {
   const [countryCode, setCountryCode] = useState('+91');
   const [countryEmoji, setCountryEmoji] = useState('🇮🇳');
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [showGrandOpening, setShowGrandOpening] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
-  // Grand Opening popup — show on load (once per session)
   useEffect(() => {
-    const alreadySeenGO = sessionStorage.getItem('lh_grand_opening_seen');
-    if (!alreadySeenGO) {
-      setShowGrandOpening(true);
-    } else {
-      // Grand opening already dismissed — start pickup popup timer directly
-      const alreadySeen = sessionStorage.getItem('lh_popup_seen');
-      if (!alreadySeen) {
-        const timer = setTimeout(() => setShowPopup(true), 5000);
-        return () => clearTimeout(timer);
-      }
-    }
-  }, []);
-
-  // Close Grand Opening → then start pickup popup timer (5s)
-  const handleCloseGrandOpening = () => {
-    sessionStorage.setItem('lh_grand_opening_seen', '1');
-    setShowGrandOpening(false);
     const alreadySeen = sessionStorage.getItem('lh_popup_seen');
     if (!alreadySeen) {
-      setTimeout(() => setShowPopup(true), 5000);
+      const timer = setTimeout(() => setShowPopup(true), 5000);
+      return () => clearTimeout(timer);
     }
-  };
+  }, []);
 
   const handleClosePopup = () => {
     sessionStorage.setItem('lh_popup_seen', '1');
@@ -83,7 +65,7 @@ export default function LaundryHome() {
   };
 
   useEffect(() => {
-    if (showGrandOpening || showPopup) {
+    if (showPopup) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -91,7 +73,7 @@ export default function LaundryHome() {
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [showGrandOpening, showPopup]);
+  }, [showPopup]);
 
   const countries = [
     { code: '+91', emoji: '🇮🇳', name: 'India' },
@@ -1428,107 +1410,7 @@ export default function LaundryHome() {
         )}
       </AnimatePresence>
 
-      {/* ────────────────── GRAND OPENING POPUP ────────────────── */}
-      <AnimatePresence>
-        {showGrandOpening && (
-          <div
-            style={{
-              position: 'fixed',
-              inset: 0,
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              backdropFilter: 'blur(8px)',
-              WebkitBackdropFilter: 'blur(8px)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              zIndex: 99999,
-              padding: '12px',
-              overflow: 'hidden',
-            }}
-            onClick={handleCloseGrandOpening}
-          >
-            <motion.div
-              key="grand-opening-modal"
-              initial={{ opacity: 0, scale: 0.88, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.88, y: 20 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              style={{
-                position: 'relative',
-                width: '100%',
-                maxWidth: '460px',
-                maxHeight: '90vh',
-                borderRadius: '20px',
-                overflow: 'hidden',
-                boxShadow: '0 25px 60px rgba(0,0,0,0.85), 0 0 30px rgba(46,204,113,0.25)',
-                border: '2px solid rgba(46,204,113,0.4)',
-                backgroundColor: '#07160d',
-                display: 'flex',
-                flexDirection: 'column',
-                margin: 'auto',
-              }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Close Button */}
-              <button
-                onClick={handleCloseGrandOpening}
-                aria-label="Close Grand Opening popup"
-                style={{
-                  position: 'absolute',
-                  top: '10px',
-                  right: '10px',
-                  width: '36px',
-                  height: '36px',
-                  borderRadius: '50%',
-                  backgroundColor: 'rgba(0,0,0,0.7)',
-                  border: '1px solid rgba(255,255,255,0.25)',
-                  color: '#ffffff',
-                  fontSize: '18px',
-                  fontWeight: 'bold',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  zIndex: 10,
-                  transition: 'background 0.2s, transform 0.2s',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.4)',
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(220,38,38,0.9)'; e.currentTarget.style.transform = 'scale(1.1)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.7)'; e.currentTarget.style.transform = 'scale(1)'; }}
-              >
-                ✕
-              </button>
 
-              {/* Scrollable Poster Image Container */}
-              <div style={{ flex: 1, overflowY: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#07160d' }}>
-                <img
-                  src="/grand_opening.jpg"
-                  alt="Cleanz24 Grand Opening Kurukkol Kerala 15th August 2026"
-                  style={{ width: '100%', height: 'auto', maxHeight: '100%', display: 'block', objectFit: 'contain' }}
-                />
-              </div>
-
-              {/* Bottom Fixed CTA Bar */}
-              <div style={{ background: '#07160d', padding: '10px 14px', display: 'flex', gap: '8px', justifyContent: 'center', flexShrink: 0, borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-                <a
-                  href="tel:+919138004800"
-                  style={{ background: '#16a34a', color: '#fff', padding: '10px 16px', borderRadius: '10px', fontWeight: 700, fontSize: '0.85rem', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px', boxShadow: '0 4px 12px rgba(22,163,74,0.4)', flex: 1, justifyContent: 'center' }}
-                >
-                  📞 +91 9138004800
-                </a>
-                <a
-                  href="https://wa.me/919138004800?text=Hi%20Cleanz24%2C%20I%20would%20like%20to%20know%20more%20about%20the%20Grand%20Opening%20of%20Kurukkol%20branch!"
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{ background: '#25d366', color: '#fff', padding: '10px 16px', borderRadius: '10px', fontWeight: 700, fontSize: '0.85rem', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px', boxShadow: '0 4px 12px rgba(37,211,102,0.4)', flex: 1, justifyContent: 'center' }}
-                >
-                  💬 WhatsApp
-                </a>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

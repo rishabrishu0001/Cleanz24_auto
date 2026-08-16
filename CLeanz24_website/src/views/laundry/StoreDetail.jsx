@@ -231,9 +231,22 @@ import kannurLgMachinesActive from '../../assets/cleanz24_kannur_lg_machines_act
 import kannurTechnicalDuctsKarcher from '../../assets/cleanz24_kannur_technical_ducts_karcher.jpg';
 import kannurTechnicalPlumbing from '../../assets/cleanz24_kannur_technical_plumbing.jpg';
 import kannurSteamIronedSarees from '../../assets/cleanz24_kannur_steam_ironed_sarees.jpg';
+// Kurukkol Malappuram Kerala
+import kurukkolStorefrontEntrance from '../../assets/cleanz24_kurukkol_storefront_entrance.jpg';
+import kurukkolReceptionDesk from '../../assets/cleanz24_kurukkol_reception_desk.jpg';
+import kurukkolLgMachines from '../../assets/cleanz24_kurukkol_lg_machines.jpg';
+import kurukkolStorefrontExterior from '../../assets/cleanz24_kurukkol_storefront_exterior.jpg';
+import kurukkolShelvingSupplies from '../../assets/cleanz24_kurukkol_shelving_supplies.jpg';
 
 // Map of store id -> image arrays (add more stores here as images are added)
 const STORE_IMAGES = {
+  75: [
+    kurukkolStorefrontEntrance,
+    kurukkolReceptionDesk,
+    kurukkolLgMachines,
+    kurukkolStorefrontExterior,
+    kurukkolShelvingSupplies,
+  ],
   40: [
     kannurSignboardFrontage,
     kannurStorefrontBuilding,
@@ -501,10 +514,10 @@ const buildKeywords = (s) => {
 const buildSchema = (s, slug) => [
   {
     '@context': 'https://schema.org', '@type': 'DryCleaningOrLaundry',
-    '@id': `https://cleanz24.com/best-laundry-drycleaning/store/${slug}`,
+    '@id': `https://www.cleanz24.com/best-laundry-drycleaning/store/${slug}`,
     name: s.name,
     description: `Professional laundry and dry cleaning in ${s.city}. Services: wash & fold, dry cleaning, steam ironing, stain removal, doorstep pickup & delivery.`,
-    url: `https://cleanz24.com/best-laundry-drycleaning/store/${slug}`,
+    url: `https://www.cleanz24.com/best-laundry-drycleaning/store/${slug}`,
     telephone: '+919138004800', email: 'happy2helpu@cleanz24.com',
     priceRange: '₹₹', paymentAccepted: 'Cash, UPI, Credit Card, Debit Card',
     address: {

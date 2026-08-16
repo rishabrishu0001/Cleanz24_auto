@@ -56,18 +56,6 @@ const comingSoonStores = [
     status: "Opening Soon"
   },
   {
-    id: 8,
-    name: "Cleanz24 - Kurukkol Malappuram",
-    type: "Laundry",
-    city: "Malappuram",
-    state: "Kerala",
-    area: "Kurukkol, Tirur Puthanathani Road, Cheriyamundam",
-    address: "Kurukkol, Tirur Puthanathani Road, Cheriyamundam (P.O), Malappuram District, Kerala 676106",
-    phone: "9138004800",
-    timeline: "Opening Soon",
-    status: "Opening Soon"
-  },
-  {
     id: 9,
     name: "Cleanz24 - Kazhakkoottam Thiruvananthapuram",
     type: "Laundry",
@@ -283,7 +271,7 @@ export default function Stores() {
                             >
                               {store.city}, {store.state}
                             </Link>
-                             {[2, 5, 6, 7, 15, 17, 19, 20, 38, 39, 40, 41, 42, 44, 52, 53, 66, 68, 69, 70].includes(store.id) && (
+                             {[2, 5, 6, 7, 15, 17, 19, 20, 38, 39, 40, 41, 42, 44, 52, 53, 66, 68, 69, 70, 75].includes(store.id) && (
                               <span className="badge bg-success bg-opacity-10 text-success rounded-pill px-2 py-1 font-semibold" style={{ fontSize: '0.7rem' }}>
                                 📸 Photos
                               </span>

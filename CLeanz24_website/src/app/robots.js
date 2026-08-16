@@ -5,6 +5,6 @@ export default function robots() {
       allow: '/',
       disallow: ['/car-spa/admin', '/api/'],
     },
-    sitemap: 'https://cleanz24.com/sitemap.xml',
+    sitemap: 'https://www.cleanz24.com/sitemap.xml',
   };
 }

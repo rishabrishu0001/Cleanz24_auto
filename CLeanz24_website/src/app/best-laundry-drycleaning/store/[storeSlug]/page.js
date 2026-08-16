@@ -58,7 +58,7 @@ export async function generateMetadata({ params }) {
     `Cleanz24 ${store.city}`,
     `laundry pickup ${store.city}`,
   ];
-  const url = `https://cleanz24.com/best-laundry-drycleaning/store/${storeSlug}`;
+  const url = `https://www.cleanz24.com/best-laundry-drycleaning/store/${storeSlug}`;
 
   return {
     title,

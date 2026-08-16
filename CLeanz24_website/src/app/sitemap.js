@@ -2,8 +2,18 @@ import { storesData } from '../data';
 import { BLOG_POSTS } from '../views/laundry/Blog';
 import { FRANCHISE_CITIES } from '../data/franchiseCities';
 
+const generateStoreSlug = (name) => {
+  const cleanLoc = name
+    .replace(/^Cleanz24\s*-\s*/i, '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)+/g, '');
+  return `best-laundry-drycleaning-services-${cleanLoc}`;
+};
+
 export default async function sitemap() {
-  const baseUrl = 'https://cleanz24.com';
+  const baseUrl = 'https://www.cleanz24.com';
 
   const staticRoutes = [
     '',
@@ -38,7 +48,7 @@ export default async function sitemap() {
   }));
 
   const storeRoutes = (Array.isArray(storesData) ? storesData : []).map((store) => {
-    const slug = store.slug || store.storeSlug || (store.name && store.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'));
+    const slug = generateStoreSlug(store.name);
     return {
       url: `${baseUrl}/best-laundry-drycleaning/store/${slug}`,
       lastModified: new Date().toISOString().split('T')[0],
@@ -74,7 +84,7 @@ export default async function sitemap() {
   const storeServicesList = ['wash-and-fold', 'dry-cleaning', 'shoe-cleaning', 'leather-cleaning', 'curtain-cleaning', 'carpet-cleaning'];
   if (Array.isArray(storesData)) {
     for (const store of storesData) {
-      const slug = store.slug || store.storeSlug || (store.name && store.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'));
+      const slug = generateStoreSlug(store.name);
       for (const s of storeServicesList) {
         storeServiceRoutes.push({
           url: `${baseUrl}/best-laundry-drycleaning/store/${slug}/${s}`,

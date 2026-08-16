@@ -843,16 +843,15 @@ export const storesData = [
   },
   {
     id: 75,
-    name: 'Cleanz24 - Cheriyamundam Malappuram',
+    name: 'Cleanz24 - Kurukkol Malappuram',
     address: 'Kurukkol, Tirur Puthanathani Road, Cheriyamundam (P.O), Malappuram District, Kerala 676106',
     phone: '91380 04800',
     whatsapp: '919138004800',
     city: 'Cheriyamundam',
     state: 'Kerala',
-    tags: ['Kerala', 'Malappuram', 'Cheriyamundam', 'Tirur', '676106', 'Opening Soon'],
+    tags: ['Kerala', 'Malappuram', 'Cheriyamundam', 'Kurukkol', 'Tirur', '676106'],
     rating: 4.9,
-    reviews: 12,
-    status: 'Opening Soon'
+    reviews: 12
   },
   {
     id: 76,

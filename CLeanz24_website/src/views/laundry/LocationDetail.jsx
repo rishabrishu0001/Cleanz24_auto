@@ -330,11 +330,11 @@ export default function LocationDetail() {
     '@type': 'DryCleaningOrLaundry',
     name: primaryStore?.name || `Cleanz24 Laundry & Dry Clean Studio - ${city}`,
     description: `Premium eco-friendly dry cleaning, shoe spa, and laundry service in ${city} with free doorstep pickup & delivery.`,
-    url: `https://cleanz24.com/best-laundry-drycleaning/${cleanSlug}`,
+    url: `https://www.cleanz24.com/best-laundry-drycleaning/${cleanSlug}`,
     telephone: primaryStore?.phone ? `+91${primaryStore.phone.replace(/\s+/g, '')}` : '+919138004800',
     email: 'happy2helpu@cleanz24.com',
     priceRange: '₹₹',
-    image: 'https://cleanz24.com/assets/og-image.jpg',
+    image: 'https://www.cleanz24.com/assets/og-image.jpg',
     address: {
       '@type': 'PostalAddress',
       streetAddress: primaryStore?.address || city,
@@ -372,7 +372,7 @@ export default function LocationDetail() {
         name: store.name,
         address: store.address,
         telephone: store.phone ? `+91${store.phone.replace(/\s+/g, '')}` : '+919138004800',
-        url: `https://cleanz24.com/best-laundry-drycleaning/store/${generateStoreSlug(store.name)}`,
+        url: `https://www.cleanz24.com/best-laundry-drycleaning/store/${generateStoreSlug(store.name)}`,
         aggregateRating: {
           '@type': 'AggregateRating',
           ratingValue: store.rating || 4.8,
