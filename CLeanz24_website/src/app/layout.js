@@ -54,10 +54,10 @@ const rethinkSans = Rethink_Sans({
 export const metadata = {
   metadataBase: new URL('https://cleanz24.com'),
   title: {
-    default: 'Cleanz24 — Premium Laundry & Dry Clean Studio & Car Spa Studio',
+    default: 'Cleanz24 — Premium Laundry & Dry Clean Studio',
     template: '%s | Cleanz24',
   },
-  description: "Cleanz24 is India's leading Premium Laundry & Dry Clean Studio network with 100+ locations across 17+ states. We offer professional garment dry cleaning, steam press, shoe spa, and master car detailing services.",
+  description: "Cleanz24 is India's leading Premium Laundry & Dry Clean Studio network with 100+ locations across 21+ states. We offer professional garment dry cleaning, steam press, shoe spa, and doorstep pickup services.",
   keywords: [
     'laundry franchise India',
     'dry cleaning studio',
@@ -65,10 +65,8 @@ export const metadata = {
     'steam ironing',
     'premium laundry',
     'Cleanz24',
-    'car spa studio',
-    'ceramic coating',
-    'PPF',
     'laundry near me',
+    'dry cleaners near me',
   ],
   authors: [{ name: 'Cleanz24' }],
   robots: 'index, follow',
@@ -79,8 +77,8 @@ export const metadata = {
   },
   openGraph: {
     type: 'website',
-    title: 'Cleanz24 — Premium Laundry & Dry Clean Studio & Car Spa Studio',
-    description: "Cleanz24 is India's leading Premium Laundry & Dry Clean Studio and Car Spa Studio network. In Laundry industry we have 100+ Franchise operational across multiple cities and States across India. We also offer premium Car Spa services including foam wash, ceramic coating, PPF and car detailing.",
+    title: 'Cleanz24 — Premium Laundry & Dry Clean Studio',
+    description: "Cleanz24 is India's leading Premium Laundry & Dry Clean Studio network with 100+ locations across 21+ states. We offer professional garment dry cleaning, steam press, shoe spa, and doorstep pickup services.",
     siteName: 'Cleanz24',
     locale: 'en_IN',
     images: [
@@ -88,14 +86,14 @@ export const metadata = {
         url: 'https://cleanz24.com/logo_laundry.jpg',
         width: 1200,
         height: 630,
-        alt: 'Cleanz24 — Premium Laundry & Dry Clean Studio & Car Spa Studio',
+        alt: 'Cleanz24 — Premium Laundry & Dry Clean Studio',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cleanz24 — Premium Laundry & Dry Clean Studio & Car Spa Studio',
-    description: "Cleanz24 is India's leading Premium Laundry & Dry Clean Studio and Car Spa Studio network.",
+    title: 'Cleanz24 — Premium Laundry & Dry Clean Studio',
+    description: "Cleanz24 is India's leading Premium Laundry & Dry Clean Studio network with 100+ locations across 21+ states.",
     images: ['https://cleanz24.com/logo_laundry.jpg'],
   },
   verification: {
@@ -107,7 +105,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Cleanz24',
-  description: "Cleanz24 is India's leading Premium Laundry & Dry Clean Studio and Car Spa Studio network. In Laundry industry we have 100+ Franchise operational across multiple cities and States across India.",
+  description: "Cleanz24 is India's leading Premium Laundry & Dry Clean Studio network with 100+ operational franchise stores across 21+ states in India.",
   url: 'https://cleanz24.com',
   telephone: '+919138004800',
   email: 'happy2helpu@cleanz24.com',
