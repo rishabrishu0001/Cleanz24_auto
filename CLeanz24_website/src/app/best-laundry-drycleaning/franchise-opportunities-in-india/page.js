@@ -283,92 +283,64 @@ export default function Page() {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            padding: '100px 0 70px',
+            padding: '100px 0 60px',
             position: 'relative',
             overflow: 'hidden',
           }}
           aria-label="Cleanz24 Franchise Hero Section"
         >
-          <div className="container">
+          <div className="container" style={{ position: 'relative', zIndex: 2 }}>
             <div className="row align-items-center g-5">
+              {/* Left Column: Headline Card + Store Image Gallery */}
               <div className="col-lg-6">
                 <div style={{
-                  background: 'rgba(255, 255, 255, 0.92)',
-                  backdropFilter: 'blur(10px)',
-                  borderRadius: 24,
-                  padding: '32px',
+                  background: 'rgba(255, 255, 255, 0.95)',
+                  backdropFilter: 'blur(14px)',
+                  borderRadius: 20,
+                  padding: '24px 22px',
                   border: '1px solid rgba(0,0,0,0.08)',
-                  boxShadow: '0 20px 40px rgba(0,0,0,0.12)',
+                  boxShadow: '0 16px 36px rgba(0,0,0,0.12)',
+                  marginBottom: 20,
+                  marginTop: 10
                 }}>
-                  {/* Trust Badge */}
-                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#dcfce7', border: '1px solid #86efac', padding: '6px 16px', borderRadius: 30, marginBottom: 20 }}>
-                    <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#15803d', letterSpacing: '0.5px', textTransform: 'uppercase' }}>⭐ BEST LAUNDRY FRANCHISE IN INDIA</span>
+                  {/* Badge */}
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#dcfce7', border: '1px solid #86efac', padding: '5px 14px', borderRadius: 30, marginBottom: 12 }}>
+                    <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#15803d', letterSpacing: '0.5px', textTransform: 'uppercase' }}>⭐ BEST LAUNDRY FRANCHISE IN INDIA</span>
                   </div>
 
-                  {/* H1 — Primary keyword target */}
+                  {/* H1 Headline */}
                   <h1 style={{
                     fontFamily: "'Poppins', sans-serif",
                     fontWeight: 800,
-                    fontSize: 'clamp(28px, 4.5vw, 48px)',
-                    lineHeight: 1.2,
+                    fontSize: 'clamp(20px, 2.4vw, 30px)',
+                    lineHeight: 1.3,
                     color: '#0f172a',
-                    marginBottom: 20,
+                    marginBottom: 10,
                   }}>
                     Best Laundry Franchise in India — Start Your{' '}
                     <span style={{ color: '#16a34a' }}>Cleanz24 Franchise</span>
                   </h1>
 
-                  <p style={{ fontSize: 'clamp(15px, 1.8vw, 18px)', fontWeight: 600, color: '#475569', marginBottom: 28, lineHeight: 1.5 }}>
-                    🚀 Fastest Growing Laundry Chain in India &nbsp;|&nbsp; 🏆 100+ Stores &nbsp;|&nbsp; 🌍 21+ States &nbsp;|&nbsp; 😊 2,00,000+ Happy Customers
+                  {/* Subheadline & Trust Stats */}
+                  <p style={{ fontSize: '0.85rem', fontWeight: 600, color: '#475569', margin: 0, lineHeight: 1.5 }}>
+                    🚀 Fastest Growing Chain &nbsp;|&nbsp; 🏆 100+ Stores &nbsp;|&nbsp; 🌍 21+ States &nbsp;|&nbsp; 😊 2,00,000+ Happy Customers
                   </p>
-
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap', marginBottom: 32 }}>
-                    <div style={{ background: '#ffffff', padding: '8px 16px', borderRadius: 10, border: '1px solid #e2e8f0', fontSize: '0.85rem', fontWeight: 600, color: '#1e293b' }}>
-                      🗓️ Est. 2025
-                    </div>
-                    <div style={{ background: '#ffffff', padding: '8px 16px', borderRadius: 10, border: '1px solid #e2e8f0', fontSize: '0.85rem', fontWeight: 600, color: '#d97706' }}>
-                      ★ 4.8 / 5 Rating
-                    </div>
-                    <div style={{ background: '#ffffff', padding: '8px 16px', borderRadius: 10, border: '1px solid #e2e8f0', fontSize: '0.85rem', fontWeight: 600, color: '#1e293b' }}>
-                      📰 Featured in TOI & NDTV
-                    </div>
-                  </div>
-
-                  <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-                    <a
-                      href="#franchise-form"
-                      style={{
-                        display: 'inline-flex', alignItems: 'center', gap: 10,
-                        background: 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)',
-                        color: '#fff', textDecoration: 'none', padding: '16px 36px',
-                        borderRadius: 12, fontWeight: 700, fontSize: '1.05rem',
-                        fontFamily: 'Poppins, sans-serif', boxShadow: '0 8px 24px rgba(22,163,74,0.3)',
-                      }}
-                    >
-                      Get Free Franchise Details →
-                    </a>
-                    <a
-                      href="https://wa.me/919138004800?text=Hi%2C%20I%20am%20interested%20in%20a%20Cleanz24%20Laundry%20Franchise.%20Please%20send%20details."
-                      target="_blank"
-                      rel="noreferrer"
-                      style={{
-                        display: 'inline-flex', alignItems: 'center', gap: 10,
-                        background: '#25d366', color: '#fff', textDecoration: 'none',
-                        padding: '16px 24px', borderRadius: 12, fontWeight: 700, fontSize: '1rem',
-                        fontFamily: 'Poppins, sans-serif',
-                      }}
-                      aria-label="Chat with Cleanz24 franchise team on WhatsApp"
-                    >
-                      💬 WhatsApp
-                    </a>
-                  </div>
                 </div>
+
+                {/* Store Gallery Slideshow */}
+                <Suspense fallback={
+                  <div style={{ height: 280, borderRadius: 20, background: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: '0.9rem' }}>
+                    Loading store images...
+                  </div>
+                }>
+                  <LaundryFranchiseInteractive section="slideshow" />
+                </Suspense>
               </div>
 
-              {/* Right side — interactive franchise form inside Hero */}
+              {/* Right Column: Ultra-Compact Glassmorphic Franchise Form */}
               <div className="col-lg-6">
                 <Suspense fallback={
-                  <div style={{ height: 400, borderRadius: 20, background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: '0.9rem' }}>
+                  <div style={{ height: 380, borderRadius: 20, background: 'rgba(15,23,42,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: '0.9rem' }}>
                     Loading franchise application form...
                   </div>
                 }>
@@ -376,19 +348,6 @@ export default function Page() {
                 </Suspense>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* ══ STORE GALLERY SLIDESHOW ══ */}
-        <section style={{ padding: '40px 0 60px', background: '#ffffff' }}>
-          <div className="container">
-            <Suspense fallback={
-              <div style={{ height: 400, borderRadius: 20, background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: '0.9rem' }}>
-                Loading store images...
-              </div>
-            }>
-              <LaundryFranchiseInteractive section="slideshow" />
-            </Suspense>
           </div>
         </section>
 

@@ -251,6 +251,10 @@ export default function FranchiseCityPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (submitting) return;
+    if (!form.name || !form.phone || !form.email) {
+      setError("Please fill in all required fields (Name, Phone & Email).");
+      return;
+    }
     setSubmitting(true);
     setError("");
 
@@ -439,8 +443,8 @@ export default function FranchiseCityPage() {
                     <label>Phone Number <span style={{ color: "#e53e3e" }}>*</span></label>
                     <input name="phone" value={form.phone} onChange={handleChange} placeholder="10-digit mobile number" required />
 
-                    <label>Email Address</label>
-                    <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="you@example.com" />
+                    <label>Email Address <span style={{ color: "#e53e3e" }}>*</span></label>
+                    <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="you@example.com" required />
 
                     <label>Select Franchise Model</label>
                     <select name="model" value={form.model} onChange={handleChange}>

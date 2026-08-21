@@ -1583,8 +1583,8 @@ function FranchiseInquiryForm({ store, theme, isDarkMode }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.name.trim() || !form.phone.trim()) {
-      setError('Please fill in required fields (Name & Phone).');
+    if (!form.name.trim() || !form.phone.trim() || !form.email.trim()) {
+      setError('Please fill in all required fields (Name, Phone & Email).');
       return;
     }
     setSubmitting(true);
@@ -1667,7 +1667,7 @@ function FranchiseInquiryForm({ store, theme, isDarkMode }) {
 
         <div>
           <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: theme.text, marginBottom: '6px' }}>
-            Email Address
+            Email Address <span style={{ color: '#E53E3E' }}>*</span>
           </label>
           <input
             name="email"
@@ -1675,6 +1675,7 @@ function FranchiseInquiryForm({ store, theme, isDarkMode }) {
             value={form.email}
             onChange={handleChange}
             placeholder="you@example.com"
+            required
             style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: `1.5px solid ${theme.border}`, background: theme.bgAlt, color: theme.text, fontSize: '14px', outline: 'none' }}
           />
         </div>

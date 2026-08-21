@@ -181,7 +181,9 @@ function LaundryFrenchise() {
       if (typeof window !== 'undefined' && window.sessionStorage) {
         alreadySeen = window.sessionStorage.getItem('lf_popup_seen');
       }
-    } catch (e) { }
+    } catch (_err) {
+      // sessionStorage unavailable
+    }
     if (alreadySeen || (typeof window !== 'undefined' && window.location && window.location.hash)) return;
     const timer = setTimeout(() => setShowLeadPopup(true), 10000);
     return () => clearTimeout(timer);
@@ -206,10 +208,10 @@ function LaundryFrenchise() {
   const pathname = usePathname() || '';
   useEffect(() => {
     if (typeof window !== 'undefined' && window.location && window.location.hash) {
-      setShowLeadPopup(false);
-      if (typeof document !== 'undefined') document.body.style.overflow = '';
       const id = window.location.hash.replace('#', '');
       setTimeout(() => {
+        setShowLeadPopup(false);
+        if (typeof document !== 'undefined') document.body.style.overflow = '';
         const el = document.getElementById(id);
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 300);
@@ -232,7 +234,9 @@ function LaundryFrenchise() {
       if (typeof window !== 'undefined' && window.sessionStorage) {
         window.sessionStorage.setItem('lf_popup_seen', '1');
       }
-    } catch (e) { }
+    } catch (_err) {
+      // sessionStorage unavailable
+    }
     setShowLeadPopup(false);
   };
 
@@ -248,8 +252,8 @@ function LaundryFrenchise() {
   const handlePopupSubmit = async (e) => {
     e.preventDefault();
     if (popupSubmitting) return;
-    if (!popupData.name.trim() || !popupData.phone.trim() || !popupData.city.trim()) {
-      setPopupError('Please fill all required fields.');
+    if (!popupData.name.trim() || !popupData.phone.trim() || !popupData.city.trim() || !popupData.email.trim()) {
+      setPopupError('Please fill all required fields (including Email).');
       return;
     }
     if (popupData.phone.length < 10) {
@@ -286,7 +290,9 @@ function LaundryFrenchise() {
         if (typeof window !== 'undefined' && window.sessionStorage) {
           window.sessionStorage.setItem('lf_popup_seen', '1');
         }
-      } catch (e) { }
+      } catch (_err) {
+        // sessionStorage unavailable
+      }
       setTimeout(() => setShowLeadPopup(false), 2500);
     } catch (err) {
       console.error('Popup error:', err);
@@ -307,7 +313,9 @@ function LaundryFrenchise() {
 
   const handleFinalSubmit = async (e) => {
     e.preventDefault();
-    if (isSubmitting) return;
+    if (!formData.name.trim() || !formData.phone.trim() || !formData.city.trim() || !formData.email.trim()) {
+      return;
+    }
     setIsSubmitting(true);
     try {
       const dateStr = new Date().toISOString().split('T')[0];
@@ -544,9 +552,10 @@ function LaundryFrenchise() {
                   <input
                     type="email"
                     name="email"
-                    placeholder="Email Address (Optional)"
+                    placeholder="Email Address *"
                     value={popupData.email}
                     onChange={handlePopupChange}
+                    required
                     style={{
                       width: '100%', padding: '12px 14px', borderRadius: 10,
                       border: `1.5px solid ${dark ? '#334155' : '#e2e8f0'}`,
@@ -594,208 +603,179 @@ function LaundryFrenchise() {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        padding: '100px 0 70px',
+        padding: '100px 0 60px',
         position: 'relative', overflow: 'hidden'
       }}>
-        <div className="container">
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
           <div className="row align-items-center g-5">
+            {/* Left Column: Headline Card + Store Image Gallery */}
             <div className="col-lg-6">
               <div style={{
-                background: dark ? 'rgba(15, 23, 42, 0.85)' : 'rgba(255, 255, 255, 0.90)',
-                backdropFilter: 'blur(10px)',
-                borderRadius: 24,
-                padding: '32px',
+                background: dark ? 'rgba(15, 23, 42, 0.90)' : 'rgba(255, 255, 255, 0.95)',
+                backdropFilter: 'blur(14px)',
+                borderRadius: 20,
+                padding: '24px 22px',
                 border: `1px solid ${dark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}`,
-                boxShadow: '0 20px 40px rgba(0,0,0,0.12)'
+                boxShadow: '0 16px 36px rgba(0,0,0,0.12)',
+                marginBottom: 20,
+                marginTop: 10
               }}>
-                {/* Trust Badge Header */}
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: dark ? 'rgba(34,197,94,0.15)' : '#dcfce7', border: '1px solid #86efac', padding: '6px 16px', borderRadius: 30, marginBottom: 20 }}>
-                  <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#15803d', letterSpacing: '0.5px', textTransform: 'uppercase' }}>⭐ BEST LAUNDRY FRANCHISE IN INDIA</span>
+                {/* Badge */}
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: dark ? 'rgba(34,197,94,0.18)' : '#dcfce7', border: '1px solid #86efac', padding: '5px 14px', borderRadius: 30, marginBottom: 12 }}>
+                  <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#15803d', letterSpacing: '0.5px', textTransform: 'uppercase' }}>⭐ BEST LAUNDRY FRANCHISE IN INDIA</span>
                 </div>
 
-                {/* Headline */}
+                {/* H1 Headline */}
                 <h1 style={{
                   fontFamily: "'Poppins', sans-serif", fontWeight: 800,
-                  fontSize: 'clamp(32px, 4.5vw, 52px)', lineHeight: 1.15,
-                  color: dark ? '#f8fafc' : '#0f172a', marginBottom: 20
+                  fontSize: 'clamp(20px, 2.4vw, 30px)', lineHeight: 1.3,
+                  color: dark ? '#f8fafc' : '#0f172a', marginBottom: 10
                 }}>
                   Best Laundry Franchise in India — Start Your <span style={{ color: '#16a34a' }}>Cleanz24 Franchise</span>
                 </h1>
 
-                {/* Subheadline: 1-line trust stat */}
-                <p style={{
-                  fontSize: 'clamp(15px, 1.8vw, 18px)', fontWeight: 600,
-                  color: dark ? '#94a3b8' : '#475569', marginBottom: 28, lineHeight: 1.5
-                }}>
-                  🚀 Fastest Growing Laundry and Drycleaning Chain in India &nbsp;|&nbsp; 🏆 100+ Stores &nbsp;|&nbsp; 🌍 21+ States &nbsp;|&nbsp; 😊 2,00,000+ Happy Customers
+                {/* Subheadline & Trust Stats */}
+                <p style={{ fontSize: '0.85rem', fontWeight: 600, color: dark ? '#cbd5e1' : '#475569', margin: 0, lineHeight: 1.5 }}>
+                  🚀 Fastest Growing Chain &nbsp;|&nbsp; 🏆 100+ Stores &nbsp;|&nbsp; 🌍 21+ States &nbsp;|&nbsp; 😊 2,00,000+ Happy Customers
                 </p>
-
-                {/* Trust badges row */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap', marginBottom: 32 }}>
-                  <div style={{ background: dark ? '#1e293b' : '#ffffff', padding: '8px 16px', borderRadius: 10, border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, fontSize: '0.85rem', fontWeight: 600, color: dark ? '#f8fafc' : '#1e293b' }}>
-                    🗓️ Est. 2025
-                  </div>
-                  <div style={{ background: dark ? '#1e293b' : '#ffffff', padding: '8px 16px', borderRadius: 10, border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, fontSize: '0.85rem', fontWeight: 600, color: '#d97706' }}>
-                    ★ 4.8 / 5 Rating
-                  </div>
-                  <div style={{ background: dark ? '#1e293b' : '#ffffff', padding: '8px 16px', borderRadius: 10, border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, fontSize: '0.85rem', fontWeight: 600, color: dark ? '#f8fafc' : '#1e293b' }}>
-                    📰 Featured in TOI & NDTV
-                  </div>
-                </div>
-
-                {/* Primary CTA (Scrolls to Calculator/Snapshot) */}
-                <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-                  <a
-                    href="#calculator"
-                    style={{
-                      display: 'inline-flex', alignItems: 'center', gap: 10,
-                      background: 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)',
-                      color: '#fff', textDecoration: 'none', padding: '16px 36px',
-                      borderRadius: 12, fontWeight: 700, fontSize: '1.05rem',
-                      fontFamily: 'Poppins, sans-serif', boxShadow: '0 8px 24px rgba(22,163,74,0.3)',
-                      transition: 'transform 0.2s'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
-                    onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                  >
-                    Explore Franchise Opportunity ↓
-                  </a>
-                </div>
               </div>
+
+              {/* Store Gallery Slideshow */}
+              <HeroSlideshow dark={dark} />
             </div>
 
-            {/* Right: Franchise Application Form inside Hero */}
+            {/* Right Column: Compact Franchise Form */}
             <div className="col-lg-6">
               <div id="franchise_form" style={{
-                background: dark ? '#1e293b' : '#ffffff',
-                borderRadius: 24, padding: '32px 28px',
+                background: dark ? 'rgba(30, 41, 59, 0.95)' : 'rgba(255, 255, 255, 0.98)',
+                borderRadius: 20, padding: '22px 20px',
                 border: `2px solid ${dark ? '#334155' : '#86efac'}`,
-                boxShadow: '0 16px 48px rgba(0,0,0,0.15)'
+                boxShadow: '0 20px 45px rgba(0,0,0,0.14)'
               }}>
-
-                {/* Reassurance Banner */}
-                <div style={{
-                  background: '#dcfce7', borderRadius: 12, padding: '8px 14px',
-                  textAlign: 'center', marginBottom: 20, color: '#15803d',
-                  fontWeight: 700, fontSize: '0.85rem'
-                }}>
-                  📞 Our franchise team will call you within 24 hours
+                <div style={{ background: '#dcfce7', borderRadius: 8, padding: '5px 10px', textAlign: 'center', marginBottom: 12, color: '#15803d', fontWeight: 700, fontSize: '0.78rem' }}>
+                  ⚡ Quick Franchise Inquiry — Call back in 24 hrs
                 </div>
 
-                <div style={{ textAlign: 'center', marginBottom: 20 }}>
-                  <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.5rem', color: dark ? '#f8fafc' : '#0f172a', marginBottom: 4 }}>
+                <div style={{ textAlign: 'center', marginBottom: 14 }}>
+                  <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.2rem', color: dark ? '#f8fafc' : '#0f172a', margin: '0 0 2px' }}>
                     Apply for Cleanz24 <span style={{ color: '#16a34a' }}>Franchise</span>
                   </h3>
-                  <p style={{ fontSize: '0.85rem', color: dark ? '#94a3b8' : '#64748b', margin: 0 }}>
-                    Fill out minimal fields to receive the official franchise blueprint.
+                  <p style={{ fontSize: '0.78rem', color: dark ? '#94a3b8' : '#64748b', margin: 0 }}>
+                    Get official blueprint &amp; financial deck
                   </p>
                 </div>
 
                 {submitted ? (
-                  <div style={{ textAlign: 'center', padding: '24px 0' }}>
-                    <div style={{ fontSize: 48, marginBottom: 12 }}>✅</div>
-                    <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, color: '#16a34a', marginBottom: 8 }}>Application Submitted!</h3>
-                    <p style={{ color: dark ? '#94a3b8' : '#64748b', fontSize: '0.9rem' }}>
-                      Thank you, <strong>{formData.name}</strong>. Our franchise expansion manager will contact you at <strong>+91 {formData.phone}</strong> shortly.
+                  <div style={{ textAlign: 'center', padding: '16px 0' }}>
+                    <div style={{ fontSize: 40, marginBottom: 6 }}>✅</div>
+                    <h4 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, color: '#16a34a', marginBottom: 4, fontSize: '1.05rem' }}>Application Submitted!</h4>
+                    <p style={{ color: dark ? '#94a3b8' : '#64748b', fontSize: '0.82rem', margin: 0 }}>
+                      Thank you <strong>{formData.name}</strong>! Our manager will call you at <strong>+91 {formData.phone}</strong> shortly.
                     </p>
                   </div>
                 ) : (
                   <form onSubmit={handleFinalSubmit}>
-                    {/* Field 1: Name */}
-                    <div style={{ marginBottom: 14 }}>
-                      <label style={{ fontWeight: 700, fontSize: '0.82rem', marginBottom: 4, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>1. Full Name *</label>
-                      <input
-                        id="name"
-                        type="text"
-                        placeholder="e.g. Ramesh Sharma"
-                        value={formData.name}
-                        onChange={handleFormChange}
-                        style={{
-                          width: '100%', padding: '12px 14px', borderRadius: 10,
-                          border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
-                          background: dark ? '#0f172a' : '#f8fafc',
-                          color: dark ? '#f8fafc' : '#0f172a', fontSize: '0.9rem', outline: 'none'
-                        }}
-                        required
-                      />
-                    </div>
+                    {/* Row 1: Name & Phone */}
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: 10 }}>
+                      <div>
+                        <label style={{ fontWeight: 700, fontSize: '0.75rem', marginBottom: 3, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>
+                          Full Name <span style={{ color: '#e53e3e' }}>*</span>
+                        </label>
+                        <input
+                          id="name"
+                          type="text"
+                          placeholder="Ramesh Sharma"
+                          value={formData.name}
+                          onChange={handleFormChange}
+                          required
+                          style={{
+                            width: '100%', padding: '9px 11px', borderRadius: 8,
+                            border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
+                            background: dark ? '#0f172a' : '#f8fafc',
+                            color: dark ? '#f8fafc' : '#0f172a', fontSize: '0.85rem', outline: 'none'
+                          }}
+                        />
+                      </div>
 
-                    {/* Field 2: Mobile Number */}
-                    <div style={{ marginBottom: 14 }}>
-                      <label style={{ fontWeight: 700, fontSize: '0.82rem', marginBottom: 4, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>2. Mobile Number (10 Digits) *</label>
-                      <div style={{ display: 'flex', gap: 8 }}>
-                        <span style={{
-                          background: dark ? '#0f172a' : '#e2e8f0', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
-                          borderRadius: 10, padding: '12px 14px', fontWeight: 700, fontSize: '0.9rem',
-                          display: 'flex', alignItems: 'center'
-                        }}>🇮🇳 +91</span>
+                      <div>
+                        <label style={{ fontWeight: 700, fontSize: '0.75rem', marginBottom: 3, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>
+                          Mobile Number <span style={{ color: '#e53e3e' }}>*</span>
+                        </label>
                         <input
                           id="phone"
                           type="tel"
-                          placeholder="e.g. 9876543210"
+                          placeholder="10-digit number"
                           value={formData.phone}
                           onChange={handleFormChange}
                           maxLength={10}
+                          required
                           style={{
-                            width: '100%', padding: '12px 14px', borderRadius: 10,
+                            width: '100%', padding: '9px 11px', borderRadius: 8,
                             border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
                             background: dark ? '#0f172a' : '#f8fafc',
-                            color: dark ? '#f8fafc' : '#0f172a', fontSize: '0.9rem', outline: 'none'
+                            color: dark ? '#f8fafc' : '#0f172a', fontSize: '0.85rem', outline: 'none'
                           }}
-                          required
                         />
                       </div>
                     </div>
 
-                    {/* Field 3: Email */}
-                    <div style={{ marginBottom: 14 }}>
-                      <label style={{ fontWeight: 700, fontSize: '0.82rem', marginBottom: 4, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>3. Email Address</label>
-                      <input
-                        id="email"
-                        type="email"
-                        placeholder="e.g. yourname@gmail.com"
-                        value={formData.email}
-                        onChange={handleFormChange}
-                        style={{
-                          width: '100%', padding: '12px 14px', borderRadius: 10,
-                          border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
-                          background: dark ? '#0f172a' : '#f8fafc',
-                          color: dark ? '#f8fafc' : '#0f172a', fontSize: '0.9rem', outline: 'none'
-                        }}
-                      />
+                    {/* Row 2: Email & City */}
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: 10 }}>
+                      <div>
+                        <label style={{ fontWeight: 700, fontSize: '0.75rem', marginBottom: 3, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>
+                          Email Address <span style={{ color: '#e53e3e' }}>*</span>
+                        </label>
+                        <input
+                          id="email"
+                          type="email"
+                          placeholder="you@example.com"
+                          value={formData.email}
+                          onChange={handleFormChange}
+                          required
+                          style={{
+                            width: '100%', padding: '9px 11px', borderRadius: 8,
+                            border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
+                            background: dark ? '#0f172a' : '#f8fafc',
+                            color: dark ? '#f8fafc' : '#0f172a', fontSize: '0.85rem', outline: 'none'
+                          }}
+                        />
+                      </div>
+
+                      <div>
+                        <label style={{ fontWeight: 700, fontSize: '0.75rem', marginBottom: 3, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>
+                          Target City <span style={{ color: '#e53e3e' }}>*</span>
+                        </label>
+                        <input
+                          id="city"
+                          type="text"
+                          placeholder="e.g. Noida / Pune"
+                          value={formData.city}
+                          onChange={handleFormChange}
+                          required
+                          style={{
+                            width: '100%', padding: '9px 11px', borderRadius: 8,
+                            border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
+                            background: dark ? '#0f172a' : '#f8fafc',
+                            color: dark ? '#f8fafc' : '#0f172a', fontSize: '0.85rem', outline: 'none'
+                          }}
+                        />
+                      </div>
                     </div>
 
-                    {/* Field 4: City */}
-                    <div style={{ marginBottom: 14 }}>
-                      <label style={{ fontWeight: 700, fontSize: '0.82rem', marginBottom: 4, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>4. Target City / Area *</label>
-                      <input
-                        id="city"
-                        type="text"
-                        placeholder="e.g. Noida / Gurugram / Pune"
-                        value={formData.city}
-                        onChange={handleFormChange}
-                        style={{
-                          width: '100%', padding: '12px 14px', borderRadius: 10,
-                          border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
-                          background: dark ? '#0f172a' : '#f8fafc',
-                          color: dark ? '#f8fafc' : '#0f172a', fontSize: '0.9rem', outline: 'none'
-                        }}
-                        required
-                      />
-                    </div>
-
-                    {/* Field 5: Investment Budget */}
-                    <div style={{ marginBottom: 20 }}>
-                      <label style={{ fontWeight: 700, fontSize: '0.82rem', marginBottom: 4, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>5. Investment Budget Range *</label>
+                    {/* Row 3: Investment Budget */}
+                    <div style={{ marginBottom: 12 }}>
+                      <label style={{ fontWeight: 700, fontSize: '0.75rem', marginBottom: 3, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>
+                        Investment Budget <span style={{ color: '#e53e3e' }}>*</span>
+                      </label>
                       <select
                         id="budget"
                         value={formData.budget}
                         onChange={handleFormChange}
                         style={{
-                          width: '100%', padding: '12px 14px', borderRadius: 10,
+                          width: '100%', padding: '9px 11px', borderRadius: 8,
                           border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
                           background: dark ? '#0f172a' : '#f8fafc',
-                          color: dark ? '#f8fafc' : '#0f172a', fontSize: '0.9rem', outline: 'none'
+                          color: dark ? '#f8fafc' : '#0f172a', fontSize: '0.85rem', outline: 'none'
                         }}
                       >
                         <option>₹13L - ₹15L (Alpha Model)</option>
@@ -810,27 +790,20 @@ function LaundryFrenchise() {
                       type="submit"
                       disabled={isSubmitting}
                       style={{
-                        width: '100%', padding: '14px', borderRadius: 10, border: 'none',
+                        width: '100%', padding: '11px', borderRadius: 10, border: 'none',
                         background: 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)',
-                        color: '#ffffff', fontWeight: 800, fontSize: '1rem',
+                        color: '#ffffff', fontWeight: 800, fontSize: '0.92rem',
                         fontFamily: 'Poppins, sans-serif', cursor: 'pointer',
-                        boxShadow: '0 8px 24px rgba(22,163,74,0.3)', transition: 'transform 0.2s'
+                        boxShadow: '0 6px 20px rgba(22,163,74,0.35)', transition: 'transform 0.2s'
                       }}
                     >
-                      {isSubmitting ? 'Submitting Application...' : 'Talk to Franchise Team →'}
+                      {isSubmitting ? 'Submitting Application...' : '🚀 Request Free Franchise Deck →'}
                     </button>
                   </form>
                 )}
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* ── STORE GALLERY SLIDESHOW SECTION ── */}
-      <section style={{ padding: '40px 0 60px', background: dark ? '#0f172a' : '#ffffff' }}>
-        <div className="container">
-          <HeroSlideshow dark={dark} />
         </div>
       </section>
 
@@ -1001,7 +974,7 @@ function LaundryFrenchise() {
             </div>
 
             {/* Soft CTA */}
-            <div style={{ textAlignment: 'center', textAlign: 'center', marginTop: 32, paddingTop: 24, borderTop: `1px solid ${dark ? '#334155' : '#f1f5f9'}` }}>
+            <div style={{ textAlign: 'center', marginTop: 32, paddingTop: 24, borderTop: `1px solid ${dark ? '#334155' : '#f1f5f9'}` }}>
               <a
                 href="#franchise-form"
                 style={{
@@ -1013,6 +986,7 @@ function LaundryFrenchise() {
               >
                 Get Your Personalized Franchise Report →
               </a>
+            </div>
           </div>
         </div>
       </section>
@@ -1261,29 +1235,6 @@ function LaundryFrenchise() {
         </div>
       </section>
 
-                  </select>
-                </div>
-
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  style={{
-                    width: '100%', padding: '16px', borderRadius: 12, border: 'none',
-                    background: 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)',
-                    color: '#ffffff', fontWeight: 800, fontSize: '1.05rem',
-                    fontFamily: 'Poppins, sans-serif', cursor: 'pointer',
-                    boxShadow: '0 8px 24px rgba(22,163,74,0.3)', transition: 'transform 0.2s'
-                  }}
-                >
-                  {isSubmitting ? 'Submitting Application...' : 'Talk to Franchise Team →'}
-                </button>
-              </form>
-            )}
-          </div>
-        </div>
-      </section>
-
       {/* ══════════════════ LOCATIONS GRID ══════════════════ */}
       <section id="locations" style={{ padding: '60px 0', background: dark ? '#161f2e' : '#f8fafb', borderTop: `1px solid ${dark ? '#334155' : '#e2e8f0'}` }}>
         <div className="container">
@@ -1318,26 +1269,52 @@ function LaundryFrenchise() {
       {/* ══════════════════ FLOATING EXPERT CONTACT BUTTON ══════════════════ */}
       <button
         onClick={() => setShowLeadPopup(true)}
+        aria-label="Talk to Our Franchise Expert"
         style={{
           position: 'fixed', bottom: 90, right: 20, zIndex: 9998,
           background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
           color: '#ffffff', border: 'none',
-          padding: '13px 20px', borderRadius: 30, fontWeight: 700, fontSize: '0.88rem',
-          display: 'flex', alignItems: 'center', gap: 8,
-          boxShadow: '0 8px 28px rgba(37,99,235,0.45)',
+          padding: '12px 20px', borderRadius: 30,
+          fontWeight: 800, fontSize: '0.88rem',
+          display: 'flex', alignItems: 'center', gap: 10,
           fontFamily: 'Poppins, sans-serif', cursor: 'pointer',
-          animation: 'expertBtnPulse 2.5s ease-in-out infinite',
+          animation: 'expertGlowPulse 2s infinite, expertAttentionWiggle 4s ease-in-out infinite',
           whiteSpace: 'nowrap',
         }}
       >
-        <span style={{ fontSize: '1.15rem' }}>👨‍💼</span> Talk to Our Expert
+        {/* Pulsing online status dot badge */}
+        <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'center' }}>
+          <span style={{ fontSize: '1.2rem' }}>👨‍💼</span>
+          <span style={{
+            position: 'absolute', top: -2, right: -4,
+            width: 10, height: 10, borderRadius: '50%',
+            background: '#22c55e', border: '2px solid #ffffff',
+            boxShadow: '0 0 8px #22c55e'
+          }} />
+        </span>
+
+        <span>Talk to Our Expert</span>
+
+        <span style={{
+          background: 'rgba(255,255,255,0.22)',
+          padding: '2px 8px', borderRadius: 12,
+          fontSize: '0.72rem', fontWeight: 800,
+          letterSpacing: '0.5px'
+        }}>FREE</span>
       </button>
 
       {/* Pulse keyframe injected inline */}
       <style>{`
-        @keyframes expertBtnPulse {
-          0%, 100% { box-shadow: 0 8px 28px rgba(37,99,235,0.45); transform: translateY(0px); }
-          50% { box-shadow: 0 12px 36px rgba(37,99,235,0.65); transform: translateY(-3px); }
+        @keyframes expertGlowPulse {
+          0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7), 0 8px 24px rgba(37, 99, 235, 0.45); }
+          70% { box-shadow: 0 0 0 16px rgba(37, 99, 235, 0), 0 12px 32px rgba(37, 99, 235, 0.65); }
+          100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0), 0 8px 24px rgba(37, 99, 235, 0.45); }
+        }
+        @keyframes expertAttentionWiggle {
+          0%, 80%, 100% { transform: translateY(0) rotate(0deg); }
+          85% { transform: translateY(-4px) rotate(-3deg); }
+          90% { transform: translateY(-2px) rotate(3deg); }
+          95% { transform: translateY(-4px) rotate(-2deg); }
         }
       `}</style>
 

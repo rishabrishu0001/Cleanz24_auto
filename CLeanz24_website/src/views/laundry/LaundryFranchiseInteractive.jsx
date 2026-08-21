@@ -204,7 +204,7 @@ function ROICalculator() {
   );
 }
 
-// ─── Franchise Application Form ──────────────────────────────────────────────
+// ─── Franchise Application Form (Compact 2-Column Grid) ──────────────────────
 function FranchiseForm() {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', city: '', budget: '₹13L - ₹15L (Alpha Model)' });
   const [submitted, setSubmitted] = useState(false);
@@ -222,13 +222,16 @@ function FranchiseForm() {
   const handleFinalSubmit = async e => {
     e.preventDefault();
     if (isSubmitting) return;
+    if (!formData.name.trim() || !formData.phone.trim() || !formData.city.trim() || !formData.email.trim()) {
+      return;
+    }
     setIsSubmitting(true);
     try {
       const dateStr = new Date().toISOString().split('T')[0];
       const payload = {
         date: dateStr, Date: dateStr, timestamp: dateStr,
         name: formData.name, mobile: `'+91 ${formData.phone}`,
-        email: formData.email || 'N/A', city: formData.city, budget: formData.budget,
+        email: formData.email, city: formData.city, budget: formData.budget,
         modelType: 'Main Franchise Form',
       };
       await fetch(GOOGLE_SHEETS_LAUNDRY_FRANCHISE_SCRIPT_URL, {
@@ -249,66 +252,115 @@ function FranchiseForm() {
   };
 
   return (
-    <div id="franchise_form" style={{ background: '#ffffff', borderRadius: 24, padding: '40px 32px', border: '2px solid #86efac', boxShadow: '0 16px 48px rgba(0,0,0,0.08)' }}>
-      <div style={{ background: '#dcfce7', borderRadius: 12, padding: '10px 16px', textAlign: 'center', marginBottom: 24, color: '#15803d', fontWeight: 700, fontSize: '0.88rem' }}>
-        📞 Our franchise team will call you within 24 hours
+    <div id="franchise_form" style={{
+      background: 'rgba(255, 255, 255, 0.98)',
+      borderRadius: 20,
+      padding: '22px 20px',
+      border: '2px solid #86efac',
+      boxShadow: '0 20px 45px rgba(0,0,0,0.12)',
+      backdropFilter: 'blur(10px)',
+    }}>
+      <div style={{ background: '#dcfce7', borderRadius: 8, padding: '5px 10px', textAlign: 'center', marginBottom: 12, color: '#15803d', fontWeight: 700, fontSize: '0.78rem' }}>
+        ⚡ Quick Franchise Inquiry — Call back in 24 hrs
       </div>
+
+      <div style={{ textAlign: 'center', marginBottom: 14 }}>
+        <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.2rem', color: '#0f172a', margin: '0 0 2px' }}>
+          Apply for Cleanz24 <span style={{ color: '#16a34a' }}>Franchise</span>
+        </h3>
+        <p style={{ fontSize: '0.78rem', color: '#64748b', margin: 0 }}>
+          Get official blueprint &amp; financial deck
+        </p>
+      </div>
+
       {submitted ? (
-        <div style={{ textAlign: 'center', padding: '30px 0' }}>
-          <div style={{ fontSize: 56, marginBottom: 14 }}>✅</div>
-          <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, color: '#16a34a', marginBottom: 8 }}>Application Submitted!</h3>
-          <p style={{ color: '#64748b', fontSize: '0.95rem' }}>
-            Thank you, <strong>{formData.name}</strong>. Our franchise expansion manager will contact you at <strong>+91 {formData.phone}</strong> shortly.
+        <div style={{ textAlign: 'center', padding: '16px 0' }}>
+          <div style={{ fontSize: 40, marginBottom: 6 }}>✅</div>
+          <h4 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, color: '#16a34a', marginBottom: 4, fontSize: '1.05rem' }}>Application Submitted!</h4>
+          <p style={{ color: '#64748b', fontSize: '0.82rem', margin: 0 }}>
+            Thank you <strong>{formData.name}</strong>! Our manager will call you at <strong>+91 {formData.phone}</strong> shortly.
           </p>
         </div>
       ) : (
-        <form onSubmit={handleFinalSubmit} noValidate>
-          {[
-            { id: 'name', label: '1. Full Name *', type: 'text', placeholder: 'e.g. Ramesh Sharma', required: true },
-            { id: 'email', label: '3. Email Address', type: 'email', placeholder: 'e.g. yourname@gmail.com', required: false },
-            { id: 'city', label: '4. Target City / Area *', type: 'text', placeholder: 'e.g. Noida / Gurugram / Pune', required: true },
-          ].map(field => (
-            <div key={field.id} style={{ marginBottom: 18 }}>
-              <label htmlFor={field.id} style={{ fontWeight: 700, fontSize: '0.88rem', marginBottom: 6, display: 'block', color: '#334155' }}>{field.label}</label>
+        <form onSubmit={handleFinalSubmit}>
+          {/* Row 1: Name & Phone */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: 10 }}>
+            <div>
+              <label htmlFor="name" style={{ fontWeight: 700, fontSize: '0.75rem', marginBottom: 3, display: 'block', color: '#334155' }}>
+                Full Name <span style={{ color: '#e53e3e' }}>*</span>
+              </label>
               <input
-                id={field.id}
-                type={field.type}
-                placeholder={field.placeholder}
-                value={formData[field.id]}
+                id="name"
+                type="text"
+                placeholder="Ramesh Sharma"
+                value={formData.name}
                 onChange={handleFormChange}
-                required={field.required}
-                style={{ width: '100%', padding: '14px 16px', borderRadius: 12, border: '1.5px solid #cbd5e1', background: '#f8fafc', color: '#0f172a', fontSize: '0.95rem', outline: 'none' }}
+                required
+                style={{ width: '100%', padding: '9px 11px', borderRadius: 8, border: '1.5px solid #cbd5e1', background: '#f8fafc', color: '#0f172a', fontSize: '0.85rem', outline: 'none' }}
               />
             </div>
-          ))}
 
-          {/* Phone field */}
-          <div style={{ marginBottom: 18 }}>
-            <label htmlFor="phone" style={{ fontWeight: 700, fontSize: '0.88rem', marginBottom: 6, display: 'block', color: '#334155' }}>2. Mobile Number (10 Digits) *</label>
-            <div style={{ display: 'flex', gap: 10 }}>
-              <span style={{ background: '#e2e8f0', border: '1.5px solid #cbd5e1', borderRadius: 12, padding: '14px 16px', fontWeight: 700, fontSize: '0.95rem', display: 'flex', alignItems: 'center' }}>🇮🇳 +91</span>
+            <div>
+              <label htmlFor="phone" style={{ fontWeight: 700, fontSize: '0.75rem', marginBottom: 3, display: 'block', color: '#334155' }}>
+                Mobile Number <span style={{ color: '#e53e3e' }}>*</span>
+              </label>
               <input
                 id="phone"
                 type="tel"
-                placeholder="e.g. 9876543210"
+                placeholder="10-digit number"
                 value={formData.phone}
                 onChange={handleFormChange}
                 maxLength={10}
                 required
-                style={{ width: '100%', padding: '14px 16px', borderRadius: 12, border: '1.5px solid #cbd5e1', background: '#f8fafc', color: '#0f172a', fontSize: '0.95rem', outline: 'none' }}
+                style={{ width: '100%', padding: '9px 11px', borderRadius: 8, border: '1.5px solid #cbd5e1', background: '#f8fafc', color: '#0f172a', fontSize: '0.85rem', outline: 'none' }}
               />
             </div>
           </div>
 
-          {/* Budget */}
-          <div style={{ marginBottom: 28 }}>
-            <label htmlFor="budget" style={{ fontWeight: 700, fontSize: '0.88rem', marginBottom: 6, display: 'block', color: '#334155' }}>5. Investment Budget Range *</label>
+          {/* Row 2: Email & City */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: 10 }}>
+            <div>
+              <label htmlFor="email" style={{ fontWeight: 700, fontSize: '0.75rem', marginBottom: 3, display: 'block', color: '#334155' }}>
+                Email Address <span style={{ color: '#e53e3e' }}>*</span>
+              </label>
+              <input
+                id="email"
+                type="email"
+                placeholder="you@example.com"
+                value={formData.email}
+                onChange={handleFormChange}
+                required
+                style={{ width: '100%', padding: '9px 11px', borderRadius: 8, border: '1.5px solid #cbd5e1', background: '#f8fafc', color: '#0f172a', fontSize: '0.85rem', outline: 'none' }}
+              />
+            </div>
+
+            <div>
+              <label htmlFor="city" style={{ fontWeight: 700, fontSize: '0.75rem', marginBottom: 3, display: 'block', color: '#334155' }}>
+                Target City <span style={{ color: '#e53e3e' }}>*</span>
+              </label>
+              <input
+                id="city"
+                type="text"
+                placeholder="e.g. Noida / Pune"
+                value={formData.city}
+                onChange={handleFormChange}
+                required
+                style={{ width: '100%', padding: '9px 11px', borderRadius: 8, border: '1.5px solid #cbd5e1', background: '#f8fafc', color: '#0f172a', fontSize: '0.85rem', outline: 'none' }}
+              />
+            </div>
+          </div>
+
+          {/* Row 3: Investment Budget */}
+          <div style={{ marginBottom: 12 }}>
+            <label htmlFor="budget" style={{ fontWeight: 700, fontSize: '0.75rem', marginBottom: 3, display: 'block', color: '#334155' }}>
+              Investment Budget <span style={{ color: '#e53e3e' }}>*</span>
+            </label>
             <select
               id="budget"
               value={formData.budget}
               onChange={handleFormChange}
               aria-label="Select investment budget range"
-              style={{ width: '100%', padding: '14px 16px', borderRadius: 12, border: '1.5px solid #cbd5e1', background: '#f8fafc', color: '#0f172a', fontSize: '0.95rem', outline: 'none' }}
+              style={{ width: '100%', padding: '9px 11px', borderRadius: 8, border: '1.5px solid #cbd5e1', background: '#f8fafc', color: '#0f172a', fontSize: '0.85rem', outline: 'none' }}
             >
               <option>₹13L - ₹15L (Alpha Model)</option>
               <option>₹15L - ₹20L (Beta Model)</option>
@@ -322,14 +374,15 @@ function FranchiseForm() {
             id="franchise-apply-btn"
             disabled={isSubmitting}
             style={{
-              width: '100%', padding: '16px', borderRadius: 12, border: 'none',
+              width: '100%', padding: '11px', borderRadius: 10, border: 'none',
               background: 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)',
-              color: '#ffffff', fontWeight: 800, fontSize: '1.05rem',
+              color: '#ffffff', fontWeight: 800, fontSize: '0.92rem',
               fontFamily: 'Poppins, sans-serif', cursor: isSubmitting ? 'not-allowed' : 'pointer',
-              boxShadow: '0 8px 24px rgba(22,163,74,0.3)',
+              boxShadow: '0 6px 20px rgba(22,163,74,0.35)',
+              transition: 'transform 0.2s'
             }}
           >
-            {isSubmitting ? 'Submitting Application...' : 'Talk to Franchise Team →'}
+            {isSubmitting ? 'Submitting Application...' : '🚀 Request Free Franchise Deck →'}
           </button>
         </form>
       )}
@@ -352,7 +405,9 @@ function LeadPopup() {
       if (typeof window !== 'undefined' && window.sessionStorage) {
         alreadySeen = window.sessionStorage.getItem('lf_popup_seen');
       }
-    } catch (e) {}
+    } catch (_err) {
+      // sessionStorage unavailable
+    }
     if (alreadySeen || (typeof window !== 'undefined' && window.location?.hash)) return;
     const timer = setTimeout(() => setShowLeadPopup(true), 10000);
     return () => clearTimeout(timer);
@@ -376,8 +431,10 @@ function LeadPopup() {
 
   useEffect(() => {
     if (typeof window !== 'undefined' && window.location?.hash) {
-      setShowLeadPopup(false);
-      if (typeof document !== 'undefined') document.body.style.overflow = '';
+      setTimeout(() => {
+        setShowLeadPopup(false);
+        if (typeof document !== 'undefined') document.body.style.overflow = '';
+      }, 0);
     }
   }, [pathname]);
 
@@ -388,7 +445,7 @@ function LeadPopup() {
   }, []);
 
   const closeLeadPopup = () => {
-    try { if (typeof window !== 'undefined' && window.sessionStorage) window.sessionStorage.setItem('lf_popup_seen', '1'); } catch (e) {}
+    try { if (typeof window !== 'undefined' && window.sessionStorage) window.sessionStorage.setItem('lf_popup_seen', '1'); } catch (_err) { /* sessionStorage unavailable */ }
     setShowLeadPopup(false);
   };
 
@@ -404,8 +461,8 @@ function LeadPopup() {
   const handlePopupSubmit = async e => {
     e.preventDefault();
     if (popupSubmitting) return;
-    if (!popupData.name.trim() || !popupData.phone.trim() || !popupData.city.trim()) {
-      setPopupError('Please fill all required fields.');
+    if (!popupData.name.trim() || !popupData.phone.trim() || !popupData.city.trim() || !popupData.email.trim()) {
+      setPopupError('Please fill all required fields (including Email).');
       return;
     }
     if (popupData.phone.length < 10) { setPopupError('Enter a valid 10-digit phone number.'); return; }
@@ -423,7 +480,7 @@ function LeadPopup() {
         window.gtag('event', 'laundry_franchise_lead', { 'event_category': 'Franchise', 'event_label': 'Franchise Popup Submission' });
       }
       setPopupSubmitted(true);
-      try { if (typeof window !== 'undefined' && window.sessionStorage) window.sessionStorage.setItem('lf_popup_seen', '1'); } catch (e) {}
+      try { if (typeof window !== 'undefined' && window.sessionStorage) window.sessionStorage.setItem('lf_popup_seen', '1'); } catch (_err) { /* sessionStorage unavailable */ }
       setTimeout(() => setShowLeadPopup(false), 2500);
     } catch (err) {
       console.error('Popup error:', err);
@@ -470,7 +527,7 @@ function LeadPopup() {
               {[
                 { name: 'name', type: 'text', placeholder: 'Your Full Name *', required: true },
                 { name: 'phone', type: 'tel', placeholder: 'Mobile Number (10 digits) *', required: true, maxLength: 10 },
-                { name: 'email', type: 'email', placeholder: 'Email Address (Optional)', required: false },
+                { name: 'email', type: 'email', placeholder: 'Email Address *', required: true },
                 { name: 'city', type: 'text', placeholder: 'Your City *', required: true },
               ].map(field => (
                 <input
@@ -532,26 +589,51 @@ function ExpertContactButton() {
     <>
       <button
         onClick={handleClick}
-        aria-label="Hamare expert se contact karein — franchise inquiry"
+        aria-label="Talk to Our Franchise Expert"
         style={{
           position: 'fixed', bottom: 90, right: 20, zIndex: 9998,
           background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
           color: '#ffffff', border: 'none',
-          padding: '13px 20px', borderRadius: 30,
-          fontWeight: 700, fontSize: '0.88rem',
-          display: 'flex', alignItems: 'center', gap: 8,
-          boxShadow: '0 8px 28px rgba(37,99,235,0.45)',
+          padding: '12px 20px', borderRadius: 30,
+          fontWeight: 800, fontSize: '0.88rem',
+          display: 'flex', alignItems: 'center', gap: 10,
           fontFamily: 'Poppins, sans-serif', cursor: 'pointer',
-          animation: 'expertBtnPulse 2.5s ease-in-out infinite',
+          animation: 'expertGlowPulse 2s infinite, expertAttentionWiggle 4s ease-in-out infinite',
           whiteSpace: 'nowrap',
         }}
       >
-        <span style={{ fontSize: '1.15rem' }}>👨‍💼</span> Talk to Our Expert
+        {/* Pulsing online status dot badge */}
+        <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'center' }}>
+          <span style={{ fontSize: '1.2rem' }}>👨‍💼</span>
+          <span style={{
+            position: 'absolute', top: -2, right: -4,
+            width: 10, height: 10, borderRadius: '50%',
+            background: '#22c55e', border: '2px solid #ffffff',
+            boxShadow: '0 0 8px #22c55e'
+          }} />
+        </span>
+
+        <span>Talk to Our Expert</span>
+
+        <span style={{
+          background: 'rgba(255,255,255,0.22)',
+          padding: '2px 8px', borderRadius: 12,
+          fontSize: '0.72rem', fontWeight: 800,
+          letterSpacing: '0.5px'
+        }}>FREE</span>
       </button>
+
       <style>{`
-        @keyframes expertBtnPulse {
-          0%, 100% { box-shadow: 0 8px 28px rgba(37,99,235,0.45); transform: translateY(0px); }
-          50% { box-shadow: 0 12px 36px rgba(37,99,235,0.65); transform: translateY(-3px); }
+        @keyframes expertGlowPulse {
+          0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7), 0 8px 24px rgba(37, 99, 235, 0.45); }
+          70% { box-shadow: 0 0 0 16px rgba(37, 99, 235, 0), 0 12px 32px rgba(37, 99, 235, 0.65); }
+          100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0), 0 8px 24px rgba(37, 99, 235, 0.45); }
+        }
+        @keyframes expertAttentionWiggle {
+          0%, 80%, 100% { transform: translateY(0) rotate(0deg); }
+          85% { transform: translateY(-4px) rotate(-3deg); }
+          90% { transform: translateY(-2px) rotate(3deg); }
+          95% { transform: translateY(-4px) rotate(-2deg); }
         }
       `}</style>
     </>
