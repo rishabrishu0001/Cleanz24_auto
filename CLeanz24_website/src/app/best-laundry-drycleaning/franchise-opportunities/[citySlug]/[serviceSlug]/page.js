@@ -1,6 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { FRANCHISE_CITIES } from '../../../../../data/franchiseCities';
+import { storesData } from '../../../../../data';
 import CityServiceForm from './CityServiceForm';
 import Link from 'next/link';
 
@@ -44,52 +45,15 @@ const SERVICES_MAP = {
   }
 };
 
-const HIGH_VALUE_PHRASES = (cityName) => [
-  `Best Dry Cleaning in ${cityName}`,
-  `Best Laundry Service in ${cityName}`,
-  `Best Shoe Spa in ${cityName}`,
-  `Best Sofa Cleaning in ${cityName}`,
-  `Top-Rated Clothes Washing in ${cityName}`,
-  `Premium Garment Care in ${cityName}`,
-  `No.1 Dry Clean Studio in ${cityName}`,
-  `Most Popular Laundry in ${cityName}`,
-  `Highly Recommended Dry Cleaners in ${cityName}`,
-  `Popular Household Cleaning in ${cityName}`,
-  `Trusted Laundry Franchise in ${cityName}`,
-  `Customer-Favorite Shoe Spa in ${cityName}`,
-  `Cleanest Dry Cleaning Process in ${cityName}`,
-  `Hygienic Wash & Fold in ${cityName}`,
-  `Sanitized Laundry Service in ${cityName}`,
-  `Cleanest Upholstery Dry Cleaners in ${cityName}`,
-  `Germ-Free Carpet Cleaning in ${cityName}`,
-  `Fastest Laundry Delivery in ${cityName}`,
-  `Express 24h Dry Cleaning in ${cityName}`,
-  `Quick Steam Pressing in ${cityName}`,
-  `Fastest Doorstep Pickup in ${cityName}`,
-  `Same-Day Ironing Service in ${cityName}`,
-  `Affordable Laundry Price in ${cityName}`,
-  `Low-Cost Dry Cleaning in ${cityName}`,
-  `Budget-Friendly Sofa Wash in ${cityName}`,
-  `Value For Money Garment Press in ${cityName}`,
-  `Affordable Shoe Spa in ${cityName}`,
-  `Top Notch Dry Cleaning in ${cityName}`,
-  `Elite Premium Fabric Care in ${cityName}`,
-  `Five-Star Rated Dry Cleaners in ${cityName}`,
-  `Top Notch Shoe Restoration in ${cityName}`,
-  `Premium Luxury Bag Spa in ${cityName}`,
-  `High-End Deep Carpet Cleaning in ${cityName}`,
-  `Professional Cleaners Near Me in ${cityName}`,
-  `Doorstep Laundry Service in ${cityName}`,
-  `Online Laundry Booking in ${cityName}`,
-  `ISO-Certified Garment Care in ${cityName}`,
-  `Eco-Friendly Solvents in ${cityName}`,
-  `Skin-Safe Detergents in ${cityName}`,
-  `Top Notch Steam Ironing in ${cityName}`,
-  `Most Popular Carpet Wash in ${cityName}`,
-  `Cleanest Clothes Press in ${cityName}`,
-  `Fastest Saree Dry Clean in ${cityName}`,
-  `Affordable Suit Dry Cleaning in ${cityName}`
-];
+const generateStoreSlug = (name) => {
+  const cleanLoc = (name || '')
+    .replace(/^Cleanz24\s*-\s*/i, '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)+/g, '');
+  return `best-laundry-drycleaning-services-${cleanLoc}`;
+};
 
 export async function generateStaticParams() {
   const citiesList = Array.isArray(FRANCHISE_CITIES) ? FRANCHISE_CITIES : [];
@@ -122,24 +86,24 @@ export async function generateMetadata({ params }) {
   const serviceName = serviceData.name;
 
   const pageTitle = `${serviceName} in ${cityName} | Best Cleaners in ${stateName} - Cleanz24`;
-  const pageDesc = `Looking for the best ${serviceName.toLowerCase()} in ${cityName}, ${stateName}? Cleanz24 offers doorstep delivery, premium fabric care, and ISO-certified cleaning. Book or enquire today!`;
+  const pageDesc = `Looking for ${serviceName.toLowerCase()} in ${cityName}, ${stateName}? Cleanz24 offers premium fabric care, eco-friendly solvents, and doorstep service. Enquire now!`;
   
   return {
     title: pageTitle,
     description: pageDesc,
     keywords: serviceData.keywords.map(k => `${k} in ${cityName}`).join(', '),
     alternates: {
-      canonical: `https://cleanz24.com/best-laundry-drycleaning/franchise-opportunities/${citySlug}/${serviceSlug}`,
+      canonical: `https://www.cleanz24.com/best-laundry-drycleaning/franchise-opportunities/${citySlug}/${serviceSlug}`,
     },
     openGraph: {
       title: pageTitle,
       description: pageDesc,
-      url: `https://cleanz24.com/best-laundry-drycleaning/franchise-opportunities/${citySlug}/${serviceSlug}`,
+      url: `https://www.cleanz24.com/best-laundry-drycleaning/franchise-opportunities/${citySlug}/${serviceSlug}`,
       siteName: 'Cleanz24',
       type: 'website',
       images: [
         {
-          url: 'https://cleanz24.com/assets/logo3.jpeg',
+          url: 'https://www.cleanz24.com/assets/logo3.jpeg',
           width: 800,
           height: 600,
           alt: 'Cleanz24 Premium Laundry Services'
@@ -150,7 +114,7 @@ export async function generateMetadata({ params }) {
       card: 'summary_large_image',
       title: pageTitle,
       description: pageDesc,
-      images: ['https://cleanz24.com/assets/logo3.jpeg']
+      images: ['https://www.cleanz24.com/assets/logo3.jpeg']
     }
   };
 }
@@ -168,6 +132,19 @@ export default async function CityServicePage({ params }) {
   const stateName = cityData.state;
   const serviceName = serviceData.name;
 
+  // Real store matching
+  const matchingStoresInCity = (storesData || []).filter(s => 
+    s && s.city && (
+      s.city.toLowerCase() === cityName.toLowerCase() || 
+      cityName.toLowerCase().includes(s.city.toLowerCase()) || 
+      s.city.toLowerCase().includes(cityName.toLowerCase())
+    )
+  );
+
+  const matchingStoresInState = matchingStoresInCity.length > 0 
+    ? matchingStoresInCity 
+    : (storesData || []).filter(s => s && s.state && s.state.toLowerCase() === stateName.toLowerCase()).slice(0, 3);
+
   // Schema Injection
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -175,10 +152,10 @@ export default async function CityServicePage({ params }) {
       {
         '@type': 'BreadcrumbList',
         'itemListElement': [
-          { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://cleanz24.com/best-laundry-drycleaning' },
-          { '@type': 'ListItem', 'position': 2, 'name': 'Franchise', 'item': 'https://cleanz24.com/best-laundry-drycleaning/franchise-opportunities-in-india' },
-          { '@type': 'ListItem', 'position': 3, 'name': cityName, 'item': `https://cleanz24.com/best-laundry-drycleaning/franchise-opportunities/${citySlug}` },
-          { '@type': 'ListItem', 'position': 4, 'name': serviceData.name, 'item': `https://cleanz24.com/best-laundry-drycleaning/franchise-opportunities/${citySlug}/${serviceSlug}` }
+          { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://www.cleanz24.com/best-laundry-drycleaning' },
+          { '@type': 'ListItem', 'position': 2, 'name': 'Franchise', 'item': 'https://www.cleanz24.com/best-laundry-drycleaning/franchise-opportunities-in-india' },
+          { '@type': 'ListItem', 'position': 3, 'name': cityName, 'item': `https://www.cleanz24.com/best-laundry-drycleaning/franchise-opportunities/${citySlug}` },
+          { '@type': 'ListItem', 'position': 4, 'name': serviceData.name, 'item': `https://www.cleanz24.com/best-laundry-drycleaning/franchise-opportunities/${citySlug}/${serviceSlug}` }
         ]
       },
       {
@@ -190,7 +167,7 @@ export default async function CityServicePage({ params }) {
           'name': `Cleanz24 ${cityName}`,
           'telephone': '+919138004800',
           'priceRange': '₹₹',
-          'image': 'https://cleanz24.com/assets/logo3.jpeg',
+          'image': 'https://www.cleanz24.com/assets/logo3.jpeg',
           'address': {
             '@type': 'PostalAddress',
             'addressLocality': cityName,
@@ -253,8 +230,8 @@ export default async function CityServicePage({ params }) {
         }
         .city-service-card {
           background: #ffffff;
-          padding: 15px;
-          border-radius: 8px;
+          padding: 18px;
+          border-radius: 12px;
           border: 1px solid #e2e8f0;
           transition: all 0.25s ease;
         }
@@ -328,28 +305,6 @@ export default async function CityServicePage({ params }) {
         .laundry-dark .city-service-sidebar p {
           color: #94a3b8;
         }
-        .city-service-label {
-          color: #374151;
-          transition: color 0.25s ease;
-        }
-        .laundry-dark .city-service-label {
-          color: #cbd5e1;
-        }
-        .city-service-input {
-          background-color: #ffffff;
-          border: 1.5px solid #d1d5db;
-          color: #1a202c;
-          transition: all 0.25s ease;
-        }
-        .laundry-dark .city-service-input {
-          background-color: #0f1623;
-          border-color: #334155;
-          color: #e2e8f0;
-        }
-        .city-service-input:focus {
-          border-color: #16a34a;
-          box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
-        }
         .city-service-footer {
           padding: 40px 0;
           border-top: 1px solid #e2e8f0;
@@ -367,28 +322,6 @@ export default async function CityServicePage({ params }) {
         }
         .laundry-dark .city-service-footer p {
           color: #94a3b8;
-        }
-        .city-service-tag {
-          background: rgba(22, 163, 74, 0.08);
-          border: 1px solid rgba(22, 163, 74, 0.18);
-          color: #15803d;
-          font-size: 0.82rem;
-          font-weight: 600;
-          padding: 6px 14px;
-          border-radius: 99px;
-          transition: all 0.2s ease;
-          display: inline-block;
-        }
-        .laundry-dark .city-service-tag {
-          background: rgba(74, 222, 128, 0.1);
-          border-color: rgba(74, 222, 128, 0.25);
-          color: #4ade80;
-        }
-        .city-service-tag:hover {
-          transform: translateY(-2px);
-          background: #16a34a;
-          color: #ffffff;
-          border-color: #16a34a;
         }
       `}</style>
 
@@ -429,7 +362,10 @@ export default async function CityServicePage({ params }) {
             Best <span style={{ color: '#16a34a' }}>{serviceName}</span> in {cityName}
           </h1>
           <p className="city-service-hero-p" style={{ fontSize: '1.1rem', maxWidth: '750px', lineHeight: '1.7', marginBottom: '30px' }}>
-            Experience professional, eco-friendly {serviceName.toLowerCase()} at Cleanz24. We combine modern technology, imported solvents, and complimentary home pick-up and delivery services across <strong>{cityName}, {stateName}</strong>.
+            {matchingStoresInCity.length > 0 
+              ? `Experience professional, eco-friendly ${serviceName.toLowerCase()} at Cleanz24. Visit our active store studio or enjoy doorstep pick-up & delivery across ${cityName}, ${stateName}.`
+              : `Cleanz24 is expanding its premium ${serviceName.toLowerCase()} & franchise network in ${cityName}, ${stateName}. Enquire today for doorstep booking or franchise ownership.`
+            }
           </p>
 
           <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
@@ -445,7 +381,7 @@ export default async function CityServicePage({ params }) {
             }}>
               📋 Book Service / Franchise Inquiry
             </a>
-            <a href={`https://wa.me/919138004800?text=Hi%20I%20want%20to%20book%20${encodeURIComponent(serviceName)}%20in%20${encodeURIComponent(cityName)}`} target="_blank" rel="noreferrer" style={{ 
+            <a href={`https://wa.me/919138004800?text=Hi%20I%20want%20to%20know%20about%20${encodeURIComponent(serviceName)}%20in%20${encodeURIComponent(cityName)}`} target="_blank" rel="noreferrer" style={{ 
               background: 'transparent', 
               color: '#16a34a', 
               border: '2px solid #16a34a', 
@@ -455,13 +391,13 @@ export default async function CityServicePage({ params }) {
               fontWeight: '700', 
               textDecoration: 'none'
             }}>
-              💬 WhatsApp Bookings
+              💬 WhatsApp Us
             </a>
           </div>
         </div>
       </section>
 
-      {/* 1000+ Words SEO Content Grid */}
+      {/* Main Content Section */}
       <section style={{ padding: '60px 0' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '48px', alignItems: 'flex-start' }}>
@@ -469,41 +405,80 @@ export default async function CityServicePage({ params }) {
             {/* Main Content Area */}
             <div style={{ lineHeight: '1.8' }}>
               <h2 className="city-service-title" style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '20px' }}>
-                Why Cleanz24 is Rated the No. 1 {serviceName} in {cityName}
+                Professional {serviceName} in {cityName}, {stateName}
               </h2>
               <p style={{ marginBottom: '20px' }}>
-                In a fast-paced urban setup like {cityName}, maintaining the life and pristine condition of your clothes, designer shoes, luxury handbags, and home upholstery can be challenging. Airborne pollution, sweat, humidity, and food spillages require prompt, specialized intervention. Using standard detergent soaps and hard tap water leads to premature fiber decay, fading color tones, and rough textures. This is where Cleanz24’s premium <strong>{serviceName.toLowerCase()} in {cityName}</strong> offers unmatched value.
+                Maintaining the pristine condition of your wardrobe, designer wear, and home fabrics requires specialized care. Standard laundry washing with hard water and harsh detergents often leads to color fading, fabric weakening, and fiber shrinkage. Cleanz24 provides an ISO-certified, soft-water solution for <strong>{serviceName.toLowerCase()} in {cityName}</strong>.
               </p>
               <p style={{ marginBottom: '20px' }}>
-                We utilize international standard, custom-formulated cleaning detergents and modern hydrocarbon cleaning chambers that lift dirt particulates off materials without altering fabric composition. Whether you need a standard wash and fold, stain correction, shoe sanitization, or deep carpet dry cleaning, our local team operates with precision. Every garment goes through a 7-stage quality assessment process to ensure you get showroom-clean clothes delivered directly to your doorstep.
+                We utilize international standard, custom-formulated detergents and modern cleaning equipment that gently remove dirt and stains while preserving fabric integrity. Every garment undergoes a multi-stage inspection to ensure high-quality cleaning, press, and hygienic packaging.
               </p>
 
-              <h3 className="city-service-title" style={{ fontSize: '1.4rem', fontWeight: '700', marginTop: '30px', marginBottom: '15px' }}>
-                Your Local Doorstep Cleaning Experts in {cityName}
-              </h3>
-              <p style={{ marginBottom: '20px' }}>
-                Whether you are searching for the <strong>"best laundry service near me in {cityName}"</strong>, a <strong>"professional dry cleaners in {cityName}"</strong>, a premium <strong>"shoe spa near me"</strong>, or expert <strong>"sofa cleaning services in {cityName}"</strong>, Cleanz24 is your trusted, all-in-one solution. We cater to all major residential and commercial areas of the city, offering high-value packages, quick turnaround times, and 100% digital billing systems.
-              </p>
+              {/* Verified Local Stores / Expansion Section */}
+              {matchingStoresInCity.length > 0 ? (
+                <>
+                  <h3 className="city-service-title" style={{ fontSize: '1.4rem', fontWeight: '700', marginTop: '30px', marginBottom: '15px' }}>
+                    Official Cleanz24 Studios in {cityName}
+                  </h3>
+                  <p style={{ marginBottom: '20px' }}>
+                    Cleanz24 has active studio operations in {cityName}. You can visit our store directly or schedule doorstep pickup:
+                  </p>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px', marginBottom: '30px' }}>
+                    {matchingStoresInCity.map(st => (
+                      <Link href={`/best-laundry-drycleaning/store/${generateStoreSlug(st.name)}`} key={st.id || st.name} style={{ textDecoration: 'none' }}>
+                        <div className="city-service-card" style={{ height: '100%' }}>
+                          <strong style={{ color: '#16a34a', display: 'block', fontSize: '0.98rem' }}>📍 {st.name}</strong>
+                          <p style={{ fontSize: '0.82rem', marginTop: '6px', color: '#64748b' }}>{st.address}</p>
+                          <span style={{ fontSize: '0.8rem', color: '#16a34a', fontWeight: '600', marginTop: '8px', display: 'inline-block' }}>View Store Details →</span>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <h3 className="city-service-title" style={{ fontSize: '1.4rem', fontWeight: '700', marginTop: '30px', marginBottom: '15px' }}>
+                    Franchise & Service Network in {cityName}, {stateName}
+                  </h3>
+                  <p style={{ marginBottom: '20px' }}>
+                    Cleanz24 is actively expanding its premium service footprint across {stateName}. We are currently accepting franchise applications to set up the first Cleanz24 studio hub in {cityName}.
+                  </p>
+                  {matchingStoresInState.length > 0 && (
+                    <>
+                      <p style={{ fontSize: '0.88rem', color: '#64748b', marginBottom: '12px', fontWeight: '600' }}>
+                        Nearby Operating Cleanz24 Studios in {stateName}:
+                      </p>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '14px', marginBottom: '30px' }}>
+                        {matchingStoresInState.map(st => (
+                          <Link href={`/best-laundry-drycleaning/store/${generateStoreSlug(st.name)}`} key={st.id || st.name} style={{ textDecoration: 'none' }}>
+                            <div className="city-service-card">
+                              <strong style={{ color: '#16a34a', display: 'block', fontSize: '0.92rem' }}>📍 {st.name} ({st.city})</strong>
+                              <p style={{ fontSize: '0.8rem', marginTop: '4px', color: '#64748b' }}>{st.address}</p>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </>
+              )}
 
               <h3 className="city-service-title" style={{ fontSize: '1.4rem', fontWeight: '700', marginTop: '30px', marginBottom: '15px' }}>
-                Our 7-Step Premium Fabric Care Process
+                Our 7-Step Quality Fabric Care Process
               </h3>
               <ul style={{ paddingLeft: '20px', marginBottom: '25px' }}>
-                <li style={{ marginBottom: '10px' }}><strong>Tagging & Inspection:</strong> Each item is recorded, inspected for stains, tears, or loose buttons, and sorted by color and fabric weight.</li>
-                <li style={{ marginBottom: '10px' }}><strong>Pre-spotting & Stain Treatment:</strong> We treat food stains, grease spots, and ink marks individually using eco-safe solvents.</li>
-                <li style={{ marginBottom: '10px' }}><strong>Customized Cleaning:</strong> Based on the service, fabrics are washed in soft-water chambers or clean-solvent dry cleaning drums.</li>
-                <li style={{ marginBottom: '10px' }}><strong>Sanitization & Germ Guard:</strong> Garments are treated with skin-safe disinfectant formulas to ensure hygiene.</li>
-                <li style={{ marginBottom: '10px' }}><strong>Vacuum Drying & Airing:</strong> Controlled drying temperatures preserve elastic bonds and prevent fabric shrinkage.</li>
-                <li style={{ marginBottom: '10px' }}><strong>Crisp Steam Pressing:</strong> Italian steam pressing machines smooth out wrinkles while raising fiber fluff naturally.</li>
-                <li style={{ marginBottom: '10px' }}><strong>Final Packing & Doorstep Delivery:</strong> Wrapped in dust-free eco-plastics and delivered back to your home within 48 hours.</li>
+                <li style={{ marginBottom: '10px' }}><strong>Tagging & Inspection:</strong> Garments are tagged and inspected for stains, fabric type, and special care requirements.</li>
+                <li style={{ marginBottom: '10px' }}><strong>Pre-treatment:</strong> Individual stains are pre-spotted using specialized eco-friendly formulas.</li>
+                <li style={{ marginBottom: '10px' }}><strong>Custom Fabric Washing:</strong> Washed using soft water and balanced pH detergents tailored to fabric weight.</li>
+                <li style={{ marginBottom: '10px' }}><strong>Hygiene & Sanitization:</strong> Sanitized with skin-safe disinfectant formulas.</li>
+                <li style={{ marginBottom: '10px' }}><strong>Controlled Drying:</strong> Temperature-monitored drying to prevent fabric shrinkage or elasticity loss.</li>
+                <li style={{ marginBottom: '10px' }}><strong>Precision Steam Pressing:</strong> Italian steam pressing for a smooth, wrinkle-free finish.</li>
+                <li style={{ marginBottom: '10px' }}><strong>Packaging & Quality Check:</strong> Final quality audit before protective eco-packaging and doorstep delivery.</li>
               </ul>
 
               <h3 className="city-service-title" style={{ fontSize: '1.4rem', fontWeight: '700', marginTop: '30px', marginBottom: '15px' }}>
-                Comprehensive Cleanings Services Offered in {cityName}
+                Available Services at Cleanz24 Studios
               </h3>
-              <p style={{ marginBottom: '20px' }}>
-                Our physical franchise hubs in {cityName} are equipped to handle a diverse range of laundry tasks:
-              </p>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '30px' }}>
                 <div className="city-service-card">
                   <strong>👗 Designer & Ethnic Wear</strong>
@@ -523,34 +498,20 @@ export default async function CityServicePage({ params }) {
                 </div>
               </div>
 
-              <h3 className="city-service-title" style={{ fontSize: '1.4rem', fontWeight: '700', marginTop: '40px', marginBottom: '15px' }}>
-                Elite Service Standards & Search Tag Directory in {cityName}
-              </h3>
-              <p style={{ fontSize: '0.92rem', marginBottom: '20px' }}>
-                Cleanz24 is widely recognized as the best, cleanest, fastest, and most affordable laundry provider in {cityName}. Here are some of the most popular search terms and professional service standards we support:
-              </p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '35px' }}>
-                {HIGH_VALUE_PHRASES(cityName).map((phrase) => (
-                  <span className="city-service-tag" key={phrase}>
-                    ✨ {phrase}
-                  </span>
-                ))}
-              </div>
-
               <h3 className="city-service-title" style={{ fontSize: '1.4rem', fontWeight: '700', marginTop: '30px', marginBottom: '15px' }}>
                 FAQs about {serviceName} in {cityName}
               </h3>
               <div className="city-service-faq-item">
-                <h4 style={{ marginBottom: '6px' }}>Q1. What is the turn-around time for laundry and dry cleaning in {cityName}?</h4>
-                <p style={{ fontSize: '0.92rem' }}>Our standard delivery time is 48 hours. We also offer express 24-hour service for urgent garment requests.</p>
+                <h4 style={{ marginBottom: '6px' }}>Q1. What is the standard turn-around time in {cityName}?</h4>
+                <p style={{ fontSize: '0.92rem' }}>Our standard delivery turnaround is 48 hours. Express 24-hour service is also available upon request.</p>
               </div>
               <div className="city-service-faq-item">
-                <h4 style={{ marginBottom: '6px' }}>Q2. Do you charge extra for pickup and delivery services?</h4>
-                <p style={{ fontSize: '0.92rem' }}>No, pickup and doorstep delivery are completely free within our store operational limits in {cityName}.</p>
+                <h4 style={{ marginBottom: '6px' }}>Q2. How can I schedule a doorstep pickup in {cityName}?</h4>
+                <p style={{ fontSize: '0.92rem' }}>You can fill out the enquiry form on this page or message us directly on WhatsApp at +91 91380 04800.</p>
               </div>
               <div className="city-service-faq-item" style={{ borderBottom: 'none' }}>
-                <h4 style={{ marginBottom: '6px' }}>Q3. Are the solvents used safe for baby clothes and sensitive skin?</h4>
-                <p style={{ fontSize: '0.92rem' }}>Absolutely. We use dermatologically safe, non-toxic organic solvents and soft water that leave zero toxic chemical residues on garments.</p>
+                <h4 style={{ marginBottom: '6px' }}>Q3. Are the cleaning products safe for sensitive skin?</h4>
+                <p style={{ fontSize: '0.92rem' }}>Yes, we exclusively use dermatologically tested, non-toxic, eco-friendly detergents and soft water.</p>
               </div>
             </div>
 
