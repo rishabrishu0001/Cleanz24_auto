@@ -365,17 +365,30 @@ export default function Page() {
                 </div>
               </div>
 
-              {/* Right side — interactive slideshow loads client-side */}
+              {/* Right side — interactive franchise form inside Hero */}
               <div className="col-lg-6">
                 <Suspense fallback={
                   <div style={{ height: 400, borderRadius: 20, background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: '0.9rem' }}>
-                    Loading store images...
+                    Loading franchise application form...
                   </div>
                 }>
-                  <LaundryFranchiseInteractive section="slideshow" />
+                  <LaundryFranchiseInteractive section="form" />
                 </Suspense>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* ══ STORE GALLERY SLIDESHOW ══ */}
+        <section style={{ padding: '40px 0 60px', background: '#ffffff' }}>
+          <div className="container">
+            <Suspense fallback={
+              <div style={{ height: 400, borderRadius: 20, background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: '0.9rem' }}>
+                Loading store images...
+              </div>
+            }>
+              <LaundryFranchiseInteractive section="slideshow" />
+            </Suspense>
           </div>
         </section>
 
@@ -633,27 +646,7 @@ export default function Page() {
           </div>
         </section>
 
-        {/* ══ SECTION 8: FRANCHISE FORM (Interactive — client-side) ══ */}
-        <section id="franchise-form" style={{ padding: '90px 0', background: '#ffffff' }} aria-label="Apply for Cleanz24 Franchise">
-          <div className="container" style={{ maxWidth: 640 }}>
-            <div style={{ textAlign: 'center', marginBottom: 28 }}>
-              <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#16a34a', textTransform: 'uppercase', letterSpacing: '1.5px' }}>FREE CONSULTATION</span>
-              <h2 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.8rem', color: '#0f172a', marginTop: 10, marginBottom: 6 }}>
-                Apply for Cleanz24 <span style={{ color: '#16a34a' }}>Franchise</span>
-              </h2>
-              <p style={{ fontSize: '0.9rem', color: '#64748b' }}>
-                Investment starts at <strong>₹13 Lacs</strong>. Our franchise team will call you within 24 hours.
-              </p>
-            </div>
-            <Suspense fallback={
-              <div style={{ background: '#f8fafc', borderRadius: 24, padding: '40px 32px', border: '2px solid #86efac', textAlign: 'center', color: '#64748b' }}>
-                Loading franchise application form...
-              </div>
-            }>
-              <LaundryFranchiseInteractive section="form" />
-            </Suspense>
-          </div>
-        </section>
+
 
         {/* ══ LOCATIONS GRID (Static — internal links help SEO cluster) ══ */}
         <section id="locations" style={{ padding: '60px 0', background: '#f8fafb', borderTop: '1px solid #e2e8f0' }} aria-label="Cleanz24 Franchise Locations Across India">

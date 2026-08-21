@@ -664,11 +664,173 @@ function LaundryFrenchise() {
               </div>
             </div>
 
-            {/* Right: Responsive Store Slideshow */}
+            {/* Right: Franchise Application Form inside Hero */}
             <div className="col-lg-6">
-              <HeroSlideshow dark={dark} />
+              <div id="franchise_form" style={{
+                background: dark ? '#1e293b' : '#ffffff',
+                borderRadius: 24, padding: '32px 28px',
+                border: `2px solid ${dark ? '#334155' : '#86efac'}`,
+                boxShadow: '0 16px 48px rgba(0,0,0,0.15)'
+              }}>
+
+                {/* Reassurance Banner */}
+                <div style={{
+                  background: '#dcfce7', borderRadius: 12, padding: '8px 14px',
+                  textAlign: 'center', marginBottom: 20, color: '#15803d',
+                  fontWeight: 700, fontSize: '0.85rem'
+                }}>
+                  📞 Our franchise team will call you within 24 hours
+                </div>
+
+                <div style={{ textAlign: 'center', marginBottom: 20 }}>
+                  <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.5rem', color: dark ? '#f8fafc' : '#0f172a', marginBottom: 4 }}>
+                    Apply for Cleanz24 <span style={{ color: '#16a34a' }}>Franchise</span>
+                  </h3>
+                  <p style={{ fontSize: '0.85rem', color: dark ? '#94a3b8' : '#64748b', margin: 0 }}>
+                    Fill out minimal fields to receive the official franchise blueprint.
+                  </p>
+                </div>
+
+                {submitted ? (
+                  <div style={{ textAlign: 'center', padding: '24px 0' }}>
+                    <div style={{ fontSize: 48, marginBottom: 12 }}>✅</div>
+                    <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, color: '#16a34a', marginBottom: 8 }}>Application Submitted!</h3>
+                    <p style={{ color: dark ? '#94a3b8' : '#64748b', fontSize: '0.9rem' }}>
+                      Thank you, <strong>{formData.name}</strong>. Our franchise expansion manager will contact you at <strong>+91 {formData.phone}</strong> shortly.
+                    </p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleFinalSubmit}>
+                    {/* Field 1: Name */}
+                    <div style={{ marginBottom: 14 }}>
+                      <label style={{ fontWeight: 700, fontSize: '0.82rem', marginBottom: 4, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>1. Full Name *</label>
+                      <input
+                        id="name"
+                        type="text"
+                        placeholder="e.g. Ramesh Sharma"
+                        value={formData.name}
+                        onChange={handleFormChange}
+                        style={{
+                          width: '100%', padding: '12px 14px', borderRadius: 10,
+                          border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
+                          background: dark ? '#0f172a' : '#f8fafc',
+                          color: dark ? '#f8fafc' : '#0f172a', fontSize: '0.9rem', outline: 'none'
+                        }}
+                        required
+                      />
+                    </div>
+
+                    {/* Field 2: Mobile Number */}
+                    <div style={{ marginBottom: 14 }}>
+                      <label style={{ fontWeight: 700, fontSize: '0.82rem', marginBottom: 4, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>2. Mobile Number (10 Digits) *</label>
+                      <div style={{ display: 'flex', gap: 8 }}>
+                        <span style={{
+                          background: dark ? '#0f172a' : '#e2e8f0', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
+                          borderRadius: 10, padding: '12px 14px', fontWeight: 700, fontSize: '0.9rem',
+                          display: 'flex', alignItems: 'center'
+                        }}>🇮🇳 +91</span>
+                        <input
+                          id="phone"
+                          type="tel"
+                          placeholder="e.g. 9876543210"
+                          value={formData.phone}
+                          onChange={handleFormChange}
+                          maxLength={10}
+                          style={{
+                            width: '100%', padding: '12px 14px', borderRadius: 10,
+                            border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
+                            background: dark ? '#0f172a' : '#f8fafc',
+                            color: dark ? '#f8fafc' : '#0f172a', fontSize: '0.9rem', outline: 'none'
+                          }}
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    {/* Field 3: Email */}
+                    <div style={{ marginBottom: 14 }}>
+                      <label style={{ fontWeight: 700, fontSize: '0.82rem', marginBottom: 4, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>3. Email Address</label>
+                      <input
+                        id="email"
+                        type="email"
+                        placeholder="e.g. yourname@gmail.com"
+                        value={formData.email}
+                        onChange={handleFormChange}
+                        style={{
+                          width: '100%', padding: '12px 14px', borderRadius: 10,
+                          border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
+                          background: dark ? '#0f172a' : '#f8fafc',
+                          color: dark ? '#f8fafc' : '#0f172a', fontSize: '0.9rem', outline: 'none'
+                        }}
+                      />
+                    </div>
+
+                    {/* Field 4: City */}
+                    <div style={{ marginBottom: 14 }}>
+                      <label style={{ fontWeight: 700, fontSize: '0.82rem', marginBottom: 4, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>4. Target City / Area *</label>
+                      <input
+                        id="city"
+                        type="text"
+                        placeholder="e.g. Noida / Gurugram / Pune"
+                        value={formData.city}
+                        onChange={handleFormChange}
+                        style={{
+                          width: '100%', padding: '12px 14px', borderRadius: 10,
+                          border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
+                          background: dark ? '#0f172a' : '#f8fafc',
+                          color: dark ? '#f8fafc' : '#0f172a', fontSize: '0.9rem', outline: 'none'
+                        }}
+                        required
+                      />
+                    </div>
+
+                    {/* Field 5: Investment Budget */}
+                    <div style={{ marginBottom: 20 }}>
+                      <label style={{ fontWeight: 700, fontSize: '0.82rem', marginBottom: 4, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>5. Investment Budget Range *</label>
+                      <select
+                        id="budget"
+                        value={formData.budget}
+                        onChange={handleFormChange}
+                        style={{
+                          width: '100%', padding: '12px 14px', borderRadius: 10,
+                          border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
+                          background: dark ? '#0f172a' : '#f8fafc',
+                          color: dark ? '#f8fafc' : '#0f172a', fontSize: '0.9rem', outline: 'none'
+                        }}
+                      >
+                        <option>₹13L - ₹15L (Alpha Model)</option>
+                        <option>₹15L - ₹20L (Beta Model)</option>
+                        <option>₹22L - ₹25L (Combo Model)</option>
+                        <option>₹35L+ (Hydro-Carbon Studio)</option>
+                      </select>
+                    </div>
+
+                    {/* Submit Button */}
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      style={{
+                        width: '100%', padding: '14px', borderRadius: 10, border: 'none',
+                        background: 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)',
+                        color: '#ffffff', fontWeight: 800, fontSize: '1rem',
+                        fontFamily: 'Poppins, sans-serif', cursor: 'pointer',
+                        boxShadow: '0 8px 24px rgba(22,163,74,0.3)', transition: 'transform 0.2s'
+                      }}
+                    >
+                      {isSubmitting ? 'Submitting Application...' : 'Talk to Franchise Team →'}
+                    </button>
+                  </form>
+                )}
+              </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ── STORE GALLERY SLIDESHOW SECTION ── */}
+      <section style={{ padding: '40px 0 60px', background: dark ? '#0f172a' : '#ffffff' }}>
+        <div className="container">
+          <HeroSlideshow dark={dark} />
         </div>
       </section>
 
@@ -855,167 +1017,7 @@ function LaundryFrenchise() {
         </div>
       </section>
 
-      {/* ══════════════════ SECTION 4: FRANCHISE APPLICATION FORM ══════════════════ */}
-      <section id="franchise_form" style={{ padding: '90px 0', background: dark ? '#0f172a' : '#ffffff' }}>
-        <div className="container" style={{ maxWidth: 640 }}>
-          <div style={{
-            background: dark ? '#1e293b' : '#ffffff',
-            borderRadius: 24, padding: '40px 32px',
-            border: `2px solid ${dark ? '#334155' : '#86efac'}`,
-            boxShadow: '0 16px 48px rgba(0,0,0,0.08)'
-          }}>
 
-            {/* Reassurance Banner */}
-            <div style={{
-              background: '#dcfce7', borderRadius: 12, padding: '10px 16px',
-              textAlign: 'center', marginBottom: 24, color: '#15803d',
-              fontWeight: 700, fontSize: '0.88rem'
-            }}>
-              📞 Our franchise team will call you within 24 hours
-            </div>
-
-            <div style={{ textAlign: 'center', marginBottom: 28 }}>
-              <h2 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.8rem', color: dark ? '#f8fafc' : '#0f172a', marginBottom: 6 }}>
-                Apply for Cleanz24 <span style={{ color: '#16a34a' }}>Franchise</span>
-              </h2>
-              <p style={{ fontSize: '0.9rem', color: dark ? '#94a3b8' : '#64748b' }}>
-                Fill out 4 minimal fields to receive the official franchise deck &amp; financial blueprint.
-              </p>
-            </div>
-
-            {submitted ? (
-              <div style={{ textAlign: 'center', padding: '30px 0' }}>
-                <div style={{ fontSize: 56, marginBottom: 14 }}>✅</div>
-                <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, color: '#16a34a', marginBottom: 8 }}>Application Submitted!</h3>
-                <p style={{ color: dark ? '#94a3b8' : '#64748b', fontSize: '0.95rem' }}>
-                  Thank you, <strong>{formData.name}</strong>. Our franchise expansion manager will contact you at <strong>+91 {formData.phone}</strong> shortly.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleFinalSubmit}>
-                {/* Field 1: Name */}
-                <div style={{ marginBottom: 18 }}>
-                  <label style={{ fontWeight: 700, fontSize: '0.88rem', marginBottom: 6, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>1. Full Name *</label>
-                  <input
-                    id="name"
-                    type="text"
-                    placeholder="e.g. Ramesh Sharma"
-                    value={formData.name}
-                    onChange={handleFormChange}
-                    style={{
-                      width: '100%', padding: '14px 16px', borderRadius: 12,
-                      border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
-                      background: dark ? '#0f172a' : '#f8fafc',
-                      color: dark ? '#f8fafc' : '#0f172a', fontSize: '0.95rem', outline: 'none'
-                    }}
-                    required
-                  />
-                </div>
-
-                {/* Field 2: Mobile Number */}
-                <div style={{ marginBottom: 18 }}>
-                  <label style={{ fontWeight: 700, fontSize: '0.88rem', marginBottom: 6, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>2. Mobile Number (10 Digits) *</label>
-                  <div style={{ display: 'flex', gap: 10 }}>
-                    <span style={{
-                      background: dark ? '#0f172a' : '#e2e8f0', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
-                      borderRadius: 12, padding: '14px 16px', fontWeight: 700, fontSize: '0.95rem',
-                      display: 'flex', alignItems: 'center'
-                    }}>🇮🇳 +91</span>
-                    <input
-                      id="phone"
-                      type="tel"
-                      placeholder="e.g. 9876543210"
-                      value={formData.phone}
-                      onChange={handleFormChange}
-                      maxLength={10}
-                      style={{
-                        width: '100%', padding: '14px 16px', borderRadius: 12,
-                        border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
-                        background: dark ? '#0f172a' : '#f8fafc',
-                        color: dark ? '#f8fafc' : '#0f172a', fontSize: '0.95rem', outline: 'none'
-                      }}
-                      required
-                    />
-                  </div>
-                </div>
-
-                {/* Field 3: Email */}
-                <div style={{ marginBottom: 18 }}>
-                  <label style={{ fontWeight: 700, fontSize: '0.88rem', marginBottom: 6, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>3. Email Address</label>
-                  <input
-                    id="email"
-                    type="email"
-                    placeholder="e.g. yourname@gmail.com"
-                    value={formData.email}
-                    onChange={handleFormChange}
-                    style={{
-                      width: '100%', padding: '14px 16px', borderRadius: 12,
-                      border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
-                      background: dark ? '#0f172a' : '#f8fafc',
-                      color: dark ? '#f8fafc' : '#0f172a', fontSize: '0.95rem', outline: 'none'
-                    }}
-                  />
-                </div>
-
-                {/* Field 4: City */}
-                <div style={{ marginBottom: 18 }}>
-                  <label style={{ fontWeight: 700, fontSize: '0.88rem', marginBottom: 6, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>4. Target City / Area *</label>
-                  <input
-                    id="city"
-                    type="text"
-                    placeholder="e.g. Noida / Gurugram / Pune"
-                    value={formData.city}
-                    onChange={handleFormChange}
-                    style={{
-                      width: '100%', padding: '14px 16px', borderRadius: 12,
-                      border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
-                      background: dark ? '#0f172a' : '#f8fafc',
-                      color: dark ? '#f8fafc' : '#0f172a', fontSize: '0.95rem', outline: 'none'
-                    }}
-                    required
-                  />
-                </div>
-
-                {/* Field 5: Investment Budget */}
-                <div style={{ marginBottom: 28 }}>
-                  <label style={{ fontWeight: 700, fontSize: '0.88rem', marginBottom: 6, display: 'block', color: dark ? '#cbd5e1' : '#334155' }}>5. Investment Budget Range *</label>
-                  <select
-                    id="budget"
-                    value={formData.budget}
-                    onChange={handleFormChange}
-                    style={{
-                      width: '100%', padding: '14px 16px', borderRadius: 12,
-                      border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
-                      background: dark ? '#0f172a' : '#f8fafc',
-                      color: dark ? '#f8fafc' : '#0f172a', fontSize: '0.95rem', outline: 'none'
-                    }}
-                  >
-                    <option>₹13L - ₹15L (Alpha Model)</option>
-                    <option>₹15L - ₹20L (Beta Model)</option>
-                    <option>₹22L - ₹25L (Combo Model)</option>
-                    <option>₹35L+ (Hydro-Carbon Studio)</option>
-                  </select>
-                </div>
-
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  style={{
-                    width: '100%', padding: '16px', borderRadius: 12, border: 'none',
-                    background: 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)',
-                    color: '#ffffff', fontWeight: 800, fontSize: '1.05rem',
-                    fontFamily: 'Poppins, sans-serif', cursor: 'pointer',
-                    boxShadow: '0 8px 24px rgba(22,163,74,0.3)', transition: 'transform 0.2s'
-                  }}
-                >
-                  {isSubmitting ? 'Submitting Application...' : 'Talk to Franchise Team →'}
-                </button>
-              </form>
-            )}
-          </div>
-        </div>
-      </section>
 
       {/* ══════════════════ SECTION 4: WHY CLEANZ24 (DIFFERENTIATION) ══════════════════ */}
       <section id="why-us" style={{ padding: '80px 0', background: dark ? '#0f172a' : '#ffffff' }}>
