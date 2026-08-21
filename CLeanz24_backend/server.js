@@ -1,4 +1,6 @@
 require('dotenv').config();
+const dns = require('dns');
+try { dns.setServers(['8.8.8.8', '1.1.1.1']); } catch (e) {}
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -178,7 +180,8 @@ app.post('/api/admin/login', (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) return res.status(400).json({ message: 'Email and password are required.' });
 
-    if (email.trim().toLowerCase() !== (process.env.ADMIN_EMAIL || '').toLowerCase()) {
+    const allowedEmails = (process.env.ADMIN_EMAIL || '').toLowerCase().split(',').map(e => e.trim());
+    if (!allowedEmails.includes(email.trim().toLowerCase())) {
       return res.status(401).json({ message: 'Invalid email or password.' });
     }
     if (password !== process.env.ADMIN_PASSWORD) {

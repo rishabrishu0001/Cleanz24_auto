@@ -249,7 +249,7 @@ function FranchiseForm() {
   };
 
   return (
-    <div style={{ background: '#ffffff', borderRadius: 24, padding: '40px 32px', border: '2px solid #86efac', boxShadow: '0 16px 48px rgba(0,0,0,0.08)' }}>
+    <div id="franchise_form" style={{ background: '#ffffff', borderRadius: 24, padding: '40px 32px', border: '2px solid #86efac', boxShadow: '0 16px 48px rgba(0,0,0,0.08)' }}>
       <div style={{ background: '#dcfce7', borderRadius: 12, padding: '10px 16px', textAlign: 'center', marginBottom: 24, color: '#15803d', fontWeight: 700, fontSize: '0.88rem' }}>
         📞 Our franchise team will call you within 24 hours
       </div>

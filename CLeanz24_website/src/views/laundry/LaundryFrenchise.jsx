@@ -1099,7 +1099,7 @@ function LaundryFrenchise() {
       </section>
 
       {/* ══════════════════ SECTION 8: FINAL FORM (CONVERSION POINT) ══════════════════ */}
-      <section id="franchise-form" style={{ padding: '90px 0', background: dark ? '#0f172a' : '#ffffff' }}>
+      <section id="franchise_form" style={{ padding: '90px 0', background: dark ? '#0f172a' : '#ffffff' }}>
         <div className="container" style={{ maxWidth: 640 }}>
           <div style={{
             background: dark ? '#1e293b' : '#ffffff',

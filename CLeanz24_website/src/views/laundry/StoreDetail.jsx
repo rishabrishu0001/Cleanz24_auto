@@ -238,8 +238,22 @@ import kurukkolLgMachines from '../../assets/cleanz24_kurukkol_lg_machines.jpg';
 import kurukkolStorefrontExterior from '../../assets/cleanz24_kurukkol_storefront_exterior.jpg';
 import kurukkolShelvingSupplies from '../../assets/cleanz24_kurukkol_shelving_supplies.jpg';
 
+// Kazhakkoottam Trivandrum Kerala (id: 76)
+import kazhakkoottamStorefrontEntrance from '../../assets/cleanz24_kazhakkoottam_storefront_entrance.jpg';
+import kazhakkoottamStorefrontBuilding from '../../assets/cleanz24_kazhakkoottam_storefront_building.jpg';
+import kazhakkoottamReception from '../../assets/cleanz24_kazhakkoottam_reception.jpg';
+import kazhakkoottamSteamIroning from '../../assets/cleanz24_kazhakkoottam_steam_ironing.jpg';
+import kazhakkoottamLgMachines from '../../assets/cleanz24_kazhakkoottam_lg_machines.jpg';
+
 // Map of store id -> image arrays (add more stores here as images are added)
 const STORE_IMAGES = {
+  76: [
+    kazhakkoottamStorefrontEntrance,
+    kazhakkoottamStorefrontBuilding,
+    kazhakkoottamReception,
+    kazhakkoottamSteamIroning,
+    kazhakkoottamLgMachines,
+  ],
   75: [
     kurukkolStorefrontEntrance,
     kurukkolReceptionDesk,
@@ -674,9 +688,28 @@ export default function StoreDetail() {
   const [activeImg, setActiveImg] = useState(0);
   const [lightbox, setLightbox] = useState(false);
 
-  const store = storesData.find(
-    (s) => generateStoreSlug(s.name) === storeSlug || getShortSlug(s.name) === storeSlug
-  );
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash;
+      if (hash === '#franchise_form' || hash === '#franchise-form') {
+        setTimeout(() => {
+          const el = document.getElementById('franchise_form') || document.getElementById('franchise-form');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 350);
+      }
+    }
+  }, []);
+
+  const store = storesData.find((s) => {
+    if (!s || !s.name) return false;
+    const fullSlug = generateStoreSlug(s.name);
+    const shortSlug = getShortSlug(s.name);
+    const citySlug = s.city ? s.city.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-') : '';
+    const cityFullSlug = citySlug ? `best-laundry-drycleaning-services-${citySlug}` : '';
+    return storeSlug === fullSlug || storeSlug === shortSlug || storeSlug === citySlug || storeSlug === cityFullSlug;
+  });
 
   const theme = {
     bg: isDarkMode ? '#070F1E' : '#FFFFFF',
@@ -1253,6 +1286,25 @@ export default function StoreDetail() {
       {/* ── SECTION 8: CLEANZ24 STORES NEAR YOU ── */}
       <StoresNearYouSection currentStoreSlug={slug} isDarkMode={isDarkMode} theme={theme} />
 
+      {/* ── SECTION 8b: FRANCHISE INQUIRY FORM ── */}
+      <section id="franchise_form" style={{ padding: '60px 20px', background: theme.bgAlt, borderTop: `1px solid ${theme.border}` }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+            <span style={{ color: theme.primary, fontWeight: 800, fontSize: '12px', letterSpacing: '1.5px', textTransform: 'uppercase' }}>
+              FRANCHISE OPPORTUNITY
+            </span>
+            <h2 style={{ fontSize: '28px', fontWeight: 900, color: theme.text, marginTop: '6px', fontFamily: "'Poppins', sans-serif" }}>
+              Own a Cleanz24 Franchise in {store.city}
+            </h2>
+            <p style={{ color: theme.muted, fontSize: '14px', maxWidth: '600px', margin: '8px auto 0' }}>
+              Join India's fastest-growing laundry &amp; dry cleaning franchise network. Fill the form below to receive your free brochure &amp; investment report for <strong>{store.city}</strong>.
+            </p>
+          </div>
+
+          <FranchiseInquiryForm store={store} theme={theme} isDarkMode={isDarkMode} />
+        </div>
+      </section>
+
       {/* ── SECTION 9: LOCALITY & CITY LINKS ── */}
       <section style={{ padding: '40px 20px', background: theme.bgAlt, borderTop: `1px solid ${theme.border}` }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
@@ -1272,7 +1324,7 @@ export default function StoreDetail() {
             <span style={{ color: theme.border }}>|</span>
             <Link href={`/best-laundry-drycleaning/${store.city.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} style={{ color: theme.primary, textDecoration: 'none' }}>All Stores in {store.city} →</Link>
             <span style={{ color: theme.border }}>|</span>
-            <Link href="/franchise-opportunities-in-india" style={{ color: theme.primary, textDecoration: 'none' }}>Franchise Opportunities →</Link>
+            <a href="#franchise_form" style={{ color: theme.primary, textDecoration: 'none' }}>Franchise Opportunities (#franchise_form) →</a>
           </div>
         </div>
       </section>
@@ -1509,5 +1561,165 @@ function StoresNearYouSection({ currentStoreSlug, isDarkMode, theme }) {
 
       </div>
     </section>
+  );
+}
+
+// ── FRANCHISE INQUIRY FORM SUB-COMPONENT ────────────────────────
+function FranchiseInquiryForm({ store, theme, isDarkMode }) {
+  const [form, setForm] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    city: store?.city || '',
+    model: 'BETA MODEL — ₹15 Lacs+ (Most Popular)',
+  });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!form.name.trim() || !form.phone.trim()) {
+      setError('Please fill in required fields (Name & Phone).');
+      return;
+    }
+    setSubmitting(true);
+    setError('');
+
+    try {
+      const res = await fetch('/api/franchise', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          mobile: form.phone.trim(),
+          email: form.email.trim(),
+          city: form.city.trim() || store.city,
+          modelType: form.model,
+          source: `Store Page (${store.name})`,
+        }),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        const data = await res.json();
+        setError(data.message || 'Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      setError('Network error. Please check your connection.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  if (submitted) {
+    return (
+      <div style={{ background: theme.card, borderRadius: '20px', padding: '40px 24px', border: `2px solid ${theme.accentGreen}`, textAlign: 'center', boxShadow: '0 8px 30px rgba(0,0,0,0.06)' }}>
+        <div style={{ fontSize: '48px', marginBottom: '12px' }}>🎉</div>
+        <h3 style={{ fontSize: '22px', fontWeight: 800, color: theme.accentGreen, marginBottom: '8px' }}>Franchise Inquiry Received!</h3>
+        <p style={{ color: theme.muted, fontSize: '15px', maxWidth: '500px', margin: '0 auto 20px', lineHeight: 1.6 }}>
+          Thank you <strong>{form.name}</strong>! Our expansion team will call you within 24 hours regarding Cleanz24 franchise opportunities in <strong>{form.city || store.city}</strong>.
+        </p>
+        <a href={`https://wa.me/919138004800?text=${encodeURIComponent(`Hi Cleanz24! I submitted a franchise inquiry for ${form.city || store.city}.`)}`} target="_blank" rel="noreferrer" style={{ background: '#25D366', color: '#fff', padding: '12px 28px', borderRadius: '30px', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+          💬 Chat On WhatsApp (+91 91380 04800)
+        </a>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} style={{ background: theme.card, borderRadius: '20px', padding: '32px 28px', border: `1px solid ${theme.border}`, boxShadow: isDarkMode ? '0 8px 30px rgba(0,0,0,0.3)' : '0 8px 30px rgba(0,0,0,0.06)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px', marginBottom: '20px' }}>
+        <div>
+          <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: theme.text, marginBottom: '6px' }}>
+            Full Name <span style={{ color: '#E53E3E' }}>*</span>
+          </label>
+          <input
+            name="name"
+            type="text"
+            value={form.name}
+            onChange={handleChange}
+            placeholder="Enter your name"
+            required
+            style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: `1.5px solid ${theme.border}`, background: theme.bgAlt, color: theme.text, fontSize: '14px', outline: 'none' }}
+          />
+        </div>
+
+        <div>
+          <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: theme.text, marginBottom: '6px' }}>
+            Phone / WhatsApp <span style={{ color: '#E53E3E' }}>*</span>
+          </label>
+          <input
+            name="phone"
+            type="tel"
+            value={form.phone}
+            onChange={handleChange}
+            placeholder="10-digit mobile number"
+            required
+            style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: `1.5px solid ${theme.border}`, background: theme.bgAlt, color: theme.text, fontSize: '14px', outline: 'none' }}
+          />
+        </div>
+
+        <div>
+          <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: theme.text, marginBottom: '6px' }}>
+            Email Address
+          </label>
+          <input
+            name="email"
+            type="email"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="you@example.com"
+            style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: `1.5px solid ${theme.border}`, background: theme.bgAlt, color: theme.text, fontSize: '14px', outline: 'none' }}
+          />
+        </div>
+
+        <div>
+          <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: theme.text, marginBottom: '6px' }}>
+            Preferred City / Locality
+          </label>
+          <input
+            name="city"
+            type="text"
+            value={form.city}
+            onChange={handleChange}
+            placeholder="e.g. Kazhakkoottam / Trivandrum"
+            style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: `1.5px solid ${theme.border}`, background: theme.bgAlt, color: theme.text, fontSize: '14px', outline: 'none' }}
+          />
+        </div>
+      </div>
+
+      <div style={{ marginBottom: '24px' }}>
+        <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: theme.text, marginBottom: '6px' }}>
+          Select Franchise Model
+        </label>
+        <select
+          name="model"
+          value={form.model}
+          onChange={handleChange}
+          style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: `1.5px solid ${theme.border}`, background: theme.bgAlt, color: theme.text, fontSize: '14px', outline: 'none' }}
+        >
+          <option value="ALPHA MODEL — ₹13 Lacs+ (Starter)">ALPHA MODEL — ₹13 Lacs+ (Starter)</option>
+          <option value="BETA MODEL — ₹15 Lacs+ (Most Popular)">BETA MODEL — ₹15 Lacs+ (Most Popular)</option>
+          <option value="COMBO MODEL — ₹22 Lacs+ (Commercial)">COMBO MODEL — ₹22 Lacs+ (Commercial)</option>
+          <option value="HYDRO-CARBON MODEL — ₹35 Lacs+ (Premium)">HYDRO-CARBON MODEL — ₹35 Lacs+ (Premium)</option>
+        </select>
+      </div>
+
+      {error && <p style={{ color: '#E53E3E', fontSize: '13px', marginBottom: '16px', fontWeight: 600 }}>⚠️ {error}</p>}
+
+      <button
+        type="submit"
+        disabled={submitting}
+        style={{ width: '100%', background: theme.primaryGrad, color: '#fff', border: 'none', padding: '14px 28px', borderRadius: '30px', fontWeight: 800, fontSize: '15px', cursor: 'pointer', boxShadow: '0 4px 16px rgba(37,99,235,0.3)', opacity: submitting ? 0.7 : 1 }}
+      >
+        {submitting ? '⏳ Submitting Application...' : '🚀 Submit Franchise Application'}
+      </button>
+    </form>
   );
 }

@@ -20,6 +20,18 @@ const getShortSlug = (name) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)+/g, '');
 
+const findStoreBySlug = (slug) => {
+  if (!slug) return null;
+  return storesData.find((s) => {
+    if (!s || !s.name) return false;
+    const fullSlug = generateStoreSlug(s.name);
+    const shortSlug = getShortSlug(s.name);
+    const citySlug = s.city ? s.city.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-') : '';
+    const cityFullSlug = citySlug ? `best-laundry-drycleaning-services-${citySlug}` : '';
+    return slug === fullSlug || slug === shortSlug || slug === citySlug || slug === cityFullSlug;
+  });
+};
+
 export async function generateStaticParams() {
   const list = Array.isArray(storesData) ? storesData : [];
   const paramsList = [];
@@ -27,6 +39,11 @@ export async function generateStaticParams() {
     if (s && s.name) {
       paramsList.push({ storeSlug: generateStoreSlug(s.name) });
       paramsList.push({ storeSlug: getShortSlug(s.name) });
+      if (s.city) {
+        const citySlug = s.city.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-');
+        paramsList.push({ storeSlug: `best-laundry-drycleaning-services-${citySlug}` });
+        paramsList.push({ storeSlug: citySlug });
+      }
     }
   }
   return paramsList;
@@ -35,11 +52,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const storeSlug = resolvedParams?.storeSlug || '';
-  const store = storesData.find(
-    (s) =>
-      generateStoreSlug(s.name) === storeSlug ||
-      getShortSlug(s.name) === storeSlug
-  );
+  const store = findStoreBySlug(storeSlug);
 
   if (!store) {
     return {
@@ -96,11 +109,7 @@ export async function generateMetadata({ params }) {
 export default async function StoreDetailPage({ params }) {
   const resolvedParams = await params;
   const storeSlug = resolvedParams?.storeSlug || '';
-  const store = storesData.find(
-    (s) =>
-      generateStoreSlug(s.name) === storeSlug ||
-      getShortSlug(s.name) === storeSlug
-  );
+  const store = findStoreBySlug(storeSlug);
 
   const url = `https://cleanz24.com/best-laundry-drycleaning/store/${storeSlug}`;
   const storeName = store ? store.name : 'Cleanz24 Studio';

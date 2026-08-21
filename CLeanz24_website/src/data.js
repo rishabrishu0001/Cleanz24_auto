@@ -861,10 +861,9 @@ export const storesData = [
     whatsapp: '919138004800',
     city: 'Kazhakkoottam',
     state: 'Kerala',
-    tags: ['Kerala', 'Trivandrum', 'Thiruvananthapuram', 'Kazhakkoottam', '695582', 'Opening Soon'],
+    tags: ['Kerala', 'Trivandrum', 'Thiruvananthapuram', 'Kazhakkoottam', '695582'],
     rating: 4.9,
-    reviews: 15,
-    status: 'Opening Soon'
+    reviews: 15
   },
   {
     id: 77,

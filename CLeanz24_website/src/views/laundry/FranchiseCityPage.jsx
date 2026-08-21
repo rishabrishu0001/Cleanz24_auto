@@ -418,7 +418,7 @@ export default function FranchiseCityPage() {
               <div className="fcp-keywords">{["Laundry Franchise " + cityName, "Dry Cleaning Franchise " + cityName, "Best Business " + cityName, "Low Investment High Returns", "Profitable Franchise Model", "Service Near Me " + cityName].map((k) => (<span className="fcp-keyword" key={k}>{k}</span>))}</div>
             </div>
 
-            <div className="fcp-form-wrap" id="franchise-form">
+            <div className="fcp-form-wrap" id="franchise_form">
               {submitted ? (
                 <div className="fcp-success">
                   <div className="fcp-success-icon">🎉</div>

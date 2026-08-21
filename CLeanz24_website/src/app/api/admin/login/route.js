@@ -8,7 +8,8 @@ export async function POST(request) {
       return NextResponse.json({ message: 'Email and password are required.' }, { status: 400 });
     }
 
-    if (email.trim().toLowerCase() !== (process.env.ADMIN_EMAIL || '').toLowerCase()) {
+    const allowedEmails = (process.env.ADMIN_EMAIL || '').toLowerCase().split(',').map(e => e.trim());
+    if (!allowedEmails.includes(email.trim().toLowerCase())) {
       return NextResponse.json({ message: 'Invalid email or password.' }, { status: 401 });
     }
     if (password !== process.env.ADMIN_PASSWORD) {

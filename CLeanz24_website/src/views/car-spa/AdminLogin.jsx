@@ -65,14 +65,15 @@ export default function AdminLogin() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone: phone.replace(/\D/g, '') }),
       });
-      const data = await res.json();
-      if (!res.ok) { setError(data.message); return; }
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) { setError(data.message || `Request failed (${res.status})`); return; }
       setOtpSent(true);
       setOtpTimer(60);
-      setSuccess(data.message);
+      setSuccess(data.message || 'OTP sent successfully.');
       setTimeout(() => setSuccess(''), 4000);
-    } catch {
-      setError('Network error. Is the backend running?');
+    } catch (err) {
+      console.error('Send OTP error:', err);
+      setError(`Network error: ${err.message || 'Unable to connect to backend'}`);
     } finally {
       setLoading(false);
     }
@@ -89,12 +90,13 @@ export default function AdminLogin() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone: phone.replace(/\D/g, ''), otp }),
       });
-      const data = await res.json();
-      if (!res.ok) { setError(data.message); return; }
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) { setError(data.message || `Verification failed (${res.status})`); return; }
       localStorage.setItem('cleanz24_admin_token', data.token);
       navigate('/car-spa/admin/dashboard', { replace: true });
-    } catch {
-      setError('Network error. Is the backend running?');
+    } catch (err) {
+      console.error('Verify OTP error:', err);
+      setError(`Network error: ${err.message || 'Unable to connect to backend'}`);
     } finally {
       setLoading(false);
     }
@@ -110,12 +112,13 @@ export default function AdminLogin() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
-      const data = await res.json();
-      if (!res.ok) { setError(data.message); return; }
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) { setError(data.message || `Login failed (${res.status})`); return; }
       localStorage.setItem('cleanz24_admin_token', data.token);
       navigate('/car-spa/admin/dashboard', { replace: true });
-    } catch {
-      setError('Network error. Is the backend running?');
+    } catch (err) {
+      console.error('Password login error:', err);
+      setError(`Network error: ${err.message || 'Unable to connect to backend'}`);
     } finally {
       setLoading(false);
     }

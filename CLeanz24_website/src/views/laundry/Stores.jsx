@@ -54,18 +54,6 @@ const comingSoonStores = [
     phone: "9138004800",
     timeline: "Opening 15 August ",
     status: "Opening Soon"
-  },
-  {
-    id: 9,
-    name: "Cleanz24 - Kazhakkoottam Thiruvananthapuram",
-    type: "Laundry",
-    city: "Thiruvananthapuram",
-    state: "Kerala",
-    area: "Maple Square, Kariyil, Kazhakkoottam",
-    address: "Maple Square, Kariyil, Kazhakkoottam, Thiruvananthapuram, Kerala 695582",
-    phone: "9138004800",
-    timeline: "Opening Soon",
-    status: "Opening Soon"
   }
 ];
 
