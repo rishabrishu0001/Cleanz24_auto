@@ -358,6 +358,15 @@ function LeadPopup() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Listen for external trigger (e.g. from ExpertContactButton)
+  useEffect(() => {
+    const handler = () => setShowLeadPopup(true);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('openFranchisePopup', handler);
+      return () => window.removeEventListener('openFranchisePopup', handler);
+    }
+  }, []);
+
   useEffect(() => {
     if (typeof document !== 'undefined') {
       document.body.style.overflow = showLeadPopup ? 'hidden' : '';
@@ -511,6 +520,44 @@ function LocationsGrid() {
   );
 }
 
+// ─── Expert Contact Floating Button ─────────────────────────────────────────
+function ExpertContactButton() {
+  const handleClick = () => {
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('openFranchisePopup'));
+    }
+  };
+
+  return (
+    <>
+      <button
+        onClick={handleClick}
+        aria-label="Hamare expert se contact karein — franchise inquiry"
+        style={{
+          position: 'fixed', bottom: 90, right: 20, zIndex: 9998,
+          background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+          color: '#ffffff', border: 'none',
+          padding: '13px 20px', borderRadius: 30,
+          fontWeight: 700, fontSize: '0.88rem',
+          display: 'flex', alignItems: 'center', gap: 8,
+          boxShadow: '0 8px 28px rgba(37,99,235,0.45)',
+          fontFamily: 'Poppins, sans-serif', cursor: 'pointer',
+          animation: 'expertBtnPulse 2.5s ease-in-out infinite',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        <span style={{ fontSize: '1.15rem' }}>👨‍💼</span> Talk to Our Expert
+      </button>
+      <style>{`
+        @keyframes expertBtnPulse {
+          0%, 100% { box-shadow: 0 8px 28px rgba(37,99,235,0.45); transform: translateY(0px); }
+          50% { box-shadow: 0 12px 36px rgba(37,99,235,0.65); transform: translateY(-3px); }
+        }
+      `}</style>
+    </>
+  );
+}
+
 // ─── Main export: section-based dispatcher ────────────────────────────────────
 export default function LaundryFranchiseInteractive({ section }) {
   if (section === 'slideshow') return <HeroSlideshow />;
@@ -522,5 +569,11 @@ export default function LaundryFranchiseInteractive({ section }) {
     </>
   );
   if (section === 'locations') return <LocationsGrid />;
+  if (section === 'expertBtn') return (
+    <>
+      <LeadPopup />
+      <ExpertContactButton />
+    </>
+  );
   return null;
 }

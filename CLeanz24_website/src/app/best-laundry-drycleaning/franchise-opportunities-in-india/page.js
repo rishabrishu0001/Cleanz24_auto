@@ -673,6 +673,11 @@ export default function Page() {
           </div>
         </section>
 
+        {/* Expert Contact Floating Button — opens franchise popup on click */}
+        <Suspense fallback={null}>
+          <LaundryFranchiseInteractive section="expertBtn" />
+        </Suspense>
+
         {/* Sticky WhatsApp CTA */}
         <a
           href="https://wa.me/919138004800?text=Hi%2C%20I%20am%20interested%20in%20a%20Cleanz24%20Laundry%20Franchise.%20Please%20send%20details."
