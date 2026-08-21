@@ -397,7 +397,26 @@ function LeadPopup() {
   const [popupSubmitting, setPopupSubmitting] = useState(false);
   const [popupSubmitted, setPopupSubmitted] = useState(false);
   const [popupError, setPopupError] = useState('');
+  const [isDark, setIsDark] = useState(false);
   const pathname = usePathname() || '';
+
+  useEffect(() => {
+    const checkDark = () => {
+      if (typeof document !== 'undefined') {
+        const isDarkTheme = document.body.classList.contains('dark') ||
+          document.documentElement.getAttribute('data-bs-theme') === 'dark' ||
+          document.body.getAttribute('data-bs-theme') === 'dark';
+        setIsDark(Boolean(isDarkTheme));
+      }
+    };
+    checkDark();
+    const observer = new MutationObserver(checkDark);
+    if (typeof document !== 'undefined') {
+      observer.observe(document.body, { attributes: true, attributeFilter: ['class', 'data-bs-theme'] });
+      observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-bs-theme'] });
+    }
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     let alreadySeen = false;
@@ -497,31 +516,56 @@ function LeadPopup() {
       role="dialog"
       aria-modal="true"
       aria-label="Free franchise consultation offer"
-      style={{ position: 'fixed', inset: 0, background: 'rgba(15, 23, 42, 0.75)', zIndex: 99999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, backdropFilter: 'blur(6px)' }}
+      style={{ position: 'fixed', inset: 0, background: 'rgba(15, 23, 42, 0.8)', zIndex: 99999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, backdropFilter: 'blur(8px)' }}
     >
-      <div style={{ background: '#ffffff', borderRadius: 20, maxWidth: 480, width: '100%', padding: 32, position: 'relative', boxShadow: '0 20px 60px rgba(0,0,0,0.3)', border: '1px solid #e2e8f0' }}>
+      <style>{`
+        .lead-popup-input-${isDark ? 'dark' : 'light'} {
+          background-color: ${isDark ? '#0f172a' : '#f8fafc'} !important;
+          color: ${isDark ? '#f8fafc' : '#0f172a'} !important;
+          border: 1.5px solid ${isDark ? '#334155' : '#cbd5e1'} !important;
+        }
+        .lead-popup-input-${isDark ? 'dark' : 'light'}::placeholder {
+          color: ${isDark ? '#94a3b8' : '#64748b'} !important;
+          opacity: 1 !important;
+        }
+        .lead-popup-input-${isDark ? 'dark' : 'light'}:focus {
+          border-color: #16a34a !important;
+          box-shadow: 0 0 0 3px ${isDark ? 'rgba(34,197,94,0.25)' : 'rgba(22,163,74,0.15)'} !important;
+        }
+      `}</style>
+      <div style={{
+        background: isDark ? '#1e293b' : '#ffffff',
+        borderRadius: 20, maxWidth: 480, width: '100%', padding: 32, position: 'relative',
+        boxShadow: isDark ? '0 25px 65px rgba(0,0,0,0.6)' : '0 20px 60px rgba(0,0,0,0.2)',
+        border: `1px solid ${isDark ? '#334155' : '#e2e8f0'}`
+      }}>
         <button
           onClick={closeLeadPopup}
           aria-label="Close popup"
-          style={{ position: 'absolute', top: 16, right: 16, background: 'rgba(0,0,0,0.06)', border: 'none', borderRadius: '50%', width: 32, height: 32, cursor: 'pointer', fontSize: 18, color: '#64748b' }}
+          style={{
+            position: 'absolute', top: 16, right: 16,
+            background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.06)',
+            border: 'none', borderRadius: '50%', width: 32, height: 32,
+            cursor: 'pointer', fontSize: 18, color: isDark ? '#cbd5e1' : '#64748b'
+          }}
         >✕</button>
 
         {popupSubmitted ? (
           <div style={{ textAlign: 'center', padding: '20px 0' }}>
             <div style={{ fontSize: 48, marginBottom: 12 }}>🎉</div>
             <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, color: '#16a34a', marginBottom: 8 }}>Details Received!</h3>
-            <p style={{ color: '#64748b', fontSize: '0.9rem' }}>Our franchise team will connect with you shortly.</p>
+            <p style={{ color: isDark ? '#94a3b8' : '#64748b', fontSize: '0.9rem' }}>Our franchise team will connect with you shortly.</p>
           </div>
         ) : (
           <>
-            <div style={{ display: 'inline-block', background: '#dcfce7', borderRadius: 20, padding: '4px 12px', marginBottom: 12 }}>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#15803d', fontFamily: 'Poppins, sans-serif' }}>FREE CONSULTATION</span>
+            <div style={{ display: 'inline-block', background: isDark ? 'rgba(34,197,94,0.2)' : '#dcfce7', border: `1px solid ${isDark ? '#4ade80' : '#86efac'}`, borderRadius: 20, padding: '4px 12px', marginBottom: 12 }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: isDark ? '#4ade80' : '#15803d', fontFamily: 'Poppins, sans-serif' }}>FREE CONSULTATION</span>
             </div>
-            <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.4rem', color: '#0f172a', marginBottom: 6 }}>
-              Get Franchise Details <span style={{ color: '#16a34a' }}>Instantly</span> 🚀
+            <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.4rem', color: isDark ? '#f8fafc' : '#0f172a', marginBottom: 6 }}>
+              Get Franchise Details <span style={{ color: isDark ? '#4ade80' : '#16a34a' }}>Instantly</span> 🚀
             </h3>
-            <p style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: 20 }}>
-              Investment starts at <strong>₹13 Lacs</strong>. Expected ROI in 18–20 months.
+            <p style={{ fontSize: '0.85rem', color: isDark ? '#cbd5e1' : '#64748b', marginBottom: 20 }}>
+              Investment starts at <strong style={{ color: isDark ? '#f8fafc' : '#0f172a' }}>₹13 Lacs</strong>. Expected ROI in 18–20 months.
             </p>
             <form onSubmit={handlePopupSubmit}>
               {[
@@ -539,7 +583,8 @@ function LeadPopup() {
                   onChange={handlePopupChange}
                   required={field.required}
                   maxLength={field.maxLength}
-                  style={{ width: '100%', padding: '12px 14px', borderRadius: 10, border: '1.5px solid #e2e8f0', background: '#f8fafc', color: '#0f172a', marginBottom: 12, outline: 'none' }}
+                  className={`lead-popup-input-${isDark ? 'dark' : 'light'}`}
+                  style={{ width: '100%', padding: '12px 14px', borderRadius: 10, marginBottom: 12, outline: 'none' }}
                 />
               ))}
               {popupError && <div style={{ color: '#dc2626', fontSize: '0.8rem', marginBottom: 10 }}>⚠️ {popupError}</div>}
