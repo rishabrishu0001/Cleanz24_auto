@@ -13,18 +13,18 @@ export const metadata = {
   ],
   robots: 'index, follow',
   alternates: {
-    canonical: 'https://cleanz24.com/best-laundry-drycleaning/locations',
+    canonical: 'https://www.cleanz24.com/best-laundry-drycleaning/locations',
   },
   openGraph: {
     title: 'Cleanz24 Laundry Locations Across India | City Store Directory',
     description: 'Find Cleanz24 laundry and dry cleaning studios across Noida, Delhi NCR, Mumbai, Pune, Bangalore, Hyderabad, and 100+ cities in India.',
-    url: 'https://cleanz24.com/best-laundry-drycleaning/locations',
+    url: 'https://www.cleanz24.com/best-laundry-drycleaning/locations',
     type: 'website',
     siteName: 'Cleanz24',
     locale: 'en_IN',
     images: [
       {
-        url: 'https://cleanz24.com/assets/og-image.jpg',
+        url: 'https://www.cleanz24.com/assets/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Cleanz24 Locations Directory',
@@ -35,7 +35,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Cleanz24 Laundry Locations Across India | City Store Directory',
     description: 'Find Cleanz24 laundry and dry cleaning studios across Noida, Delhi NCR, Mumbai, Pune, Bangalore, and 100+ cities in India.',
-    images: ['https://cleanz24.com/assets/og-image.jpg'],
+    images: ['https://www.cleanz24.com/assets/og-image.jpg'],
   },
 };
 
@@ -48,13 +48,13 @@ export default function Page() {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://cleanz24.com/best-laundry-drycleaning',
+        item: 'https://www.cleanz24.com/best-laundry-drycleaning',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Locations Directory',
-        item: 'https://cleanz24.com/best-laundry-drycleaning/locations',
+        item: 'https://www.cleanz24.com/best-laundry-drycleaning/locations',
       },
     ],
   };

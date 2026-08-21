@@ -11,18 +11,18 @@ export const metadata = {
   description: "Start a profitable Cleanz24 laundry franchise in India. Investment from ₹13 Lakhs, 18–20 month ROI. 100+ stores across 21 states. Free consultation — apply now!",
   robots: 'index, follow',
   alternates: {
-    canonical: "https://cleanz24.com/best-laundry-drycleaning/franchise-opportunities-in-india",
+    canonical: "https://www.cleanz24.com/best-laundry-drycleaning/franchise-opportunities-in-india",
   },
   openGraph: {
     type: 'website',
     title: "Best Laundry Franchise in India 2025 | Cleanz24 Studio",
     description: "Start a profitable Cleanz24 laundry franchise in India. Investment from ₹13 Lakhs, 18–20 month ROI. 100+ stores across 21 states.",
-    url: "https://cleanz24.com/best-laundry-drycleaning/franchise-opportunities-in-india",
+    url: "https://www.cleanz24.com/best-laundry-drycleaning/franchise-opportunities-in-india",
     siteName: 'Cleanz24',
     locale: 'en_IN',
     images: [
       {
-        url: "https://cleanz24.com/logo_laundry.jpg",
+        url: "https://www.cleanz24.com/logo_laundry.jpg",
         width: 1200,
         height: 630,
         alt: "Cleanz24 — Best Laundry Franchise in India, Investment starting ₹13 Lakhs",
@@ -33,7 +33,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: "Best Laundry Franchise in India 2025 | Cleanz24 Studio",
     description: "Start a profitable Cleanz24 laundry franchise in India. Investment from ₹13 Lakhs, 18–20 month ROI. 100+ stores across 21 states.",
-    images: ["https://cleanz24.com/logo_laundry.jpg"],
+    images: ["https://www.cleanz24.com/logo_laundry.jpg"],
   },
 };
 
@@ -42,8 +42,8 @@ const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Cleanz24',
-  url: 'https://cleanz24.com',
-  logo: 'https://cleanz24.com/logo_laundry.jpg',
+  url: 'https://www.cleanz24.com',
+  logo: 'https://www.cleanz24.com/logo_laundry.jpg',
   description: "India's fastest-growing laundry and dry cleaning franchise chain with 100+ operational stores across 21+ states.",
   contactPoint: {
     '@type': 'ContactPoint',
@@ -62,8 +62,8 @@ const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://cleanz24.com/best-laundry-drycleaning' },
-    { '@type': 'ListItem', position: 2, name: 'Best Laundry Franchise in India', item: 'https://cleanz24.com/best-laundry-drycleaning/franchise-opportunities-in-india' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.cleanz24.com/best-laundry-drycleaning' },
+    { '@type': 'ListItem', position: 2, name: 'Best Laundry Franchise in India', item: 'https://www.cleanz24.com/best-laundry-drycleaning/franchise-opportunities-in-india' },
   ],
 };
 
@@ -126,7 +126,7 @@ const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   serviceType: 'Laundry & Dry Cleaning Franchise Business Opportunity',
-  provider: { '@type': 'Organization', name: 'Cleanz24', url: 'https://cleanz24.com' },
+  provider: { '@type': 'Organization', name: 'Cleanz24', url: 'https://www.cleanz24.com' },
   areaServed: { '@type': 'Country', name: 'India' },
   offers: [
     { '@type': 'Offer', name: 'Alpha Franchise Model', description: 'Entry-level studio setup for laundry and pressing. Investment starting ₹13 Lakhs. Minimum area 250 sq.ft.' },

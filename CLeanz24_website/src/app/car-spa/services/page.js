@@ -7,18 +7,18 @@ export const metadata = {
   keywords: ["car foam wash","interior car cleaning","paint correction","ceramic coating","car detailing packages"],
   robots: 'index, follow',
   alternates: {
-    canonical: "https://cleanz24.com/car-spa/services",
+    canonical: "https://www.cleanz24.com/car-spa/services",
   },
   openGraph: {
     type: 'website',
     title: "Car Spa & Detailing Services | Cleanz24 Studio",
     description: "Explore Car Spa services: Foam wash, ceramic coating, paint protection film (PPF), interior deep cleaning, windshield rain repellent, and engine bay detailing.",
-    url: "https://cleanz24.com/car-spa/services",
+    url: "https://www.cleanz24.com/car-spa/services",
     siteName: 'Cleanz24',
     locale: 'en_IN',
     images: [
       {
-        url: "https://cleanz24.com/logo_carspa.jpg",
+        url: "https://www.cleanz24.com/logo_carspa.jpg",
         width: 1200,
         height: 630,
         alt: "Car Spa & Detailing Services | Cleanz24 Studio",
@@ -29,7 +29,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: "Car Spa & Detailing Services | Cleanz24 Studio",
     description: "Explore Car Spa services: Foam wash, ceramic coating, paint protection film (PPF), interior deep cleaning, windshield rain repellent, and engine bay detailing.",
-    images: ["https://cleanz24.com/logo_carspa.jpg"],
+    images: ["https://www.cleanz24.com/logo_carspa.jpg"],
   },
 };
 

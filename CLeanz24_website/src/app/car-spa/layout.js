@@ -5,7 +5,7 @@ export const metadata = {
   title: 'Cleanz24 Car Spa Studio | Master Auto Detailing, Ceramic Coating & PPF',
   description: 'Experience India’s finest Car Spa Studio by Cleanz24. Premium foam wash, interior deep cleaning, 9H ceramic coating, paint protection film (PPF), and paint restoration.',
   alternates: {
-    canonical: 'https://cleanz24.com/car-spa',
+    canonical: 'https://www.cleanz24.com/car-spa',
   },
 };
 

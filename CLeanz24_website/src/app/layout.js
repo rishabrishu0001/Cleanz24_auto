@@ -52,7 +52,7 @@ const rethinkSans = Rethink_Sans({
 });
 
 export const metadata = {
-  metadataBase: new URL('https://cleanz24.com'),
+  metadataBase: new URL('https://www.cleanz24.com'),
   title: {
     default: 'Cleanz24 — Premium Laundry & Dry Clean Studio',
     template: '%s | Cleanz24',
@@ -83,7 +83,7 @@ export const metadata = {
     locale: 'en_IN',
     images: [
       {
-        url: 'https://cleanz24.com/logo_laundry.jpg',
+        url: 'https://www.cleanz24.com/logo_laundry.jpg',
         width: 1200,
         height: 630,
         alt: 'Cleanz24 — Premium Laundry & Dry Clean Studio',
@@ -94,7 +94,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Cleanz24 — Premium Laundry & Dry Clean Studio',
     description: "Cleanz24 is India's leading Premium Laundry & Dry Clean Studio network with 100+ locations across 21+ states.",
-    images: ['https://cleanz24.com/logo_laundry.jpg'],
+    images: ['https://www.cleanz24.com/logo_laundry.jpg'],
   },
   verification: {
     google: 'AIg5ewR8Y48basP_naVzIgwxZ8p9-HTEW23ePDnbjP4',
@@ -106,7 +106,7 @@ const jsonLd = {
   '@type': 'Organization',
   name: 'Cleanz24',
   description: "Cleanz24 is India's leading Premium Laundry & Dry Clean Studio network with 100+ operational franchise stores across 21+ states in India.",
-  url: 'https://cleanz24.com',
+  url: 'https://www.cleanz24.com',
   telephone: '+919138004800',
   email: 'happy2helpu@cleanz24.com',
   numberOfEmployees: '500+',
