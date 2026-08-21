@@ -651,11 +651,7 @@ export default function LaundryFranchiseInteractive({ section }) {
     </>
   );
   if (section === 'locations') return <LocationsGrid />;
-  if (section === 'expertBtn') return (
-    <>
-      <LeadPopup />
-      <ExpertContactButton />
-    </>
-  );
+  if (section === 'expertBtn') return <ExpertContactButton />;
+  if (section === 'popup') return <LeadPopup />;
   return null;
 }
