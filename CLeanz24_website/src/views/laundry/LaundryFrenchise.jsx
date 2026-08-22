@@ -646,12 +646,13 @@ function LaundryFrenchise() {
 
             {/* Right Column: Compact Franchise Form */}
             <div className="col-lg-6">
-              <div id="franchise_form" style={{
-                background: dark ? 'rgba(30, 41, 59, 0.95)' : 'rgba(255, 255, 255, 0.98)',
-                borderRadius: 20, padding: '22px 20px',
-                border: `2px solid ${dark ? '#334155' : '#86efac'}`,
-                boxShadow: '0 20px 45px rgba(0,0,0,0.14)'
-              }}>
+              <div id="franchise-form">
+                <div id="franchise_form" style={{
+                  background: dark ? 'rgba(30, 41, 59, 0.95)' : 'rgba(255, 255, 255, 0.98)',
+                  borderRadius: 20, padding: '22px 20px',
+                  border: `2px solid ${dark ? '#334155' : '#86efac'}`,
+                  boxShadow: '0 20px 45px rgba(0,0,0,0.14)'
+                }}>
                 <div style={{ background: '#dcfce7', borderRadius: 8, padding: '5px 10px', textAlign: 'center', marginBottom: 12, color: '#15803d', fontWeight: 700, fontSize: '0.78rem' }}>
                   ⚡ Quick Franchise Inquiry — Call back in 24 hrs
                 </div>
@@ -804,6 +805,7 @@ function LaundryFrenchise() {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </section>
 
@@ -1084,16 +1086,41 @@ function LaundryFrenchise() {
 
                   <a
                     href="#franchise-form"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      let b = '₹13L - ₹15L (Alpha Model)';
+                      const title = m.title.toUpperCase();
+                      if (title.includes('BETA')) b = '₹15L - ₹20L (Beta Model)';
+                      else if (title.includes('COMBO')) b = '₹22L - ₹25L (Combo Model)';
+                      else if (title.includes('HYDRO')) b = '₹35L+ (Hydro-Carbon Studio)';
+                      setFormData(prev => ({ ...prev, budget: b }));
+                      const target = document.getElementById('franchise-form') || document.getElementById('franchise_form');
+                      if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        target.style.transition = 'box-shadow 0.4s ease, border-color 0.4s ease';
+                        const prevBorder = target.style.border;
+                        target.style.borderColor = '#16a34a';
+                        target.style.boxShadow = '0 0 30px rgba(22, 163, 74, 0.6)';
+                        setTimeout(() => {
+                          target.style.border = prevBorder;
+                          target.style.boxShadow = '0 20px 45px rgba(0,0,0,0.14)';
+                        }, 1500);
+                      }
+                      setTimeout(() => {
+                        const nameInput = document.getElementById('name') || document.querySelector('input[name="name"]');
+                        if (nameInput) nameInput.focus();
+                      }, 450);
+                    }}
                     style={{
                       display: 'block', textAlignment: 'center', textAlign: 'center',
                       background: m.featured ? '#16a34a' : 'transparent',
                       color: m.featured ? '#ffffff' : (dark ? '#4ade80' : '#16a34a'),
                       border: m.featured ? 'none' : `1.5px solid ${dark ? '#4ade80' : '#16a34a'}`,
                       padding: '10px', borderRadius: 10, fontWeight: 700, textDecoration: 'none',
-                      fontSize: '0.88rem', fontFamily: 'Poppins, sans-serif'
+                      fontSize: '0.88rem', fontFamily: 'Poppins, sans-serif', cursor: 'pointer'
                     }}
                   >
-                    Select {m.title.split(' ')[0]} Model
+                    Enquire About {m.title.split(' ')[0]} Model
                   </a>
                 </div>
               </div>

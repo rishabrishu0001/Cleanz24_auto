@@ -419,49 +419,50 @@ export default function FranchiseCityPage() {
               <h2 className="fcp-section-title">Start Your <span style={{ color: dark ? "#4ade80" : "#16a34a" }}>Franchise in {cityName}</span> Today</h2>
               <p style={{ color: dark ? "#94a3b8" : "#6b7280", fontSize: "1rem", lineHeight: 1.7, marginBottom: "24px" }}>Take the first step towards owning the most profitable business in {cityName}. Our team will call you within 24 hours with a complete franchise kit.</p>
               <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>{["✅ Free franchise consultation call", "✅ Detailed ROI & profit model", "✅ Site selection & store setup support", "✅ Complete staff training & marketing kit", "✅ Exclusive area rights in " + cityName].map((p) => (<div key={p} style={{ fontSize: "0.92rem", color: dark ? "#cbd5e1" : "#374151", fontWeight: 500 }}>{p}</div>))}</div>
-              <div className="fcp-keywords">{["Laundry Franchise " + cityName, "Dry Cleaning Franchise " + cityName, "Best Business " + cityName, "Low Investment High Returns", "Profitable Franchise Model", "Service Near Me " + cityName].map((k) => (<span className="fcp-keyword" key={k}>{k}</span>))}</div>
             </div>
 
-            <div className="fcp-form-wrap" id="franchise_form">
-              {submitted ? (
-                <div className="fcp-success">
-                  <div className="fcp-success-icon">🎉</div>
-                  <div className="fcp-success-title">Enquiry Received!</div>
-                  <div className="fcp-success-text">
-                    Thank you! Our franchise team will call you within 24 hours regarding your enquiry for <strong>{cityName}</strong>.<br /><br />
-                    You can also WhatsApp us directly at <strong>+91 91380 04800</strong>.
+            <div id="franchise-form" style={{ width: '100%', maxWidth: '560px' }}>
+              <div className="fcp-form-wrap" id="franchise_form">
+                {submitted ? (
+                  <div className="fcp-success">
+                    <div className="fcp-success-icon">🎉</div>
+                    <div className="fcp-success-title">Enquiry Received!</div>
+                    <div className="fcp-success-text">
+                      Thank you! Our franchise team will call you within 24 hours regarding your enquiry for <strong>{cityName}</strong>.<br /><br />
+                      You can also WhatsApp us directly at <strong>+91 91380 04800</strong>.
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <>
-                  <div className="fcp-form-title">Franchise Enquiry — {cityName}</div>
-                  <div className="fcp-form-sub">Fill the form to get your FREE franchise brochure & ROI report for {cityName}</div>
-                  <form className="fcp-form" onSubmit={handleSubmit}>
-                    <label>Full Name <span style={{ color: "#e53e3e" }}>*</span></label>
-                    <input name="name" value={form.name} onChange={handleChange} placeholder="Your name" required />
+                ) : (
+                  <>
+                    <div className="fcp-form-title">Franchise Enquiry — {cityName}</div>
+                    <div className="fcp-form-sub">Fill the form to get your FREE franchise brochure & ROI report for {cityName}</div>
+                    <form className="fcp-form" onSubmit={handleSubmit}>
+                      <label>Full Name <span style={{ color: "#e53e3e" }}>*</span></label>
+                      <input name="name" value={form.name} onChange={handleChange} placeholder="Your name" required />
 
-                    <label>Phone Number <span style={{ color: "#e53e3e" }}>*</span></label>
-                    <input name="phone" value={form.phone} onChange={handleChange} placeholder="10-digit mobile number" required />
+                      <label>Phone Number <span style={{ color: "#e53e3e" }}>*</span></label>
+                      <input name="phone" value={form.phone} onChange={handleChange} placeholder="10-digit mobile number" required />
 
-                    <label>Email Address <span style={{ color: "#e53e3e" }}>*</span></label>
-                    <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="you@example.com" required />
+                      <label>Email Address <span style={{ color: "#e53e3e" }}>*</span></label>
+                      <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="you@example.com" required />
 
-                    <label>Select Franchise Model</label>
-                    <select name="model" value={form.model} onChange={handleChange}>
-                      <option value="ALPHA MODEL">ALPHA MODEL — ₹13 Lacs+ (Starter)</option>
-                      <option value="BETA MODEL">BETA MODEL — ₹15 Lacs+ (Most Popular)</option>
-                      <option value="COMBO MODEL">COMBO MODEL — ₹22 Lacs+ (Commercial)</option>
-                      <option value="HYDRO-CARBON MODEL">HYDRO-CARBON MODEL — ₹35 Lacs+ (Premium)</option>
-                    </select>
+                      <label>Select Franchise Model</label>
+                      <select name="model" value={form.model} onChange={handleChange}>
+                        <option value="ALPHA MODEL">ALPHA MODEL — ₹13 Lacs+ (Starter)</option>
+                        <option value="BETA MODEL">BETA MODEL — ₹15 Lacs+ (Most Popular)</option>
+                        <option value="COMBO MODEL">COMBO MODEL — ₹22 Lacs+ (Commercial)</option>
+                        <option value="HYDRO-CARBON MODEL">HYDRO-CARBON MODEL — ₹35 Lacs+ (Premium)</option>
+                      </select>
 
-                    {error ? <p style={{ color: "#e53e3e", fontSize: "0.88rem", marginBottom: "12px" }}>{error}</p> : null}
+                      {error ? <p style={{ color: "#e53e3e", fontSize: "0.88rem", marginBottom: "12px" }}>{error}</p> : null}
 
-                    <button type="submit" className="fcp-btn-primary" style={{ width: "100%", justifyContent: "center" }} disabled={submitting}>
-                      {submitting ? "⏳ Submitting..." : "🚀 Apply for " + cityName + " Franchise"}
-                    </button>
-                  </form>
-                </>
-              )}
+                      <button type="submit" className="fcp-btn-primary" style={{ width: "100%", justifyContent: "center" }} disabled={submitting}>
+                        {submitting ? "⏳ Submitting..." : "🚀 Apply for " + cityName + " Franchise"}
+                      </button>
+                    </form>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>

@@ -431,7 +431,7 @@ export default function Page() {
           </div>
         </section>
 
-        {/* ══ SECTION 5: FRANCHISE MODELS (Static) ══ */}
+        {/* ══ SECTION 5: FRANCHISE MODELS ══ */}
         <section id="models" style={{ padding: '80px 0', background: '#f8fafb' }} aria-label="Cleanz24 Franchise Models and Investment Options">
           <div className="container">
             <div className="text-center mb-5">
@@ -443,60 +443,9 @@ export default function Page() {
                 Pre-configured laundry studio setups optimized for your budget, location, and business ambition. All models include complete store setup, machinery, branding, and training.
               </p>
             </div>
-            <div className="row g-4">
-              {MODELS.map((m, idx) => (
-                <div className="col-md-6 col-lg-3" key={idx}>
-                  <article style={{
-                    background: '#ffffff',
-                    border: m.featured ? '2px solid #16a34a' : '1.5px solid #e2e8f0',
-                    borderRadius: 18, padding: '28px 22px', height: '100%', position: 'relative',
-                    boxShadow: m.featured ? '0 12px 36px rgba(22,163,74,0.15)' : 'none',
-                    display: 'flex', flexDirection: 'column',
-                  }}
-                    aria-label={`${m.title} - Investment ${m.investment}`}
-                  >
-                    {m.featured && (
-                      <div style={{
-                        position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)',
-                        background: '#16a34a', color: '#fff', fontSize: '0.72rem', fontWeight: 700,
-                        padding: '4px 16px', borderRadius: 20, letterSpacing: '1px', textTransform: 'uppercase',
-                      }}>
-                        MOST POPULAR
-                      </div>
-                    )}
-                    <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#16a34a', textTransform: 'uppercase', marginBottom: 4 }}>{m.tag}</div>
-                    <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.25rem', color: '#0f172a', marginBottom: 8 }}>{m.title}</h3>
-                    <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.6rem', color: '#16a34a', marginBottom: 12 }}>{m.investment}</div>
-                    <p style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: 16 }}>{m.sub}</p>
-                    <div style={{ background: '#f8fafc', padding: 12, borderRadius: 10, marginBottom: 16, fontSize: '0.82rem' }}>
-                      <div style={{ marginBottom: 4 }}>📍 <strong>Area:</strong> {m.area}</div>
-                      <div style={{ marginBottom: 4 }}>💰 <strong>Profit:</strong> {m.profit}</div>
-                      <div>⏳ <strong>ROI:</strong> {m.roi}</div>
-                    </div>
-                    <ul style={{ paddingLeft: 0, listStyle: 'none', fontSize: '0.82rem', marginTop: 'auto', marginBottom: 20 }}>
-                      {m.features.map((f, i) => (
-                        <li key={i} style={{ marginBottom: 6, display: 'flex', gap: 6, color: '#475569' }}>
-                          <span style={{ color: '#16a34a', fontWeight: 700 }}>✓</span> {f}
-                        </li>
-                      ))}
-                    </ul>
-                    <a
-                      href="#franchise-form"
-                      style={{
-                        display: 'block', textAlign: 'center',
-                        background: m.featured ? '#16a34a' : 'transparent',
-                        color: m.featured ? '#ffffff' : '#16a34a',
-                        border: m.featured ? 'none' : '1.5px solid #16a34a',
-                        padding: '10px', borderRadius: 10, fontWeight: 700, textDecoration: 'none',
-                        fontSize: '0.88rem', fontFamily: 'Poppins, sans-serif',
-                      }}
-                    >
-                      Enquire About {m.title.split(' ')[0]} Model
-                    </a>
-                  </article>
-                </div>
-              ))}
-            </div>
+            <Suspense fallback={<div>Loading franchise models...</div>}>
+              <LaundryFranchiseInteractive section="models" />
+            </Suspense>
           </div>
         </section>
 

@@ -116,6 +116,50 @@ function HeroSlideshow() {
   );
 }
 
+// ─── Helper to smooth scroll to franchise form & preselect model ────────────
+export function getBudgetOptionForModel(modelName) {
+  if (!modelName) return '₹13L - ₹15L (Alpha Model)';
+  const m = modelName.toUpperCase();
+  if (m.includes('ALPHA')) return '₹13L - ₹15L (Alpha Model)';
+  if (m.includes('BETA')) return '₹15L - ₹20L (Beta Model)';
+  if (m.includes('COMBO')) return '₹22L - ₹25L (Combo Model)';
+  if (m.includes('HYDRO')) return '₹35L+ (Hydro-Carbon Studio)';
+  return '₹13L - ₹15L (Alpha Model)';
+}
+
+export function scrollToFranchiseForm(budgetValue, modelName) {
+  if (typeof window === 'undefined') return;
+
+  const budgetVal = budgetValue || getBudgetOptionForModel(modelName);
+
+  if (budgetVal) {
+    window.dispatchEvent(new CustomEvent('selectFranchiseModel', { 
+      detail: { budget: budgetVal, model: modelName } 
+    }));
+  }
+
+  const target = document.getElementById('franchise-form') || document.getElementById('franchise_form');
+  if (target) {
+    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    target.style.transition = 'box-shadow 0.4s ease, border-color 0.4s ease';
+    const prevBorder = target.style.border;
+    const prevShadow = target.style.boxShadow;
+    target.style.borderColor = '#16a34a';
+    target.style.boxShadow = '0 0 30px rgba(22, 163, 74, 0.6)';
+    setTimeout(() => {
+      target.style.border = prevBorder;
+      target.style.boxShadow = prevShadow;
+    }, 1500);
+  }
+
+  setTimeout(() => {
+    const nameInput = document.getElementById('name') || document.querySelector('input[name="name"]');
+    if (nameInput) {
+      nameInput.focus();
+    }
+  }, 450);
+}
+
 // ─── ROI Calculator ──────────────────────────────────────────────────────────
 function ROICalculator() {
   const [calcTier, setCalcTier] = useState('tier1');
@@ -189,11 +233,15 @@ function ROICalculator() {
         <div style={{ textAlign: 'center', marginTop: 32, paddingTop: 24, borderTop: '1px solid #f1f5f9', width: '100%' }}>
           <a
             href="#franchise-form"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToFranchiseForm(null, calcModel);
+            }}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: 8,
               background: '#0f172a', color: '#ffffff', textDecoration: 'none',
               padding: '14px 32px', borderRadius: 12, fontWeight: 700,
-              fontFamily: 'Poppins, sans-serif', fontSize: '0.95rem',
+              fontFamily: 'Poppins, sans-serif', fontSize: '0.95rem', cursor: 'pointer'
             }}
           >
             Get Your Personalized Franchise Report →
@@ -209,6 +257,21 @@ function FranchiseForm() {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', city: '', budget: '₹13L - ₹15L (Alpha Model)' });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    const handleSelectModel = (e) => {
+      const detail = e.detail || {};
+      let budgetVal = detail.budget;
+      if (!budgetVal && detail.model) {
+        budgetVal = getBudgetOptionForModel(detail.model);
+      }
+      if (budgetVal) {
+        setFormData(prev => ({ ...prev, budget: budgetVal }));
+      }
+    };
+    window.addEventListener('selectFranchiseModel', handleSelectModel);
+    return () => window.removeEventListener('selectFranchiseModel', handleSelectModel);
+  }, []);
 
   const handleFormChange = e => {
     const { id, value } = e.target;
@@ -252,17 +315,18 @@ function FranchiseForm() {
   };
 
   return (
-    <div id="franchise_form" style={{
-      background: 'rgba(255, 255, 255, 0.98)',
-      borderRadius: 20,
-      padding: '22px 20px',
-      border: '2px solid #86efac',
-      boxShadow: '0 20px 45px rgba(0,0,0,0.12)',
-      backdropFilter: 'blur(10px)',
-    }}>
-      <div style={{ background: '#dcfce7', borderRadius: 8, padding: '5px 10px', textAlign: 'center', marginBottom: 12, color: '#15803d', fontWeight: 700, fontSize: '0.78rem' }}>
-        ⚡ Quick Franchise Inquiry — Call back in 24 hrs
-      </div>
+    <div id="franchise-form">
+      <div id="franchise_form" style={{
+        background: 'rgba(255, 255, 255, 0.98)',
+        borderRadius: 20,
+        padding: '22px 20px',
+        border: '2px solid #86efac',
+        boxShadow: '0 20px 45px rgba(0,0,0,0.12)',
+        backdropFilter: 'blur(10px)',
+      }}>
+        <div style={{ background: '#dcfce7', borderRadius: 8, padding: '5px 10px', textAlign: 'center', marginBottom: 12, color: '#15803d', fontWeight: 700, fontSize: '0.78rem' }}>
+          ⚡ Quick Franchise Inquiry — Call back in 24 hrs
+        </div>
 
       <div style={{ textAlign: 'center', marginBottom: 14 }}>
         <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.2rem', color: '#0f172a', margin: '0 0 2px' }}>
@@ -387,7 +451,8 @@ function FranchiseForm() {
         </form>
       )}
     </div>
-  );
+  </div>
+);
 }
 
 // ─── Lead Popup (10s timer) ──────────────────────────────────────────────────
@@ -685,10 +750,155 @@ function ExpertContactButton() {
   );
 }
 
+// ─── Franchise Models Section ────────────────────────────────────────────────
+function FranchiseModels() {
+  const models = [
+    {
+      tag: 'Starter',
+      title: 'ALPHA MODEL',
+      sub: 'Ideal for standard laundry setups in high-density residential areas.',
+      investment: '₹13 Lacs+',
+      area: '250 Sq.Ft (Minimum)',
+      profit: '₹1 Lakh/Month+',
+      roi: '18-20 Months',
+      featured: false,
+      budget: '₹13L - ₹15L (Alpha Model)',
+      features: [
+        'Complete end to end Store Setup',
+        '15Kg Stacker (Washer & Extractor)',
+        'Automatic Pressing Setup',
+        'Complete Softwash & Spotting Detergents',
+        'Staff & Franchise Operations Training',
+        'CRM, Mobile App & GMB Setup',
+      ],
+    },
+    {
+      tag: 'Most Popular',
+      title: 'BETA MODEL',
+      sub: 'High capacity laundry setup handling premium wash & fold and steam pressing.',
+      investment: '₹15 Lacs+',
+      area: '250 Sq.Ft (Minimum)',
+      profit: '₹1.5 Lacs/Month+',
+      roi: '18-20 Months',
+      featured: true,
+      budget: '₹15L - ₹20L (Beta Model)',
+      features: [
+        'Complete end to end Store Setup',
+        '15Kg Stacker + 10Kg Stacker',
+        'Automatic Steam Pressing Setup',
+        'Shoe, Sofa & Carpet Cleaning Kit',
+        'Dedicated Relationship Manager',
+        'Full Online & Offline Marketing Support',
+      ],
+    },
+    {
+      tag: 'Commercial Combo',
+      title: 'COMBO MODEL',
+      sub: 'Flagship B2B and B2C setup for commercial loads & individual wear.',
+      investment: '₹22 Lacs+',
+      area: '400 Sq.Ft (Minimum)',
+      profit: '₹2 Lacs/Month+',
+      roi: '18-20 Months',
+      featured: false,
+      budget: '₹22L - ₹25L (Combo Model)',
+      features: [
+        'Complete end to end Store Setup',
+        '18Kg Standalone Washer & Dryer for Commercial Loads',
+        '10Kg Stacker (Washer & Extractor)',
+        'Automatic Steam Pressing Setup',
+        'B2B Corporate Lead Generation',
+        'CRM Software & Marketing Automation',
+      ],
+    },
+    {
+      tag: 'Premium Dry-Clean',
+      title: 'HYDRO-CARBON MODEL',
+      sub: 'Ultra-premium eco-friendly hydrocarbon dry-cleaning studio setup.',
+      investment: '₹35 Lacs+',
+      area: '500 Sq.Ft (Minimum)',
+      profit: '₹2.5–3.0 Lacs/Month+',
+      roi: '18-22 Months',
+      featured: false,
+      budget: '₹35L+ (Hydro-Carbon Studio)',
+      features: [
+        '10Kg Hydrocarbon Dry-Clean Machine (99% Recovery)',
+        '10Kg Stacker (Washer & Extractor)',
+        'Delicate Silk & Leather Care Setup',
+        'Complete Eco Solvents & Spotting Kit',
+        'Priority Technical & Operational Support',
+        'Exclusive Franchise Zone Rights',
+      ],
+    },
+  ];
+
+  return (
+    <div className="row g-4">
+      {models.map((m, idx) => (
+        <div className="col-md-6 col-lg-3" key={idx}>
+          <article style={{
+            background: '#ffffff',
+            border: m.featured ? '2px solid #16a34a' : '1.5px solid #e2e8f0',
+            borderRadius: 18, padding: '28px 22px', height: '100%', position: 'relative',
+            boxShadow: m.featured ? '0 12px 36px rgba(22,163,74,0.15)' : 'none',
+            display: 'flex', flexDirection: 'column',
+          }}
+            aria-label={`${m.title} - Investment ${m.investment}`}
+          >
+            {m.featured && (
+              <div style={{
+                position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)',
+                background: '#16a34a', color: '#fff', fontSize: '0.72rem', fontWeight: 700,
+                padding: '4px 16px', borderRadius: 20, letterSpacing: '1px', textTransform: 'uppercase',
+              }}>
+                MOST POPULAR
+              </div>
+            )}
+            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#16a34a', textTransform: 'uppercase', marginBottom: 4 }}>{m.tag}</div>
+            <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.25rem', color: '#0f172a', marginBottom: 8 }}>{m.title}</h3>
+            <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.6rem', color: '#16a34a', marginBottom: 12 }}>{m.investment}</div>
+            <p style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: 16 }}>{m.sub}</p>
+            <div style={{ background: '#f8fafc', padding: 12, borderRadius: 10, marginBottom: 16, fontSize: '0.82rem' }}>
+              <div style={{ marginBottom: 4 }}>📍 <strong>Area:</strong> {m.area}</div>
+              <div style={{ marginBottom: 4 }}>💰 <strong>Profit:</strong> {m.profit}</div>
+              <div>⏳ <strong>ROI:</strong> {m.roi}</div>
+            </div>
+            <ul style={{ paddingLeft: 0, listStyle: 'none', fontSize: '0.82rem', marginTop: 'auto', marginBottom: 20 }}>
+              {m.features.map((f, i) => (
+                <li key={i} style={{ marginBottom: 6, display: 'flex', gap: 6, color: '#475569' }}>
+                  <span style={{ color: '#16a34a', fontWeight: 700 }}>✓</span> {f}
+                </li>
+              ))}
+            </ul>
+            <a
+              href="#franchise-form"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToFranchiseForm(m.budget, m.title);
+              }}
+              style={{
+                display: 'block', textAlign: 'center',
+                background: m.featured ? '#16a34a' : 'transparent',
+                color: m.featured ? '#ffffff' : '#16a34a',
+                border: m.featured ? 'none' : '1.5px solid #16a34a',
+                padding: '10px', borderRadius: 10, fontWeight: 700, textDecoration: 'none',
+                fontSize: '0.88rem', fontFamily: 'Poppins, sans-serif', cursor: 'pointer',
+                transition: 'all 0.2s',
+              }}
+            >
+              Enquire About {m.title.split(' ')[0]} Model
+            </a>
+          </article>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 // ─── Main export: section-based dispatcher ────────────────────────────────────
 export default function LaundryFranchiseInteractive({ section }) {
   if (section === 'slideshow') return <HeroSlideshow />;
   if (section === 'calculator') return <ROICalculator />;
+  if (section === 'models') return <FranchiseModels />;
   if (section === 'form') return (
     <>
       <LeadPopup />
@@ -700,3 +910,4 @@ export default function LaundryFranchiseInteractive({ section }) {
   if (section === 'popup') return <LeadPopup />;
   return null;
 }
+
