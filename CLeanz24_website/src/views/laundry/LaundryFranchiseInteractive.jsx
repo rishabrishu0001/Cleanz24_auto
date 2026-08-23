@@ -255,6 +255,7 @@ function ROICalculator() {
 // ─── Franchise Application Form (Compact 2-Column Grid) ──────────────────────
 function FranchiseForm() {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', city: '', budget: '₹13L - ₹15L (Alpha Model)' });
+  const [phoneError, setPhoneError] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -285,9 +286,14 @@ function FranchiseForm() {
   const handleFinalSubmit = async e => {
     e.preventDefault();
     if (isSubmitting) return;
-    if (!formData.name.trim() || !formData.phone.trim() || !formData.city.trim() || !formData.email.trim()) {
+    if (!formData.name.trim() || !formData.phone.trim() || !formData.city.trim()) {
       return;
     }
+    if (formData.phone.length < 10) {
+      setPhoneError('Please enter a valid 10-digit mobile number.');
+      return;
+    }
+    setPhoneError('');
     setIsSubmitting(true);
     try {
       const dateStr = new Date().toISOString().split('T')[0];
@@ -325,7 +331,7 @@ function FranchiseForm() {
         backdropFilter: 'blur(10px)',
       }}>
         <div style={{ background: '#dcfce7', borderRadius: 8, padding: '5px 10px', textAlign: 'center', marginBottom: 12, color: '#15803d', fontWeight: 700, fontSize: '0.78rem' }}>
-          ⚡ Quick Franchise Inquiry — Call back in 24 hrs
+          ⚡ Quick Inquiry — Our team calls you back within 2 hrs
         </div>
 
       <div style={{ textAlign: 'center', marginBottom: 14 }}>
@@ -347,55 +353,39 @@ function FranchiseForm() {
         </div>
       ) : (
         <form onSubmit={handleFinalSubmit}>
-          {/* Row 1: Name & Phone */}
+          {/* Row 1: Full Name — full width */}
+          <div style={{ marginBottom: 10 }}>
+            <label htmlFor="name" style={{ fontWeight: 700, fontSize: '0.75rem', marginBottom: 3, display: 'block', color: '#334155' }}>
+              Full Name <span style={{ color: '#e53e3e' }}>*</span>
+            </label>
+            <input
+              id="name"
+              type="text"
+              placeholder="e.g. Ramesh Sharma"
+              value={formData.name}
+              onChange={handleFormChange}
+              required
+              style={{ width: '100%', padding: '9px 11px', borderRadius: 8, border: '1.5px solid #cbd5e1', background: '#f8fafc', color: '#0f172a', fontSize: '0.85rem', outline: 'none', boxSizing: 'border-box' }}
+            />
+          </div>
+
+          {/* Row 2: Phone & City */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: 10 }}>
             <div>
-              <label htmlFor="name" style={{ fontWeight: 700, fontSize: '0.75rem', marginBottom: 3, display: 'block', color: '#334155' }}>
-                Full Name <span style={{ color: '#e53e3e' }}>*</span>
-              </label>
-              <input
-                id="name"
-                type="text"
-                placeholder="Ramesh Sharma"
-                value={formData.name}
-                onChange={handleFormChange}
-                required
-                style={{ width: '100%', padding: '9px 11px', borderRadius: 8, border: '1.5px solid #cbd5e1', background: '#f8fafc', color: '#0f172a', fontSize: '0.85rem', outline: 'none' }}
-              />
-            </div>
-
-            <div>
               <label htmlFor="phone" style={{ fontWeight: 700, fontSize: '0.75rem', marginBottom: 3, display: 'block', color: '#334155' }}>
-                Mobile Number <span style={{ color: '#e53e3e' }}>*</span>
+                WhatsApp / Mobile <span style={{ color: '#e53e3e' }}>*</span>
               </label>
               <input
                 id="phone"
                 type="tel"
-                placeholder="10-digit number"
+                placeholder="+91 9876543210"
                 value={formData.phone}
                 onChange={handleFormChange}
                 maxLength={10}
                 required
-                style={{ width: '100%', padding: '9px 11px', borderRadius: 8, border: '1.5px solid #cbd5e1', background: '#f8fafc', color: '#0f172a', fontSize: '0.85rem', outline: 'none' }}
+                style={{ width: '100%', padding: '9px 11px', borderRadius: 8, border: `1.5px solid ${phoneError ? '#e53e3e' : '#cbd5e1'}`, background: '#f8fafc', color: '#0f172a', fontSize: '0.85rem', outline: 'none' }}
               />
-            </div>
-          </div>
-
-          {/* Row 2: Email & City */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: 10 }}>
-            <div>
-              <label htmlFor="email" style={{ fontWeight: 700, fontSize: '0.75rem', marginBottom: 3, display: 'block', color: '#334155' }}>
-                Email Address <span style={{ color: '#e53e3e' }}>*</span>
-              </label>
-              <input
-                id="email"
-                type="email"
-                placeholder="you@example.com"
-                value={formData.email}
-                onChange={handleFormChange}
-                required
-                style={{ width: '100%', padding: '9px 11px', borderRadius: 8, border: '1.5px solid #cbd5e1', background: '#f8fafc', color: '#0f172a', fontSize: '0.85rem', outline: 'none' }}
-              />
+              {phoneError && <p style={{ color: '#e53e3e', fontSize: '0.7rem', marginTop: 3, marginBottom: 0 }}>{phoneError}</p>}
             </div>
 
             <div>
@@ -405,7 +395,7 @@ function FranchiseForm() {
               <input
                 id="city"
                 type="text"
-                placeholder="e.g. Noida / Pune"
+                placeholder="e.g. Jaipur / Pune"
                 value={formData.city}
                 onChange={handleFormChange}
                 required
@@ -414,10 +404,25 @@ function FranchiseForm() {
             </div>
           </div>
 
-          {/* Row 3: Investment Budget */}
-          <div style={{ marginBottom: 12 }}>
+          {/* Row 3: Email (Optional) */}
+          <div style={{ marginBottom: 10 }}>
+            <label htmlFor="email" style={{ fontWeight: 700, fontSize: '0.75rem', marginBottom: 3, display: 'block', color: '#334155' }}>
+              Email Address <span style={{ color: '#94a3b8', fontWeight: 400 }}>(optional)</span>
+            </label>
+            <input
+              id="email"
+              type="email"
+              placeholder="you@example.com"
+              value={formData.email}
+              onChange={handleFormChange}
+              style={{ width: '100%', padding: '9px 11px', borderRadius: 8, border: '1.5px solid #cbd5e1', background: '#f8fafc', color: '#0f172a', fontSize: '0.85rem', outline: 'none', boxSizing: 'border-box' }}
+            />
+          </div>
+
+          {/* Row 4: Investment Budget */}
+          <div style={{ marginBottom: 14 }}>
             <label htmlFor="budget" style={{ fontWeight: 700, fontSize: '0.75rem', marginBottom: 3, display: 'block', color: '#334155' }}>
-              Investment Budget <span style={{ color: '#e53e3e' }}>*</span>
+              Investment Budget
             </label>
             <select
               id="budget"
@@ -433,21 +438,40 @@ function FranchiseForm() {
             </select>
           </div>
 
+          {/* Primary CTA */}
           <button
             type="submit"
             id="franchise-apply-btn"
             disabled={isSubmitting}
             style={{
-              width: '100%', padding: '11px', borderRadius: 10, border: 'none',
+              width: '100%', padding: '12px', borderRadius: 10, border: 'none',
               background: 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)',
               color: '#ffffff', fontWeight: 800, fontSize: '0.92rem',
               fontFamily: 'Poppins, sans-serif', cursor: isSubmitting ? 'not-allowed' : 'pointer',
               boxShadow: '0 6px 20px rgba(22,163,74,0.35)',
-              transition: 'transform 0.2s'
+              transition: 'transform 0.2s', marginBottom: 10,
             }}
           >
-            {isSubmitting ? 'Submitting Application...' : '🚀 Request Free Franchise Deck →'}
+            {isSubmitting ? 'Submitting...' : '🚀 Get Free Franchise Deck →'}
           </button>
+
+          {/* WhatsApp Alternative */}
+          <a
+            href={`https://wa.me/919138004800?text=${encodeURIComponent(`Hi! I'm ${formData.name || 'interested'} from ${formData.city || 'India'}. I want to enquire about Cleanz24 Laundry Franchise (Budget: ${formData.budget}). Please share the details.`)}`}
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+              width: '100%', padding: '11px', borderRadius: 10,
+              background: '#25d366', color: '#ffffff',
+              fontWeight: 700, fontSize: '0.88rem', textDecoration: 'none',
+              fontFamily: 'Poppins, sans-serif',
+              boxShadow: '0 4px 14px rgba(37,211,102,0.35)',
+            }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.524 5.849L0 24l6.335-1.502A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.013-1.371l-.36-.214-3.732.885.936-3.626-.235-.374A9.818 9.818 0 1112 21.818z"/></svg>
+            Apply via WhatsApp
+          </a>
         </form>
       )}
     </div>
@@ -545,11 +569,11 @@ function LeadPopup() {
   const handlePopupSubmit = async e => {
     e.preventDefault();
     if (popupSubmitting) return;
-    if (!popupData.name.trim() || !popupData.phone.trim() || !popupData.city.trim() || !popupData.email.trim()) {
-      setPopupError('Please fill all required fields (including Email).');
+    if (!popupData.name.trim() || !popupData.phone.trim() || !popupData.city.trim()) {
+      setPopupError('Please fill Name, Mobile Number, and City.');
       return;
     }
-    if (popupData.phone.length < 10) { setPopupError('Enter a valid 10-digit phone number.'); return; }
+    if (popupData.phone.length < 10) { setPopupError('Enter a valid 10-digit mobile number.'); return; }
     setPopupError('');
     setPopupSubmitting(true);
     try {
