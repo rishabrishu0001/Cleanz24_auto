@@ -168,17 +168,24 @@ export default function LaundryHome() {
   const storeSearchRef = useRef(null);
   const laundryResultsRef = useRef(null);
 
-  const filteredLaundryStores = storesData.filter(store => {
-    const q = storeSearchQuery.toLowerCase();
-    if (!q) return true;
-    return (
-      store.name.toLowerCase().includes(q) ||
-      store.address.toLowerCase().includes(q) ||
-      store.city.toLowerCase().includes(q) ||
-      store.state.toLowerCase().includes(q) ||
-      (store.tags && store.tags.some(t => t.toLowerCase().includes(q)))
-    );
-  });
+  const isStoreLive = (store) => {
+    if (!store || !store.openingTime) return true;
+    return new Date() >= new Date(store.openingTime);
+  };
+
+  const filteredLaundryStores = storesData
+    .filter(store => isStoreLive(store))
+    .filter(store => {
+      const q = storeSearchQuery.toLowerCase();
+      if (!q) return true;
+      return (
+        store.name.toLowerCase().includes(q) ||
+        store.address.toLowerCase().includes(q) ||
+        store.city.toLowerCase().includes(q) ||
+        store.state.toLowerCase().includes(q) ||
+        (store.tags && store.tags.some(t => t.toLowerCase().includes(q)))
+      );
+    });
   const displayedLaundryStores = storeSearchQuery ? filteredLaundryStores : filteredLaundryStores.slice(0, 3);
   const laundryDropdownSuggestions = storeSearchQuery.length >= 2 ? filteredLaundryStores.slice(0, 3) : [];
 

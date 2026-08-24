@@ -216,6 +216,16 @@ export const BLOG_POSTS = [
           👉 <Link href="/franchise-opportunities-in-india">Apply for a Cleanz24 Franchise — Enquire Now</Link>
         </p>
 
+        {/* Embedded Interactive Franchise Form inside Most Profitable Business Models post */}
+        <div style={{ margin: '32px 0' }}>
+          <BlogFranchiseForm
+            isDarkMode={false}
+            compact={false}
+            title="Apply for Cleanz24 Franchise (₹13L – ₹29L)"
+            subtitle="Get free franchise brochure, ROI projection model, and location audit support."
+          />
+        </div>
+
         <h3>#2 QSR / Food Franchise</h3>
         <p>
           Quick Service Restaurants (QSR) and food franchises remain highly popular due to immediate brand recognition and strong consumer demand. However, the food industry in 2026 is plagued by extreme market saturation. Every retail street has multiple food brands competing for the same customers. Furthermore, food franchises carry thin <strong>net margins of 15% to 22%</strong> after deducting high food ingredient costs, heavy brand royalties (5% to 8%), and food wastage. Managing kitchen staff and maintaining strict hygiene standards also requires constant active involvement.
@@ -1224,6 +1234,16 @@ export const BLOG_POSTS = [
         <p>
           👉 <Link href="/franchise-opportunities-in-india">Contact Cleanz24 Franchise Team</Link>
         </p>
+
+        {/* Embedded Interactive Franchise Form inside Top 10 Guide */}
+        <div style={{ margin: '32px 0' }}>
+          <BlogFranchiseForm
+            isDarkMode={false}
+            compact={false}
+            title="Apply for Cleanz24 Franchise (₹13L – ₹29L)"
+            subtitle="Get instant access to free franchise brochure, city audit report, and ROI projections."
+          />
+        </div>
 
         <h3>2. Tumbledry Franchise — India's Largest Retail Laundry Network</h3>
         <p>
@@ -3890,6 +3910,264 @@ function BlogCard({ post, isDarkMode }) {
   );
 }
 
+/* ─── Franchise Inquiry Form Component ───────────────────────────────────── */
+function BlogFranchiseForm({ isDarkMode, compact = false, title, subtitle }) {
+  const [formData, setFormData] = useState({
+    name: '',
+    mobile: '',
+    email: '',
+    city: '',
+    modelType: '₹13L - ₹15L (Alpha Model)',
+  });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (error) setError('');
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name.trim()) {
+      setError('Please enter your full name.');
+      return;
+    }
+    if (!formData.mobile || formData.mobile.length < 10) {
+      setError('Please enter a valid 10-digit mobile number.');
+      return;
+    }
+    if (!formData.city.trim()) {
+      setError('Please enter your city.');
+      return;
+    }
+
+    setSubmitting(true);
+    setError('');
+
+    try {
+      const res = await fetch('/api/franchise', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          mobile: formData.mobile.trim(),
+          email: formData.email.trim() || 'blog-lead@cleanz24.com',
+          city: formData.city.trim(),
+          modelType: `Laundry Blog Lead - ${formData.modelType}`,
+        }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        setError(data.message || 'Submission failed. Please try again.');
+      }
+    } catch (err) {
+      setError('Network error. Please check your internet connection.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const cardBg = isDarkMode ? 'linear-gradient(135deg, #0d213a 0%, #152d4a 100%)' : 'linear-gradient(135deg, #f0f7ff 0%, #e6f0fa 100%)';
+  const borderColor = isDarkMode ? '#1e3a5f' : '#cbd5e1';
+  const textColor = isDarkMode ? '#ffffff' : '#0f172a';
+  const mutedColor = isDarkMode ? '#94a3b8' : '#475569';
+  const inputBg = isDarkMode ? '#0a1728' : '#ffffff';
+  const inputBorder = isDarkMode ? '#1e3a5f' : '#cbd5e1';
+
+  return (
+    <div
+      style={{
+        background: cardBg,
+        border: `1.5px solid ${borderColor}`,
+        borderRadius: '16px',
+        padding: compact ? '24px 20px' : '32px 28px',
+        marginBottom: '24px',
+        boxShadow: isDarkMode ? '0 8px 24px rgba(0,0,0,0.3)' : '0 8px 24px rgba(43,108,176,0.08)',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: 'linear-gradient(90deg, #2563eb, #16a34a)' }} />
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+        <span style={{ fontSize: '18px' }}>🏢</span>
+        <span style={{ fontSize: '12px', fontWeight: 800, color: '#16a34a', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+          Franchise Opportunity
+        </span>
+      </div>
+
+      <h3 style={{ fontSize: compact ? '18px' : '22px', fontWeight: 800, color: textColor, marginBottom: '6px', fontFamily: "'Poppins', sans-serif", lineHeight: 1.3 }}>
+        {title || 'Apply for Cleanz24 Franchise'}
+      </h3>
+      <p style={{ fontSize: '13px', color: mutedColor, marginBottom: '18px', lineHeight: 1.4 }}>
+        {subtitle || 'Start your high-ROI laundry business in India. Investment starts at ₹13 Lakhs.'}
+      </p>
+
+      {submitted ? (
+        <div style={{ background: isDarkMode ? 'rgba(34, 197, 94, 0.15)' : '#dcfce7', border: '1px solid #86efac', borderRadius: '12px', padding: '20px', textAlign: 'center' }}>
+          <div style={{ fontSize: '32px', marginBottom: '8px' }}>✅</div>
+          <h4 style={{ fontSize: '16px', fontWeight: 700, color: isDarkMode ? '#4ade80' : '#15803d', margin: '0 0 6px 0' }}>
+            Inquiry Submitted!
+          </h4>
+          <p style={{ fontSize: '13px', color: isDarkMode ? '#cbd5e1' : '#166534', margin: 0 }}>
+            Thank you! Our expansion manager will contact you shortly with full brochure & financial details.
+          </p>
+          <button
+            onClick={() => { setSubmitted(false); setFormData({ name: '', mobile: '', email: '', city: '', modelType: '₹13L - ₹15L (Alpha Model)' }); }}
+            style={{ marginTop: '14px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: '6px', padding: '6px 14px', fontSize: '12px', fontWeight: 600, cursor: 'pointer' }}
+          >
+            Submit Another Inquiry
+          </button>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div>
+            <input
+              type="text"
+              name="name"
+              placeholder="Your Full Name *"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              style={{
+                width: '100%',
+                padding: '10px 14px',
+                borderRadius: '8px',
+                border: `1px solid ${inputBorder}`,
+                background: inputBg,
+                color: textColor,
+                fontSize: '13px',
+                outline: 'none',
+                boxSizing: 'border-box',
+              }}
+            />
+          </div>
+
+          <div style={{ display: compact ? 'block' : 'grid', gridTemplateColumns: compact ? '1fr' : '1fr 1fr', gap: '12px' }}>
+            <input
+              type="tel"
+              name="mobile"
+              placeholder="Mobile Number (10 digits) *"
+              value={formData.mobile}
+              onChange={handleChange}
+              maxLength={10}
+              required
+              style={{
+                width: '100%',
+                padding: '10px 14px',
+                borderRadius: '8px',
+                border: `1px solid ${inputBorder}`,
+                background: inputBg,
+                color: textColor,
+                fontSize: '13px',
+                outline: 'none',
+                boxSizing: 'border-box',
+                marginBottom: compact ? '12px' : '0',
+              }}
+            />
+            <input
+              type="text"
+              name="city"
+              placeholder="Your City *"
+              value={formData.city}
+              onChange={handleChange}
+              required
+              style={{
+                width: '100%',
+                padding: '10px 14px',
+                borderRadius: '8px',
+                border: `1px solid ${inputBorder}`,
+                background: inputBg,
+                color: textColor,
+                fontSize: '13px',
+                outline: 'none',
+                boxSizing: 'border-box',
+              }}
+            />
+          </div>
+
+          {!compact && (
+            <div>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address (Optional)"
+                value={formData.email}
+                onChange={handleChange}
+                style={{
+                  width: '100%',
+                  padding: '10px 14px',
+                  borderRadius: '8px',
+                  border: `1px solid ${inputBorder}`,
+                  background: inputBg,
+                  color: textColor,
+                  fontSize: '13px',
+                  outline: 'none',
+                  boxSizing: 'border-box',
+                }}
+              />
+            </div>
+          )}
+
+          <div>
+            <select
+              name="modelType"
+              value={formData.modelType}
+              onChange={handleChange}
+              style={{
+                width: '100%',
+                padding: '10px 14px',
+                borderRadius: '8px',
+                border: `1px solid ${inputBorder}`,
+                background: inputBg,
+                color: textColor,
+                fontSize: '13px',
+                outline: 'none',
+                boxSizing: 'border-box',
+                cursor: 'pointer',
+              }}
+            >
+              <option value="₹13L - ₹15L (Alpha Model)">₹13L - ₹15L (Alpha Model)</option>
+              <option value="₹15L - ₹20L (Beta Model)">₹15L - ₹20L (Beta Model)</option>
+              <option value="₹22L - ₹25L (Combo Model)">₹22L - ₹25L (Combo Model)</option>
+              <option value="₹35L+ (Hydro-Carbon Studio)">₹35L+ (Hydro-Carbon Studio)</option>
+            </select>
+          </div>
+
+          {error && <div style={{ color: '#ef4444', fontSize: '12px', fontWeight: 600 }}>⚠️ {error}</div>}
+
+          <button
+            type="submit"
+            disabled={submitting}
+            style={{
+              width: '100%',
+              padding: '12px',
+              borderRadius: '8px',
+              border: 'none',
+              background: 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)',
+              color: '#ffffff',
+              fontSize: '14px',
+              fontWeight: 700,
+              fontFamily: "'Poppins', sans-serif",
+              cursor: 'pointer',
+              boxShadow: '0 4px 14px rgba(22,163,74,0.3)',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            {submitting ? 'Submitting...' : '🚀 Apply for Franchise Report'}
+          </button>
+        </form>
+      )}
+    </div>
+  );
+}
+
 /* ─── Sidebar ────────────────────────────────────────────────────────────── */
 function BlogSidebar({ isDarkMode, activeCategory, onCategoryChange, posts }) {
   const cardStyle = {
@@ -3947,6 +4225,9 @@ function BlogSidebar({ isDarkMode, activeCategory, onCategoryChange, posts }) {
           </svg>
         </div>
       </div>
+
+      {/* Apply for Franchise Form Widget */}
+      <BlogFranchiseForm isDarkMode={isDarkMode} compact={true} />
 
       {/* Categories */}
       <div style={cardStyle}>
@@ -4268,6 +4549,15 @@ function renderStaticPostContent(post) {
           To launch your own Cleanz24 outlet, the process is straightforward: first submit an inquiry on our site, then our expansion team performs a local market audit. Once approved, we sign the agreement, set up the studio with premium equipment, train your staff, and launch with a local digital campaign.
         </p>
         
+        <div style={{ margin: '28px 0' }}>
+          <BlogFranchiseForm
+            isDarkMode={false}
+            compact={false}
+            title="Apply for Cleanz24 Laundry Franchise"
+            subtitle="Fill in your details to receive free franchise report, store layout plan & investment breakdown."
+          />
+        </div>
+
         <p>
           Learn more about our franchise models by visiting our dedicated <Link href="/franchise-opportunities-in-india" style={{ color: '#2B6CB0', fontWeight: '600' }}>Franchise Page</Link> or scheduling a call with our business development team.
         </p>
@@ -4291,6 +4581,15 @@ function renderStaticPostContent(post) {
           <li><strong>Pre-Treat Wisely:</strong> Use mild, fabric-appropriate spotters. Test any agent on an inconspicuous seam first to check for color fastness.</li>
           <li><strong>Avoid Direct Heat:</strong> Do not iron or tumble dry stained clothes, as direct heat bonds the stain permanently to the fabric.</li>
         </ul>
+
+        <div style={{ margin: '28px 0' }}>
+          <BlogFranchiseForm
+            isDarkMode={false}
+            compact={false}
+            title="Interested in Starting a Cleanz24 Franchise?"
+            subtitle="Join India's fastest-growing organized fabric care network. Investment starts at ₹13 Lakhs."
+          />
+        </div>
 
         <h3>Specific Fabric Guidelines</h3>
         <p>
@@ -4320,6 +4619,15 @@ function renderStaticPostContent(post) {
           <li><strong>Drying Protocols:</strong> Avoid over-drying in direct sunlight to protect fibers and prevent shrinkage.</li>
       </ul>
 
+      <div style={{ margin: '28px 0' }}>
+        <BlogFranchiseForm
+          isDarkMode={false}
+          compact={false}
+          title="Apply for Cleanz24 Laundry Franchise"
+          subtitle="Explore our ₹13L to ₹29L business models and request your free franchise brochure."
+        />
+      </div>
+
       <h3>Why Professional Care Matters</h3>
       <p>
         For delicate designer garments, wedding wear, and structured suits, home washing can lead to shrinkage, color fading, or fiber breakdown. Professional dry cleaning and wet cleaning services utilize eco-friendly solvents and specialized equipment to maintain fabric feel and drape.
@@ -4333,8 +4641,9 @@ function renderStaticPostContent(post) {
 }
 
 /* ─── Main Blog Page ─────────────────────────────────────────────────────── */
-export default function Blog() {
-  const { slug } = useParams();
+export default function Blog({ slug: propSlug } = {}) {
+  const params = useParams();
+  const slug = propSlug || params?.slug;
   const router = useRouter();
   const { isDarkMode } = {};
   const [activeCategory, setActiveCategory] = useState('All');
@@ -4567,6 +4876,16 @@ export default function Blog() {
                   renderStaticPostContent(post)
                 )}
               </article>
+
+              {/* In-Article Franchise Lead Form */}
+              <div style={{ marginTop: '36px', marginBottom: '36px' }}>
+                <BlogFranchiseForm
+                  isDarkMode={isDarkMode}
+                  compact={false}
+                  title="Apply for a Cleanz24 Laundry Franchise"
+                  subtitle="Interested in launching a laundry outlet in your city? Submit your details to receive full investment brochure & financial audit report."
+                />
+              </div>
             </div>
 
             <div className="col-lg-4">
@@ -4744,6 +5063,11 @@ export default function Blog() {
               }}
               isDarkMode={isDarkMode}
             />
+
+            {/* Mobile Franchise Form */}
+            <div className="d-lg-none mt-5">
+              <BlogFranchiseForm isDarkMode={isDarkMode} compact={true} />
+            </div>
           </div>
 
           {/* ── Sidebar ── */}

@@ -18,9 +18,11 @@ const slugify = (text) => {
 export default function Locations() {
   const [activeTab, setActiveTab] = useState('All');
 
-  // Group stores by State and then City
-  const stateGroups = storesData.reduce((acc, store) => {
-    const state = store.state || 'Other';
+  // Group stores by State and then City (only live stores)
+  const stateGroups = storesData
+    .filter(store => !store.openingTime || new Date() >= new Date(store.openingTime))
+    .reduce((acc, store) => {
+      const state = store.state || 'Other';
     const city = store.city || 'Other';
     
     if (!acc[state]) {

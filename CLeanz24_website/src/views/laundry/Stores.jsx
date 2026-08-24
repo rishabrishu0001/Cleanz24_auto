@@ -31,7 +31,12 @@ const _storeLocationsGrouped = [
 
 const popularSearches = ["Noida", "Bengaluru", "Hyderabad", "Secunderabad", "Pune", "Gurugram"];
 
-const comingSoonStores = [
+export const isStoreLive = (store) => {
+  if (!store || !store.openingTime) return true;
+  return new Date() >= new Date(store.openingTime);
+};
+
+const rawComingSoonStores = [
   {
     id: 6,
     name: "Cleanz24 Premium Laundry",
@@ -44,7 +49,7 @@ const comingSoonStores = [
     status: "Under Construction"
   },
   {
-    id: 7,
+    id: 77,
     name: "Cleanz24 - Sector 3 Udaipur",
     type: "Laundry",
     city: "Udaipur",
@@ -52,7 +57,8 @@ const comingSoonStores = [
     area: "Sector-3, 100 Feet Road, Mali Colony, Near Hanuman Mandir",
     address: "Sector-3, 100 Feet Road, Mali Colony, Near Hanuman Mandir, Udaipur, Rajasthan 313002",
     phone: "9138004800",
-    timeline: "Opening 15 August ",
+    timeline: "Opening 28 August, 10:00 AM",
+    openingTime: "2026-08-28T10:00:00+05:30",
     status: "Opening Soon"
   }
 ];
@@ -78,13 +84,19 @@ export default function Stores() {
     }
   };
 
-  const filteredStores = detailedStores.filter(store => 
+  // Only show stores that are currently live
+  const activeLiveStores = detailedStores.filter(store => isStoreLive(store));
+
+  const filteredStores = activeLiveStores.filter(store => 
     store.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     store.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
     store.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
     store.state.toLowerCase().includes(searchQuery.toLowerCase()) ||
     (store.tags && store.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())))
   );
+
+  // Coming soon list only shows stores that are NOT yet live
+  const comingSoonStores = rawComingSoonStores.filter(store => !isStoreLive(store));
 
   return (
     <div className="stores-page bg-light" style={{ minHeight: '100vh', fontFamily: 'var(--font-family-base)' }}>

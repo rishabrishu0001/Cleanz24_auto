@@ -1,6 +1,13 @@
 import React, { Suspense } from 'react';
 import LaundryBlog, { BLOG_POSTS } from '../../../../views/laundry/Blog';
 
+export async function generateStaticParams() {
+  const postsList = Array.isArray(BLOG_POSTS) ? BLOG_POSTS : [];
+  return postsList.map((p) => ({
+    slug: p.slug,
+  }));
+}
+
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const slug = resolvedParams?.slug;
