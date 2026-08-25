@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { GOOGLE_SHEETS_CAR_SPA_SCRIPT_URL } from '../../config';
+import { storesData, faqsData } from '../../data';
 import carwashingTransparent from '../../assets/carwashing_transparent.png';
 
 function Book(props) {

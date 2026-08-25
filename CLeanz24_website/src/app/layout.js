@@ -1,8 +1,7 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import Script from 'next/script';
 import NextTopLoader from 'nextjs-toploader';
 import { Rajdhani, DM_Sans, Poppins, Oswald, Inter, Rethink_Sans } from 'next/font/google';
-import ClientRouterBridge from '../components/ClientRouterBridge';
 import '../index.css';
 import '../App.css';
 import '../styles/store-cards.css';
@@ -145,11 +144,7 @@ export default function RootLayout({ children }) {
           speed={200}
           shadow="0 0 10px #0066FF,0 0 5px #0066FF"
         />
-        <Suspense fallback={null}>
-          <ClientRouterBridge>
-            {children}
-          </ClientRouterBridge>
-        </Suspense>
+        {children}
 
         {/* Google Analytics Script */}
         <Script

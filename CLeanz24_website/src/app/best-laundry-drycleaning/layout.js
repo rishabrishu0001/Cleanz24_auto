@@ -1,5 +1,7 @@
 import React from 'react';
-import LaundryClientLayout from './LaundryClientLayout';
+import Header from '../../views/laundry/components/LaundryHeader';
+import Footer from '../../views/laundry/components/LaundryFooter';
+import '../../styles/laundry.css';
 
 export const metadata = {
   title: 'Best Laundry & Dry Cleaning Studio | Cleanz24',
@@ -41,8 +43,12 @@ export const metadata = {
 
 export default function LaundryLayout({ children }) {
   return (
-    <LaundryClientLayout>
-      {children}
-    </LaundryClientLayout>
+    <div className="laundry-app d-flex flex-column min-vh-100">
+      <Header />
+      <main className="flex-grow-1">
+        {children}
+      </main>
+      <Footer />
+    </div>
   );
 }

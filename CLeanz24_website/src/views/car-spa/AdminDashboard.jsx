@@ -41,10 +41,13 @@ export default function AdminDashboard() {
 
   // ── Plans / Pricing ───────────────────────────────────────────────────────
   const [planPrices, setPlanPrices] = useState(() => {
-    const saved = localStorage.getItem('cleanz24_plan_prices');
-    if (saved) return JSON.parse(saved);
     const defaults = {};
     ALL_DEFAULT_PLANS.forEach(p => { defaults[p.id] = p.defaultPrice; });
+    if (typeof window === 'undefined') return defaults;
+    try {
+      const saved = localStorage.getItem('cleanz24_plan_prices');
+      if (saved) return JSON.parse(saved);
+    } catch {}
     return defaults;
   });
 

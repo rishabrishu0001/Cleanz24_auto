@@ -35,6 +35,11 @@ export default function AdminRoute({ children }) {
     );
   }
 
-  if (status === 'fail') return <Navigate to="/car-spa/admin" replace />;
+  if (status === 'fail') {
+    if (typeof window !== 'undefined') {
+      window.location.href = '/car-spa/admin';
+    }
+    return null;
+  }
   return children;
 }

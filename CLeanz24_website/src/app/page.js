@@ -1,6 +1,5 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import LandingPage from '../views/LandingPage';
-import ClientRouterBridge from '../components/ClientRouterBridge';
 
 export const metadata = {
   title: "Cleanz24 — India’s Leading Premium Laundry & Car Spa Studio",
@@ -35,9 +34,5 @@ export const metadata = {
 };
 
 export default function HomePage() {
-  return (
-    <ClientRouterBridge initialEntries={['/']}>
-      <LandingPage />
-    </ClientRouterBridge>
-  );
+  return <LandingPage />;
 }

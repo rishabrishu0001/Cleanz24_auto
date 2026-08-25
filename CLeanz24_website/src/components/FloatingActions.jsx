@@ -4,7 +4,7 @@ import './FloatingActions.css';
 
 export default function FloatingActions() {
   const [isMember, setIsMember] = useState(() => {
-    try { return !!localStorage.getItem('cleanz24_logged_in_member'); } catch { return false; }
+    try { return typeof window !== 'undefined' && !!localStorage.getItem('cleanz24_logged_in_member'); } catch { return false; }
   });
   const pathname = usePathname() || ''; const location = { pathname, state: {} };
 
