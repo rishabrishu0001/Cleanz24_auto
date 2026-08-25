@@ -1,131 +1,10 @@
-'use client';
-
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
-import { GOOGLE_SHEETS_LAUNDRY_FRANCHISE_SCRIPT_URL } from "../../config";
-
 import { FRANCHISE_CITIES, HIGH_VALUE_KEYWORDS } from "../../data/franchiseCities";
+import HeroSlideshow from "./components/HeroSlideshow";
+import CityFranchiseForm from "./components/CityFranchiseForm";
+
 export { FRANCHISE_CITIES, HIGH_VALUE_KEYWORDS };
-
-import storeimg1 from '../../assets/storeimg1.jpeg';
-import storeimg2 from '../../assets/storeimg2.jpeg';
-import storeimg3 from '../../assets/storeimg3.jpeg';
-import storeimg4 from '../../assets/storeimg4.jpeg';
-import storeimg5 from '../../assets/storeimg5.jpeg';
-import storeimg6 from '../../assets/storeimg6.jpeg';
-import storeimg7 from '../../assets/storeimg7.jpeg';
-
-const storeImages = [
-  '/assets/store_hero.jpg',
-  storeimg1,
-  storeimg2,
-  storeimg3,
-  storeimg4,
-  storeimg5,
-  storeimg6,
-  storeimg7
-];
-
-function HeroSlideshow({ dark }) {
-  const [activeIdx, setActiveIdx] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveIdx(prev => (prev + 1) % storeImages.length);
-    }, 3000);
-    return () => clearInterval(timer);
-  }, []);
-
-  return (
-    <div style={{
-      position: 'relative',
-      width: '100%',
-      height: 'clamp(280px, 45vh, 460px)',
-      borderRadius: 20,
-      overflow: 'hidden',
-      boxShadow: `0 16px 48px rgba(0,0,0,${dark ? '0.5' : '0.15'})`,
-      border: `1px solid ${dark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}`
-    }}>
-      {storeImages.map((src, i) => (
-        <img
-          key={i}
-          src={typeof src === 'string' ? src : (src?.src || '')}
-          alt={`Cleanz24 Store ${i + 1}`}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: 'center',
-            borderRadius: 20,
-            opacity: activeIdx === i ? 1 : 0,
-            transform: activeIdx === i ? 'scale(1.03)' : 'scale(1)',
-            transition: 'opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1)',
-            zIndex: activeIdx === i ? 2 : 1,
-          }}
-        />
-      ))}
-      <div style={{
-        position: 'absolute',
-        bottom: 0, left: 0, right: 0,
-        height: '90px',
-        background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%)',
-        zIndex: 3,
-      }} />
-      <div style={{
-        position: 'absolute',
-        bottom: 16,
-        left: '50%',
-        transform: 'translateX(-50%)',
-        display: 'flex',
-        gap: 7,
-        zIndex: 4,
-      }}>
-        {storeImages.map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            aria-label={`Go to slide ${i + 1}`}
-            onClick={() => setActiveIdx(i)}
-            style={{
-              width: activeIdx === i ? 24 : 8,
-              height: 8,
-              borderRadius: 4,
-              background: activeIdx === i ? '#22c55e' : 'rgba(255,255,255,0.6)',
-              border: 'none',
-              padding: 0,
-              cursor: 'pointer',
-              transition: 'width 0.35s ease, background 0.3s',
-              outline: 'none',
-            }}
-          />
-        ))}
-      </div>
-      <div style={{
-        position: 'absolute',
-        top: 16,
-        right: 16,
-        background: 'rgba(22, 101, 52, 0.95)',
-        color: '#fff',
-        borderRadius: 30,
-        padding: '6px 16px',
-        fontSize: '0.8rem',
-        fontFamily: 'Poppins, sans-serif',
-        fontWeight: 700,
-        letterSpacing: '0.5px',
-        zIndex: 4,
-        backdropFilter: 'blur(6px)',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
-      }}>
-        📍 100+ Stores Across India
-      </div>
-    </div>
-  );
-}
-
-
 
 const STATS = [
   { value: "100+", label: "Active Stores" },
@@ -233,71 +112,14 @@ const PAGE_CSS = (dark) => `
   }
 `;
 
-export default function FranchiseCityPage() {
-  const { citySlug } = (useParams() || {});
-  const ctx = (typeof useOutletContext === "function" ? (() => ({ isDarkMode: false, toggleTheme: () => {} }))() : null) || {};
-  const dark = ctx.darkMode ?? false;
+export default function FranchiseCityPage({ citySlug }) {
+  const dark = false;
   const cityData = FRANCHISE_CITIES.find((c) => c.slug === citySlug);
-  const cityName = cityData ? cityData.city : "Your City";
+  const cityName = cityData ? cityData.city : (citySlug ? citySlug.replace(/-/g, ' ').toUpperCase() : "Your City");
   const stateName = cityData ? cityData.state : "India";
 
-  const [form, setForm] = useState({ name: "", phone: "", email: "", model: "ALPHA MODEL" });
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState("");
-
-  const handleChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (submitting) return;
-    if (!form.name || !form.phone || !form.email) {
-      setError("Please fill in all required fields (Name, Phone & Email).");
-      return;
-    }
-    setSubmitting(true);
-    setError("");
-
-    try {
-      const dateStr = new Date().toISOString().split("T")[0];
-      const payload = {
-        date: dateStr, Date: dateStr, timestamp: dateStr, Timestamp: dateStr,
-        name: form.name, Name: form.name,
-        mobile: "'+91 " + form.phone, phone: "'+91 " + form.phone, Phone: "'+91 " + form.phone, Mobile: "'+91 " + form.phone,
-        email: form.email, Email: form.email,
-        city: cityName, City: cityName, Location: cityName,
-        modelType: form.model + " (Franchise City Page)", Model: form.model, Investment: form.model,
-        source: "Franchise City Page - " + cityName, Source: "Franchise City Page - " + cityName
-      };
-
-      await fetch("https://script.google.com/macros/s/AKfycbwgrxbbzmaqU8BT-l7xFSriJ-BNM01ad5Qo66ZOfR-XBF4ag9h1u1ErJcAN4J7LcM4p/exec", {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "text/plain" },
-        body: JSON.stringify(payload)
-      });
-
-      if (typeof window !== "undefined") {
-        if (typeof window.gtag === "function") {
-          window.gtag("event", "conversion", { send_to: "AW-16562330559/Ly9XCOC_iLQaEL-3xNk9" });
-          window.gtag("event", "laundry_franchise_lead", { event_category: "Franchise", event_label: "Franchise City Page Submission - " + cityName });
-        }
-      }
-
-      setSubmitted(true);
-    } catch (err) {
-      console.error("Error submitting city franchise form:", err);
-      // Even in no-cors or network glitch, show success to user
-      setSubmitted(true);
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  const canonicalUrl = "https://cleanz24.com/best-laundry-drycleaning/franchise-opportunities/" + citySlug;
-  const pageTitle = "Best Laundry & Dry Cleaning Franchise in " + cityName + " | Cleanz24";
+  const canonicalUrl = "https://cleanz24.com/best-laundry-drycleaning/franchise-opportunities/" + (citySlug || '');
   const pageDesc = "Start the most profitable laundry & dry cleaning franchise in " + cityName + ", " + stateName + ". Investment starting ₹13 Lacs+, high profit margins, 100+ stores network. Enquire now!";
-  const pageKeywords = ["laundry franchise in " + cityName, "dry cleaning franchise " + cityName, "best franchise opportunity in " + cityName, "profitable business in " + cityName, "laundry service near me " + cityName, "best laundry service " + cityName, "dry cleaning service near me " + cityName, "best business model " + cityName, "low investment franchise " + cityName, "Cleanz24 franchise " + cityName, ...HIGH_VALUE_KEYWORDS].join(", ");
 
   const schema = {
     "@context": "https://schema.org",
@@ -330,19 +152,19 @@ export default function FranchiseCityPage() {
               <div
                 className="fcp-hero-glass"
                 style={{
-                  background: dark ? 'rgba(15, 23, 42, 0.85)' : 'rgba(255, 255, 255, 0.90)',
+                  background: 'rgba(255, 255, 255, 0.90)',
                   backdropFilter: 'blur(10px)',
                   WebkitBackdropFilter: 'blur(10px)',
                   borderRadius: 24,
                   padding: '32px',
-                  border: `1px solid ${dark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}`,
+                  border: '1px solid rgba(0,0,0,0.08)',
                   boxShadow: '0 20px 40px rgba(0,0,0,0.12)',
                 }}
               >
                 <nav className="fcp-breadcrumb" aria-label="breadcrumb">
                   <Link href="/best-laundry-drycleaning">Home</Link><span>›</span>
-                  <Link href="/franchise-opportunities-in-india">Franchise</Link><span>›</span>
-                  <span style={{ color: dark ? '#94a3b8' : '#475569' }}>{cityName}</span>
+                  <Link href="/best-laundry-drycleaning/franchise-opportunities-in-india">Franchise</Link><span>›</span>
+                  <span style={{ color: '#475569' }}>{cityName}</span>
                 </nav>
                 <span className="fcp-badge">🚀 100+ Stores Network — Franchise in {cityName}</span>
                 <h1 className="fcp-city-name">Best Laundry & Dry Cleaning<br /><span className="fcp-city-highlight">Franchise in {cityName}</span></h1>
@@ -361,12 +183,10 @@ export default function FranchiseCityPage() {
         </div>
       </section>
 
-
-
       {/* WHY CLEANZ24 */}
       <section className="fcp-section">
         <div className="container">
-          <h2 className="fcp-section-title">Why Cleanz24 is the <span style={{ color: dark ? "#4ade80" : "#16a34a" }}>Best Franchise in {cityName}</span>?</h2>
+          <h2 className="fcp-section-title">Why Cleanz24 is the <span style={{ color: "#16a34a" }}>Best Franchise in {cityName}</span>?</h2>
           <p className="fcp-section-sub">Best profitable business model · Most successful franchise idea · High retention business opportunity</p>
           <div className="fcp-cards">{WHY_CLEANZ24.map((c) => (<div className="fcp-card" key={c.title}><div className="fcp-card-icon">{c.icon}</div><div className="fcp-card-title">{c.title}</div><div className="fcp-card-desc">{c.desc}</div></div>))}</div>
         </div>
@@ -391,7 +211,7 @@ export default function FranchiseCityPage() {
         </div>
       </section>
 
-      {/* INVESTMENT MODELS - EXACT MATCH WITH MAIN FRANCHISE PAGE */}
+      {/* INVESTMENT MODELS */}
       <section className="fcp-section">
         <div className="container">
           <h2 className="fcp-section-title">Franchise Models & Investment in {cityName}</h2>
@@ -416,88 +236,43 @@ export default function FranchiseCityPage() {
         <div className="container">
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "48px", alignItems: "flex-start" }}>
             <div>
-              <h2 className="fcp-section-title">Start Your <span style={{ color: dark ? "#4ade80" : "#16a34a" }}>Franchise in {cityName}</span> Today</h2>
-              <p style={{ color: dark ? "#94a3b8" : "#6b7280", fontSize: "1rem", lineHeight: 1.7, marginBottom: "24px" }}>Take the first step towards owning the most profitable business in {cityName}. Our team will call you within 24 hours with a complete franchise kit.</p>
-              <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>{["✅ Free franchise consultation call", "✅ Detailed ROI & profit model", "✅ Site selection & store setup support", "✅ Complete staff training & marketing kit", "✅ Exclusive area rights in " + cityName].map((p) => (<div key={p} style={{ fontSize: "0.92rem", color: dark ? "#cbd5e1" : "#374151", fontWeight: 500 }}>{p}</div>))}</div>
+              <h2 className="fcp-section-title">Start Your <span style={{ color: "#16a34a" }}>Franchise in {cityName}</span> Today</h2>
+              <p style={{ color: "#6b7280", fontSize: "1rem", lineHeight: 1.7, marginBottom: "24px" }}>Take the first step towards owning the most profitable business in {cityName}. Our team will call you within 24 hours with a complete franchise kit.</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>{["✅ Free franchise consultation call", "✅ Detailed ROI & profit model", "✅ Site selection & store setup support", "✅ Complete staff training & marketing kit", "✅ Exclusive area rights in " + cityName].map((p) => (<div key={p} style={{ fontSize: "0.92rem", color: "#374151", fontWeight: 500 }}>{p}</div>))}</div>
             </div>
 
-            <div id="franchise-form" style={{ width: '100%', maxWidth: '560px' }}>
-              <div className="fcp-form-wrap" id="franchise_form">
-                {submitted ? (
-                  <div className="fcp-success">
-                    <div className="fcp-success-icon">🎉</div>
-                    <div className="fcp-success-title">Enquiry Received!</div>
-                    <div className="fcp-success-text">
-                      Thank you! Our franchise team will call you within 24 hours regarding your enquiry for <strong>{cityName}</strong>.<br /><br />
-                      You can also WhatsApp us directly at <strong>+91 91380 04800</strong>.
-                    </div>
-                  </div>
-                ) : (
-                  <>
-                    <div className="fcp-form-title">Franchise Enquiry — {cityName}</div>
-                    <div className="fcp-form-sub">Fill the form to get your FREE franchise brochure & ROI report for {cityName}</div>
-                    <form className="fcp-form" onSubmit={handleSubmit}>
-                      <label>Full Name <span style={{ color: "#e53e3e" }}>*</span></label>
-                      <input name="name" value={form.name} onChange={handleChange} placeholder="Your name" required />
-
-                      <label>Phone Number <span style={{ color: "#e53e3e" }}>*</span></label>
-                      <input name="phone" value={form.phone} onChange={handleChange} placeholder="10-digit mobile number" required />
-
-                      <label>Email Address <span style={{ color: "#e53e3e" }}>*</span></label>
-                      <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="you@example.com" required />
-
-                      <label>Select Franchise Model</label>
-                      <select name="model" value={form.model} onChange={handleChange}>
-                        <option value="ALPHA MODEL">ALPHA MODEL — ₹13 Lacs+ (Starter)</option>
-                        <option value="BETA MODEL">BETA MODEL — ₹15 Lacs+ (Most Popular)</option>
-                        <option value="COMBO MODEL">COMBO MODEL — ₹22 Lacs+ (Commercial)</option>
-                        <option value="HYDRO-CARBON MODEL">HYDRO-CARBON MODEL — ₹35 Lacs+ (Premium)</option>
-                      </select>
-
-                      {error ? <p style={{ color: "#e53e3e", fontSize: "0.88rem", marginBottom: "12px" }}>{error}</p> : null}
-
-                      <button type="submit" className="fcp-btn-primary" style={{ width: "100%", justifyContent: "center" }} disabled={submitting}>
-                        {submitting ? "⏳ Submitting..." : "🚀 Apply for " + cityName + " Franchise"}
-                      </button>
-                    </form>
-                  </>
-                )}
-              </div>
-            </div>
+            <CityFranchiseForm cityName={cityName} />
           </div>
         </div>
       </section>
 
-      {/* 1000+ WORDS SEO ARTICLE GUIDE FOR CITY FRANCHISE */}
-      <section className="fcp-section" style={{ background: dark ? '#0f1623' : '#ffffff', borderTop: `1px solid ${dark ? '#334155' : '#e2e8f0'}` }}>
+      {/* 1000+ WORDS SEO ARTICLE GUIDE */}
+      <section className="fcp-section" style={{ background: '#ffffff', borderTop: '1px solid #e2e8f0' }}>
         <div className="container" style={{ maxWidth: '1000px', lineHeight: '1.8' }}>
           <h2 className="fcp-section-title" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', marginBottom: '20px' }}>
-            Complete Guide: Opening a Profitable <span style={{ color: dark ? '#4ade80' : '#16a34a' }}>Cleanz24 Franchise in {cityName}</span>
+            Complete Guide: Opening a Profitable <span style={{ color: '#16a34a' }}>Cleanz24 Franchise in {cityName}</span>
           </h2>
-          <p style={{ fontSize: '1rem', color: dark ? '#cbd5e1' : '#475569', marginBottom: '24px' }}>
+          <p style={{ fontSize: '1rem', color: '#475569', marginBottom: '24px' }}>
             Starting a business in <strong>{cityName}, {stateName}</strong> requires choosing an industry with consistent consumer demand, predictable cashflows, and high net profit margins. Among various retail and service business models, the laundry and dry cleaning sector stands out as one of the most resilient, recession-proof, and lucrative opportunities in India today. As urban lifestyles in {cityName} accelerate, working professionals, families, and commercial establishments increasingly outsource their garment care, sneaker spa, and home upholstery cleaning needs to professional studios.
           </p>
-          <p style={{ fontSize: '1rem', color: dark ? '#cbd5e1' : '#475569', marginBottom: '24px' }}>
+          <p style={{ fontSize: '1rem', color: '#475569', marginBottom: '24px' }}>
             Cleanz24 is India's leading tech-enabled laundry and dry cleaning franchise network, boasting over <strong>100+ active stores across 21+ states</strong>. By bringing modern European hydrocarbon cleaning technology, automated POS billing software, and doorstep pickup-and-delivery logistics to {cityName}, Cleanz24 empowers franchise partners to launch a turnkey business with fast ROI (18-20 months) and healthy 35-45% net profit margins.
           </p>
 
-          <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.4rem', color: dark ? '#f1f5f9' : '#0f172a', marginTop: '36px', marginBottom: '16px' }}>
+          <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.4rem', color: '#0f172a', marginTop: '36px', marginBottom: '16px' }}>
             1. Why {cityName} is the Ideal Market for a Premium Laundry Studio
           </h3>
-          <p style={{ fontSize: '0.98rem', color: dark ? '#94a3b8' : '#475569', marginBottom: '20px' }}>
+          <p style={{ fontSize: '0.98rem', color: '#475569', marginBottom: '20px' }}>
             The demand for organized laundry and eco-friendly dry cleaning in {cityName} has grown rapidly over the past few years. Traditional unorganized local dhobis often use harsh chemical detergents, hard tap water, and unhygienic wash methods that lead to fabric damage, color bleeding, and shrinkage. High-income households, corporate employees, and fashion-conscious residents in {cityName} are actively seeking organized alternatives that offer fabric safety, hygienic soft-water processing, and doorstep convenience.
           </p>
-          <p style={{ fontSize: '0.98rem', color: dark ? '#94a3b8' : '#475569', marginBottom: '24px' }}>
-            Furthermore, real estate development and residential township expansion in {cityName} create dense customer catchments within a 3 to 5 km radius of a Cleanz24 studio. By offering services ranging from daily wash & fold to silk saree dry cleaning, suit pressing, sneaker spa, luxury bag restoration, and sofa shampooing, a single Cleanz24 outlet in {cityName} addresses multiple recurring revenue streams under one roof.
-          </p>
 
-          <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.4rem', color: dark ? '#f1f5f9' : '#0f172a', marginTop: '36px', marginBottom: '16px' }}>
+          <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.4rem', color: '#0f172a', marginTop: '36px', marginBottom: '16px' }}>
             2. Comprehensive Turnkey Support Provided by Cleanz24 in {cityName}
           </h3>
-          <p style={{ fontSize: '0.98rem', color: dark ? '#94a3b8' : '#475569', marginBottom: '20px' }}>
+          <p style={{ fontSize: '0.98rem', color: '#475569', marginBottom: '20px' }}>
             When you sign up for a Cleanz24 franchise in {cityName}, you receive end-to-end operational, technical, and marketing backing from our core expansion team:
           </p>
-          <ul style={{ paddingLeft: '24px', color: dark ? '#cbd5e1' : '#334155', marginBottom: '28px' }}>
+          <ul style={{ paddingLeft: '24px', color: '#334155', marginBottom: '28px' }}>
             <li style={{ marginBottom: '12px' }}><strong>Location Intelligence & Site Approval:</strong> Our real estate research team analyzes footfall density, competitor presence, and neighborhood demographics in {cityName} to approve the optimal store location.</li>
             <li style={{ marginBottom: '12px' }}><strong>Turnkey Interior Design & Equipment Setup:</strong> We manage store layout design, branding signages, commercial laundry machinery installation, steam pressing tables, and chemical dosing setups.</li>
             <li style={{ marginBottom: '12px' }}><strong>Staff Recruitment & Master Training:</strong> Our master trainers conduct a rigorous 7-day hands-on training program for your store operators on fabric classification, stain removal, machine operation, and customer service.</li>
@@ -505,54 +280,27 @@ export default function FranchiseCityPage() {
             <li style={{ marginBottom: '12px' }}><strong>Digital Marketing & Local SEO Dominance:</strong> We set up your store's Google Business Profile, run targeted meta campaigns, and publish custom localized SEO pages to drive high-intent leads in {cityName} from Day 1.</li>
           </ul>
 
-          <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.4rem', color: dark ? '#f1f5f9' : '#0f172a', marginTop: '36px', marginBottom: '16px' }}>
+          <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.4rem', color: '#0f172a', marginTop: '36px', marginBottom: '16px' }}>
             3. Versatile Franchise Investment Models Tailored for {cityName}
           </h3>
-          <p style={{ fontSize: '0.98rem', color: dark ? '#94a3b8' : '#475569', marginBottom: '20px' }}>
-            To suit different budget capabilities and commercial spaces in {cityName}, Cleanz24 offers four structured investment tiers:
-          </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px', marginBottom: '32px' }}>
-            <div style={{ background: dark ? '#1e293b' : '#f8fafc', border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, borderRadius: '14px', padding: '20px' }}>
+            <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '20px' }}>
               <div style={{ fontWeight: 800, color: '#16a34a', fontSize: '1.1rem', marginBottom: '6px' }}>ALPHA MODEL (₹13 Lacs+)</div>
-              <p style={{ fontSize: '0.88rem', color: dark ? '#94a3b8' : '#64748b', margin: 0 }}>Ideal for residential neighborhoods (250 sq.ft min area). Equipped with 15kg washer-extractor stackers, steam press tables, and soft-water detergents. Generates ₹1L+ monthly profit.</p>
+              <p style={{ fontSize: '0.88rem', color: '#64748b', margin: 0 }}>Ideal for residential neighborhoods (250 sq.ft min area). Equipped with 15kg washer-extractor stackers, steam press tables, and soft-water detergents. Generates ₹1L+ monthly profit.</p>
             </div>
-            <div style={{ background: dark ? '#1e293b' : '#f8fafc', border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, borderRadius: '14px', padding: '20px' }}>
+            <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '20px' }}>
               <div style={{ fontWeight: 800, color: '#16a34a', fontSize: '1.1rem', marginBottom: '6px' }}>BETA MODEL (₹15 Lacs+)</div>
-              <p style={{ fontSize: '0.88rem', color: dark ? '#94a3b8' : '#64748b', margin: 0 }}>Our most popular model for high-density areas in {cityName}. Includes extra washer stackers, sneaker spa kit, and full digital marketing. Generates ₹1.5L+ monthly profit.</p>
+              <p style={{ fontSize: '0.88rem', color: '#64748b', margin: 0 }}>Our most popular model for high-density areas in {cityName}. Includes extra washer stackers, sneaker spa kit, and full digital marketing. Generates ₹1.5L+ monthly profit.</p>
             </div>
-            <div style={{ background: dark ? '#1e293b' : '#f8fafc', border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, borderRadius: '14px', padding: '20px' }}>
+            <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '20px' }}>
               <div style={{ fontWeight: 800, color: '#16a34a', fontSize: '1.1rem', marginBottom: '6px' }}>COMBO MODEL (₹22 Lacs+)</div>
-              <p style={{ fontSize: '0.88rem', color: dark ? '#94a3b8' : '#64748b', margin: 0 }}>Commercial setup handling bulk B2B orders (hotels, hostels, corporate) plus retail B2C. Features 18kg standalone machines. Generates ₹2L+ monthly profit.</p>
+              <p style={{ fontSize: '0.88rem', color: '#64748b', margin: 0 }}>Commercial setup handling bulk B2B orders (hotels, hostels, corporate) plus retail B2C. Features 18kg standalone machines. Generates ₹2L+ monthly profit.</p>
             </div>
-            <div style={{ background: dark ? '#1e293b' : '#f8fafc', border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, borderRadius: '14px', padding: '20px' }}>
+            <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '20px' }}>
               <div style={{ fontWeight: 800, color: '#16a34a', fontSize: '1.1rem', marginBottom: '6px' }}>HYDRO-CARBON MODEL (₹35 Lacs+)</div>
-              <p style={{ fontSize: '0.88rem', color: dark ? '#94a3b8' : '#64748b', margin: 0 }}>Ultra-premium studio with eco-friendly hydrocarbon dry cleaning machinery for delicate silks, leather jackets, and luxury wear. Generates ₹2.5L+ monthly profit.</p>
+              <p style={{ fontSize: '0.88rem', color: '#64748b', margin: 0 }}>Ultra-premium studio with eco-friendly hydrocarbon dry cleaning machinery for delicate silks, leather jackets, and luxury wear. Generates ₹2.5L+ monthly profit.</p>
             </div>
           </div>
-
-          <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.4rem', color: dark ? '#f1f5f9' : '#0f172a', marginTop: '36px', marginBottom: '16px' }}>
-            4. Step-by-Step Path to Launch Your Studio in {cityName}
-          </h3>
-          <p style={{ fontSize: '0.98rem', color: dark ? '#94a3b8' : '#475569', marginBottom: '20px' }}>
-            Launching your Cleanz24 studio in {cityName} follows a streamlined, fast-track 30 to 45-day roadmap:
-          </p>
-          <ol style={{ paddingLeft: '24px', color: dark ? '#cbd5e1' : '#334155', marginBottom: '28px' }}>
-            <li style={{ marginBottom: '10px' }}><strong>Initial Consultation & Application:</strong> Fill out the inquiry form above to receive the detailed brochure and schedule a call with our franchise manager.</li>
-            <li style={{ marginBottom: '10px' }}><strong>Franchise Agreement & Zone Reservation:</strong> Lock in your target territory in {cityName} with exclusive territorial rights.</li>
-            <li style={{ marginBottom: '10px' }}><strong>Site Finalization & Interior Fit-Out:</strong> Our team assists in landlord negotiations, store blueprint design, electrical wiring, plumbing, and signage installation.</li>
-            <li style={{ marginBottom: '10px' }}><strong>Machinery Delivery & Staff Onboarding:</strong> Commercial machines are installed and calibrated, while your staff undergoes comprehensive training.</li>
-            <li style={{ marginBottom: '10px' }}><strong>Grand Opening Campaign:</strong> We launch local digital campaigns, flyer distributions, and inaugural discount offers to ensure strong opening day footfall in {cityName}.</li>
-          </ol>
-
-          <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.4rem', color: dark ? '#f1f5f9' : '#0f172a', marginTop: '36px', marginBottom: '16px' }}>
-            5. Frequently Searched Franchise & Service Topics in {cityName}
-          </h3>
-          <p style={{ fontSize: '0.98rem', color: dark ? '#94a3b8' : '#475569', marginBottom: '20px' }}>
-            As a franchise owner in {cityName}, your studio will automatically rank for and serve popular local searches such as <em>"best laundry franchise in {cityName}"</em>, <em>"dry cleaning business opportunity in {cityName}"</em>, <em>"low investment high return franchise near me"</em>, <em>"doorstep laundry delivery in {cityName}"</em>, and <em>"sneaker shoe spa in {cityName}"</em>.
-          </p>
-          <p style={{ fontSize: '0.98rem', color: dark ? '#94a3b8' : '#475569', marginBottom: '12px' }}>
-            Ready to build a stable, scalable, and highly profitable business in <strong>{cityName}, {stateName}</strong>? Submit your inquiry form today or contact our franchise team at <strong>+91 91380 04800</strong> to get started.
-          </p>
         </div>
       </section>
 
@@ -567,7 +315,7 @@ export default function FranchiseCityPage() {
               { q: "Where can I find the best dry cleaning service near me in " + cityName + "?", a: "Cleanz24 is the best dry cleaning & laundry service near you in " + cityName + ". Call +91 91380 04800 or WhatsApp for store details." },
               { q: "What support does Cleanz24 provide to franchise partners in " + cityName + "?", a: "Full support: site selection, store setup, staff training, tech & CRM platform, marketing & SEO, supply chain, and dedicated franchise manager for " + cityName + "." },
               { q: "What is the ROI timeline for a Cleanz24 franchise in " + cityName + "?", a: "Typical ROI recovery is 18-20 months across all models in " + cityName + "." },
-            ].map((faq) => (<div key={faq.q} style={{ background: dark ? "#1e293b" : "#f9fafb", border: "1px solid " + (dark ? "#334155" : "#e5e7eb"), borderRadius: "12px", padding: "20px 24px" }}><div style={{ fontWeight: 700, color: dark ? "#f1f5f9" : "#111", marginBottom: "8px", fontSize: "0.95rem" }}>❓ {faq.q}</div><div style={{ color: dark ? "#94a3b8" : "#6b7280", fontSize: "0.9rem", lineHeight: 1.6 }}>{faq.a}</div></div>))}
+            ].map((faq) => (<div key={faq.q} style={{ background: "#f9fafb", border: "1px solid #e5e7eb", borderRadius: "12px", padding: "20px 24px" }}><div style={{ fontWeight: 700, color: "#111", marginBottom: "8px", fontSize: "0.95rem" }}>❓ {faq.q}</div><div style={{ color: "#6b7280", fontSize: "0.9rem", lineHeight: 1.6 }}>{faq.a}</div></div>))}
           </div>
         </div>
       </section>

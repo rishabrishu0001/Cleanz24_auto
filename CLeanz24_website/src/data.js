@@ -228,6 +228,18 @@ export const storesData = [
     reviews: 85
   },
   {
+    id: 61,
+    name: 'Cleanz24 - Nirala Estate Greater Noida West',
+    address: 'LGF 24, Nirala Biz Park, Nirala Estate, Tech Zone IV, Patwari, Greater Noida, Uttar Pradesh 201310',
+    phone: '9138004800',
+    whatsapp: '919138004800',
+    city: 'Greater Noida West',
+    state: 'Uttar Pradesh',
+    tags: ['Delhi NCR', 'Greater Noida West', 'Nirala Estate', 'Patwari', 'Tech Zone IV', '201310'],
+    rating: 4.8,
+    reviews: 52
+  },
+  {
     id: 7,
     name: 'Cleanz24 - Indirapuram',
     address: 'Shop No-UGF-5, Plot No 477, 2, main road, near noida, Niti Khand I, Indirapuram, Ghaziabad, Uttar Pradesh 201014',

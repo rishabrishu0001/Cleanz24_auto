@@ -14,6 +14,7 @@ const nextConfig = {
   async redirects() {
     return [
       { source: '/laundry', destination: '/best-laundry-drycleaning', permanent: true },
+      { source: '/best-laundry-drycleaning/noida', destination: '/best-laundry-drycleaning/service-in-noida', permanent: true },
       { source: '/laundry/franchise', destination: '/best-laundry-drycleaning/franchise-opportunities-in-india', permanent: true },
       { source: '/laundry/franchise/:path*', destination: '/best-laundry-drycleaning/franchise-opportunities/:path*', permanent: true },
       { source: '/laundry/:path*', destination: '/best-laundry-drycleaning/:path*', permanent: true },

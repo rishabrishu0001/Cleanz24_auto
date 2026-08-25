@@ -201,7 +201,7 @@ export default function Locations() {
                               borderBottom: '1px dashed #EDF2F7',
                             }}
                           >
-                            <Link href={`/best-laundry-drycleaning/${citySlug}`}
+                            <Link href={`/best-laundry-drycleaning/service-in-${citySlug}`}
                               style={{
                                 display: 'flex',
                                 justifyContent: 'space-between',

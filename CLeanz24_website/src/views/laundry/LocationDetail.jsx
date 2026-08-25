@@ -1,11 +1,17 @@
-'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
-import { motion } from 'framer-motion';
 import { storesData } from '../../data';
-import { generateStoreSlug } from './StoreDetail';
+import { FRANCHISE_CITIES } from '../../data/franchiseCities';
+
+const generateStoreSlug = (name) => {
+  const cleanLoc = (name || '')
+    .replace(/^Cleanz24\s*-\s*/i, '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)+/g, '');
+  return `best-laundry-drycleaning-services-${cleanLoc}`;
+};
 
 // Helper to slugify
 const slugify = (text) => {
@@ -172,9 +178,8 @@ function StarRating({ rating }) {
 
 // FAQ Item with accordion
 function FaqItem({ faq, index }) {
-  const [open, setOpen] = useState(false);
   return (
-    <div
+    <details
       style={{
         background: '#fff',
         borderRadius: '10px',
@@ -183,41 +188,322 @@ function FaqItem({ faq, index }) {
         overflow: 'hidden',
       }}
     >
-      <button
-        onClick={() => setOpen(!open)}
+      <summary
         style={{
-          width: '100%',
           padding: '18px 20px',
-          background: 'none',
-          border: 'none',
           cursor: 'pointer',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          gap: '12px',
-          textAlign: 'left',
+          fontSize: '15px',
+          fontWeight: 600,
+          color: '#2D3748',
+          outline: 'none',
+          listStyle: 'none',
         }}
       >
-        <span style={{ fontSize: '15px', fontWeight: 600, color: '#2D3748' }}>
-          {index + 1}. {faq.q}
-        </span>
-        <span style={{ fontSize: '20px', color: '#2B6CB0', flexShrink: 0, fontWeight: 300 }}>
-          {open ? '−' : '+'}
-        </span>
-      </button>
-      {open && (
-        <div style={{ padding: '0 20px 18px', fontSize: '14px', lineHeight: '1.7', color: '#718096' }}>
-          {faq.a}
+        {index + 1}. {faq.q}
+      </summary>
+      <div style={{ padding: '0 20px 18px', fontSize: '14px', lineHeight: '1.7', color: '#718096' }}>
+        {faq.a}
+      </div>
+    </details>
+  );
+}
+
+// Strip known route prefixes so slugs like 'service-in-visakhapatnam' normalize to 'visakhapatnam'
+const normalizeSlug = (slug) => {
+  if (!slug) return '';
+  return slug
+    .replace(/^service-in-/, '')
+    .replace(/^franchise-in-/, '')
+    .replace(/^:/, '')
+    .trim();
+};
+
+function UpcomingCityPage({ cleanSlug, franchiseCity }) {
+  const city = franchiseCity.city;
+  const state = franchiseCity.state;
+  const url = `https://www.cleanz24.com/best-laundry-drycleaning/service-in-${cleanSlug}`;
+
+  const neighborhoods = CITY_NEIGHBORHOODS[cleanSlug] || [`${city} Sector 1`, `${city} Sector 2`, `${city} Main Market`, `Downtown ${city}`];
+  const landmarks = CITY_LANDMARKS[cleanSlug] || [`${city} City Center`, `Main Market`, `major transit hubs in ${city}`];
+
+  const faqs = [
+    {
+      q: `Does Cleanz24 offer laundry & dry cleaning service in ${city}?`,
+      a: `Yes! Cleanz24 is expanding its premium laundry and dry cleaning services across India including ${city}, ${state}. You can enquire about doorstep pickup and delivery, dry cleaning for delicate garments, shoe spa, steam ironing, and sofa/curtain cleaning by contacting our national helpline at +91 9138004800 or on WhatsApp.`,
+    },
+    {
+      q: `How can I book a laundry pickup in ${city}?`,
+      a: `To schedule a laundry or dry cleaning pickup in ${city}, WhatsApp us at +91 9138004800 or call our helpline. Our team will coordinate a convenient slot for collection and delivery of your garments. Alternatively, check our Stores page for the nearest active outlet.`,
+    },
+    {
+      q: `What laundry and dry cleaning services are available in ${city}?`,
+      a: `Cleanz24 offers a full range of garment care services including eco-friendly wash & fold laundry, professional dry cleaning for silk sarees, suits & delicate fabrics, shoe spa & cleaning, steam ironing, sofa cleaning, carpet shampooing, and curtain cleaning. Contact us to check current availability in ${city}.`,
+    },
+    {
+      q: `Is Cleanz24 opening a store in ${city}?`,
+      a: `Cleanz24 is actively expanding its franchise network across ${state}. If you are interested in a Cleanz24 franchise in ${city} or want to be notified when we open nearby, call us at +91 9138004800 or visit our Franchise Opportunities page.`,
+    },
+    {
+      q: `What makes Cleanz24 different from local laundry services?`,
+      a: `Cleanz24 uses German-grade soft-wash machinery, biodegradable eco-safe solvents, individual-batch processing (your clothes never mix with another customer's), and provides free doorstep pickup & delivery. Every garment is tracked with a unique tag to ensure safe return.`,
+    },
+  ];
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.cleanz24.com/best-laundry-drycleaning' },
+      { '@type': 'ListItem', position: 2, name: state },
+      { '@type': 'ListItem', position: 3, name: city, item: url },
+    ],
+  };
+
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: `Laundry & Dry Cleaning Service in ${city}`,
+    description: `Premium laundry, dry cleaning, shoe spa, steam ironing, sofa cleaning, and curtain care with free doorstep pickup & delivery in ${city}, ${state}. Served by Cleanz24 India's leading garment care network.`,
+    provider: {
+      '@type': 'Organization',
+      name: 'Cleanz24',
+      url: 'https://www.cleanz24.com',
+      telephone: '+919138004800',
+      email: 'happy2helpu@cleanz24.com',
+    },
+    areaServed: { '@type': 'City', name: city, containedIn: { '@type': 'State', name: state } },
+    serviceType: 'Laundry & Dry Cleaning',
+    url,
+  };
+
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: { '@type': 'Answer', text: faq.a },
+    })),
+  };
+
+  return (
+    <div style={{ background: '#F7FAFC', minHeight: '100vh' }}>
+      {/* Structured Data */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+
+      {/* ══ HERO ══ */}
+      <section style={{ background: 'linear-gradient(135deg, #1A365D 0%, #2A4365 50%, #2B6CB0 100%)', color: '#fff', padding: '80px 20px 100px', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 30% 50%, rgba(255,255,255,0.06) 0%, transparent 60%)', pointerEvents: 'none' }} />
+        <div className="container text-center" style={{ position: 'relative', zIndex: 1 }}>
+          {/* Breadcrumb */}
+          <nav aria-label="breadcrumb" style={{ marginBottom: '20px', fontSize: '13px', opacity: 0.75 }}>
+            <Link href="/best-laundry-drycleaning" style={{ color: '#fff', textDecoration: 'none' }}>Home</Link>
+            {' › '}
+            <span style={{ color: 'rgba(255,255,255,0.75)' }}>{state}</span>
+            {' › '}
+            <span style={{ fontWeight: 600 }}>{city}</span>
+          </nav>
+
+          <span style={{ display: 'inline-block', background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.25)', borderRadius: '30px', fontSize: '12px', fontWeight: 700, padding: '6px 18px', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '20px' }}>
+            🚀 Coming to {city} · Enquire Now
+          </span>
+
+          <h1 style={{ fontSize: 'clamp(28px, 5vw, 52px)', fontWeight: 800, lineHeight: 1.2, fontFamily: "'Poppins', sans-serif", marginBottom: '20px' }}>
+            Laundry &amp; Dry Cleaning Services in {city}
+          </h1>
+
+          <p style={{ fontSize: 'clamp(15px, 2.5vw, 19px)', color: 'rgba(255,255,255,0.9)', maxWidth: '650px', margin: '0 auto 36px', lineHeight: 1.7 }}>
+            Cleanz24 — India's leading eco-friendly dry cleaning, shoe spa, steam ironing, and laundry franchise — is{' '}
+            <strong>expanding to {city}, {state}</strong>. Enquire now about service availability, doorstep pickup, or franchise opportunities in your area.
+          </p>
+
+          <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <a
+              href={`https://wa.me/919138004800?text=Hi%20Cleanz24%2C%20I%20need%20laundry%20or%20dry%20cleaning%20service%20in%20${encodeURIComponent(city)}%2C%20${encodeURIComponent(state)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ background: '#48BB78', color: '#fff', textDecoration: 'none', fontWeight: 700, borderRadius: '30px', padding: '14px 28px', fontSize: '15px', boxShadow: '0 4px 14px rgba(72,187,120,0.4)', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01C17.18 3.03 14.69 2 12.04 2z"/></svg>
+              Enquire on WhatsApp
+            </a>
+            <a
+              href="tel:+919138004800"
+              style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', border: '1.5px solid rgba(255,255,255,0.4)', color: '#fff', textDecoration: 'none', fontWeight: 700, borderRadius: '30px', padding: '14px 28px', fontSize: '15px' }}
+            >
+              📞 Call +91 9138004800
+            </a>
+          </div>
         </div>
+      </section>
+
+      {/* ══ SERVICES GRID ══ */}
+      <section style={{ background: '#fff', padding: '60px 0' }}>
+        <div className="container">
+          <h2 style={{ fontSize: 'clamp(20px, 3vw, 30px)', fontWeight: 700, color: '#1A365D', fontFamily: "'Poppins', sans-serif", marginBottom: '12px', textAlign: 'center' }}>
+            Laundry &amp; Dry Cleaning Services Available in {city}
+          </h2>
+          <p style={{ color: '#718096', textAlign: 'center', marginBottom: '40px', fontSize: '15px', maxWidth: '560px', margin: '0 auto 40px' }}>
+            Cleanz24 brings India's most trusted garment care services to your city. Here's what will be available in {city}:
+          </p>
+          <div className="row g-3">
+            {[
+              { icon: '👕', title: 'Wash & Fold Laundry', desc: 'Everyday clothing washed with premium surfactants in individual cycles. No mixing with other customers.' },
+              { icon: '👔', title: 'Dry Cleaning', desc: 'Eco-safe solvent dry cleaning for silk sarees, lehengas, suits, sherwanis & delicate fabrics. Zero chemical odour.' },
+              { icon: '👟', title: 'Shoe Spa & Cleaning', desc: 'Deep clean, deodorize, and restore sneakers, leather boots, canvas & suede shoes to like-new condition.' },
+              { icon: '💨', title: 'Steam Ironing', desc: 'Professional steam pressing on vacuum boards for crisp, wrinkle-free results. No burn risk.' },
+              { icon: '🛋️', title: 'Sofa & Upholstery Cleaning', desc: 'At-home extraction shampooing & steam sanitizing for sofas, carpets, rugs and curtains.' },
+              { icon: '🚪', title: 'Free Doorstep Pickup & Delivery', desc: 'Schedule a convenient slot — our team collects and delivers right at your door, no travel needed.' },
+            ].map((s, i) => (
+              <div key={i} className="col-md-6 col-lg-4">
+                <div style={{ background: '#F7FAFC', padding: '24px', borderRadius: '14px', border: '1px solid #EDF2F7', height: '100%' }}>
+                  <h3 style={{ fontSize: '17px', fontWeight: 600, color: '#2B6CB0', marginBottom: '8px' }}>{s.icon} {s.title}</h3>
+                  <p style={{ fontSize: '13px', lineHeight: '1.6', color: '#718096', margin: 0 }}>{s.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══ WHY CLEANZ24 ══ */}
+      <section style={{ background: '#F7FAFC', padding: '60px 0' }}>
+        <div className="container">
+          <div className="row align-items-center g-5">
+            <div className="col-lg-6">
+              <h2 style={{ fontSize: 'clamp(20px, 3vw, 28px)', fontWeight: 700, color: '#1A365D', fontFamily: "'Poppins', sans-serif", marginBottom: '16px' }}>
+                Why Choose Cleanz24 for Laundry &amp; Dry Cleaning in {city}?
+              </h2>
+              <p style={{ fontSize: '15px', lineHeight: '1.8', color: '#4A5568', marginBottom: '20px' }}>
+                Cleanz24 is India's fastest-growing premium laundry & dry cleaning franchise network with 100+ stores across 21+ states. We bring German soft-wash technology, eco-safe biodegradable solvents, and a commitment to zero cross-contamination — so your garments come back flawless every time.
+              </p>
+              <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {['Eco-safe, hypoallergenic solvents — safe for silk, delicates & children\'s clothing', 'Individual-batch processing — your clothes never mix with another customer\'s', 'Free doorstep pickup & delivery — no travel required', 'Expert care for dry cleaning, shoe spa, sofa cleaning, steam ironing & carpets', 'Transparent pricing — no hidden charges, digital invoice provided'].map((point, i) => (
+                  <li key={i} style={{ display: 'flex', gap: '10px', fontSize: '14px', color: '#4A5568', lineHeight: '1.6' }}>
+                    <span style={{ color: '#48BB78', fontWeight: 700, flexShrink: 0 }}>✓</span>
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="col-lg-6">
+              <div className="row g-3">
+                {[
+                  { icon: '🏪', value: '100+', label: 'Active Stores Across India' },
+                  { icon: '🗺️', value: '21+', label: 'States Covered' },
+                  { icon: '📦', value: '10,000+', label: 'Pickups Completed' },
+                  { icon: '🌿', value: '100%', label: 'Eco-Safe Solvents' },
+                ].map((stat, i) => (
+                  <div key={i} className="col-6">
+                    <div style={{ background: '#fff', borderRadius: '14px', padding: '24px 16px', textAlign: 'center', border: '1px solid #EDF2F7', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
+                      <div style={{ fontSize: '28px', marginBottom: '8px' }}>{stat.icon}</div>
+                      <div style={{ fontSize: '22px', fontWeight: 800, color: '#1A365D' }}>{stat.value}</div>
+                      <div style={{ fontSize: '12px', color: '#718096', marginTop: '4px' }}>{stat.label}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══ COVERAGE AREA ══ */}
+      {(neighborhoods.length > 0 || landmarks.length > 0) && (
+        <section style={{ background: '#fff', padding: '60px 0' }}>
+          <div className="container">
+            <h2 style={{ fontSize: 'clamp(20px, 3vw, 28px)', fontWeight: 700, color: '#1A365D', fontFamily: "'Poppins', sans-serif", marginBottom: '12px' }}>
+              Areas We Plan to Serve in {city}
+            </h2>
+            <p style={{ fontSize: '15px', lineHeight: '1.8', color: '#4A5568', marginBottom: '24px' }}>
+              Cleanz24 plans to cover all major residential and commercial localities in {city} including areas near{' '}
+              <strong>{landmarks.slice(0, 3).join(', ')}</strong>. Contact us now to be notified when service launches in your neighborhood.
+            </p>
+            <div style={{ background: '#EDF2F7', borderRadius: '12px', padding: '20px 24px' }}>
+              <h4 style={{ fontSize: '14px', fontWeight: 700, color: '#2D3748', marginBottom: '14px' }}>📍 Planned Coverage in {city}:</h4>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {neighborhoods.map((area, i) => (
+                  <span key={i} style={{ background: '#fff', border: '1px solid #CBD5E0', borderRadius: '20px', padding: '5px 14px', fontSize: '13px', color: '#2D3748', fontWeight: 500 }}>
+                    {area}
+                  </span>
+                ))}
+              </div>
+              <p style={{ fontSize: '13px', color: '#718096', marginTop: '14px', marginBottom: 0 }}>
+                Don't see your locality? Call us — we'll update you as soon as service launches in {city}.
+              </p>
+            </div>
+          </div>
+        </section>
       )}
+
+      {/* ══ FAQS ══ */}
+      <section style={{ background: '#F7FAFC', padding: '60px 0' }}>
+        <div className="container">
+          <h2 style={{ fontSize: 'clamp(20px, 3vw, 28px)', fontWeight: 700, color: '#1A365D', fontFamily: "'Poppins', sans-serif", marginBottom: '8px' }}>
+            FAQs — Laundry &amp; Dry Cleaning in {city}
+          </h2>
+          <p style={{ color: '#718096', fontSize: '15px', marginBottom: '28px' }}>Common questions from {city} residents:</p>
+          <div>
+            {faqs.map((faq, index) => (
+              <details
+                key={index}
+                style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E2E8F0', marginBottom: '12px', overflow: 'hidden' }}
+              >
+                <summary style={{ padding: '18px 20px', cursor: 'pointer', fontSize: '15px', fontWeight: 600, color: '#2D3748', outline: 'none', listStyle: 'none' }}>
+                  {index + 1}. {faq.q}
+                </summary>
+                <div style={{ padding: '0 20px 18px', fontSize: '14px', lineHeight: '1.7', color: '#718096' }}>
+                  {faq.a}
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══ CTA ══ */}
+      <section style={{ padding: '60px 0' }}>
+        <div className="container">
+          <div style={{ background: 'linear-gradient(135deg, #1A365D, #2563EB)', borderRadius: '20px', padding: '48px 32px', color: '#fff', textAlign: 'center' }}>
+            <h2 style={{ fontSize: 'clamp(20px, 3vw, 30px)', fontWeight: 800, fontFamily: "'Poppins', sans-serif", marginBottom: '14px' }}>
+              Get Cleanz24 Laundry &amp; Dry Cleaning in {city}
+            </h2>
+            <p style={{ fontSize: '15px', opacity: 0.9, lineHeight: '1.7', marginBottom: '32px', maxWidth: '520px', margin: '0 auto 32px' }}>
+              Contact us now to check current service availability, schedule a pickup, or learn about our upcoming store launch in {city}, {state}.
+            </p>
+            <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <a
+                href={`https://wa.me/919138004800?text=Hi%20Cleanz24%2C%20I%20want%20laundry%20service%20in%20${encodeURIComponent(city)}%2C%20${encodeURIComponent(state)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ background: '#48BB78', color: '#fff', textDecoration: 'none', fontWeight: 700, borderRadius: '30px', padding: '14px 32px', fontSize: '15px', boxShadow: '0 4px 14px rgba(72,187,120,0.35)' }}
+              >
+                💬 WhatsApp Enquiry
+              </a>
+              <a
+                href="tel:+919138004800"
+                style={{ background: 'rgba(255,255,255,0.15)', border: '1.5px solid rgba(255,255,255,0.4)', color: '#fff', textDecoration: 'none', fontWeight: 700, borderRadius: '30px', padding: '14px 32px', fontSize: '15px' }}
+              >
+                📞 Call +91 9138004800
+              </a>
+            </div>
+            <div style={{ marginTop: '28px', display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <Link href="/best-laundry-drycleaning/stores" style={{ color: 'rgba(255,255,255,0.8)', fontSize: '14px', fontWeight: 600, textDecoration: 'none' }}>📍 Find Nearest Store</Link>
+              <Link href={`/best-laundry-drycleaning/franchise-opportunities/${cleanSlug}`} style={{ color: 'rgba(255,255,255,0.8)', fontSize: '14px', fontWeight: 600, textDecoration: 'none' }}>🤝 Franchise Opportunity in {city}</Link>
+              <Link href="/best-laundry-drycleaning/locations" style={{ color: 'rgba(255,255,255,0.8)', fontSize: '14px', fontWeight: 600, textDecoration: 'none' }}>🗺️ All Locations</Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
 
-export default function LocationDetail() {
-  const { citySlug } = (useParams() || {});
-  
-  const cleanSlug = citySlug ? citySlug.replace(/^:/, '').trim() : '';
+export default function LocationDetail({ citySlug: propCitySlug }) {
+  const rawSlug = propCitySlug || '';
+  const cleanSlug = normalizeSlug(rawSlug);
   
   const matchedStores = storesData.filter((store) => {
     const sCity = slugify(store.city);
@@ -227,6 +513,12 @@ export default function LocationDetail() {
   });
 
   if (matchedStores.length === 0) {
+    // Check if this is a valid upcoming franchise city
+    const franchiseCity = FRANCHISE_CITIES.find(fc => fc.slug === cleanSlug);
+    if (franchiseCity) {
+      return <UpcomingCityPage cleanSlug={cleanSlug} franchiseCity={franchiseCity} />;
+    }
+    // Unknown slug — show the generic not-found card
     return (
       <div style={{ background: '#F7FAFC', minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '60px 20px' }}>
         <div style={{ maxWidth: '500px', width: '100%', background: '#fff', padding: '40px', borderRadius: '16px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', border: '1px solid #EDF2F7', textAlign: 'center' }}>
@@ -432,37 +724,25 @@ export default function LocationDetail() {
             </span>
           </nav>
 
-          <motion.span
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+          <span
             style={{ display: 'inline-block', background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.25)', borderRadius: '30px', fontSize: '12px', fontWeight: 700, padding: '6px 18px', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '20px' }}
           >
             ⭐ Rated {avgRating}/5 · {totalReviews}+ Happy Customers in {city}
-          </motion.span>
+          </span>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+          <h1
             style={{ fontSize: 'clamp(28px, 5vw, 52px)', fontWeight: 800, lineHeight: 1.2, fontFamily: "'Poppins', sans-serif", marginBottom: '20px' }}
           >
             Best Laundry &amp; Dry Cleaning Service in {city}
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+          <p
             style={{ fontSize: 'clamp(15px, 2.5vw, 19px)', color: 'rgba(255,255,255,0.9)', maxWidth: '650px', margin: '0 auto 36px', lineHeight: 1.7 }}
           >
             Premium eco-friendly dry cleaning, shoe spa, steam ironing, and home upholstery care — with <strong>free doorstep pickup &amp; delivery</strong> across {city}.
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+          <div
             style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}
           >
             <a
@@ -480,7 +760,7 @@ export default function LocationDetail() {
             >
               📞 Call +91 {phone}
             </a>
-          </motion.div>
+          </div>
         </div>
       </section>
 

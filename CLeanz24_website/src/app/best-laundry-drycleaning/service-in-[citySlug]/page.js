@@ -1,6 +1,12 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import LocationDetail from '../../../views/laundry/LocationDetail';
 import { FRANCHISE_CITIES } from '../../../data/franchiseCities';
+
+// Force every slug from generateStaticParams to be fully pre-rendered as SSG.
+// Without this, Next.js may serve unknown slugs via a shared static shell,
+// causing BAILOUT_TO_CLIENT_SIDE_RENDERING for non-pre-rendered paths.
+export const dynamic = 'force-static';
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const citiesList = Array.isArray(FRANCHISE_CITIES) ? FRANCHISE_CITIES : [];
@@ -21,10 +27,9 @@ export async function generateMetadata({ params }) {
     .replace(/\b\w/g, (l) => l.toUpperCase());
 
   const title = `Best Laundry & Dry Cleaning Service in ${formattedCity} | Cleanz24`;
-  // Kept to ≤155 chars for Google snippet. Template: ~143 chars + city name.
-  const description = `Best laundry & dry cleaning in ${formattedCity}. Free pickup, eco-safe solvents, shoe spa, steam ironing & sofa cleaning. Book now — Cleanz24!`;
+  const description = `Best laundry & dry cleaning service in ${formattedCity}. Free pickup & delivery, eco-safe soft wash, shoe spa, steam ironing & sofa cleaning. Book now — Cleanz24!`;
   const keywords = [
-    `laundry in ${formattedCity}`,
+    `laundry service in ${formattedCity}`,
     `dry cleaners in ${formattedCity}`,
     `best dry cleaning ${formattedCity}`,
     `shoe cleaning ${formattedCity}`,
@@ -32,7 +37,7 @@ export async function generateMetadata({ params }) {
     `laundry pickup ${formattedCity}`,
     `Cleanz24 ${formattedCity}`,
   ];
-  const url = `https://cleanz24.com/best-laundry-drycleaning/${citySlug}`;
+  const url = `https://www.cleanz24.com/best-laundry-drycleaning/service-in-${citySlug}`;
 
   return {
     title,
@@ -51,7 +56,7 @@ export async function generateMetadata({ params }) {
       locale: 'en_IN',
       images: [
         {
-          url: 'https://cleanz24.com/assets/og-image.jpg',
+          url: 'https://www.cleanz24.com/assets/og-image.jpg',
           width: 1200,
           height: 630,
           alt: `Cleanz24 Laundry & Dry Cleaning Studio in ${formattedCity}`,
@@ -62,7 +67,7 @@ export async function generateMetadata({ params }) {
       card: 'summary_large_image',
       title,
       description,
-      images: ['https://cleanz24.com/assets/og-image.jpg'],
+      images: ['https://www.cleanz24.com/assets/og-image.jpg'],
     },
   };
 }
@@ -77,7 +82,7 @@ export default async function Page({ params }) {
   const formattedCity = normalizedSlug
     .replace(/-/g, ' ')
     .replace(/\b\w/g, (l) => l.toUpperCase());
-  const url = `https://cleanz24.com/best-laundry-drycleaning/${citySlug}`;
+  const url = `https://www.cleanz24.com/best-laundry-drycleaning/service-in-${citySlug}`;
 
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
@@ -87,13 +92,13 @@ export default async function Page({ params }) {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://cleanz24.com/best-laundry-drycleaning',
+        item: 'https://www.cleanz24.com/best-laundry-drycleaning',
       },
       {
-        // State page not yet live — omitting 'item' URL to avoid broken schema link
         '@type': 'ListItem',
         position: 2,
-        name: formattedCity.split(' ')[0], // State/region placeholder
+        name: 'Locations',
+        item: 'https://www.cleanz24.com/best-laundry-drycleaning/locations',
       },
       {
         '@type': 'ListItem',

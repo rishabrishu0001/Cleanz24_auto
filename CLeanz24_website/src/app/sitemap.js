@@ -64,6 +64,13 @@ export default async function sitemap() {
     priority: 0.8,
   }));
 
+  const cityConsumerServiceRoutes = (Array.isArray(FRANCHISE_CITIES) ? FRANCHISE_CITIES : []).map((city) => ({
+    url: `${baseUrl}/best-laundry-drycleaning/service-in-${city.slug}`,
+    lastModified: new Date().toISOString().split('T')[0],
+    changeFrequency: 'weekly',
+    priority: 0.8,
+  }));
+
   const cityServiceRoutes = [];
   const servicesList = ['wash-and-fold', 'dry-cleaning', 'steam-ironing', 'shoe-cleaning', 'bag-cleaning', 'sofa-and-carpet'];
   
@@ -96,5 +103,5 @@ export default async function sitemap() {
     }
   }
 
-  return [...staticRoutes, ...blogRoutes, ...storeRoutes, ...cityRoutes, ...cityServiceRoutes, ...storeServiceRoutes];
+  return [...staticRoutes, ...blogRoutes, ...storeRoutes, ...cityRoutes, ...cityConsumerServiceRoutes, ...cityServiceRoutes, ...storeServiceRoutes];
 }

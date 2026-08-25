@@ -78,9 +78,6 @@ export async function generateMetadata({ params }) {
 
 export default async function Page({ params }) {
   const resolvedParams = await params;
-  return (
-    <Suspense fallback={<div className="py-5 text-center">Loading...</div>}>
-      <FranchiseCityPage citySlug={resolvedParams?.citySlug} />
-    </Suspense>
-  );
+  const citySlug = resolvedParams?.citySlug || '';
+  return <FranchiseCityPage citySlug={citySlug} />;
 }
