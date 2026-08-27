@@ -114,7 +114,7 @@ export default function PromoPosterModal({
               alt={altText}
               style={{
                 maxWidth: '92vw',
-                maxHeight: '86vh',
+                maxHeight: '88vh',
                 width: 'auto',
                 height: 'auto',
                 display: 'block',
@@ -123,67 +123,6 @@ export default function PromoPosterModal({
                 border: '1.5px solid rgba(255, 255, 255, 0.2)',
               }}
             />
-
-            {/* Quick Action Bar under poster */}
-            <div
-              style={{
-                position: 'absolute',
-                bottom: '16px',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                display: 'flex',
-                gap: '10px',
-                zIndex: 40,
-                width: '90%',
-                justifyContent: 'center',
-              }}
-            >
-              <a
-                href={`tel:${phone}`}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  backgroundColor: '#15803d',
-                  color: '#ffffff',
-                  padding: '10px 18px',
-                  borderRadius: '50px',
-                  fontSize: '0.88rem',
-                  fontWeight: 700,
-                  textDecoration: 'none',
-                  boxShadow: '0 4px 15px rgba(0,0,0,0.4)',
-                  transition: 'transform 0.2s',
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
-                onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
-              >
-                📞 Call Now
-              </a>
-
-              <a
-                href={`https://wa.me/91${phone}?text=Hi%20Cleanz24,%20I%20want%20to%20book%20laundry%20pickup%20for%20Raksha%20Bandhan!`}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  backgroundColor: '#25D366',
-                  color: '#ffffff',
-                  padding: '10px 18px',
-                  borderRadius: '50px',
-                  fontSize: '0.88rem',
-                  fontWeight: 700,
-                  textDecoration: 'none',
-                  boxShadow: '0 4px 15px rgba(0,0,0,0.4)',
-                  transition: 'transform 0.2s',
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
-                onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
-              >
-                💬 WhatsApp
-              </a>
-            </div>
           </motion.div>
         </div>
       )}
