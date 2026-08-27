@@ -53,15 +53,20 @@ export default function LaundryHome() {
   const [showPopup, setShowPopup] = useState(false);
   const [showGrandOpeningModal, setShowGrandOpeningModal] = useState(false);
 
+  // ─── GRAND OPENING EVENT CONFIG (Set to null when no active event) ───
+  // Future usage example: { title: 'Udaipur, Rajasthan', image: '/grand_opening_udaipur.jpg', key: 'cleanz24_udaipur_opening' }
+  const activeGrandOpening = null;
+
   useEffect(() => {
+    if (!activeGrandOpening) return;
     const timer = setTimeout(() => {
-      const grandOpeningSeen = sessionStorage.getItem('cleanz24_udaipur_opening_closed');
+      const grandOpeningSeen = sessionStorage.getItem(activeGrandOpening.key || 'cleanz24_grand_opening_closed');
       if (!grandOpeningSeen) {
         setShowGrandOpeningModal(true);
       }
     }, 800);
     return () => clearTimeout(timer);
-  }, []);
+  }, [activeGrandOpening]);
 
   useEffect(() => {
     const alreadySeen = sessionStorage.getItem('lh_popup_seen');
@@ -335,102 +340,104 @@ export default function LaundryHome() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                {/* Grand Opening Announcement Badge — Premium Design */}
-                <div
-                  onClick={() => setShowGrandOpeningModal(true)}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                    background: 'linear-gradient(135deg, #064e3b 0%, #065f46 40%, #047857 100%)',
-                    border: '1.5px solid rgba(52, 211, 153, 0.6)',
-                    color: '#ffffff',
-                    padding: '10px 10px 10px 14px',
-                    borderRadius: '50px',
-                    fontSize: '0.88rem',
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    marginBottom: '22px',
-                    boxShadow: '0 6px 24px rgba(4, 120, 87, 0.45), 0 0 0 1px rgba(52, 211, 153, 0.2)',
-                    transition: 'transform 0.25s ease, box-shadow 0.25s ease',
-                    maxWidth: '520px',
-                    position: 'relative',
-                    overflow: 'hidden',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-3px)';
-                    e.currentTarget.style.boxShadow = '0 12px 32px rgba(4, 120, 87, 0.6), 0 0 0 1px rgba(52, 211, 153, 0.35)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'none';
-                    e.currentTarget.style.boxShadow = '0 6px 24px rgba(4, 120, 87, 0.45), 0 0 0 1px rgba(52, 211, 153, 0.2)';
-                  }}
-                >
-                  {/* Shimmer overlay */}
-                  <style>{`
-                    @keyframes grandOpeningShimmer {
-                      0% { transform: translateX(-100%) skewX(-15deg); }
-                      100% { transform: translateX(300%) skewX(-15deg); }
-                    }
-                    @keyframes grandOpeningPulse {
-                      0%, 100% { opacity: 1; transform: scale(1); }
-                      50% { opacity: 0.6; transform: scale(0.85); }
-                    }
-                    .grand-opening-badge-shimmer::after {
-                      content: '';
-                      position: absolute;
-                      top: 0; left: 0;
-                      width: 35%;
-                      height: 100%;
-                      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
-                      animation: grandOpeningShimmer 2.5s infinite;
-                      pointer-events: none;
-                    }
-                  `}</style>
-                  <span className="grand-opening-badge-shimmer" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }} />
-
-                  {/* Live pulse dot */}
-                  <span style={{ position: 'relative', flexShrink: 0 }}>
-                    <span style={{
-                      display: 'block',
-                      width: '10px',
-                      height: '10px',
-                      borderRadius: '50%',
-                      backgroundColor: '#34d399',
-                      boxShadow: '0 0 0 3px rgba(52, 211, 153, 0.3)',
-                      animation: 'grandOpeningPulse 1.6s ease-in-out infinite',
-                    }} />
-                  </span>
-
-                  {/* Text */}
-                  <span style={{ letterSpacing: '0.1px', whiteSpace: 'nowrap', color: '#d1fae5', fontWeight: 600 }}>
-                    🎉 <strong style={{ color: '#ffffff', fontWeight: 800 }}>Grand Opening</strong> — Udaipur, Rajasthan
-                  </span>
-
-                  {/* CTA chip */}
-                  <span
+                {/* Grand Opening Announcement Badge — Retained structure (visible only when activeGrandOpening is configured) */}
+                {activeGrandOpening && (
+                  <div
+                    onClick={() => setShowGrandOpeningModal(true)}
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
-                      gap: '5px',
-                      backgroundColor: '#34d399',
-                      color: '#064e3b',
-                      padding: '6px 14px',
+                      gap: '12px',
+                      background: 'linear-gradient(135deg, #064e3b 0%, #065f46 40%, #047857 100%)',
+                      border: '1.5px solid rgba(52, 211, 153, 0.6)',
+                      color: '#ffffff',
+                      padding: '10px 10px 10px 14px',
                       borderRadius: '50px',
-                      fontWeight: 800,
-                      fontSize: '0.8rem',
-                      whiteSpace: 'nowrap',
-                      letterSpacing: '0.2px',
-                      boxShadow: '0 3px 10px rgba(0,0,0,0.2)',
-                      flexShrink: 0,
+                      fontSize: '0.88rem',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      marginBottom: '22px',
+                      boxShadow: '0 6px 24px rgba(4, 120, 87, 0.45), 0 0 0 1px rgba(52, 211, 153, 0.2)',
+                      transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+                      maxWidth: '520px',
+                      position: 'relative',
+                      overflow: 'hidden',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-3px)';
+                      e.currentTarget.style.boxShadow = '0 12px 32px rgba(4, 120, 87, 0.6), 0 0 0 1px rgba(52, 211, 153, 0.35)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'none';
+                      e.currentTarget.style.boxShadow = '0 6px 24px rgba(4, 120, 87, 0.45), 0 0 0 1px rgba(52, 211, 153, 0.2)';
                     }}
                   >
-                    View Invite
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                  </span>
-                </div>
+                    {/* Shimmer overlay */}
+                    <style>{`
+                      @keyframes grandOpeningShimmer {
+                        0% { transform: translateX(-100%) skewX(-15deg); }
+                        100% { transform: translateX(300%) skewX(-15deg); }
+                      }
+                      @keyframes grandOpeningPulse {
+                        0%, 100% { opacity: 1; transform: scale(1); }
+                        50% { opacity: 0.6; transform: scale(0.85); }
+                      }
+                      .grand-opening-badge-shimmer::after {
+                        content: '';
+                        position: absolute;
+                        top: 0; left: 0;
+                        width: 35%;
+                        height: 100%;
+                        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+                        animation: grandOpeningShimmer 2.5s infinite;
+                        pointer-events: none;
+                      }
+                    `}</style>
+                    <span className="grand-opening-badge-shimmer" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }} />
+
+                    {/* Live pulse dot */}
+                    <span style={{ position: 'relative', flexShrink: 0 }}>
+                      <span style={{
+                        display: 'block',
+                        width: '10px',
+                        height: '10px',
+                        borderRadius: '50%',
+                        backgroundColor: '#34d399',
+                        boxShadow: '0 0 0 3px rgba(52, 211, 153, 0.3)',
+                        animation: 'grandOpeningPulse 1.6s ease-in-out infinite',
+                      }} />
+                    </span>
+
+                    {/* Text */}
+                    <span style={{ letterSpacing: '0.1px', whiteSpace: 'nowrap', color: '#d1fae5', fontWeight: 600 }}>
+                      🎉 <strong style={{ color: '#ffffff', fontWeight: 800 }}>Grand Opening</strong> — {activeGrandOpening.title}
+                    </span>
+
+                    {/* CTA chip */}
+                    <span
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        backgroundColor: '#34d399',
+                        color: '#064e3b',
+                        padding: '6px 14px',
+                        borderRadius: '50px',
+                        fontWeight: 800,
+                        fontSize: '0.8rem',
+                        whiteSpace: 'nowrap',
+                        letterSpacing: '0.2px',
+                        boxShadow: '0 3px 10px rgba(0,0,0,0.2)',
+                        flexShrink: 0,
+                      }}
+                    >
+                      View Invite
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                      </svg>
+                    </span>
+                  </div>
+                )}
 
                 <p className="hero-top-text">
                   Fresh and reliable<br />
@@ -1526,11 +1533,16 @@ export default function LaundryHome() {
         )}
       </AnimatePresence>
 
-      {/* ────────────────── GRAND OPENING UDAIPUR MODAL ────────────────── */}
-      <GrandOpeningModal
-        isOpen={showGrandOpeningModal}
-        onClose={() => setShowGrandOpeningModal(false)}
-      />
+      {/* ────────────────── GRAND OPENING MODAL STRUCTURE (Reusable for future store openings) ────────────────── */}
+      {activeGrandOpening && (
+        <GrandOpeningModal
+          isOpen={showGrandOpeningModal}
+          onClose={() => setShowGrandOpeningModal(false)}
+          imageSrc={activeGrandOpening.image}
+          altText={`Cleanz24 Grand Opening ${activeGrandOpening.title}`}
+          sessionKey={activeGrandOpening.key}
+        />
+      )}
 
     </div>
   );

@@ -3,7 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function GrandOpeningModal({ isOpen: controlledIsOpen, onClose }) {
+export default function GrandOpeningModal({
+  isOpen: controlledIsOpen,
+  onClose,
+  imageSrc = '/grand_opening.jpg',
+  altText = 'Cleanz24 Store Grand Opening',
+  sessionKey = 'cleanz24_grand_opening_closed',
+}) {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
 
   const isControlled = typeof controlledIsOpen === 'boolean';
@@ -11,9 +17,9 @@ export default function GrandOpeningModal({ isOpen: controlledIsOpen, onClose })
 
   useEffect(() => {
     if (!isControlled) {
-      // Show popup after a slight delay on page load
+      // Show popup after a slight delay on page load if not dismissed
       const timer = setTimeout(() => {
-        const hasDismissed = sessionStorage.getItem('cleanz24_udaipur_opening_closed');
+        const hasDismissed = sessionStorage.getItem(sessionKey);
         if (!hasDismissed) {
           setInternalIsOpen(true);
         }
@@ -21,12 +27,12 @@ export default function GrandOpeningModal({ isOpen: controlledIsOpen, onClose })
 
       return () => clearTimeout(timer);
     }
-  }, [isControlled]);
+  }, [isControlled, sessionKey]);
 
   const handleClose = () => {
     if (!isControlled) {
       setInternalIsOpen(false);
-      sessionStorage.setItem('cleanz24_udaipur_opening_closed', 'true');
+      sessionStorage.setItem(sessionKey, 'true');
     }
     if (onClose) {
       onClose();
@@ -103,8 +109,8 @@ export default function GrandOpeningModal({ isOpen: controlledIsOpen, onClose })
 
             {/* Pure Poster Image - Exact aspect ratio, no container box or black borders */}
             <img
-              src="/grand_opening_udaipur.jpg"
-              alt="Cleanz24 Grand Opening Udaipur Rajasthan"
+              src={imageSrc}
+              alt={altText}
               style={{
                 maxWidth: '92vw',
                 maxHeight: '88vh',
