@@ -9,7 +9,6 @@ import Image from 'next/image';
 import { storesData } from '../../data';
 import { GOOGLE_SHEETS_LAUNDRY_SCRIPT_URL } from '../../config';
 import GrandOpeningModal from '../../components/GrandOpeningModal';
-import PromoPosterModal from '../../components/PromoPosterModal';
 
 // Import local assets
 import heroCircleImg from '../../assets/hero_laundry_circle.png';
@@ -1534,12 +1533,6 @@ export default function LaundryHome() {
         )}
       </AnimatePresence>
 
-      {/* ────────────────── RAKSHA BANDHAN FESTIVE POPUP ────────────────── */}
-      <PromoPosterModal
-        imageSrc="/raksha_bandhan.jpg"
-        altText="Happy Raksha Bandhan Cleanz24 Special Offer"
-        sessionKey="cleanz24_rakhi_popup_seen"
-      />
 
       {/* ────────────────── GRAND OPENING MODAL STRUCTURE (Reusable for future store openings) ────────────────── */}
       {activeGrandOpening && (

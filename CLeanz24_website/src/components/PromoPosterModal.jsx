@@ -6,9 +6,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function PromoPosterModal({
   isOpen: controlledIsOpen,
   onClose,
-  imageSrc = '/raksha_bandhan.jpg',
-  altText = 'Cleanz24 Raksha Bandhan Special Offer',
-  sessionKey = 'cleanz24_rakhi_popup_closed',
+  imageSrc = '',
+  altText = 'Cleanz24 Special Offer',
+  sessionKey = 'cleanz24_promo_popup_seen',
   phone = '9138004800',
 }) {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
