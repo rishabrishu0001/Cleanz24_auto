@@ -237,20 +237,18 @@ export default function Stores() {
             )}
           </div>
 
-          <motion.div 
+          <div 
+            key={searchQuery || 'all-stores'}
             className="row g-4 justify-content-center"
-            layout
           >
             {filteredStores.length > 0 ? (
               filteredStores.map((store, index) => (
                 <motion.div 
-                  key={store.id} 
+                  key={`${store.id}-${store.name}`} 
                   className="col-lg-4 col-md-6"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.5, delay: index * 0.05 }}
-                  layout
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: Math.min(index * 0.04, 0.4) }}
                 >
                   <div className="card h-100 border-0 shadow-sm rounded-3 p-4 transition bg-white" style={{ transition: 'all 0.3s ease' }}>
                     <div className="card-body p-0 d-flex flex-column h-100">
@@ -373,7 +371,7 @@ export default function Stores() {
                 </a>
               </div>
             )}
-          </motion.div>
+          </div>
         </div>
       </section>
 

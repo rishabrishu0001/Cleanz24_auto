@@ -723,38 +723,29 @@ function ExpertContactButton() {
     <>
       <button
         onClick={handleClick}
-        aria-label="Talk to Our Franchise Expert"
+        aria-label="Talk to our franchise expert"
+        title="Talk to Our Franchise Expert"
         style={{
-          position: 'fixed', bottom: 90, right: 20, zIndex: 9998,
+          position: 'fixed', bottom: 84, right: 20, zIndex: 9998,
           background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
           color: '#ffffff', border: 'none',
-          padding: '12px 20px', borderRadius: 30,
-          fontWeight: 800, fontSize: '0.88rem',
-          display: 'flex', alignItems: 'center', gap: 10,
+          width: 52, height: 52, borderRadius: '50%',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontFamily: 'Poppins, sans-serif', cursor: 'pointer',
+          boxShadow: '0 8px 24px rgba(37,99,235,0.45)',
           animation: 'expertGlowPulse 2s infinite, expertAttentionWiggle 4s ease-in-out infinite',
-          whiteSpace: 'nowrap',
         }}
       >
         {/* Pulsing online status dot badge */}
-        <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'center' }}>
-          <span style={{ fontSize: '1.2rem' }}>👨‍💼</span>
+        <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+          <span style={{ fontSize: '1.4rem' }}>👨‍💼</span>
           <span style={{
-            position: 'absolute', top: -2, right: -4,
+            position: 'absolute', top: -2, right: -2,
             width: 10, height: 10, borderRadius: '50%',
             background: '#22c55e', border: '2px solid #ffffff',
             boxShadow: '0 0 8px #22c55e'
           }} />
         </span>
-
-        <span>Talk to Our Expert</span>
-
-        <span style={{
-          background: 'rgba(255,255,255,0.22)',
-          padding: '2px 8px', borderRadius: 12,
-          fontSize: '0.72rem', fontWeight: 800,
-          letterSpacing: '0.5px'
-        }}>FREE</span>
       </button>
 
       <style>{`

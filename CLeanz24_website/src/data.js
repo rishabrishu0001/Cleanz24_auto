@@ -228,7 +228,7 @@ export const storesData = [
     reviews: 85
   },
   {
-    id: 61,
+    id: 62,
     name: 'Cleanz24 - Nirala Estate Greater Noida West',
     address: 'LGF 24, Nirala Biz Park, Nirala Estate, Tech Zone IV, Patwari, Greater Noida, Uttar Pradesh 201310',
     phone: '9138004800',

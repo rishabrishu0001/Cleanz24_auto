@@ -587,13 +587,14 @@ export default function Page() {
           style={{
             position: 'fixed', bottom: 20, right: 20, zIndex: 9999,
             background: '#25d366', color: '#ffffff', textDecoration: 'none',
-            padding: '12px 20px', borderRadius: 30, fontWeight: 700, fontSize: '0.9rem',
-            display: 'flex', alignItems: 'center', gap: 8,
+            width: 52, height: 52, borderRadius: '50%',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
             boxShadow: '0 8px 24px rgba(37,211,102,0.4)', fontFamily: 'Poppins, sans-serif',
           }}
+          title="Chat with Franchise Team"
           aria-label="Chat with Cleanz24 franchise team on WhatsApp"
         >
-          <span style={{ fontSize: '1.2rem' }}>💬</span> Chat with Franchise Team
+          <span style={{ fontSize: '1.4rem' }}>💬</span>
         </a>
 
       </div>
