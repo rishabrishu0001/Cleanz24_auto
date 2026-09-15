@@ -53,9 +53,15 @@ export default function LaundryHome() {
   const [showPopup, setShowPopup] = useState(false);
   const [showGrandOpeningModal, setShowGrandOpeningModal] = useState(false);
 
-  // ─── GRAND OPENING EVENT CONFIG (Set to null when no active event) ───
-  // Future usage example: { title: 'Udaipur, Rajasthan', image: '/grand_opening_udaipur.jpg', key: 'cleanz24_udaipur_opening' }
-  const activeGrandOpening = null;
+  // ─── GRAND OPENING EVENT CONFIG ───
+  const activeGrandOpening = {
+    title: 'Maharajganj, Bihar',
+    image: '/grand_opening_maharajganj.jpg',
+    key: 'cleanz24_maharajganj_opening_v1',
+    phone: '9138004800',
+    whatsapp: '917632034777',
+    locationText: 'Maharajganj, Siwan, Bihar',
+  };
 
   useEffect(() => {
     if (!activeGrandOpening) return;
@@ -1534,7 +1540,7 @@ export default function LaundryHome() {
       </AnimatePresence>
 
 
-      {/* ────────────────── GRAND OPENING MODAL STRUCTURE (Reusable for future store openings) ────────────────── */}
+      {/* ────────────────── GRAND OPENING MODAL STRUCTURE ────────────────── */}
       {activeGrandOpening && (
         <GrandOpeningModal
           isOpen={showGrandOpeningModal}
@@ -1542,6 +1548,9 @@ export default function LaundryHome() {
           imageSrc={activeGrandOpening.image}
           altText={`Cleanz24 Grand Opening ${activeGrandOpening.title}`}
           sessionKey={activeGrandOpening.key}
+          phone={activeGrandOpening.phone}
+          whatsapp={activeGrandOpening.whatsapp}
+          locationText={activeGrandOpening.locationText}
         />
       )}
 
