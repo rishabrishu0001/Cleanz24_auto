@@ -582,6 +582,14 @@ function Franchise(props) {
                       </p>
                     </div>
                   </div>
+
+                  <div className="col-12 mt-2">
+                    <div className="p-2 px-3 rounded text-start" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--card-border)' }}>
+                      <p className="text-muted-custom mb-0" style={{ fontSize: '0.76rem', lineHeight: '1.45' }}>
+                        ℹ️ <strong>Disclaimer:</strong> Results are based on historical performance of existing studios and may vary based on location and operations.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

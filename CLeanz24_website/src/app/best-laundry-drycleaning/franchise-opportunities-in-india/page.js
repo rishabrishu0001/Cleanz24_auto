@@ -213,7 +213,7 @@ const MODELS = [
 ];
 
 const WHY_US = [
-  { icon: '💰', title: 'Low Investment & High ROI', desc: 'Proven business models starting from ₹13L with 60-80% annual return on investment across 100+ operational outlets.' },
+  { icon: '💰', title: 'Low Investment & High ROI', desc: 'Proven business models starting from ₹13L with high annual return on investment across 100+ operational outlets.' },
   { icon: '📱', title: 'Proprietary Tech & CRM', desc: 'Automated order tracking, customer WhatsApp alerts, staff POS system, and billing analytics — all included.' },
   { icon: '🌿', title: 'Eco-Friendly Solvents', desc: 'Hypoallergenic softwash detergents safe for delicate silk sarees, suits, and luxury wear.' },
   { icon: '🚗', title: 'Doorstep Pickup Model', desc: 'App-based pickup & delivery logistics extending your customer reach beyond physical location.' },
@@ -367,15 +367,20 @@ export default function Page() {
               {[
                 { icon: '💼', label: 'Total Investment', value: '₹13L – ₹35L', sub: 'Turnkey Store Setup', color: '#16a34a' },
                 { icon: '📈', label: 'Monthly Profit', value: '₹1.0L – ₹3.5L+', sub: 'Predictable Cashflow', color: '#2563eb' },
-                { icon: '🎯', label: 'Annual ROI', value: '60% – 80%', sub: 'High Capital Efficiency', color: '#7c3aed' },
+                { icon: '🎯', label: 'Annual ROI', value: 'High ROI Potential', sub: 'High Capital Efficiency', color: '#7c3aed', note: '*Results are based on historical performance of existing studios and may vary based on location and operations.' },
                 { icon: '⏳', label: 'Break-even Period', value: '18 – 20 Mo', sub: 'Full Investment Payback', color: '#d97706' },
               ].map((stat, i) => (
                 <div className="col-6 col-lg-3" key={i}>
-                  <div style={{ background: '#f8fafc', border: '1.5px solid #e2e8f0', borderRadius: 16, padding: '28px 20px', textAlign: 'center', height: '100%' }}>
-                    <div style={{ fontSize: '2.2rem', marginBottom: 12 }} role="img" aria-label={stat.label}>{stat.icon}</div>
-                    <div style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', color: '#64748b', letterSpacing: '1px', marginBottom: 6 }}>{stat.label}</div>
-                    <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: 'clamp(18px, 2.5vw, 26px)', color: stat.color }}>{stat.value}</div>
+                  <div style={{ background: '#f8fafc', border: '1.5px solid #e2e8f0', borderRadius: 16, padding: '24px 16px', textAlign: 'center', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <div style={{ fontSize: '2rem', marginBottom: 10 }} role="img" aria-label={stat.label}>{stat.icon}</div>
+                    <div style={{ fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase', color: '#64748b', letterSpacing: '1px', marginBottom: 6 }}>{stat.label}</div>
+                    <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: stat.label === 'Annual ROI' ? 'clamp(16px, 2vw, 21px)' : 'clamp(18px, 2.5vw, 26px)', color: stat.color, lineHeight: 1.25 }}>{stat.value}</div>
                     <div style={{ fontSize: '0.78rem', color: '#94a3b8', marginTop: 4 }}>{stat.sub}</div>
+                    {stat.note && (
+                      <div style={{ fontSize: '0.67rem', color: '#64748b', marginTop: 8, lineHeight: 1.35, fontStyle: 'italic', borderTop: '1px dashed #cbd5e1', paddingTop: 6 }}>
+                        {stat.note}
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}

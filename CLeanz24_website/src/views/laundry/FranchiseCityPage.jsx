@@ -228,6 +228,26 @@ export default function FranchiseCityPage({ citySlug }) {
               </div>
             ))}
           </div>
+
+          {/* Franchise ROI Disclaimer */}
+          <div style={{ width: '100%', marginTop: 24, textAlign: 'center' }}>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              background: dark ? 'rgba(255,255,255,0.05)' : '#f8fafc',
+              border: `1px solid ${dark ? 'rgba(255,255,255,0.1)' : '#e2e8f0'}`,
+              borderRadius: 12,
+              padding: '10px 20px',
+              maxWidth: '820px',
+              textAlign: 'left'
+            }}>
+              <span style={{ fontSize: '0.95rem', color: dark ? '#94a3b8' : '#64748b' }}>ℹ️</span>
+              <p style={{ margin: 0, fontSize: '0.8rem', color: dark ? '#94a3b8' : '#64748b', lineHeight: 1.5 }}>
+                <strong style={{ color: dark ? '#cbd5e1' : '#475569' }}>Disclaimer:</strong> Results are based on historical performance of existing studios and may vary based on location and operations.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

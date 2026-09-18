@@ -228,6 +228,23 @@ function ROICalculator() {
               </div>
             ))}
           </div>
+          {/* ROI Disclaimer Note */}
+          <div style={{
+            marginTop: 12,
+            padding: '10px 14px',
+            background: '#f8fafc',
+            border: '1px solid #e2e8f0',
+            borderRadius: 12,
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: 8,
+            textAlign: 'left'
+          }}>
+            <span style={{ fontSize: '0.9rem', lineHeight: 1.4, color: '#64748b' }}>ℹ️</span>
+            <p style={{ margin: 0, fontSize: '0.78rem', color: '#64748b', lineHeight: 1.45 }}>
+              <strong style={{ color: '#475569' }}>Disclaimer:</strong> Results are based on historical performance of existing studios and may vary based on location and operations.
+            </p>
+          </div>
         </div>
 
         <div style={{ textAlign: 'center', marginTop: 32, paddingTop: 24, borderTop: '1px solid #f1f5f9', width: '100%' }}>
@@ -905,6 +922,26 @@ function FranchiseModels() {
           </article>
         </div>
       ))}
+
+      {/* Franchise ROI Disclaimer */}
+      <div style={{ width: '100%', marginTop: 24, textAlign: 'center' }}>
+        <div style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 8,
+          background: '#f8fafc',
+          border: '1px solid #e2e8f0',
+          borderRadius: 12,
+          padding: '10px 20px',
+          maxWidth: '820px',
+          textAlign: 'left'
+        }}>
+          <span style={{ fontSize: '0.95rem', color: '#64748b' }}>ℹ️</span>
+          <p style={{ margin: 0, fontSize: '0.8rem', color: '#64748b', lineHeight: 1.5 }}>
+            <strong style={{ color: '#475569' }}>Disclaimer:</strong> Results are based on historical performance of existing studios and may vary based on location and operations.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

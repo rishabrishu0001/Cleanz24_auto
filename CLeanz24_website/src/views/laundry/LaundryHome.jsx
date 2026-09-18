@@ -54,6 +54,9 @@ export default function LaundryHome() {
   const [showGrandOpeningModal, setShowGrandOpeningModal] = useState(false);
 
   // ─── GRAND OPENING EVENT CONFIG ───
+  // To re-enable, uncomment the object below and remove the null line.
+  const activeGrandOpening = null;
+  /* SAVED CONFIG — uncomment to activate:
   const activeGrandOpening = {
     title: 'Maharajganj, Bihar',
     image: '/grand_opening_maharajganj.jpg',
@@ -62,6 +65,7 @@ export default function LaundryHome() {
     whatsapp: '917632034777',
     locationText: 'Maharajganj, Siwan, Bihar',
   };
+  */
 
   useEffect(() => {
     if (!activeGrandOpening) return;

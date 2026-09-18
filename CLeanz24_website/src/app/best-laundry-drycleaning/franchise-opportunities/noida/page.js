@@ -611,6 +611,9 @@ export default function NoidaFranchisePage() {
               <div style={{ fontSize: '1.8rem', fontWeight: 800, fontFamily: 'Poppins, sans-serif' }}>100+ Outlets</div>
               <div style={{ fontSize: '0.85rem', opacity: 0.9 }}>Pan-India Network</div>
             </div>
+            <div style={{ width: '100%', fontSize: '0.75rem', opacity: 0.88, marginTop: '8px', fontStyle: 'italic' }}>
+              * Results are based on historical performance of existing studios and may vary based on location and operations.
+            </div>
           </div>
         </section>
 
@@ -732,6 +735,23 @@ export default function NoidaFranchisePage() {
                   </tr>
                 </tbody>
               </table>
+            </div>
+
+            {/* ROI Disclaimer Note */}
+            <div style={{
+              marginTop: '16px',
+              padding: '12px 18px',
+              background: '#f8fafc',
+              border: '1px solid #e2e8f0',
+              borderRadius: 12,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10
+            }}>
+              <span style={{ fontSize: '1rem', color: '#64748b' }}>ℹ️</span>
+              <p style={{ margin: 0, fontSize: '0.82rem', color: '#64748b', lineHeight: 1.5 }}>
+                <strong style={{ color: '#475569' }}>Disclaimer:</strong> Results are based on historical performance of existing studios and may vary based on location and operations.
+              </p>
             </div>
           </div>
         </section>

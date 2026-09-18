@@ -442,7 +442,7 @@ function LaundryFrenchise() {
   ];
 
   const whyUsCards = [
-    { icon: '💰', title: 'Low Investment & High ROI', desc: 'Proven business models starting from ₹13L with 60-80% annual return on investment.' },
+    { icon: '💰', title: 'Low Investment & High ROI', desc: 'Proven business models starting from ₹13L with high annual return on investment.' },
     { icon: '📱', title: 'Proprietary Tech & CRM', desc: 'Automated order tracking, customer WhatsApp alerts, staff POS, and billing analytics.' },
     { icon: '🌿', title: 'Eco-Friendly Solvents', desc: 'Hypoallergenic softwash detergents safe for delicate silk sarees, suits, and luxury wear.' },
     { icon: '🚗', title: 'Doorstep Pickup Model', desc: 'App-based pickup & delivery logistics extending your customer reach beyond physical location.' },
@@ -855,13 +855,17 @@ function LaundryFrenchise() {
             <div className="col-6 col-lg-3">
               <div style={{
                 background: dark ? '#1e293b' : '#f8fafc', border: `1.5px solid ${dark ? '#334155' : '#e2e8f0'}`,
-                borderRadius: 16, padding: '28px 20px', textAlign: 'center', height: '100%',
-                boxShadow: '0 4px 16px rgba(0,0,0,0.03)', transition: 'transform 0.2s'
+                borderRadius: 16, padding: '24px 16px', textAlign: 'center', height: '100%',
+                boxShadow: '0 4px 16px rgba(0,0,0,0.03)', transition: 'transform 0.2s',
+                display: 'flex', flexDirection: 'column', justifyContent: 'center'
               }}>
-                <div style={{ fontSize: '2.2rem', marginBottom: 12 }}>🎯</div>
-                <div style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', color: dark ? '#94a3b8' : '#64748b', letterSpacing: '1px', marginBottom: 6 }}>Annual ROI</div>
-                <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: 'clamp(20px, 2.5vw, 28px)', color: '#7c3aed' }}>60% – 80%</div>
+                <div style={{ fontSize: '2rem', marginBottom: 10 }}>🎯</div>
+                <div style={{ fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase', color: dark ? '#94a3b8' : '#64748b', letterSpacing: '1px', marginBottom: 6 }}>Annual ROI</div>
+                <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: 'clamp(16px, 2vw, 21px)', color: '#7c3aed', lineHeight: 1.25 }}>High ROI Potential</div>
                 <div style={{ fontSize: '0.78rem', color: dark ? '#64748b' : '#94a3b8', marginTop: 4 }}>High Capital Efficiency</div>
+                <div style={{ fontSize: '0.67rem', color: dark ? '#94a3b8' : '#64748b', marginTop: 8, lineHeight: 1.35, fontStyle: 'italic', borderTop: `1px dashed ${dark ? '#334155' : '#cbd5e1'}`, paddingTop: 6 }}>
+                  *Results are based on historical performance of existing studios and may vary based on location and operations.
+                </div>
               </div>
             </div>
 
@@ -869,12 +873,13 @@ function LaundryFrenchise() {
             <div className="col-6 col-lg-3">
               <div style={{
                 background: dark ? '#1e293b' : '#f8fafc', border: `1.5px solid ${dark ? '#334155' : '#e2e8f0'}`,
-                borderRadius: 16, padding: '28px 20px', textAlign: 'center', height: '100%',
-                boxShadow: '0 4px 16px rgba(0,0,0,0.03)', transition: 'transform 0.2s'
+                borderRadius: 16, padding: '24px 16px', textAlign: 'center', height: '100%',
+                boxShadow: '0 4px 16px rgba(0,0,0,0.03)', transition: 'transform 0.2s',
+                display: 'flex', flexDirection: 'column', justifyContent: 'center'
               }}>
-                <div style={{ fontSize: '2.2rem', marginBottom: 12 }}>⏳</div>
-                <div style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', color: dark ? '#94a3b8' : '#64748b', letterSpacing: '1px', marginBottom: 6 }}>Break-even Period</div>
-                <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: 'clamp(20px, 2.5vw, 28px)', color: '#d97706' }}>18 – 20 Mo</div>
+                <div style={{ fontSize: '2rem', marginBottom: 10 }}>⏳</div>
+                <div style={{ fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase', color: dark ? '#94a3b8' : '#64748b', letterSpacing: '1px', marginBottom: 6 }}>Break-even Period</div>
+                <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: 'clamp(18px, 2.5vw, 26px)', color: '#d97706' }}>18 – 20 Mo</div>
                 <div style={{ fontSize: '0.78rem', color: dark ? '#64748b' : '#94a3b8', marginTop: 4 }}>Full Investment Payback</div>
               </div>
             </div>
@@ -971,6 +976,24 @@ function LaundryFrenchise() {
                     <span style={{ fontSize: '0.9rem', fontWeight: 600 }}>Payback Period:</span>
                     <span style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.25rem', color: '#d97706' }}>{activeCalcData.payback}</span>
                   </div>
+                </div>
+
+                {/* ROI Disclaimer Note */}
+                <div style={{
+                  marginTop: 12,
+                  padding: '10px 14px',
+                  background: dark ? 'rgba(15, 23, 42, 0.6)' : '#f8fafc',
+                  border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`,
+                  borderRadius: 12,
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: 8,
+                  textAlign: 'left'
+                }}>
+                  <span style={{ fontSize: '0.9rem', lineHeight: 1.4, color: dark ? '#94a3b8' : '#64748b' }}>ℹ️</span>
+                  <p style={{ margin: 0, fontSize: '0.78rem', color: dark ? '#94a3b8' : '#64748b', lineHeight: 1.45 }}>
+                    <strong style={{ color: dark ? '#cbd5e1' : '#475569' }}>Disclaimer:</strong> Results are based on historical performance of existing studios and may vary based on location and operations.
+                  </p>
                 </div>
               </div>
             </div>
@@ -1125,6 +1148,26 @@ function LaundryFrenchise() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Franchise ROI Disclaimer */}
+          <div style={{ width: '100%', marginTop: 28, textAlign: 'center' }}>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              background: dark ? 'rgba(30, 41, 59, 0.6)' : '#ffffff',
+              border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`,
+              borderRadius: 12,
+              padding: '10px 20px',
+              maxWidth: '820px',
+              textAlign: 'left'
+            }}>
+              <span style={{ fontSize: '0.95rem', color: dark ? '#94a3b8' : '#64748b' }}>ℹ️</span>
+              <p style={{ margin: 0, fontSize: '0.8rem', color: dark ? '#94a3b8' : '#64748b', lineHeight: 1.5 }}>
+                <strong style={{ color: dark ? '#cbd5e1' : '#475569' }}>Disclaimer:</strong> Results are based on historical performance of existing studios and may vary based on location and operations.
+              </p>
+            </div>
           </div>
         </div>
       </section>
