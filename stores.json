@@ -711,7 +711,437 @@
       "Vaishali"
     ],
     "rating": 4.9,
-    "reviews": 15
+    "reviews": 15,
+    "lat": 28.6470726,
+    "lng": 77.3445976,
+    "schema": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://www.cleanz24.com/#organization",
+          "name": "Cleanz24",
+          "url": "https://www.cleanz24.com/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://cleanz24.com/assets/og-image.jpg",
+            "width": 1200,
+            "height": 630
+          },
+          "email": "happy2helpu@cleanz24.com",
+          "telephone": "+91-9138004800",
+          "description": "India's fast-growing laundry and dry cleaning franchise chain with 100+ stores across 17+ states, offering eco-friendly dry cleaning, laundry, steam ironing, shoe, leather, curtain and carpet cleaning with free doorstep pickup and delivery.",
+          "sameAs": [
+            "https://www.instagram.com/cleanz24india/",
+            "https://www.facebook.com/share/1D2QDyaHBG/",
+            "https://youtube.com/@cleanz24-india",
+            "https://www.linkedin.com/company/cleanz24india/"
+          ]
+        },
+        {
+          "@type": [
+            "DryCleaningOrLaundry",
+            "LocalBusiness"
+          ],
+          "@id": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad#localbusiness",
+          "name": "Cleanz24 Dry Clean & Laundry service",
+          "alternateName": [
+            "क्लींज24 ड्राई क्लीन & लॉन्ड्री सर्विस",
+            "Cleanz24 Vaishali Ghaziabad",
+            "Cleanz24 Dry Cleaners Vaishali"
+          ],
+          "description": "Cleanz24 Vaishali is a dry cleaner, laundry service and upholstery cleaning service in Sector 4, Vaishali, Ghaziabad, near Paras Hospital in GDA Market. The store handles dry cleaning of designer and heavy ethnic wear, wash and fold, steam ironing, shoe and leather cleaning, curtain, carpet and sofa cleaning, with free doorstep pickup and delivery across Vaishali and nearby Ghaziabad localities.",
+          "url": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad",
+          "telephone": "+91-9138004800",
+          "email": "happy2helpu@cleanz24.com",
+          "image": "https://cleanz24.com/assets/og-image.jpg",
+          "logo": "https://cleanz24.com/assets/og-image.jpg",
+          "priceRange": "₹₹",
+          "currenciesAccepted": "INR",
+          "paymentAccepted": "Cash, UPI, Credit Card, Debit Card",
+          "parentOrganization": {
+            "@id": "https://www.cleanz24.com/#organization"
+          },
+          "brand": {
+            "@id": "https://www.cleanz24.com/#organization"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Shop No-2, Plot no.4/129, near Paras Hospital, GDA Market, Sector 4",
+            "addressLocality": "Vaishali, Ghaziabad",
+            "addressRegion": "Uttar Pradesh",
+            "postalCode": "201010",
+            "addressCountry": "IN"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 28.6470726,
+            "longitude": 77.3445976
+          },
+          "hasMap": "https://maps.google.com/?cid=727923920338779933",
+          "sameAs": [
+            "https://maps.google.com/?cid=727923920338779933",
+            "https://www.google.com/maps/place/?q=place_id:ChIJt7i5uyz7DDkRHX9N5_IaGgo",
+            "https://www.google.com/search?kgmid=/g/11zgrr9nz5"
+          ],
+          "identifier": [
+            {
+              "@type": "PropertyValue",
+              "propertyID": "Google Place ID",
+              "value": "ChIJt7i5uyz7DDkRHX9N5_IaGgo"
+            },
+            {
+              "@type": "PropertyValue",
+              "propertyID": "Google CID",
+              "value": "727923920338779933"
+            },
+            {
+              "@type": "PropertyValue",
+              "propertyID": "Google Knowledge Graph ID",
+              "value": "/g/11zgrr9nz5"
+            }
+          ],
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+              ],
+              "opens": "09:00",
+              "closes": "21:00"
+            }
+          ],
+          "areaServed": [
+            {
+              "@type": "Place",
+              "name": "Vaishali, Ghaziabad"
+            },
+            {
+              "@type": "Place",
+              "name": "Vaishali Sector 1"
+            },
+            {
+              "@type": "Place",
+              "name": "Vaishali Sector 2"
+            },
+            {
+              "@type": "Place",
+              "name": "Vaishali Sector 3"
+            },
+            {
+              "@type": "Place",
+              "name": "Vaishali Sector 4"
+            },
+            {
+              "@type": "Place",
+              "name": "Vaishali Sector 5"
+            },
+            {
+              "@type": "Place",
+              "name": "Vaishali Sector 6"
+            },
+            {
+              "@type": "Place",
+              "name": "Kaushambi, Ghaziabad"
+            },
+            {
+              "@type": "Place",
+              "name": "Indirapuram, Ghaziabad"
+            },
+            {
+              "@type": "Place",
+              "name": "Vasundhara, Ghaziabad"
+            },
+            {
+              "@type": "Place",
+              "name": "Ramprastha, Ghaziabad"
+            },
+            {
+              "@type": "Place",
+              "name": "Anand Vihar"
+            },
+            {
+              "@type": "City",
+              "name": "Ghaziabad"
+            }
+          ],
+          "knowsAbout": [
+            "Dry cleaning",
+            "Laundry service",
+            "Upholstery cleaning",
+            "Sofa cleaning",
+            "Wash and fold laundry",
+            "Steam ironing",
+            "Shoe cleaning",
+            "Leather cleaning",
+            "Curtain cleaning",
+            "Carpet cleaning",
+            "Bridal lehenga dry cleaning",
+            "Woollen and cashmere care"
+          ],
+          "amenityFeature": [
+            {
+              "@type": "LocationFeatureSpecification",
+              "name": "Free doorstep pickup and delivery",
+              "value": true
+            },
+            {
+              "@type": "LocationFeatureSpecification",
+              "name": "Express same-day delivery",
+              "value": true
+            },
+            {
+              "@type": "LocationFeatureSpecification",
+              "name": "Separate wash cycle for every customer",
+              "value": true
+            },
+            {
+              "@type": "LocationFeatureSpecification",
+              "name": "German eco-friendly detergents",
+              "value": true
+            },
+            {
+              "@type": "LocationFeatureSpecification",
+              "name": "Hohenstein and Woolmark certified machinery",
+              "value": true
+            },
+            {
+              "@type": "LocationFeatureSpecification",
+              "name": "WhatsApp order tracking",
+              "value": true
+            },
+            {
+              "@type": "LocationFeatureSpecification",
+              "name": "ISO 9001:2015 accredited",
+              "value": true
+            }
+          ],
+          "potentialAction": [
+            {
+              "@type": "ReserveAction",
+              "name": "Book free laundry pickup on WhatsApp",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://wa.me/919138004800?text=Hi%20Cleanz24!%20I%20want%20to%20book%20laundry%20pickup%20from%20your%20Cleanz24%20-%20Vaishali%20Ghaziabad%20store%20in%20Ghaziabad.",
+                "actionPlatform": [
+                  "https://schema.org/DesktopWebPlatform",
+                  "https://schema.org/MobileWebPlatform"
+                ]
+              }
+            },
+            {
+              "@type": "CommunicateAction",
+              "name": "Call Cleanz24 Vaishali",
+              "target": "tel:+919138004800"
+            }
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Laundry, Dry Cleaning & Upholstery Cleaning Services in Vaishali, Ghaziabad",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "@id": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad/dry-cleaning#service",
+                  "name": "Dry Cleaning in Vaishali, Ghaziabad",
+                  "serviceType": "Dry cleaning",
+                  "description": "Dry cleaning for suits, sarees, lehengas, designer and heavy ethnic wear, and woollens.",
+                  "url": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad/dry-cleaning"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "@id": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad/wash-and-fold#service",
+                  "name": "Laundry Service in Vaishali, Ghaziabad",
+                  "serviceType": "Laundry service",
+                  "description": "Wash and fold, and wash and steam iron laundry with free pickup and delivery.",
+                  "url": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad/wash-and-fold"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Steam Ironing in Vaishali, Ghaziabad",
+                  "serviceType": "Steam ironing",
+                  "description": "Crisp professional steam press with protective hanger packing."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "@id": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad/shoe-cleaning#service",
+                  "name": "Shoe Cleaning in Vaishali, Ghaziabad",
+                  "serviceType": "Shoe cleaning",
+                  "description": "Sneaker, canvas and leather shoe cleaning, restoration and protection.",
+                  "url": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad/shoe-cleaning"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "@id": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad/leather-cleaning#service",
+                  "name": "Leather Cleaning in Vaishali, Ghaziabad",
+                  "serviceType": "Leather cleaning",
+                  "description": "Cleaning and care for leather jackets, handbags, wallets, belts and shoes.",
+                  "url": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad/leather-cleaning"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "@id": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad/curtain-cleaning#service",
+                  "name": "Curtain Cleaning in Vaishali, Ghaziabad",
+                  "serviceType": "Curtain cleaning",
+                  "description": "Cleaning for silk, cotton, velvet, chenille and blackout curtains.",
+                  "url": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad/curtain-cleaning"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "@id": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad/carpet-cleaning#service",
+                  "name": "Carpet Cleaning in Vaishali, Ghaziabad",
+                  "serviceType": "Carpet cleaning",
+                  "description": "Deep cleaning for Persian, silk, Turkish and wool carpets and rugs.",
+                  "url": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad/carpet-cleaning"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Upholstery and Sofa Cleaning in Vaishali, Ghaziabad",
+                  "serviceType": "Upholstery cleaning service",
+                  "description": "Upholstery cleaning for sofas, chairs, cushions and mattresses."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad#webpage",
+          "url": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad",
+          "name": "Cleanz24 Vaishali Ghaziabad — Best Dry Cleaning & Laundry in Vaishali, Ghaziabad",
+          "description": "Cleanz24 dry cleaner and laundry service at Shop No-2, GDA Market, Sector 4, Vaishali, Ghaziabad near Paras Hospital. Dry cleaning, laundry, steam press, shoe, carpet, curtain and sofa cleaning with free doorstep pickup. Call 9138004800.",
+          "inLanguage": "en-IN",
+          "isPartOf": {
+            "@type": "WebSite",
+            "@id": "https://www.cleanz24.com/#website",
+            "url": "https://www.cleanz24.com/",
+            "name": "Cleanz24",
+            "publisher": {
+              "@id": "https://www.cleanz24.com/#organization"
+            }
+          },
+          "about": {
+            "@id": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad#localbusiness"
+          },
+          "mainEntity": {
+            "@id": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad#localbusiness"
+          },
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://cleanz24.com/assets/og-image.jpg",
+            "width": 1200,
+            "height": 630
+          },
+          "breadcrumb": {
+            "@id": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad#breadcrumb"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://www.cleanz24.com/best-laundry-drycleaning"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Stores",
+              "item": "https://www.cleanz24.com/best-laundry-drycleaning/stores"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Ghaziabad",
+              "item": "https://www.cleanz24.com/best-laundry-drycleaning/ghaziabad"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "Vaishali Ghaziabad",
+              "item": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://www.cleanz24.com/best-laundry-drycleaning/store/best-laundry-drycleaning-services-vaishali-ghaziabad#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Does Cleanz24 offer doorstep pickup and delivery in Vaishali Ghaziabad?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Cleanz24 Vaishali offers free doorstep pickup and delivery across Vaishali and nearby Ghaziabad areas like Kaushambi, Indirapuram and Vasundhara. Book on WhatsApp or call +91 91380 04800 and pick a slot that suits you."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What laundry and dry cleaning services are available at Vaishali Ghaziabad?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The Vaishali store handles dry cleaning for designer, bridal and heavy ethnic wear and woollens, wash and fold laundry, steam ironing, shoe and leather cleaning, curtain and carpet cleaning, and sofa and upholstery cleaning."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Where exactly is the Cleanz24 Vaishali Ghaziabad store located?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The store is at Shop No-2, Plot no.4/129, GDA Market, Sector 4, Vaishali, Ghaziabad, Uttar Pradesh 201010, close to Paras Hospital. It is open every day from 9:00 AM to 9:00 PM."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How long does standard laundry or dry cleaning take?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Regular orders are delivered in 24 to 48 hours. If you need clothes sooner, express service offers same-day or 24-hour delivery with priority processing."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is Cleanz24 eco-friendly and safe for clothes?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Cleanz24 uses biodegradable German detergents, Hohenstein and Woolmark certified machines, and a separate wash cycle for every customer, which protects fabric colour and prevents shrinkage."
+              }
+            }
+          ]
+        }
+      ]
+    }
   },
   {
     "id": 68,

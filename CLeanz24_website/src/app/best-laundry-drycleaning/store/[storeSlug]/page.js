@@ -62,8 +62,9 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  const title = `${store.name} — Best Dry Cleaning & Laundry in ${store.city || 'India'} | Cleanz24`;
-  const description = `Visit ${store.name} at ${store.address || store.city}. Contact: ${store.phone || '+91-9138004800'}. Premium eco-friendly dry cleaning, steam press, and free doorstep pickup in ${store.city}.`;
+  const webPageSchema = store.schema?.['@graph']?.find((item) => item['@type'] === 'WebPage');
+  const title = webPageSchema?.name || `${store.name} — Best Dry Cleaning & Laundry in ${store.city || 'India'} | Cleanz24`;
+  const description = webPageSchema?.description || `Visit ${store.name} at ${store.address || store.city}. Contact: ${store.phone || '+91-9138004800'}. Premium eco-friendly dry cleaning, steam press, and free doorstep pickup in ${store.city}.`;
   const keywords = [
     store.name,
     `laundry in ${store.city}`,
@@ -199,20 +200,29 @@ export default async function StoreDetailPage({ params }) {
 
   return (
     <>
-      {localBusinessSchema && (
+      {store?.schema ? (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(store.schema) }}
         />
+      ) : (
+        <>
+          {localBusinessSchema && (
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+            />
+          )}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+          />
+        </>
       )}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
       <Suspense fallback={<div className="py-5 text-center">Loading...</div>}>
         <StoreDetail storeSlug={storeSlug} />
       </Suspense>

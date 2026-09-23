@@ -17,6 +17,7 @@ export default function Header({ isDarkMode, toggleTheme }) {
   const isHome = pathname === '/best-laundry-drycleaning' || pathname === '/best-laundry-drycleaning/';
   const isTransparent = isHome && !isScrolled;
   const isMobile = windowWidth < 992;
+  const isFranchise = pathname.includes('franchise-opportunities');
 
   const navLinks = [
     { to: '/best-laundry-drycleaning', label: 'Home', icon: '🏠' },
@@ -119,9 +120,18 @@ export default function Header({ isDarkMode, toggleTheme }) {
 
                 <Link
                   className="btn-header-pickup px-4 ms-lg-2 fw-bold text-decoration-none"
-                  href="/best-laundry-drycleaning/contact-us"
+                  href={isFranchise ? "#franchise-form" : "/best-laundry-drycleaning/contact-us"}
+                  onClick={(e) => {
+                    if (isFranchise) {
+                      const target = document.getElementById('franchise-form') || document.getElementById('franchise_form');
+                      if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                      }
+                    }
+                  }}
                 >
-                  Schedule Free Pickup
+                  {isFranchise ? 'Get Franchise Details' : 'Schedule Free Pickup'}
                   <span className="circle-arrow">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4"><polyline points="9 18 15 12 9 6"/></svg>
                   </span>
@@ -207,20 +217,39 @@ export default function Header({ isDarkMode, toggleTheme }) {
 
               {/* CTA Buttons */}
               <div className="laundry-mobile-cta">
-                <Link
-                  href="/best-laundry-drycleaning/contact-us"
-                  className="laundry-cta-primary"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  🚚 Schedule Free Pickup
-                </Link>
-                <Link
-                  href="/best-laundry-drycleaning/franchise-opportunities-in-india"
-                  className="laundry-cta-outline"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  🤝 Franchise Enquiry
-                </Link>
+                {isFranchise ? (
+                  <Link
+                    href="#franchise-form"
+                    className="laundry-cta-primary"
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      const target = document.getElementById('franchise-form') || document.getElementById('franchise_form');
+                      if (target) {
+                        e.preventDefault();
+                        setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'center' }), 200);
+                      }
+                    }}
+                  >
+                    🤝 Get Franchise Details
+                  </Link>
+                ) : (
+                  <>
+                    <Link
+                      href="/best-laundry-drycleaning/contact-us"
+                      className="laundry-cta-primary"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      🚚 Schedule Free Pickup
+                    </Link>
+                    <Link
+                      href="/best-laundry-drycleaning/franchise-opportunities-in-india"
+                      className="laundry-cta-outline"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      🤝 Franchise Enquiry
+                    </Link>
+                  </>
+                )}
               </div>
             </motion.div>
           </>

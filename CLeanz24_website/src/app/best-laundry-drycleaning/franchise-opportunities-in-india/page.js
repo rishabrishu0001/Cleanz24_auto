@@ -1,22 +1,32 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import LaundryFranchiseInteractive from '../../../views/laundry/LaundryFranchiseInteractive';
+import { FRANCHISE_CITIES } from '../../../data/franchiseCities';
 
 // ─── ISR: Revalidate every 24 hours ────────────────────────────────────────
 export const revalidate = 86400;
 
 // ─── SEO Metadata ──────────────────────────────────────────────────────────
 export const metadata = {
-  title: "Best Laundry Franchise in India 2025 | Cleanz24 Studio — ₹13L Investment",
-  description: "Start a profitable Cleanz24 laundry franchise in India. Investment from ₹13 Lakhs, 18–20 month ROI. 100+ stores across 21 states. Free consultation — apply now!",
+  title: "Best Laundry Franchise in India 2026 | Cleanz24",
+  description: "Start a profitable Cleanz24 laundry franchise in India. ₹13L investment, 18–20 mo ROI, 100+ stores across 21+ states. Apply now for free consultation!",
+  keywords: [
+    'best laundry franchise in India',
+    'laundry franchise opportunity',
+    'dry cleaning franchise India',
+    'Cleanz24 franchise',
+    'laundry business investment',
+    'low investment franchise India',
+    'laundry franchise cost',
+  ],
   robots: 'index, follow',
   alternates: {
     canonical: "https://www.cleanz24.com/best-laundry-drycleaning/franchise-opportunities-in-india",
   },
   openGraph: {
     type: 'website',
-    title: "Best Laundry Franchise in India 2025 | Cleanz24 Studio",
-    description: "Start a profitable Cleanz24 laundry franchise in India. Investment from ₹13 Lakhs, 18–20 month ROI. 100+ stores across 21 states.",
+    title: "Best Laundry Franchise in India 2026 | Cleanz24",
+    description: "Start a profitable Cleanz24 laundry franchise in India. ₹13L investment, 18–20 mo ROI, 100+ stores across 21+ states. Apply now for free consultation!",
     url: "https://www.cleanz24.com/best-laundry-drycleaning/franchise-opportunities-in-india",
     siteName: 'Cleanz24',
     locale: 'en_IN',
@@ -31,8 +41,8 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Best Laundry Franchise in India 2025 | Cleanz24 Studio",
-    description: "Start a profitable Cleanz24 laundry franchise in India. Investment from ₹13 Lakhs, 18–20 month ROI. 100+ stores across 21 states.",
+    title: "Best Laundry Franchise in India 2026 | Cleanz24",
+    description: "Start a profitable Cleanz24 laundry franchise in India. ₹13L investment, 18–20 mo ROI, 100+ stores across 21+ states. Apply now for free consultation!",
     images: ["https://www.cleanz24.com/logo_laundry.jpg"],
   },
 };
@@ -55,6 +65,8 @@ const organizationSchema = {
   sameAs: [
     'https://www.instagram.com/cleanz24india/',
     'https://www.facebook.com/share/1D2QDyaHBG/?mibextid=wwXIfr',
+    'https://youtube.com/@cleanz24-india?si=8Sq-bqqygHsMWBus',
+    'https://www.linkedin.com/company/cleanz24india/',
   ],
 };
 
@@ -147,6 +159,7 @@ const MODELS = [
     profit: '₹1 Lakh/Month+',
     roi: '18-20 Months',
     featured: false,
+    budget: '₹13L - ₹15L (Alpha Model)',
     features: [
       'Complete end to end Store Setup',
       '15Kg Stacker (Washer & Extractor)',
@@ -165,6 +178,7 @@ const MODELS = [
     profit: '₹1.5 Lacs/Month+',
     roi: '18-20 Months',
     featured: true,
+    budget: '₹15L - ₹20L (Beta Model)',
     features: [
       'Complete end to end Store Setup',
       '15Kg Stacker + 10Kg Stacker',
@@ -183,6 +197,7 @@ const MODELS = [
     profit: '₹2 Lacs/Month+',
     roi: '18-20 Months',
     featured: false,
+    budget: '₹22L - ₹25L (Combo Model)',
     features: [
       'Complete end to end Store Setup',
       '18Kg Standalone Washer & Dryer for Commercial Loads',
@@ -201,6 +216,7 @@ const MODELS = [
     profit: '₹2.5–3.0 Lacs/Month+',
     roi: '18-22 Months',
     featured: false,
+    budget: '₹35L+ (Hydro-Carbon Studio)',
     features: [
       '10Kg Hydrocarbon Dry-Clean Machine (99% Recovery)',
       '10Kg Stacker (Washer & Extractor)',
@@ -257,7 +273,12 @@ const FAQS = [
 ];
 
 const BRAND_PARTNERS = [
-  'Alliance Laundry Systems', 'LG Electronics', 'Speed Queen', 'Fabcare', 'Reckitt Benckiser', 'Samsung',
+  { name: 'Alliance Laundry Systems', url: 'https://alliancelaundry.com', desc: 'Commercial Laundry Machinery' },
+  { name: 'LG Electronics', url: 'https://www.lg.com/in', desc: 'Commercial Washers & Dryers' },
+  { name: 'Speed Queen', url: 'https://speedqueen.com', desc: 'Heavy-Duty Laundromat Equipment' },
+  { name: 'Fabcare', url: 'https://fabcare.com', desc: 'Garment Finishing & Steam Systems' },
+  { name: 'Reckitt Benckiser', url: 'https://www.reckitt.com', desc: 'Detergents & Fabric Care' },
+  { name: 'Samsung', url: 'https://www.samsung.com/in', desc: 'Smart Commercial Laundry' },
 ];
 
 const MEDIA_MENTIONS = [
@@ -315,11 +336,30 @@ export default function Page() {
                     fontSize: 'clamp(20px, 2.4vw, 30px)',
                     lineHeight: 1.3,
                     color: '#0f172a',
-                    marginBottom: 10,
+                    marginBottom: 12,
                   }}>
                     Best Laundry Franchise in India — Start Your{' '}
                     <span style={{ color: '#16a34a' }}>Cleanz24 Franchise</span>
                   </h1>
+
+                  {/* Market Opportunity Hook (Opening hook directly below H1) */}
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    background: '#fef3c7',
+                    border: '1px solid #fde047',
+                    borderRadius: 10,
+                    padding: '8px 14px',
+                    marginBottom: 12,
+                    color: '#854d0e',
+                    fontWeight: 700,
+                    fontSize: '0.82rem',
+                    lineHeight: 1.45,
+                  }}>
+                    <span style={{ fontSize: '1rem', flexShrink: 0 }}>💡</span>
+                    <span><strong>96% of India's laundry sector is unorganized</strong> — Cleanz24 brings a standardized, tech-enabled brand model.</span>
+                  </div>
 
                   {/* Subheadline & Trust Stats */}
                   <p style={{ fontSize: '0.85rem', fontWeight: 600, color: '#475569', margin: 0, lineHeight: 1.5 }}>
@@ -327,25 +367,13 @@ export default function Page() {
                   </p>
                 </div>
 
-                {/* Store Gallery Slideshow */}
-                <Suspense fallback={
-                  <div style={{ height: 280, borderRadius: 20, background: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: '0.9rem' }}>
-                    Loading store images...
-                  </div>
-                }>
-                  <LaundryFranchiseInteractive section="slideshow" />
-                </Suspense>
+                {/* Store Gallery Slideshow (SSR initial image + progressive enhancement) */}
+                <LaundryFranchiseInteractive section="slideshow" />
               </div>
 
-              {/* Right Column: Ultra-Compact Glassmorphic Franchise Form */}
+              {/* Right Column: Glassmorphic Franchise Application Form */}
               <div className="col-lg-6">
-                <Suspense fallback={
-                  <div style={{ height: 380, borderRadius: 20, background: 'rgba(15,23,42,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: '0.9rem' }}>
-                    Loading franchise application form...
-                  </div>
-                }>
-                  <LaundryFranchiseInteractive section="form" />
-                </Suspense>
+                <LaundryFranchiseInteractive section="form" />
               </div>
             </div>
           </div>
@@ -388,7 +416,7 @@ export default function Page() {
           </div>
         </section>
 
-        {/* ══ SECTION 3: ROI CALCULATOR (Interactive — client-side) ══ */}
+        {/* ══ SECTION 3: ROI CALCULATOR (SSR Initial Alpha Model + Client Interactivity) ══ */}
         <section id="calculator" style={{ padding: '80px 0', background: '#f0faf2' }} aria-label="Franchise ROI Calculator">
           <div className="container">
             <div className="text-center mb-5">
@@ -400,13 +428,7 @@ export default function Page() {
                 Select your city tier and franchise model to view exact projected revenue, annual profit & payback period.
               </p>
             </div>
-            <Suspense fallback={
-              <div style={{ maxWidth: 860, margin: '0 auto', background: '#ffffff', borderRadius: 24, padding: '36px 28px', border: '1.5px solid #d1fae5', textAlign: 'center', color: '#64748b' }}>
-                Loading ROI Calculator...
-              </div>
-            }>
-              <LaundryFranchiseInteractive section="calculator" />
-            </Suspense>
+            <LaundryFranchiseInteractive section="calculator" />
           </div>
         </section>
 
@@ -418,9 +440,9 @@ export default function Page() {
               <h2 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '2.2rem', color: '#0f172a', marginTop: 6 }}>
                 Why Invest in <span style={{ color: '#16a34a' }}>Cleanz24?</span>
               </h2>
-              <div style={{ display: 'inline-block', background: '#fef3c7', border: '1px solid #fde047', borderRadius: 12, padding: '10px 24px', marginTop: 12, color: '#854d0e', fontWeight: 600, fontSize: '0.9rem' }}>
-                💡 <strong>96% of India's laundry sector is unorganized</strong> — Cleanz24 brings a standardized, tech-enabled brand model.
-              </div>
+              <p style={{ color: '#64748b', fontSize: '0.95rem', maxWidth: 600, margin: '8px auto 0' }}>
+                A proven operational model delivering consistent unit-level profitability across Indian markets.
+              </p>
             </div>
             <div className="row g-4">
               {WHY_US.map((card, idx) => (
@@ -436,7 +458,7 @@ export default function Page() {
           </div>
         </section>
 
-        {/* ══ SECTION 5: FRANCHISE MODELS ══ */}
+        {/* ══ SECTION 5: FRANCHISE MODELS (100% Server-Rendered for Indexability) ══ */}
         <section id="models" style={{ padding: '80px 0', background: '#f8fafb' }} aria-label="Cleanz24 Franchise Models and Investment Options">
           <div className="container">
             <div className="text-center mb-5">
@@ -448,9 +470,84 @@ export default function Page() {
                 Pre-configured laundry studio setups optimized for your budget, location, and business ambition. All models include complete store setup, machinery, branding, and training.
               </p>
             </div>
-            <Suspense fallback={<div>Loading franchise models...</div>}>
-              <LaundryFranchiseInteractive section="models" />
-            </Suspense>
+            <div className="row g-4">
+              {MODELS.map((m, idx) => (
+                <div className="col-md-6 col-lg-3" key={idx}>
+                  <article style={{
+                    background: '#ffffff',
+                    border: m.featured ? '2px solid #16a34a' : '1.5px solid #e2e8f0',
+                    borderRadius: 18, padding: '28px 22px', height: '100%', position: 'relative',
+                    boxShadow: m.featured ? '0 12px 36px rgba(22,163,74,0.15)' : 'none',
+                    display: 'flex', flexDirection: 'column',
+                  }}
+                    aria-label={`${m.title} - Investment ${m.investment}`}
+                  >
+                    {m.featured && (
+                      <div style={{
+                        position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)',
+                        background: '#16a34a', color: '#fff', fontSize: '0.72rem', fontWeight: 700,
+                        padding: '4px 16px', borderRadius: 20, letterSpacing: '1px', textTransform: 'uppercase',
+                      }}>
+                        MOST POPULAR
+                      </div>
+                    )}
+                    <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#16a34a', textTransform: 'uppercase', marginBottom: 4 }}>{m.tag}</div>
+                    <h3 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.25rem', color: '#0f172a', marginBottom: 8 }}>{m.title}</h3>
+                    <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.6rem', color: '#16a34a', marginBottom: 12 }}>{m.investment}</div>
+                    <p style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: 16 }}>{m.sub}</p>
+                    <div style={{ background: '#f8fafc', padding: 12, borderRadius: 10, marginBottom: 16, fontSize: '0.82rem' }}>
+                      <div style={{ marginBottom: 4 }}>📍 <strong>Area:</strong> {m.area}</div>
+                      <div style={{ marginBottom: 4 }}>💰 <strong>Profit:</strong> {m.profit}</div>
+                      <div>⏳ <strong>ROI:</strong> {m.roi}</div>
+                    </div>
+                    <ul style={{ paddingLeft: 0, listStyle: 'none', fontSize: '0.82rem', marginTop: 'auto', marginBottom: 20 }}>
+                      {m.features.map((f, i) => (
+                        <li key={i} style={{ marginBottom: 6, display: 'flex', gap: 6, color: '#475569' }}>
+                          <span style={{ color: '#16a34a', fontWeight: 700 }}>✓</span> {f}
+                        </li>
+                      ))}
+                    </ul>
+                    <a
+                      href="#franchise-form"
+                      className="franchise-model-action-btn"
+                      data-model={m.title}
+                      data-budget={m.budget}
+                      style={{
+                        display: 'block', textAlign: 'center',
+                        background: m.featured ? '#16a34a' : 'transparent',
+                        color: m.featured ? '#ffffff' : '#16a34a',
+                        border: m.featured ? 'none' : '1.5px solid #16a34a',
+                        padding: '10px', borderRadius: 10, fontWeight: 700, textDecoration: 'none',
+                        fontSize: '0.88rem', fontFamily: 'Poppins, sans-serif', cursor: 'pointer',
+                        transition: 'all 0.2s',
+                      }}
+                    >
+                      Enquire About {m.title.split(' ')[0]} Model
+                    </a>
+                  </article>
+                </div>
+              ))}
+
+              {/* Franchise ROI Disclaimer */}
+              <div style={{ width: '100%', marginTop: 24, textAlign: 'center' }}>
+                <div style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  background: '#f8fafc',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: 12,
+                  padding: '10px 20px',
+                  maxWidth: '820px',
+                  textAlign: 'left'
+                }}>
+                  <span style={{ fontSize: '0.95rem', color: '#64748b' }}>ℹ️</span>
+                  <p style={{ margin: 0, fontSize: '0.8rem', color: '#64748b', lineHeight: 1.5 }}>
+                    <strong style={{ color: '#475569' }}>Disclaimer:</strong> Results are based on historical performance of existing studios and may vary based on location and operations.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -482,7 +579,7 @@ export default function Page() {
           </div>
         </section>
 
-        {/* ══ BRAND PARTNERS (Static) ══ */}
+        {/* ══ BRAND PARTNERS (Static — Linked to Verified Manufacturer Portals) ══ */}
         <section id="partners" style={{ padding: '60px 0', background: '#f8fafb', borderTop: '1px solid #e2e8f0' }} aria-label="Cleanz24 Brand Partners and Equipment Suppliers">
           <div className="container">
             <div className="text-center mb-4">
@@ -490,18 +587,42 @@ export default function Page() {
               <h2 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.8rem', color: '#0f172a', marginTop: 4 }}>Our Brand Partners</h2>
             </div>
             <div className="row g-3 justify-content-center align-items-center">
-              {BRAND_PARTNERS.map((name, i) => (
+              {BRAND_PARTNERS.map((p, i) => (
                 <div className="col-6 col-md-4 col-lg-2" key={i}>
-                  <div style={{ background: '#ffffff', border: '1.5px solid #e2e8f0', borderRadius: 12, height: 70, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 10, textAlign: 'center', fontWeight: 700, fontSize: '0.82rem', color: '#475569' }}>
-                    {name}
-                  </div>
+                  <a
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: 'none', display: 'block', height: '100%' }}
+                    title={`Visit ${p.name} official website (${p.desc})`}
+                  >
+                    <div style={{
+                      background: '#ffffff',
+                      border: '1.5px solid #e2e8f0',
+                      borderRadius: 12,
+                      height: 70,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: 10,
+                      textAlign: 'center',
+                      fontWeight: 700,
+                      fontSize: '0.82rem',
+                      color: '#475569',
+                      transition: 'all 0.2s',
+                    }}>
+                      <span>{p.name}</span>
+                      <span style={{ fontSize: '0.65rem', color: '#16a34a', fontWeight: 600, marginTop: 2 }}>Partner ↗</span>
+                    </div>
+                  </a>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ══ MEDIA MENTIONS (Static) ══ */}
+        {/* ══ MEDIA MENTIONS (Static unlinked cards per PR instruction) ══ */}
         <section id="media" style={{ padding: '60px 0', background: '#ffffff' }} aria-label="Cleanz24 Media Coverage and Press Mentions">
           <div className="container">
             <div className="text-center mb-4">
@@ -518,7 +639,7 @@ export default function Page() {
           </div>
         </section>
 
-        {/* ══ SECTION 7: FAQs (Static — visible to crawlers + interactive accordion loads client-side) ══ */}
+        {/* ══ SECTION 7: FAQs (Static — visible to crawlers + interactive accordion) ══ */}
         <section id="faqs" style={{ padding: '80px 0', background: '#f0faf2' }} aria-label="Frequently Asked Questions about Cleanz24 Franchise">
           <div className="container" style={{ maxWidth: 840 }}>
             <div className="text-center mb-5">
@@ -559,9 +680,7 @@ export default function Page() {
           </div>
         </section>
 
-
-
-        {/* ══ LOCATIONS GRID (Static — internal links help SEO cluster) ══ */}
+        {/* ══ LOCATIONS GRID (100% Server-Rendered Internal Links for SEO cluster) ══ */}
         <section id="locations" style={{ padding: '60px 0', background: '#f8fafb', borderTop: '1px solid #e2e8f0' }} aria-label="Cleanz24 Franchise Locations Across India">
           <div className="container">
             <div className="text-center mb-4">
@@ -573,34 +692,27 @@ export default function Page() {
                 Explore franchise opportunities city-wise — operational stores and new territory availability.
               </p>
             </div>
-            <Suspense fallback={<div style={{ height: 200, background: '#f1f5f9', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8' }}>Loading locations...</div>}>
-              <LaundryFranchiseInteractive section="locations" />
-            </Suspense>
+            <div style={{ maxHeight: 340, overflowY: 'auto', padding: '20px 16px', borderRadius: 16, background: 'rgba(255, 255, 255, 0.8)', border: '1px solid #e2e8f0' }}>
+              <div className="row g-2 justify-content-center">
+                {FRANCHISE_CITIES && FRANCHISE_CITIES.map((item, i) => (
+                  <div className="col-6 col-md-3 col-lg-2" key={i}>
+                    <Link href={`/best-laundry-drycleaning/franchise-opportunities/${item.slug}`} style={{ textDecoration: 'none' }}>
+                      <div style={{ padding: '8px 12px', borderRadius: 8, background: '#f1f5f9', fontSize: '0.82rem', color: '#334155', fontWeight: 600, textAlign: 'center', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} title={`${item.city}, ${item.state} — Cleanz24 Laundry Franchise`}>
+                        📍 {item.city}
+                      </div>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* Expert Contact Floating Button — opens franchise popup on click */}
-        <Suspense fallback={null}>
-          <LaundryFranchiseInteractive section="expertBtn" />
-        </Suspense>
+        {/* Expert Contact Floating Button */}
+        <LaundryFranchiseInteractive section="expertBtn" />
 
-        {/* Sticky WhatsApp CTA */}
-        <a
-          href="https://wa.me/919138004800?text=Hi%2C%20I%20am%20interested%20in%20a%20Cleanz24%20Laundry%20Franchise.%20Please%20send%20details."
-          target="_blank"
-          rel="noreferrer"
-          style={{
-            position: 'fixed', bottom: 20, right: 20, zIndex: 9999,
-            background: '#25d366', color: '#ffffff', textDecoration: 'none',
-            width: 52, height: 52, borderRadius: '50%',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: '0 8px 24px rgba(37,211,102,0.4)', fontFamily: 'Poppins, sans-serif',
-          }}
-          title="Chat with Franchise Team"
-          aria-label="Chat with Cleanz24 franchise team on WhatsApp"
-        >
-          <span style={{ fontSize: '1.4rem' }}>💬</span>
-        </a>
+        {/* Sticky Dynamic WhatsApp CTA */}
+        <LaundryFranchiseInteractive section="whatsappBtn" />
 
       </div>
     </>

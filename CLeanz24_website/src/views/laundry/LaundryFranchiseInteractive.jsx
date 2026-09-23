@@ -73,6 +73,8 @@ function HeroSlideshow() {
           alt={`Cleanz24 laundry franchise store interior — store ${i + 1}`}
           width={600}
           height={460}
+          loading={i === 0 ? 'eager' : 'lazy'}
+          fetchPriority={i === 0 ? 'high' : 'auto'}
           style={{
             position: 'absolute', inset: 0, width: '100%', height: '100%',
             objectFit: 'cover', objectPosition: 'center', borderRadius: 20,
@@ -163,8 +165,29 @@ export function scrollToFranchiseForm(budgetValue, modelName) {
 // ─── ROI Calculator ──────────────────────────────────────────────────────────
 function ROICalculator() {
   const [calcTier, setCalcTier] = useState('tier1');
-  const [calcModel, setCalcModel] = useState('beta');
-  const activeCalcData = CALCULATOR_DATA[calcTier]?.[calcModel] || CALCULATOR_DATA.tier1.beta;
+  const [calcModel, setCalcModel] = useState('alpha');
+  const activeCalcData = CALCULATOR_DATA[calcTier]?.[calcModel] || CALCULATOR_DATA.tier1.alpha;
+
+  const handleModelChange = (id) => {
+    setCalcModel(id);
+    const modelNames = {
+      alpha: 'Alpha Model',
+      beta: 'Beta Model',
+      combo: 'Combo Model',
+      hydro: 'Hydro-Carbon Model',
+    };
+    const budgetValues = {
+      alpha: '₹13L - ₹15L (Alpha Model)',
+      beta: '₹15L - ₹20L (Beta Model)',
+      combo: '₹22L - ₹25L (Combo Model)',
+      hydro: '₹35L+ (Hydro-Carbon Studio)',
+    };
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('selectFranchiseModel', {
+        detail: { budget: budgetValues[id], model: modelNames[id] }
+      }));
+    }
+  };
 
   return (
     <div style={{ maxWidth: 860, margin: '0 auto', background: '#ffffff', borderRadius: 24, padding: '36px 28px', boxShadow: '0 12px 40px rgba(0,0,0,0.06)', border: '1.5px solid #d1fae5' }}>
@@ -193,7 +216,7 @@ function ROICalculator() {
               <button
                 key={m.id}
                 type="button"
-                onClick={() => setCalcModel(m.id)}
+                onClick={() => handleModelChange(m.id)}
                 aria-pressed={calcModel === m.id}
                 aria-label={`Select ${m.label} — Investment ${m.inv}`}
                 style={{
@@ -946,6 +969,64 @@ function FranchiseModels() {
   );
 }
 
+// ─── Sticky Dynamic WhatsApp CTA ───────────────────────────────────────────
+function StickyWhatsAppCTA() {
+  const [activeModel, setActiveModel] = useState('Alpha Model');
+  const [activeBudget, setActiveBudget] = useState('₹13L - ₹15L (Alpha Model)');
+
+  useEffect(() => {
+    const handleSelect = (e) => {
+      const detail = e.detail || {};
+      if (detail.model) {
+        setActiveModel(detail.model);
+      }
+      if (detail.budget) {
+        setActiveBudget(detail.budget);
+      }
+    };
+    window.addEventListener('selectFranchiseModel', handleSelect);
+    return () => window.removeEventListener('selectFranchiseModel', handleSelect);
+  }, []);
+
+  // Global listener to delegate clicks from server-rendered model cards
+  useEffect(() => {
+    const handleModelCardClick = (e) => {
+      const btn = e.target.closest('.franchise-model-action-btn');
+      if (btn) {
+        e.preventDefault();
+        const budget = btn.getAttribute('data-budget') || '₹13L - ₹15L (Alpha Model)';
+        const model = btn.getAttribute('data-model') || 'Alpha Model';
+        scrollToFranchiseForm(budget, model);
+      }
+    };
+    document.addEventListener('click', handleModelCardClick);
+    return () => document.removeEventListener('click', handleModelCardClick);
+  }, []);
+
+  const whatsappMsg = `Hi, I am interested in the Cleanz24 ${activeModel} Franchise (${activeBudget}). Please share the details.`;
+  const whatsappUrl = `https://wa.me/919138004800?text=${encodeURIComponent(whatsappMsg)}`;
+
+  return (
+    <a
+      href={whatsappUrl}
+      target="_blank"
+      rel="noreferrer"
+      style={{
+        position: 'fixed', bottom: 20, right: 20, zIndex: 9999,
+        background: '#25d366', color: '#ffffff', textDecoration: 'none',
+        width: 52, height: 52, borderRadius: '50%',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        boxShadow: '0 8px 24px rgba(37,211,102,0.4)', fontFamily: 'Poppins, sans-serif',
+        transition: 'transform 0.2s',
+      }}
+      title={`Chat on WhatsApp about ${activeModel}`}
+      aria-label={`Chat with Cleanz24 franchise team on WhatsApp regarding ${activeModel}`}
+    >
+      <span style={{ fontSize: '1.4rem' }}>💬</span>
+    </a>
+  );
+}
+
 // ─── Main export: section-based dispatcher ────────────────────────────────────
 export default function LaundryFranchiseInteractive({ section }) {
   if (section === 'slideshow') return <HeroSlideshow />;
@@ -959,6 +1040,7 @@ export default function LaundryFranchiseInteractive({ section }) {
   );
   if (section === 'locations') return <LocationsGrid />;
   if (section === 'expertBtn') return <ExpertContactButton />;
+  if (section === 'whatsappBtn') return <StickyWhatsAppCTA />;
   if (section === 'popup') return <LeadPopup />;
   return null;
 }

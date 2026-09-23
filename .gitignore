@@ -36,3 +36,4 @@ public_backup/
 *.njsproj
 *.sln
 *.sw?
+scratch/
