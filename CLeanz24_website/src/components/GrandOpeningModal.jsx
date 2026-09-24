@@ -12,6 +12,7 @@ export default function GrandOpeningModal({
   phone = '9138004800',
   whatsapp = '917632034777',
   locationText = 'Maharajganj, Siwan, Bihar',
+  storeUrl = '',
 }) {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
 
@@ -194,7 +195,7 @@ export default function GrandOpeningModal({
                 )}
                 {whatsapp && (
                   <a
-                    href={`https://wa.me/${whatsapp}?text=Hi%20Cleanz24,%20I%20saw%20the%20Grand%20Opening%20invitation%20for%20Maharajganj!`}
+                    href={`https://wa.me/${whatsapp}?text=${encodeURIComponent(`Hi Cleanz24, I saw the Grand Opening invitation for ${locationText || 'Cleanz24'}!`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
@@ -224,6 +225,38 @@ export default function GrandOpeningModal({
                   >
                     <span>💬</span>
                     <span>WhatsApp</span>
+                  </a>
+                )}
+                {storeUrl && (
+                  <a
+                    href={storeUrl}
+                    style={{
+                      flex: 1,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '8px',
+                      padding: '10px 16px',
+                      backgroundColor: '#2563EB',
+                      color: '#ffffff',
+                      borderRadius: '9999px',
+                      fontSize: '14px',
+                      fontWeight: 700,
+                      textDecoration: 'none',
+                      boxShadow: '0 4px 14px rgba(37, 99, 235, 0.4)',
+                      transition: 'transform 0.2s, background-color 0.2s',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-1px)';
+                      e.currentTarget.style.backgroundColor = '#1d4ed8';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.backgroundColor = '#2563EB';
+                    }}
+                  >
+                    <span>📍</span>
+                    <span>Store Page</span>
                   </a>
                 )}
               </div>

@@ -748,6 +748,7 @@ export default function StoreDetail() {
   const faqs = FAQ_DATA(store);
   const areasServed = store.areasServed || [...new Set([store.city, ...(store.tags || []).filter(t => !['Delhi NCR', 'Delhi', 'NCR'].includes(t))])];
   const storeImages = STORE_IMAGES[store.id] || [];
+  const isOpeningSoon = Boolean(store?.openingTime && new Date() < new Date(store.openingTime));
 
   return (
     <div style={{ minHeight: '100vh', background: theme.bg, color: theme.text, fontFamily: "'Inter', sans-serif" }}>
@@ -780,12 +781,34 @@ export default function StoreDetail() {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px', alignItems: 'center' }}>
             <div>
-              <span style={{ background: 'rgba(255,255,255,0.15)', color: '#FFD700', padding: '6px 16px', borderRadius: '30px', fontSize: '13px', fontWeight: 800, letterSpacing: '1px', textTransform: 'uppercase', display: 'inline-block', marginBottom: '16px' }}>
-                ⭐ India's No. 1 Premium Laundry Studio
-              </span>
+              {isOpeningSoon ? (
+                <div style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  background: 'linear-gradient(135deg, #b45309 0%, #f59e0b 100%)',
+                  color: '#ffffff',
+                  padding: '8px 20px',
+                  borderRadius: '30px',
+                  fontSize: '13px',
+                  fontWeight: 800,
+                  marginBottom: '16px',
+                  boxShadow: '0 4px 15px rgba(245, 158, 11, 0.4)',
+                  letterSpacing: '0.5px'
+                }}>
+                  <span>🎉</span>
+                  <span>GRAND OPENING: {store.timeline || 'Opening 26 September, 10:00 AM'}</span>
+                </div>
+              ) : (
+                <span style={{ background: 'rgba(255,255,255,0.15)', color: '#FFD700', padding: '6px 16px', borderRadius: '30px', fontSize: '13px', fontWeight: 800, letterSpacing: '1px', textTransform: 'uppercase', display: 'inline-block', marginBottom: '16px' }}>
+                  ⭐ India's No. 1 Premium Laundry Studio
+                </span>
+              )}
               <h1 style={{ fontSize: 'clamp(26px, 4.5vw, 42px)', fontWeight: 900, lineHeight: 1.25, marginBottom: '16px', fontFamily: "'Poppins', sans-serif" }}>
                 Cleanz24 Dry Clean &amp; Laundry Store
-                <span style={{ display: 'block', color: '#93C5FD', fontSize: '0.85em', marginTop: '6px' }}>NOW AT {loc}</span>
+                <span style={{ display: 'block', color: '#93C5FD', fontSize: '0.85em', marginTop: '6px' }}>
+                  {isOpeningSoon ? `OPENING SOON AT ${loc.toUpperCase()}` : `NOW AT ${loc}`}
+                </span>
               </h1>
               <p style={{ fontSize: '17px', opacity: 0.9, marginBottom: '24px', fontWeight: 500 }}>
                 <strong>100+ Franchise Outlets</strong> across multiple cities in India
@@ -810,7 +833,9 @@ export default function StoreDetail() {
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', borderTop: '1px solid rgba(255,255,255,0.15)', paddingTop: '16px' }}>
                 <div>
                   <div style={{ fontSize: '11px', opacity: 0.7, textTransform: 'uppercase' }}>Working Hours</div>
-                  <div style={{ fontWeight: 700, fontSize: '14px', marginTop: '2px' }}>9:00 AM – 9:00 PM</div>
+                  <div style={{ fontWeight: 700, fontSize: '14px', marginTop: '2px' }}>
+                    {isOpeningSoon ? (store.timeline || 'Opening 26 Sep at 10 AM') : '9:00 AM – 9:00 PM'}
+                  </div>
                 </div>
                 <div>
                   <div style={{ fontSize: '11px', opacity: 0.7, textTransform: 'uppercase' }}>Rating</div>
@@ -845,12 +870,16 @@ export default function StoreDetail() {
                 <div style={{ background: theme.card, padding: '14px', borderRadius: '12px', border: `1px solid ${theme.border}`, textAlign: 'center' }}>
                   <div style={{ fontSize: '20px', marginBottom: '4px' }}>⏰</div>
                   <div style={{ fontSize: '11px', color: theme.muted }}>Timings</div>
-                  <div style={{ fontWeight: 700, fontSize: '13px', marginTop: '2px' }}>9:00 AM - 9:00 PM</div>
+                  <div style={{ fontWeight: 700, fontSize: '13px', marginTop: '2px' }}>
+                    {isOpeningSoon ? 'Opening 26 Sep' : '9:00 AM - 9:00 PM'}
+                  </div>
                 </div>
                 <div style={{ background: theme.card, padding: '14px', borderRadius: '12px', border: `1px solid ${theme.border}`, textAlign: 'center' }}>
                   <div style={{ fontSize: '20px', marginBottom: '4px' }}>🗓️</div>
                   <div style={{ fontSize: '11px', color: theme.muted }}>Availability</div>
-                  <div style={{ fontWeight: 700, fontSize: '13px', marginTop: '2px', color: theme.accentGreen }}>Open All Days</div>
+                  <div style={{ fontWeight: 700, fontSize: '13px', marginTop: '2px', color: isOpeningSoon ? theme.accentOrange : theme.accentGreen }}>
+                    {isOpeningSoon ? 'Opening 10 AM' : 'Open All Days'}
+                  </div>
                 </div>
                 <div style={{ background: theme.card, padding: '14px', borderRadius: '12px', border: `1px solid ${theme.border}`, textAlign: 'center' }}>
                   <div style={{ fontSize: '20px', marginBottom: '4px' }}>👥</div>

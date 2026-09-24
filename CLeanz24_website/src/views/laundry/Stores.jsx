@@ -60,6 +60,19 @@ const rawComingSoonStores = [
     timeline: "Opening 28 August, 10:00 AM",
     openingTime: "2026-08-28T10:00:00+05:30",
     status: "Opening Soon"
+  },
+  {
+    id: 78,
+    name: "Cleanz24 - Valiyathura",
+    type: "Laundry",
+    city: "Valiyathura",
+    state: "Kerala",
+    area: "Near Valiyathura Market, Vallakkadavu",
+    address: "TC-77/980(4), Near Valiyathura Market, Valiyathura, Vallakkadavu P.O., Thiruvananthapuram, Kerala - 695008",
+    phone: "9138004800",
+    timeline: "Opening 26 September, 10:00 AM",
+    openingTime: "2026-09-26T10:00:00+05:30",
+    status: "Opening Soon"
   }
 ];
 

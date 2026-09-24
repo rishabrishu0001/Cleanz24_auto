@@ -54,18 +54,15 @@ export default function LaundryHome() {
   const [showGrandOpeningModal, setShowGrandOpeningModal] = useState(false);
 
   // ─── GRAND OPENING EVENT CONFIG ───
-  // To re-enable, uncomment the object below and remove the null line.
-  const activeGrandOpening = null;
-  /* SAVED CONFIG — uncomment to activate:
   const activeGrandOpening = {
-    title: 'Maharajganj, Bihar',
-    image: '/grand_opening_maharajganj.jpg',
-    key: 'cleanz24_maharajganj_opening_v1',
+    title: 'Valiyathura, Kerala',
+    image: '/grand_opening_valiyathura.jpg',
+    key: 'cleanz24_valiyathura_opening_v1',
     phone: '9138004800',
-    whatsapp: '917632034777',
-    locationText: 'Maharajganj, Siwan, Bihar',
+    whatsapp: '919138004800',
+    locationText: 'Valiyathura, Kerala',
+    storeUrl: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-valiyathura',
   };
-  */
 
   useEffect(() => {
     if (!activeGrandOpening) return;
@@ -1555,6 +1552,7 @@ export default function LaundryHome() {
           phone={activeGrandOpening.phone}
           whatsapp={activeGrandOpening.whatsapp}
           locationText={activeGrandOpening.locationText}
+          storeUrl={activeGrandOpening.storeUrl}
         />
       )}
 
