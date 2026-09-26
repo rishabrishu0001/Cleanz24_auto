@@ -20,10 +20,15 @@ const getShortSlug = (name) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)+/g, '');
 
+const isStoreLive = (store) => {
+  if (!store || !store.openingTime) return true;
+  return new Date() >= new Date(store.openingTime);
+};
+
 const findStoreBySlug = (slug) => {
   if (!slug) return null;
   return storesData.find((s) => {
-    if (!s || !s.name) return false;
+    if (!s || !s.name || !isStoreLive(s)) return false;
     const fullSlug = generateStoreSlug(s.name);
     const shortSlug = getShortSlug(s.name);
     const citySlug = s.city ? s.city.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-') : '';
@@ -58,7 +63,7 @@ export async function generateMetadata({ params }) {
     return {
       title: 'Store Details | Cleanz24 Laundry Studio',
       description: 'Locate Cleanz24 Laundry & Dry Cleaning studio address, timing, and contact details.',
-      robots: 'index, follow',
+      robots: 'noindex, nofollow',
     };
   }
 
