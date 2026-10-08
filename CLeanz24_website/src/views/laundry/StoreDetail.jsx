@@ -746,6 +746,9 @@ export default function StoreDetail() {
   const loc = storeLocation(store.name);
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store.name + ' ' + store.address)}`;
   const waMsg = encodeURIComponent(`Hi Cleanz24! I want to book laundry pickup from your ${store.name} store in ${store.city}.`);
+  const storePhone = store.phone || '9138004800';
+  const storePhoneFormatted = storePhone.length === 10 ? `+91 ${storePhone.slice(0, 5)} ${storePhone.slice(5)}` : `+91 ${storePhone}`;
+  const storeWa = store.whatsapp || (store.phone ? (store.phone.startsWith('91') ? store.phone : `91${store.phone}`) : '919138004800');
   const reviews = CUSTOMER_REVIEWS(loc, store.city);
   const faqs = FAQ_DATA(store);
   const areasServed = store.areasServed || [...new Set([store.city, ...(store.tags || []).filter(t => !['Delhi NCR', 'Delhi', 'NCR'].includes(t))])];
@@ -756,11 +759,11 @@ export default function StoreDetail() {
       
       {/* ── STICKY BOTTOM BAR (MOBILE) ── */}
       <div className="d-md-none" style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 999, background: theme.card, borderTop: `1px solid ${theme.border}`, padding: '10px 16px', display: 'flex', gap: '8px', boxShadow: '0 -4px 20px rgba(0,0,0,0.15)' }}>
-        <a href={`https://wa.me/919138004800?text=${waMsg}`} target="_blank" rel="noreferrer" style={{ flex: 1, background: '#25D366', color: '#fff', textAlign: 'center', padding: '10px', borderRadius: '10px', fontWeight: 700, fontSize: '13px', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+        <a href={`https://wa.me/${storeWa}?text=${waMsg}`} target="_blank" rel="noreferrer" style={{ flex: 1, background: '#25D366', color: '#fff', textAlign: 'center', padding: '10px', borderRadius: '10px', fontWeight: 700, fontSize: '13px', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
           <RealWhatsAppIcon size={18} color="#fff" />
           <span>WhatsApp</span>
         </a>
-        <a href="tel:+919138004800" style={{ flex: 1, background: theme.primary, color: '#fff', textAlign: 'center', padding: '10px', borderRadius: '10px', fontWeight: 700, fontSize: '13px', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+        <a href={`tel:+91${storePhone.replace(/^\+?91/, '')}`} style={{ flex: 1, background: theme.primary, color: '#fff', textAlign: 'center', padding: '10px', borderRadius: '10px', fontWeight: 700, fontSize: '13px', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
           <RealPhoneIcon size={16} color="#fff" />
           <span>Call Store</span>
         </a>
@@ -794,10 +797,10 @@ export default function StoreDetail() {
               </p>
               
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                <a href={`https://wa.me/919138004800?text=${waMsg}`} target="_blank" rel="noreferrer" style={{ background: '#25D366', color: '#fff', padding: '12px 24px', borderRadius: '30px', fontWeight: 800, textDecoration: 'none', boxShadow: '0 4px 15px rgba(37,211,102,0.3)', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                <a href={`https://wa.me/${storeWa}?text=${waMsg}`} target="_blank" rel="noreferrer" style={{ background: '#25D366', color: '#fff', padding: '12px 24px', borderRadius: '30px', fontWeight: 800, textDecoration: 'none', boxShadow: '0 4px 15px rgba(37,211,102,0.3)', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
                   <RealWhatsAppIcon size={20} color="#fff" /> Book via WhatsApp
                 </a>
-                <a href="tel:+919138004800" style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', color: '#fff', padding: '12px 24px', borderRadius: '30px', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                <a href={`tel:+91${storePhone.replace(/^\+?91/, '')}`} style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', color: '#fff', padding: '12px 24px', borderRadius: '30px', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
                   <RealPhoneIcon size={18} color="#fff" /> Call Store
                 </a>
               </div>
@@ -842,7 +845,7 @@ export default function StoreDetail() {
                 <div style={{ background: theme.card, padding: '14px', borderRadius: '12px', border: `1px solid ${theme.border}`, textAlign: 'center' }}>
                   <div style={{ fontSize: '20px', marginBottom: '4px' }}>📞</div>
                   <div style={{ fontSize: '11px', color: theme.muted }}>Phone</div>
-                  <div style={{ fontWeight: 700, fontSize: '13px', marginTop: '2px' }}>+91 91380 04800</div>
+                  <div style={{ fontWeight: 700, fontSize: '13px', marginTop: '2px' }}>{storePhoneFormatted}</div>
                 </div>
                 <div style={{ background: theme.card, padding: '14px', borderRadius: '12px', border: `1px solid ${theme.border}`, textAlign: 'center' }}>
                   <div style={{ fontSize: '20px', marginBottom: '4px' }}>⏰</div>
@@ -883,7 +886,7 @@ export default function StoreDetail() {
               {/* 4 Call-to-action buttons (Redesigned with SVG icons) */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
                 <motion.a
-                  href={`https://wa.me/919138004800?text=${waMsg}`}
+                  href={`https://wa.me/${storeWa}?text=${waMsg}`}
                   target="_blank"
                   rel="noreferrer"
                   whileHover={{ scale: 1.02 }}
@@ -909,7 +912,7 @@ export default function StoreDetail() {
                 </motion.a>
 
                 <motion.a
-                  href="tel:+919138004800"
+                  href={`tel:+91${storePhone.replace(/^\+?91/, '')}`}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   style={{
@@ -933,7 +936,7 @@ export default function StoreDetail() {
                 </motion.a>
 
                 <motion.a
-                  href={`https://wa.me/919138004800?text=${waMsg}`}
+                  href={`https://wa.me/${storeWa}?text=${waMsg}`}
                   target="_blank"
                   rel="noreferrer"
                   whileHover={{ scale: 1.02 }}
@@ -1125,10 +1128,10 @@ export default function StoreDetail() {
 
           {/* Action strip under services */}
           <div style={{ textAlign: 'center', marginTop: '36px', display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
-            <a href={`https://wa.me/919138004800?text=${waMsg}`} target="_blank" rel="noreferrer" style={{ background: '#25D366', color: '#fff', padding: '12px 28px', borderRadius: '30px', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+            <a href={`https://wa.me/${storeWa}?text=${waMsg}`} target="_blank" rel="noreferrer" style={{ background: '#25D366', color: '#fff', padding: '12px 28px', borderRadius: '30px', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
               💬 Chat On WhatsApp
             </a>
-            <a href="tel:+919138004800" style={{ background: theme.primary, color: '#fff', padding: '12px 28px', borderRadius: '30px', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+            <a href={`tel:+91${storePhone.replace(/^\+?91/, '')}`} style={{ background: theme.primary, color: '#fff', padding: '12px 28px', borderRadius: '30px', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
               🚚 Schedule Free Pickup
             </a>
           </div>
@@ -1160,7 +1163,7 @@ export default function StoreDetail() {
               <p style={{ color: theme.muted, fontSize: '15px', lineHeight: 1.7, marginBottom: '24px' }}>
                 Cleanz24 {loc}, {store.city} store is equipped with world-class laundry machinery and German eco-friendly cleaning solutions to deliver fresh, hygienic, and sparkling clothes with zero shrinkage or color loss!
               </p>
-              <a href={`https://wa.me/919138004800?text=${waMsg}`} target="_blank" rel="noreferrer" style={{ background: theme.primary, color: '#fff', padding: '12px 28px', borderRadius: '30px', fontWeight: 700, textDecoration: 'none', display: 'inline-block' }}>
+              <a href={`https://wa.me/${storeWa}?text=${waMsg}`} target="_blank" rel="noreferrer" style={{ background: theme.primary, color: '#fff', padding: '12px 28px', borderRadius: '30px', fontWeight: 700, textDecoration: 'none', display: 'inline-block' }}>
                 Book Doorstep Pickup
               </a>
             </div>
@@ -1247,7 +1250,7 @@ export default function StoreDetail() {
           </div>
 
           <div style={{ textAlign: 'center', marginTop: '36px' }}>
-            <a href={`https://wa.me/919138004800?text=${waMsg}`} target="_blank" rel="noreferrer" style={{ background: theme.primary, color: '#fff', padding: '14px 36px', borderRadius: '30px', fontWeight: 800, textDecoration: 'none', display: 'inline-block' }}>
+            <a href={`https://wa.me/${storeWa}?text=${waMsg}`} target="_blank" rel="noreferrer" style={{ background: theme.primary, color: '#fff', padding: '14px 36px', borderRadius: '30px', fontWeight: 800, textDecoration: 'none', display: 'inline-block' }}>
               Book Pickup Now
             </a>
           </div>

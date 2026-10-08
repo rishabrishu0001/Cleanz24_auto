@@ -246,6 +246,10 @@ const nextConfig = {
       { source: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-kazhakkoottam', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-kazhakkoottam-trivandrum', permanent: true },
       // id:77 Sector 3 Udaipur (different from id:33, same city)
       { source: '/best-laundry-drycleaning/store/sector-3-udaipur', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-sector-3-udaipur', permanent: true },
+      // id:78 Valiyathura
+      { source: '/best-laundry-drycleaning/store/valiyathura', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-valiyathura', permanent: true },
+      { source: '/best-laundry-drycleaning/store/valiyathura-thiruvananthapuram', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-valiyathura', permanent: true },
+      { source: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-valiyathura-thiruvananthapuram', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-valiyathura', permanent: true },
     ];
 
   },

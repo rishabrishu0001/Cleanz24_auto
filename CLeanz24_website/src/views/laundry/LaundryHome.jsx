@@ -56,14 +56,14 @@ export default function LaundryHome() {
   // ─── GRAND OPENING EVENT CONFIG ───
   // Set enabled: true whenever you want to activate the Grand Opening popup & badge again
   const grandOpeningConfig = {
-    enabled: true, // Activated Grand Opening popup for Valiyathura (Postponed to Oct 6, 3:30 PM)
+    enabled: false, // Disabled: Grand opening ceremony was on October 6, store is now live
     title: 'Valiyathura, Kerala',
     image: '/grand_opening_valiyathura.jpg',
-    key: 'cleanz24_valiyathura_opening_oct6_v3', // Updated key so all visitors see the updated date
+    key: 'cleanz24_valiyathura_opening_oct6_v3',
     phone: '6282029352',
     whatsapp: '916282029352',
     locationText: 'Valiyathura, Kerala',
-    storeUrl: '', // Store page removed as store is not live yet
+    storeUrl: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-valiyathura',
   };
 
   const activeGrandOpening = grandOpeningConfig.enabled ? grandOpeningConfig : null;

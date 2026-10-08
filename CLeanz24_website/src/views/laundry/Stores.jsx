@@ -15,7 +15,7 @@ const _storeLocationsGrouped = [
   { state: 'Haryana', cities: ['Gurugram', 'Panchkula'] },
   { state: 'Himachal Pradesh', cities: ['Una'] },
   { state: 'Karnataka', cities: ['Padmanabhanagar'] },
-  { state: 'Kerala', cities: ['Cheriyamundam', 'Kannur', 'Kazhakkoottam', 'Kozhikode', 'Panoor', 'Parad', 'Parat', 'Trivandrum', 'Vaikom'] },
+  { state: 'Kerala', cities: ['Cheriyamundam', 'Kannur', 'Kazhakkoottam', 'Kozhikode', 'Panoor', 'Parad', 'Parat', 'Trivandrum', 'Vaikom', 'Valiyathura'] },
   { state: 'Madhya Pradesh', cities: ['Bhopal'] },
   { state: 'Maharashtra', cities: ['Alibag', 'Pune', 'Thane West', 'Wakad'] },
   { state: 'Odisha', cities: ['Angul', 'Berhampur', 'Chandrasekharpur', 'CDA Cuttack', 'Jatni Khordha', 'Jeypore', 'Old Town Bhubaneswar', 'Palasuni Bhubaneswar'] },
@@ -59,19 +59,6 @@ const rawComingSoonStores = [
     phone: "9138004800",
     timeline: "Opening 28 August, 10:00 AM",
     openingTime: "2026-08-28T10:00:00+05:30",
-    status: "Opening Soon"
-  },
-  {
-    id: 78,
-    name: "Cleanz24 - Valiyathura",
-    type: "Laundry",
-    city: "Valiyathura",
-    state: "Kerala",
-    area: "Near Valiyathura Market, Vallakkadavu",
-    address: "TC-77/980(4), Near Valiyathura Market, Valiyathura, Vallakkadavu P.O., Thiruvananthapuram, Kerala - 695008",
-    phone: "6282029352",
-    timeline: "Opening 06 October, 03:30 PM",
-    openingTime: "2026-10-06T15:30:00+05:30",
     status: "Opening Soon"
   }
 ];

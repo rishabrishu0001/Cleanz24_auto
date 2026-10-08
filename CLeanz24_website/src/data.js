@@ -1320,6 +1320,18 @@ export const storesData = [
     reviews: 0,
     openingTime: '2026-08-28T10:00:00+05:30',
     status: 'Opening Soon'
+  },
+  {
+    id: 78,
+    name: 'Cleanz24 - Valiyathura',
+    address: 'TC-77/980(4), Near Valiyathura Market, Valiyathura, Vallakkadavu P.O., Thiruvananthapuram, Kerala - 695008',
+    phone: '6282029352',
+    whatsapp: '916282029352',
+    city: 'Valiyathura',
+    state: 'Kerala',
+    tags: ['Kerala', 'Thiruvananthapuram', 'Trivandrum', 'Valiyathura', 'Cheriyathura', 'Vallakkadavu', '695008'],
+    rating: 4.9,
+    reviews: 18
   }
 ];
 

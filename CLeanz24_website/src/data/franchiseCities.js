@@ -189,6 +189,7 @@ export const FRANCHISE_CITIES = [
   { city: "Parad", state: "Kerala", slug: "parad-kerala" },
   { city: "Parat", state: "Kerala", slug: "parat-kerala" },
   { city: "Vaikom", state: "Kerala", slug: "vaikom-kerala" },
+  { city: "Valiyathura", state: "Kerala", slug: "valiyathura-trivandrum" },
   { city: "Kunnothuparamba", state: "Kerala", slug: "kunnothuparamba" },
   { city: "Manjeri", state: "Kerala", slug: "manjeri" },
   { city: "Thalassery", state: "Kerala", slug: "thalassery" },
