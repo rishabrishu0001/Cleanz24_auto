@@ -365,6 +365,7 @@ export const FRANCHISE_CITIES = [
   { city: "Beeramguda", state: "Telangana", slug: "beeramguda-hyderabad" },
   { city: "Tellapur", state: "Telangana", slug: "tellapur-hyderabad" },
   { city: "Vanasthalipuram", state: "Telangana", slug: "vanasthalipuram-hyderabad" },
+  { city: "Kompally", state: "Telangana", slug: "kompally" },
   { city: "Ramagundam", state: "Telangana", slug: "ramagundam" },
   { city: "Mahbubnagar", state: "Telangana", slug: "mahbubnagar" },
   { city: "Nalgonda", state: "Telangana", slug: "nalgonda" },

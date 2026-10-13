@@ -250,6 +250,10 @@ const nextConfig = {
       { source: '/best-laundry-drycleaning/store/valiyathura', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-valiyathura', permanent: true },
       { source: '/best-laundry-drycleaning/store/valiyathura-thiruvananthapuram', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-valiyathura', permanent: true },
       { source: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-valiyathura-thiruvananthapuram', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-valiyathura', permanent: true },
+      // id:79 Kompally Hyderabad
+      { source: '/best-laundry-drycleaning/store/kompally-hyderabad', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-kompally-hyderabad', permanent: true },
+      { source: '/best-laundry-drycleaning/store/kompally', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-kompally-hyderabad', permanent: true },
+      { source: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-kompally', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-kompally-hyderabad', permanent: true },
     ];
 
   },

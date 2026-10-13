@@ -23,7 +23,7 @@ const _storeLocationsGrouped = [
   { state: 'Punjab', cities: ['Amritsar', 'Bathinda', 'Kharar', 'Patiala'] },
   { state: 'Rajasthan', cities: ['Bhilwara', 'Sanchore', 'Udaipur'] },
   { state: 'Tamil Nadu', cities: ['Kalaiyarkovil', 'Karungal'] },
-  { state: 'Telangana', cities: ['Beeramguda', 'Gachibowli', 'Gopanpally', 'Kokapet', 'Kondapur', 'Kukatpally', 'Narsingi', 'Secunderabad', 'Tellapur', 'Vanasthalipuram'] },
+  { state: 'Telangana', cities: ['Beeramguda', 'Gachibowli', 'Gopanpally', 'Kokapet', 'Kompally', 'Kondapur', 'Kukatpally', 'Narsingi', 'Secunderabad', 'Tellapur', 'Vanasthalipuram'] },
   { state: 'Uttar Pradesh', cities: ['Bhinga', 'Greater Noida', 'Greater Noida West', 'Indirapuram', 'Noida', 'Noida Extension', 'Vaishali'] },
   { state: 'Uttarakhand', cities: ['Karnaprayag', 'Roorkee'] },
   { state: 'West Bengal', cities: ['Siliguri'] }
