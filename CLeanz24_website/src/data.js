@@ -266,7 +266,7 @@ export const storesData = [
   {
     id: 10,
     name: 'Cleanz24 - Karnaprayag',
-    address: 'Ward No. 6, Near Petrol Pump, Karnaprayag, Chamoli, Uttarakhand 246444',
+    address: 'Near Karna Mandir Gate, Main Shree Badrinath Road Karanprayag District Chamoli',
     phone: '9138004800',
     whatsapp: '919138004800',
     city: 'Karnaprayag',
