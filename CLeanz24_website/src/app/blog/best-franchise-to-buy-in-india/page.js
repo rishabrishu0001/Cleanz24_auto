@@ -207,7 +207,7 @@ export default function BestFranchiseToBuyInIndiaPage() {
             </div>
           </div>
           <div className="d-flex flex-wrap gap-4 text-secondary">
-            <div><strong>Published:</strong> January 15, 2026</div>
+            <div><strong>Published:</strong> October 14, 2026</div>
             <div><strong>Last Reviewed:</strong> October 14, 2026</div>
             <div><strong>Reading Time:</strong> ~85 Minutes (In-Depth Reference)</div>
           </div>

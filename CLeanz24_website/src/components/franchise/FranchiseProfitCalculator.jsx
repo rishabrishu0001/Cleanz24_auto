@@ -18,6 +18,12 @@ export default function FranchiseProfitCalculator() {
   const [royaltyPct, setRoyaltyPct] = useState(0); // Royalty %
   const [initialCapital, setInitialCapital] = useState(1300000); // All-in CapEx
 
+  const safeParseNum = (val, min = 0) => {
+    if (val === '' || val === null || val === undefined) return min;
+    const n = Number(val);
+    return isNaN(n) ? min : Math.max(min, n);
+  };
+
   // Derived calculations
   const totalSalaries = staffCount * avgStaffSalary;
   const consumablesCost = Math.round((monthlyRevenue * consumablesPct) / 100);
@@ -26,7 +32,7 @@ export default function FranchiseProfitCalculator() {
 
   const totalMonthlyOpEx = monthlyRent + totalSalaries + utilityCost + consumablesCost + royaltyCost + miscellaneousCost;
   const monthlyOperatingSurplus = monthlyRevenue - totalMonthlyOpEx;
-  const operatingMarginPct = monthlyRevenue > 0 ? ((monthlyOperatingSurplus / monthlyRevenue) * 100).toFixed(1) : 0;
+  const operatingMarginPct = monthlyRevenue > 0 ? ((monthlyOperatingSurplus / monthlyRevenue) * 100).toFixed(1) : '0.0';
   const annualOperatingSurplus = monthlyOperatingSurplus * 12;
   const estimatedPaybackMonths = monthlyOperatingSurplus > 0 ? (initialCapital / monthlyOperatingSurplus).toFixed(1) : 'Unprofitable at current volume';
 
@@ -145,10 +151,10 @@ export default function FranchiseProfitCalculator() {
           <input
             id={capitalId}
             type="number"
-            min="100000"
+            min="0"
             step="50000"
             value={initialCapital}
-            onChange={(e) => setInitialCapital(Math.max(0, Number(e.target.value)))}
+            onChange={(e) => setInitialCapital(safeParseNum(e.target.value, 0))}
             style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '14px', fontWeight: 600 }}
           />
           <span style={{ fontSize: '11px', color: '#64748B' }}>Includes machinery, franchise fee, deposit, fit-out.</span>
@@ -161,10 +167,10 @@ export default function FranchiseProfitCalculator() {
           <input
             id={revenueId}
             type="number"
-            min="20000"
+            min="0"
             step="10000"
             value={monthlyRevenue}
-            onChange={(e) => setMonthlyRevenue(Math.max(0, Number(e.target.value)))}
+            onChange={(e) => setMonthlyRevenue(safeParseNum(e.target.value, 0))}
             style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '14px', fontWeight: 600 }}
           />
           <span style={{ fontSize: '11px', color: '#64748B' }}>Estimated monthly gross customer billing.</span>
@@ -177,10 +183,10 @@ export default function FranchiseProfitCalculator() {
           <input
             id={rentId}
             type="number"
-            min="5000"
+            min="0"
             step="5000"
             value={monthlyRent}
-            onChange={(e) => setMonthlyRent(Math.max(0, Number(e.target.value)))}
+            onChange={(e) => setMonthlyRent(safeParseNum(e.target.value, 0))}
             style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '14px', fontWeight: 600 }}
           />
           <span style={{ fontSize: '11px', color: '#64748B' }}>Fixed monthly store rent payable to landlord.</span>
@@ -193,10 +199,10 @@ export default function FranchiseProfitCalculator() {
           <input
             id={staffId}
             type="number"
-            min="1"
+            min="0"
             max="15"
             value={staffCount}
-            onChange={(e) => setStaffCount(Math.max(1, Number(e.target.value)))}
+            onChange={(e) => setStaffCount(safeParseNum(e.target.value, 0))}
             style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '14px', fontWeight: 600 }}
           />
           <span style={{ fontSize: '11px', color: '#64748B' }}>Ironing operators, wash masters, counter executive.</span>
@@ -209,10 +215,10 @@ export default function FranchiseProfitCalculator() {
           <input
             id={salaryId}
             type="number"
-            min="8000"
+            min="0"
             step="1000"
             value={avgStaffSalary}
-            onChange={(e) => setAvgStaffSalary(Math.max(0, Number(e.target.value)))}
+            onChange={(e) => setAvgStaffSalary(safeParseNum(e.target.value, 0))}
             style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '14px', fontWeight: 600 }}
           />
           <span style={{ fontSize: '11px', color: '#64748B' }}>Monthly cost to company (CTC) per worker.</span>
@@ -225,10 +231,10 @@ export default function FranchiseProfitCalculator() {
           <input
             id={utilityId}
             type="number"
-            min="2000"
+            min="0"
             step="2000"
             value={utilityCost}
-            onChange={(e) => setUtilityCost(Math.max(0, Number(e.target.value)))}
+            onChange={(e) => setUtilityCost(safeParseNum(e.target.value, 0))}
             style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '14px', fontWeight: 600 }}
           />
           <span style={{ fontSize: '11px', color: '#64748B' }}>Commercial electricity tariff + water connection.</span>
@@ -241,11 +247,11 @@ export default function FranchiseProfitCalculator() {
           <input
             id={consumablesId}
             type="number"
-            min="2"
-            max="30"
+            min="0"
+            max="50"
             step="1"
             value={consumablesPct}
-            onChange={(e) => setConsumablesPct(Math.max(0, Number(e.target.value)))}
+            onChange={(e) => setConsumablesPct(safeParseNum(e.target.value, 0))}
             style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '14px', fontWeight: 600 }}
           />
           <span style={{ fontSize: '11px', color: '#64748B' }}>Eco-detergents, stain removers, garment covers.</span>
@@ -259,10 +265,10 @@ export default function FranchiseProfitCalculator() {
             id={royaltyId}
             type="number"
             min="0"
-            max="15"
+            max="30"
             step="0.5"
             value={royaltyPct}
-            onChange={(e) => setRoyaltyPct(Math.max(0, Number(e.target.value)))}
+            onChange={(e) => setRoyaltyPct(safeParseNum(e.target.value, 0))}
             style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '14px', fontWeight: 600 }}
           />
           <span style={{ fontSize: '11px', color: '#64748B' }}>0% in Cleanz24 structured models; 5–7.5% in peers.</span>
