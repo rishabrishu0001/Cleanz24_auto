@@ -21,12 +21,6 @@ export async function generateMetadata({ params }) {
   return {
     title,
     description,
-      post?.title || 'laundry article',
-      'laundry blog',
-      'dry cleaning guide',
-      'garment care tips',
-      'Cleanz24 blog',
-    ],
     robots: 'index, follow',
     alternates: {
       canonical: url,

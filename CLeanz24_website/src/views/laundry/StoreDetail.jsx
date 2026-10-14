@@ -680,6 +680,14 @@ const getServiceSlug = (title) => {
   return t.replace(/\s+/g, '-');
 };
 
+const cleanTelLink = (p) => {
+  if (!p) return 'tel:+919138004800';
+  const clean = String(p).replace(/\s+/g, '');
+  if (clean.startsWith('+')) return `tel:${clean}`;
+  if (clean.startsWith('91') && clean.length === 12) return `tel:+${clean}`;
+  return `tel:+91${clean}`;
+};
+
 export default function StoreDetail() {
   const { storeSlug } = (useParams() || {});
   const { isDarkMode } = (() => ({ isDarkMode: false, toggleTheme: () => {} }))() || {};
@@ -749,13 +757,6 @@ export default function StoreDetail() {
   const storePhone = store.phone || '9138004800';
   const storePhoneFormatted = storePhone.length === 10 ? `+91 ${storePhone.slice(0, 5)} ${storePhone.slice(5)}` : `+91 ${storePhone}`;
   const storeWa = store.whatsapp || (store.phone ? (store.phone.startsWith('91') ? store.phone : `91${store.phone}`) : '919138004800');
-  const cleanTelLink = (p) => {
-    if (!p) return 'tel:+919138004800';
-    const clean = String(p).replace(/\s+/g, '');
-    if (clean.startsWith('+')) return `tel:${clean}`;
-    if (clean.startsWith('91') && clean.length === 12) return `tel:+${clean}`;
-    return `tel:+91${clean}`;
-  };
   const storeTelLink = cleanTelLink(storePhone);
   const reviews = CUSTOMER_REVIEWS(loc, store.city);
   const faqs = FAQ_DATA(store);
@@ -1495,7 +1496,7 @@ function StoresNearYouSection({ currentStoreSlug, isDarkMode, theme }) {
                       Schedule Pickup
                     </a>
                     <a
-                      href={cleanTelLink(s.phone)}
+                      href={cleanTelLink(st.phone)}
                       style={{
                         background: theme.bgAlt,
                         color: theme.text,

@@ -25,17 +25,6 @@ export async function generateMetadata({ params }) {
   return {
     title,
     description,
-      `laundry franchise in ${cityName}`,
-      `dry cleaning franchise ${cityName}`,
-      `best franchise opportunity in ${cityName}`,
-      `profitable business in ${cityName}`,
-      `laundry service near me ${cityName}`,
-      `best laundry service ${cityName}`,
-      `dry cleaning service near me ${cityName}`,
-      `Cleanz24 franchise ${cityName}`,
-      `low investment franchise ${cityName}`,
-      `laundry business ${cityName}`,
-    ],
     robots: {
       index: true,
       follow: true,

@@ -6,13 +6,6 @@ import '../../styles/laundry.css';
 export const metadata = {
   title: 'Best Laundry & Dry Cleaning Studio | Cleanz24',
   description: 'Cleanz24 provides eco-friendly dry cleaning, shoe spa, steam ironing, and commercial laundry services across 100+ locations in India.',
-    'laundry near me',
-    'dry cleaners near me',
-    'best dry cleaning',
-    'steam iron',
-    'shoe cleaning service',
-    'Cleanz24 laundry',
-  ],
   alternates: {
     canonical: 'https://www.cleanz24.com/best-laundry-drycleaning',
   },

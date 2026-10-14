@@ -13,12 +13,6 @@ export async function generateMetadata({ params }) {
   return {
     title,
     description,
-      `${packageName} package`,
-      'car wash package',
-      'car spa detailing packages',
-      'paint correction price',
-      'Cleanz24 car spa',
-    ],
     robots: 'index, follow',
     alternates: {
       canonical: url,

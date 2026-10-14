@@ -4,12 +4,6 @@ import Locations from '../../../views/laundry/Locations';
 export const metadata = {
   title: 'Cleanz24 Laundry Locations Across India | City Store Directory',
   description: 'Find Cleanz24 laundry and dry cleaning studios across Noida, Delhi NCR, Mumbai, Pune, Bangalore, Hyderabad, Jaipur, and 100+ cities in India. Free doorstep pickup & delivery.',
-    'laundry near me',
-    'dry cleaning near me',
-    'Cleanz24 locations',
-    'laundry outlets India',
-    'dry cleaner directory',
-  ],
   robots: 'index, follow',
   alternates: {
     canonical: 'https://www.cleanz24.com/best-laundry-drycleaning/locations',
