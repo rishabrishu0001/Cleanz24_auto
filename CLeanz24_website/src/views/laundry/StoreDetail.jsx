@@ -749,6 +749,14 @@ export default function StoreDetail() {
   const storePhone = store.phone || '9138004800';
   const storePhoneFormatted = storePhone.length === 10 ? `+91 ${storePhone.slice(0, 5)} ${storePhone.slice(5)}` : `+91 ${storePhone}`;
   const storeWa = store.whatsapp || (store.phone ? (store.phone.startsWith('91') ? store.phone : `91${store.phone}`) : '919138004800');
+  const cleanTelLink = (p) => {
+    if (!p) return 'tel:+919138004800';
+    const clean = String(p).replace(/\s+/g, '');
+    if (clean.startsWith('+')) return `tel:${clean}`;
+    if (clean.startsWith('91') && clean.length === 12) return `tel:+${clean}`;
+    return `tel:+91${clean}`;
+  };
+  const storeTelLink = cleanTelLink(storePhone);
   const reviews = CUSTOMER_REVIEWS(loc, store.city);
   const faqs = FAQ_DATA(store);
   const areasServed = store.areasServed || [...new Set([store.city, ...(store.tags || []).filter(t => !['Delhi NCR', 'Delhi', 'NCR'].includes(t))])];
@@ -763,7 +771,7 @@ export default function StoreDetail() {
           <RealWhatsAppIcon size={18} color="#fff" />
           <span>WhatsApp</span>
         </a>
-        <a href={`tel:+91${storePhone.replace(/^\+?91/, '')}`} style={{ flex: 1, background: theme.primary, color: '#fff', textAlign: 'center', padding: '10px', borderRadius: '10px', fontWeight: 700, fontSize: '13px', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+        <a href={storeTelLink} style={{ flex: 1, background: theme.primary, color: '#fff', textAlign: 'center', padding: '10px', borderRadius: '10px', fontWeight: 700, fontSize: '13px', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
           <RealPhoneIcon size={16} color="#fff" />
           <span>Call Store</span>
         </a>
@@ -800,7 +808,7 @@ export default function StoreDetail() {
                 <a href={`https://wa.me/${storeWa}?text=${waMsg}`} target="_blank" rel="noreferrer" style={{ background: '#25D366', color: '#fff', padding: '12px 24px', borderRadius: '30px', fontWeight: 800, textDecoration: 'none', boxShadow: '0 4px 15px rgba(37,211,102,0.3)', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
                   <RealWhatsAppIcon size={20} color="#fff" /> Book via WhatsApp
                 </a>
-                <a href={`tel:+91${storePhone.replace(/^\+?91/, '')}`} style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', color: '#fff', padding: '12px 24px', borderRadius: '30px', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                <a href={storeTelLink} style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', color: '#fff', padding: '12px 24px', borderRadius: '30px', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
                   <RealPhoneIcon size={18} color="#fff" /> Call Store
                 </a>
               </div>
@@ -912,7 +920,7 @@ export default function StoreDetail() {
                 </motion.a>
 
                 <motion.a
-                  href={`tel:+91${storePhone.replace(/^\+?91/, '')}`}
+                  href={storeTelLink}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   style={{
@@ -1131,7 +1139,7 @@ export default function StoreDetail() {
             <a href={`https://wa.me/${storeWa}?text=${waMsg}`} target="_blank" rel="noreferrer" style={{ background: '#25D366', color: '#fff', padding: '12px 28px', borderRadius: '30px', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
               💬 Chat On WhatsApp
             </a>
-            <a href={`tel:+91${storePhone.replace(/^\+?91/, '')}`} style={{ background: theme.primary, color: '#fff', padding: '12px 28px', borderRadius: '30px', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+            <a href={storeTelLink} style={{ background: theme.primary, color: '#fff', padding: '12px 28px', borderRadius: '30px', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
               🚚 Schedule Free Pickup
             </a>
           </div>
@@ -1487,7 +1495,7 @@ function StoresNearYouSection({ currentStoreSlug, isDarkMode, theme }) {
                       Schedule Pickup
                     </a>
                     <a
-                      href="tel:+919138004800"
+                      href={cleanTelLink(s.phone)}
                       style={{
                         background: theme.bgAlt,
                         color: theme.text,

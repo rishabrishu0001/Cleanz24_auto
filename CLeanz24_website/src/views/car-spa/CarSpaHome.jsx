@@ -1176,7 +1176,7 @@ function CarSpa() {
                     </div>
                     <div className="car-store-result-actions">
                       <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store.name + ' ' + store.address)}`} target="_blank" rel="noreferrer" className="car-store-btn car-store-btn-outline">Directions</a>
-                      <a href={`tel:${store.phone ? store.phone.replace(/\s+/g, '') : '+919138004800'}`} className="car-store-btn car-store-btn-primary">Call Now</a>
+                      <a href={`tel:${store.phone ? (store.phone.startsWith('+') ? store.phone.replace(/\s+/g, '') : '+91' + store.phone.replace(/\s+/g, '')) : '+919138004800'}`} className="car-store-btn car-store-btn-primary">Call Now</a>
                       <a href={`https://wa.me/${store.whatsapp || '919138004800'}`} target="_blank" rel="noreferrer" className="car-store-btn car-store-btn-green">WhatsApp</a>
                     </div>
                   </div>

@@ -655,7 +655,7 @@ export default function ServiceDetailPage() {
                 <a href="#book-form" className="btn btn-lg px-4 py-3 fw-bold text-white shadow-lg" style={{ background: `linear-gradient(135deg, ${service.color}, #1d4ed8)`, borderRadius: '12px', textDecoration: 'none' }}>
                   🚀 Schedule Free Pickup Now
                 </a>
-                <a href="tel:+919876543210" className="btn btn-lg px-4 py-3 fw-bold" style={{ background: 'transparent', border: `2px solid ${service.color}`, color: service.color, borderRadius: '12px', textDecoration: 'none' }}>
+                <a href="tel:+919138004800" className="btn btn-lg px-4 py-3 fw-bold" style={{ background: 'transparent', border: `2px solid ${service.color}`, color: service.color, borderRadius: '12px', textDecoration: 'none' }}>
                   📞 Call Customer Care
                 </a>
               </div>
