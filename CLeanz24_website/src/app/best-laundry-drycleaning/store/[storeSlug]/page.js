@@ -67,22 +67,15 @@ export async function generateMetadata({ params }) {
     };
   }
 
+  const loc = (store.name || '').replace(/^Cleanz24\s*[-–—:]\s*/i, '').trim();
   const webPageSchema = store.schema?.['@graph']?.find((item) => item['@type'] === 'WebPage');
-  const title = webPageSchema?.name || `${store.name} — Best Dry Cleaning & Laundry in ${store.city || 'India'} | Cleanz24`;
-  const description = webPageSchema?.description || `Visit ${store.name} at ${store.address || store.city}. Contact: ${store.phone || '+91-9138004800'}. Premium eco-friendly dry cleaning, steam press, and free doorstep pickup in ${store.city}.`;
-  const keywords = [
-    store.name,
-    `laundry in ${store.city}`,
-    `dry cleaning in ${store.city}`,
-    `Cleanz24 ${store.city}`,
-    `laundry pickup ${store.city}`,
-  ];
+  const title = webPageSchema?.name || `Best Laundry & Dry Cleaning in ${loc} | Cleanz24`;
+  const description = webPageSchema?.description || `Cleanz24 ${loc}: Premium eco-friendly dry cleaning, steam press & free doorstep pickup in ${store.city || 'your area'}. Located at ${store.address || store.city}.`;
   const url = `https://www.cleanz24.com/best-laundry-drycleaning/store/${storeSlug}`;
 
   return {
     title,
     description,
-    keywords,
     robots: 'index, follow',
     alternates: {
       canonical: url,

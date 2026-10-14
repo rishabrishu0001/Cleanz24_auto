@@ -71,12 +71,12 @@ export async function generateMetadata({ params }) {
     return {};
   }
 
-  const storeName = store.name;
+  const cleanLoc = (store.name || '').replace(/^Cleanz24\s*[-–—:]\s*/i, '').trim();
   const cityName = store.city || 'India';
   const serviceName = serviceData.name;
 
-  const title = `Best ${serviceName} in ${storeName}, ${cityName} | Cleanz24 Studio`;
-  const description = `Get professional, top-notch ${serviceName.toLowerCase()} at Cleanz24 ${storeName}, ${cityName}. Located at ${store.address || cityName}. Low rates, fast 24-48h delivery, and free doorstep pickup.`;
+  const title = `Best ${serviceName} in ${cleanLoc} | Cleanz24`;
+  const description = `Get professional ${serviceName.toLowerCase()} at Cleanz24 (${cleanLoc}, ${cityName}). Located at ${store.address || cityName}. Fast delivery & free doorstep pickup.`;
   const url = `https://cleanz24.com/best-laundry-drycleaning/store/${storeSlug}/${serviceSlug}`;
 
   return {
@@ -126,6 +126,7 @@ export default async function StoreServicePage({ params }) {
     notFound();
   }
 
+  const cleanLoc = (store.name || '').replace(/^Cleanz24\s*[-–—:]\s*/i, '').trim();
   const storeName = store.name;
   const cityName = store.city || 'India';
   const stateName = store.state || 'India';
@@ -409,10 +410,10 @@ export default async function StoreServicePage({ params }) {
             lineHeight: '1.2', 
             marginBottom: '16px' 
           }}>
-            Best <span style={{ color: '#16a34a' }}>{serviceData.name}</span> in {storeName}
+            Best <span style={{ color: '#16a34a' }}>{serviceData.name}</span> in {cleanLoc}
           </h1>
           <p className="city-service-hero-p" style={{ fontSize: '1.1rem', maxWidth: '750px', lineHeight: '1.7', marginBottom: '30px' }}>
-            Experience professional, eco-friendly laundry care at Cleanz24 {storeName}. We combine modern German machinery, imported cleaning solvents, and free doorstep pick-up and delivery services across <strong>{cityName}, {stateName}</strong>.
+            Experience professional, eco-friendly laundry care at Cleanz24 in {cleanLoc}. We combine modern German machinery, imported cleaning solvents, and free doorstep pick-up and delivery services across <strong>{cityName}, {stateName}</strong>.
           </p>
 
           <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
@@ -542,7 +543,7 @@ export default async function StoreServicePage({ params }) {
       {/* Bottom Cities back link */}
       <section className="city-service-footer">
         <p style={{ fontSize: '0.95rem' }}>
-          Back to the dedicated <Link href={`/best-laundry-drycleaning/store/${storeSlug}`} style={{ color: '#16a34a', fontWeight: '600', textDecoration: 'none' }}>Cleanz24 {storeName} Page</Link>
+          Back to the dedicated <Link href={`/best-laundry-drycleaning/store/${storeSlug}`} style={{ color: '#16a34a', fontWeight: '600', textDecoration: 'none' }}>Cleanz24 {cleanLoc} Store Page</Link>
         </p>
       </section>
     </div>
