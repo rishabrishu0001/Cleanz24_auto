@@ -21,6 +21,7 @@ export default async function sitemap() {
     '/best-laundry-drycleaning/services',
     '/best-laundry-drycleaning/stores',
     '/best-laundry-drycleaning/franchise-opportunities-in-india',
+    '/blog/best-franchise-to-buy-in-india',
     '/best-laundry-drycleaning/blog',
     '/best-laundry-drycleaning/locations',
     '/best-laundry-drycleaning/contact-us',
@@ -37,7 +38,7 @@ export default async function sitemap() {
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString().split('T')[0],
     changeFrequency: 'weekly',
-    priority: route === '' || route === '/best-laundry-drycleaning' || route === '/best-laundry-drycleaning/franchise-opportunities-in-india' ? 1.0 : 0.8,
+    priority: route === '' || route === '/best-laundry-drycleaning' || route === '/best-laundry-drycleaning/franchise-opportunities-in-india' ? 1.0 : (route === '/blog/best-franchise-to-buy-in-india' ? 0.9 : 0.8),
   }));
 
   const blogRoutes = (Array.isArray(BLOG_POSTS) ? BLOG_POSTS : []).map((post) => ({

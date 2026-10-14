@@ -659,8 +659,44 @@ export default function Page() {
               ))}
             </div>
 
+            {/* Authority Pillar Guide Link */}
+            <div style={{
+              margin: '32px auto 0',
+              maxWidth: 780,
+              padding: '20px 24px',
+              borderRadius: 16,
+              background: '#f0fdf4',
+              border: '1px solid #bbf7d0',
+              textAlign: 'center',
+            }}>
+              <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#15803d', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                📖 Comprehensive 2026 Investor Guide
+              </span>
+              <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0f172a', margin: '8px 0 6px' }}>
+                Comparing the 10 Best Franchise Businesses in India
+              </h3>
+              <p style={{ color: '#475569', fontSize: '0.88rem', margin: '0 0 14px' }}>
+                Read our in-depth 20,000+ word comparison analyzing Cleanz24 alongside Amul, DTDC, Kidzee, Lenskart, and others across investment costs, net margins, and payback horizons.
+              </p>
+              <Link
+                href="/blog/best-franchise-to-buy-in-india"
+                style={{
+                  display: 'inline-block',
+                  background: '#16a34a',
+                  color: '#ffffff',
+                  fontWeight: 700,
+                  fontSize: '0.85rem',
+                  padding: '8px 18px',
+                  borderRadius: 8,
+                  textDecoration: 'none',
+                }}
+              >
+                Read 10 Best Franchises in India (2026 Guide) →
+              </Link>
+            </div>
+
             {/* Internal link to related content */}
-            <div style={{ textAlign: 'center', marginTop: 32 }}>
+            <div style={{ textAlign: 'center', marginTop: 24 }}>
               <p style={{ color: '#64748b', fontSize: '0.9rem' }}>
                 Want to explore franchise locations?{' '}
                 <Link href="/best-laundry-drycleaning/stores" style={{ color: '#16a34a', fontWeight: 700 }}>
