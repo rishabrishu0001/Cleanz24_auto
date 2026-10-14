@@ -247,14 +247,37 @@ export default function BestFranchiseToBuyInIndiaPage() {
         <div className="p-4 rounded-3 bg-primary-subtle border border-primary-subtle mb-4">
           <h3 className="h5 fw-bold text-primary-emphasis mb-2">The Direct Executive Summary</h3>
           <p className="mb-0 text-dark" style={{ fontSize: '1.05rem' }}>
-            {section1Content.quickAnswer}
+            {section1Content.lead}
           </p>
         </div>
         <div className="mb-4">
-          {section1Content.introText.map((p, idx) => (
+          {section1Content.paragraphs.map((p, idx) => (
             <p key={idx} className="text-secondary mb-3">{p}</p>
           ))}
         </div>
+        {section1Content.quickComparisonHighlights && (
+          <div className="row g-3 mb-4">
+            {section1Content.quickComparisonHighlights.map((item, idx) => (
+              <div key={idx} className="col-12 col-md-6 col-lg-3">
+                <div className="p-3 border rounded-3 bg-light h-100">
+                  <div className="text-muted small mb-1">{item.metric}</div>
+                  <strong className="text-dark d-block mb-1">{item.value}</strong>
+                  <div className="text-secondary small">{item.note}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        {section1Content.targetAudienceGuidance && (
+          <div className="p-4 rounded-3 border bg-light mb-4">
+            <h3 className="h6 fw-bold text-dark mb-2">Who This Franchise Guide Is For:</h3>
+            <ul className="mb-0 ps-3 small text-secondary">
+              {section1Content.targetAudienceGuidance.map((aud, idx) => (
+                <li key={idx} className="mb-1">{aud}</li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {/* Comparison Table Island */}
         <div className="my-4">
@@ -494,49 +517,55 @@ export default function BestFranchiseToBuyInIndiaPage() {
             <div className="d-flex flex-wrap justify-content-between align-items-center mb-3 border-bottom pb-2">
               <div>
                 <span className="badge bg-secondary me-2">Rank #{brand.rank}</span>
-                <span className="badge bg-light text-dark border">{brand.sector}</span>
-                <h3 className="h4 fw-bold text-dark mt-2 mb-0">{brand.brand}</h3>
+                <span className="badge bg-light text-dark border me-2">{brand.sector}</span>
+                {brand.badge && <span className="badge bg-success-subtle text-success border">{brand.badge}</span>}
+                <h3 className="h4 fw-bold text-dark mt-2 mb-0">{brand.name}</h3>
               </div>
               <div className="text-end">
                 <span className="small text-muted d-block">Composite Score</span>
-                <strong className="text-primary fs-5">{brand.score}</strong>
+                <strong className="text-primary fs-5">{brand.compositeScore}</strong>
               </div>
             </div>
 
             <div className="row g-3 mb-3 p-3 bg-light rounded-3">
               <div className="col-6 col-md-3">
-                <span className="text-muted small d-block">Verified Investment:</span>
-                <strong className="text-dark small">{brand.investment}</strong>
+                <span className="text-muted small d-block">All-In Investment:</span>
+                <strong className="text-dark small">{brand.investmentRange}</strong>
               </div>
               <div className="col-6 col-md-3">
                 <span className="text-muted small d-block">Space Required:</span>
-                <strong className="text-dark small">{brand.space}</strong>
+                <strong className="text-dark small">{brand.spaceRequirement}</strong>
               </div>
               <div className="col-6 col-md-3">
-                <span className="text-muted small d-block">Royalty / Commission:</span>
-                <strong className="text-dark small">{brand.royalty}</strong>
+                <span className="text-muted small d-block">Royalty / Margin:</span>
+                <strong className="text-dark small">{brand.royaltyModel}</strong>
               </div>
               <div className="col-6 col-md-3">
                 <span className="text-muted small d-block">Payback Horizon:</span>
-                <strong className="text-dark small">{brand.payback}</strong>
+                <strong className="text-dark small">{brand.paybackPeriod}</strong>
               </div>
             </div>
 
             <div className="mb-3">
               <h4 className="h6 fw-bold text-dark mb-1">Business & Format Reality:</h4>
-              <p className="text-secondary small mb-2">{brand.businessModel}</p>
+              <p className="text-secondary small mb-2">{brand.whatTheBusinessDoes}</p>
             </div>
 
-            {brand.operationalPLSimulation && (
+            {brand.monthlyPLSimulation && brand.monthlyPLSimulation.length > 0 && (
               <div className="mb-3 p-3 rounded-2 bg-light border">
                 <h4 className="h6 fw-bold text-dark mb-2">Simulated Unit Economics & Operating P&L:</h4>
-                <div className="row g-2 small text-secondary">
-                  <div className="col-12 col-md-6"><strong>Monthly Billing:</strong> {brand.operationalPLSimulation.monthlyBilling}</div>
-                  <div className="col-12 col-md-6"><strong>Direct COGS:</strong> {brand.operationalPLSimulation.directCOGS}</div>
-                  <div className="col-12 col-md-6"><strong>Operating Overheads:</strong> {brand.operationalPLSimulation.operatingOverheads}</div>
-                  <div className="col-12 col-md-6"><strong className="text-success">Net Monthly Surplus:</strong> {brand.operationalPLSimulation.netMonthlySurplus}</div>
-                </div>
-                <p className="small text-muted mt-2 mb-0"><em>Operational note: {brand.operationalPLSimulation.notes}</em></p>
+                {brand.monthlyPLSimulation.map((line, plIdx) => (
+                  <p key={plIdx} className="small text-secondary mb-1">{line}</p>
+                ))}
+              </div>
+            )}
+
+            {brand.operationalRealities && brand.operationalRealities.length > 0 && (
+              <div className="mb-3 p-3 rounded-2 border bg-white">
+                <h4 className="h6 fw-bold text-dark mb-2">Operational Ground Realities:</h4>
+                {brand.operationalRealities.map((line, opIdx) => (
+                  <p key={opIdx} className="small text-secondary mb-1">{line}</p>
+                ))}
               </div>
             )}
 
@@ -544,7 +573,7 @@ export default function BestFranchiseToBuyInIndiaPage() {
               <div className="col-12 col-md-6">
                 <h4 className="h6 fw-bold text-success mb-2">✓ Key Operational Strengths:</h4>
                 <ul className="small text-secondary ps-3 mb-0">
-                  {brand.advantages.map((adv, aIdx) => (
+                  {brand.advantages && brand.advantages.map((adv, aIdx) => (
                     <li key={aIdx} className="mb-1">{adv}</li>
                   ))}
                 </ul>
@@ -552,21 +581,30 @@ export default function BestFranchiseToBuyInIndiaPage() {
               <div className="col-12 col-md-6">
                 <h4 className="h6 fw-bold text-danger mb-2">✕ Key Risks & Operational Traps:</h4>
                 <ul className="small text-secondary ps-3 mb-0">
-                  {brand.risksAndTraps.map((risk, rIdx) => (
-                    <li key={rIdx} className="mb-1">{risk}</li>
+                  {brand.limitations && brand.limitations.map((lim, lIdx) => (
+                    <li key={lIdx} className="mb-1">{lim}</li>
                   ))}
                 </ul>
               </div>
             </div>
 
             <div className="p-3 rounded-2 border bg-light small mb-3">
-              <div><strong>Best-Fit Investor Archetype:</strong> {brand.bestFitInvestor}</div>
-              <div className="mt-1"><strong>Due Diligence Verification Checklist:</strong> {brand.verificationQuestions}</div>
+              <div className="mb-2"><strong>Best-Fit Investor Archetype:</strong> {brand.bestFitInvestor}</div>
+              {brand.criticalQuestionsToAsk && (
+                <div>
+                  <strong>Critical Questions to Ask Corporate:</strong>
+                  <ul className="ps-3 mb-0 mt-1">
+                    {brand.criticalQuestionsToAsk.map((q, qIdx) => (
+                      <li key={qIdx}>{q}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
 
             <div className="d-flex justify-content-between align-items-center text-muted small border-top pt-2">
-              <span>Source: <a href={brand.officialSource} target="_blank" rel="noopener noreferrer" className="text-decoration-none text-primary">{brand.officialSource}</a></span>
-              <span>Audit Date: {brand.verifiedDate}</span>
+              <span>Customer Frequency: <strong>{brand.customerCycle}</strong></span>
+              <span>Franchise Fee: <strong>{brand.franchiseFee}</strong></span>
             </div>
           </div>
         ))}

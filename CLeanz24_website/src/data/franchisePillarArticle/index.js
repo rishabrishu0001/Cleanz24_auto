@@ -1,16 +1,16 @@
-import { section1Content } from './section1_intro';
-import { section2Content } from './section2_methodology';
-import { section3Content } from './section3_landscape';
-import { section4Content } from './section4_cleanz24';
-import { section5Content } from './section5_nineProfiles';
-import { section6Content } from './section6_investmentComparison';
-import { section7Content } from './section7_profitabilityBreakeven';
-import { section8Content } from './section8_budgetAndInvestorTypes';
-import { section9Content } from './section9_howToStart';
-import { section10Content } from './section10_dueDiligenceLegal';
-import { section11Content } from './section11_locationDemographics';
-import { section12Content } from './section12_faqs';
-import { section13Content } from './section13_conclusion';
+import { section1Content } from './section1_intro.js';
+import { section2Content } from './section2_methodology.js';
+import { section3Content } from './section3_landscape.js';
+import { section4Content } from './section4_cleanz24.js';
+import { section5Content } from './section5_nineProfiles.js';
+import { section6Content } from './section6_investmentComparison.js';
+import { section7Content } from './section7_profitabilityBreakeven.js';
+import { section8Content } from './section8_budgetAndInvestorTypes.js';
+import { section9Content } from './section9_howToStart.js';
+import { section10Content } from './section10_dueDiligenceLegal.js';
+import { section11Content } from './section11_locationDemographics.js';
+import { section12Content } from './section12_faqs.js';
+import { section13Content } from './section13_conclusion.js';
 
 export {
   section1Content,

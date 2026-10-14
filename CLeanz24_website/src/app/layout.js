@@ -17,7 +17,6 @@ const rajdhani = Rajdhani({
 const dmSans = DM_Sans({
   subsets: ['latin'],
   weight: ['400', '500'],
-  style: ['normal', 'italic'],
   variable: '--font-dm-sans',
   display: 'swap',
 });
