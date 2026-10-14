@@ -4,7 +4,6 @@ import Payment from '../../../views/car-spa/Payment';
 export const metadata = {
   title: "Secure Online Payment | Cleanz24 Car Spa",
   description: "Complete your booking payment securely for Cleanz24 Car Spa services via UPI, Credit/Debit cards, or NetBanking.",
-  keywords: ["car wash payment","book car detailing online","Cleanz24 checkout"],
   robots: 'index, follow',
   alternates: {
     canonical: "https://www.cleanz24.com/car-spa/payment",

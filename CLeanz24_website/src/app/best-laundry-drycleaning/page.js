@@ -4,7 +4,6 @@ import LaundryHome from '../../views/laundry/LaundryHome';
 export const metadata = {
   title: "Cleanz24 Laundry — Premium Garment Dry Clean & Steam Press Studio",
   description: "India’s leading laundry studio chain offering eco-friendly garment dry cleaning, shoe spa, steam press, and home pickup services.",
-  keywords: ["laundry near me","dry cleaners near me","best dry cleaning","steam iron","shoe cleaning service","Cleanz24 laundry"],
   robots: 'index, follow',
   alternates: {
     canonical: "https://www.cleanz24.com/best-laundry-drycleaning",

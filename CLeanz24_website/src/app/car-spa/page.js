@@ -4,7 +4,6 @@ import CarSpaHome from '../../views/car-spa/CarSpaHome';
 export const metadata = {
   title: "Cleanz24 Car Spa Studio | Premium Car Detailing & Wash",
   description: "Book professional car foam wash, interior vacuuming, engine bay degreasing, ceramic coating, and PPF at Cleanz24 Car Spa Studios.",
-  keywords: ["car detailing near me","best car wash","ceramic coating price","paint protection film","PPF installers","car spa studio"],
   robots: 'index, follow',
   alternates: {
     canonical: "https://www.cleanz24.com/car-spa",

@@ -27,7 +27,6 @@ export async function generateMetadata({ params }) {
   return {
     title,
     description,
-    keywords: service.seoKeywords || ['laundry service', 'dry cleaning', 'Cleanz24'],
     robots: 'index, follow',
     alternates: {
       canonical: url,

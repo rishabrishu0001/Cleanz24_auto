@@ -13,7 +13,6 @@ export async function generateMetadata({ params }) {
   return {
     title,
     description,
-    keywords: [
       `${packageName} package`,
       'car wash package',
       'car spa detailing packages',

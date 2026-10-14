@@ -57,7 +57,6 @@ export const metadata = {
     template: '%s | Cleanz24',
   },
   description: "Cleanz24 is India's leading Premium Laundry & Dry Clean Studio network with 100+ locations across 21+ states. We offer professional garment dry cleaning, steam press, shoe spa, and doorstep pickup services.",
-  keywords: [
     'laundry franchise India',
     'dry cleaning studio',
     'shoe cleaning',

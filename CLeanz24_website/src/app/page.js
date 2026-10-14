@@ -4,7 +4,6 @@ import LandingPage from '../views/LandingPage';
 export const metadata = {
   title: "Cleanz24 — India’s Leading Premium Laundry & Car Spa Studio",
   description: "Cleanz24 offers professional garment dry cleaning, shoe spa, steam press, and master car spa detailing services across 100+ studios in India.",
-  keywords: ["laundry franchise India","dry cleaning studio","shoe cleaning","steam ironing","premium laundry","Cleanz24","car spa studio","ceramic coating","PPF","laundry near me"],
   robots: 'index, follow',
   alternates: {
     canonical: "https://www.cleanz24.com",

@@ -4,7 +4,6 @@ import Services from '../../../views/laundry/Services';
 export const metadata = {
   title: "Laundry & Dry Cleaning Services | Cleanz24",
   description: "Explore Cleanz24 services: Eco-friendly dry cleaning, premium laundry wash & fold, steam ironing, shoe & handbag spa, home furnishing, and commercial laundry.",
-  keywords: ["dry cleaning services","steam ironing service","shoe cleaning","bag cleaning","premium laundry wash"],
   robots: 'index, follow',
   alternates: {
     canonical: "https://www.cleanz24.com/best-laundry-drycleaning/services",

@@ -10,37 +10,31 @@ const SERVICES_MAP = {
   'wash-and-fold': {
     name: 'Wash & Fold Laundry Service',
     icon: '👕',
-    keywords: ['laundry service', 'wash and fold laundry', 'premium laundry', 'doorstep laundry', 'best wash & fold'],
     tagline: 'Best-in-class clothes washing with premium detergents & fabric softeners.'
   },
   'dry-cleaning': {
     name: 'Premium Dry Cleaning Service',
     icon: '🥼',
-    keywords: ['dry cleaners', 'premium dry cleaning', 'best dry cleaners', 'suit dry clean', 'saree dry cleaning'],
     tagline: 'Expert dry cleaning for delicate fabrics, designer suits, bridal sarees, and woolens.'
   },
   'steam-ironing': {
     name: 'Professional Steam Ironing Service',
     icon: '♨',
-    keywords: ['steam press', 'steam ironing near me', 'garment pressing', 'doorstep steam iron', 'wrinkle-free iron'],
     tagline: 'Wrinkle-free, temperature-controlled steam pressing for crisp, pristine garments.'
   },
   'shoe-cleaning': {
     name: 'Sneaker & Shoe Cleaning Spa',
     icon: '👟',
-    keywords: ['shoe cleaning', 'shoe spa near me', 'sneaker care', 'leather shoe polish', 'suede restoration'],
     tagline: 'Premium sneaker deep cleaning, leather boot polishing, and suede shoe restoration.'
   },
   'bag-cleaning': {
     name: 'Luxury Handbag & Bag Spa',
     icon: '👜',
-    keywords: ['bag cleaning spa', 'luxury handbag restoration', 'purse cleaning', 'leather conditioning', 'bag repair'],
     tagline: 'Professional designer handbag cleaning, stain removal, and leather conditioning.'
   },
   'sofa-and-carpet': {
     name: 'Sofa & Carpet Deep Cleaning Spa',
     icon: '🛋',
-    keywords: ['sofa cleaning service', 'carpet cleaning near me', 'deep home cleaning', 'mattress dry cleaning', 'upholstery shampoo'],
     tagline: 'Deep extraction vacuuming, organic upholstery shampooing, and mattress sanitization.'
   }
 };
@@ -91,7 +85,6 @@ export async function generateMetadata({ params }) {
   return {
     title: pageTitle,
     description: pageDesc,
-    keywords: serviceData.keywords.map(k => `${k} in ${cityName}`).join(', '),
     alternates: {
       canonical: `https://www.cleanz24.com/best-laundry-drycleaning/franchise-opportunities/${citySlug}/${serviceSlug}`,
     },

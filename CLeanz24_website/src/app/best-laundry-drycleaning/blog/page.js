@@ -4,7 +4,6 @@ import LaundryBlog from '../../../views/laundry/Blog';
 export const metadata = {
   title: "Laundry & Garment Care Guides, Tips & Insights | Cleanz24 Blog",
   description: "Explore laundry tips, eco-friendly dry cleaning guides, garment care secrets, and franchise business investment articles from Cleanz24 experts.",
-  keywords: ["laundry tips","fabric care guide","stain removal hacks","dry cleaning blog"],
   robots: 'index, follow',
   alternates: {
     canonical: "https://www.cleanz24.com/best-laundry-drycleaning/blog",

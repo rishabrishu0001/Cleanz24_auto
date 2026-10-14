@@ -4,7 +4,6 @@ import Stores from '../../../views/laundry/Stores';
 export const metadata = {
   title: "Find Laundry & Dry Cleaning Studios Near You | Cleanz24 Store Directory",
   description: "Locate 100+ Cleanz24 Premium Laundry & Dry Clean Studios across 17+ states in India. Find address, phone numbers, working hours, and services near you.",
-  keywords: ["laundry outlets","dry cleaners locator","laundry studios list","laundry franchise locations"],
   robots: 'index, follow',
   alternates: {
     canonical: "https://www.cleanz24.com/best-laundry-drycleaning/stores",

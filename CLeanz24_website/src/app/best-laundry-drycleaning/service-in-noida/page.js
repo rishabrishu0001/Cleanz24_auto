@@ -4,7 +4,6 @@ import Link from 'next/link';
 export const metadata = {
   title: 'Best Laundry & Dry Cleaning Service in Noida | Free Pickup | Cleanz24',
   description: 'Top-rated laundry & dry cleaning service in Noida (Sector 41, Sector 137, Greater Noida West, Noida Extension). Free doorstep pickup & delivery, eco-safe dry cleaning, steam ironing & shoe spa. Book now — Cleanz24!',
-  keywords: [
     'best laundry service in Noida',
     'dry cleaners in Noida',
     'laundry service near me Noida',

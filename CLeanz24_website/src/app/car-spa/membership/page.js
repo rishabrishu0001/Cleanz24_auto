@@ -4,7 +4,6 @@ import Membership from '../../../views/car-spa/Membership';
 export const metadata = {
   title: "Car Wash Subscription & Membership Plans | Cleanz24",
   description: "Save up to 40% with Cleanz24 Car Spa monthly and annual wash memberships. Unlimited foam washes, interior detailing discounts, and priority booking.",
-  keywords: ["car wash membership","detailing discount plans","yearly car spa packages"],
   robots: 'index, follow',
   alternates: {
     canonical: "https://www.cleanz24.com/car-spa/membership",

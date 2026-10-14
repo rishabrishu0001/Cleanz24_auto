@@ -25,7 +25,6 @@ export async function generateMetadata({ params }) {
   return {
     title,
     description,
-    keywords: [
       `laundry franchise in ${cityName}`,
       `dry cleaning franchise ${cityName}`,
       `best franchise opportunity in ${cityName}`,

@@ -10,7 +10,6 @@ export const revalidate = 86400;
 export const metadata = {
   title: "Best Laundry Franchise in India 2026 | Cleanz24",
   description: "Start a profitable Cleanz24 laundry franchise in India. ₹13L investment, 18–20 mo ROI, 100+ stores across 21+ states. Apply now for free consultation!",
-  keywords: [
     'best laundry franchise in India',
     'laundry franchise opportunity',
     'dry cleaning franchise India',

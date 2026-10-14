@@ -4,7 +4,6 @@ import Services from '../../../views/car-spa/Services';
 export const metadata = {
   title: "Car Spa & Detailing Services | Cleanz24 Studio",
   description: "Explore Car Spa services: Foam wash, ceramic coating, paint protection film (PPF), interior deep cleaning, windshield rain repellent, and engine bay detailing.",
-  keywords: ["car foam wash","interior car cleaning","paint correction","ceramic coating","car detailing packages"],
   robots: 'index, follow',
   alternates: {
     canonical: "https://www.cleanz24.com/car-spa/services",

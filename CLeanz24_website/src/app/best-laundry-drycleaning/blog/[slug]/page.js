@@ -21,7 +21,6 @@ export async function generateMetadata({ params }) {
   return {
     title,
     description,
-    keywords: [
       post?.title || 'laundry article',
       'laundry blog',
       'dry cleaning guide',

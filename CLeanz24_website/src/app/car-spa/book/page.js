@@ -4,7 +4,6 @@ import Book from '../../../views/car-spa/Book';
 export const metadata = {
   title: "Book Car Spa Wash & Detailing Online | Cleanz24",
   description: "Book your car wash, ceramic coating, or detailing session online with Cleanz24. Pick your vehicle type, service package, and nearest studio.",
-  keywords: ["schedule car wash","book detailing appointment","online car spa booking"],
   robots: 'index, follow',
   alternates: {
     canonical: "https://www.cleanz24.com/car-spa/book",

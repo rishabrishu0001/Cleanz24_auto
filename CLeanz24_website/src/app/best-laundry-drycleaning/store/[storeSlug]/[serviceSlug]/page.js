@@ -8,87 +8,35 @@ const SERVICES_MAP = {
   'wash-and-fold': {
     name: 'Wash & Fold Laundry Service',
     icon: '🧺',
-    keywords: ['wash and fold laundry', 'laundry service near me', 'wash & fold clothes', 'doorstep laundry pickup', 'local laundry shop'],
     tagline: 'Professional machine washing, delicate tumble drying, and neat folding.'
   },
   'dry-cleaning': {
     name: 'Premium Dry Cleaning Service',
     icon: '👔',
-    keywords: ['professional dry cleaning', 'best dry cleaners near me', 'saree dry cleaning', 'suit dry cleaners', 'woolens dry cleaning'],
     tagline: 'Expert stain removal, organic eco-safe solvents, and crisp hanger finishing.'
   },
   'shoe-cleaning': {
     name: 'Professional Shoe Cleaning & Restoration',
     icon: '👟',
-    keywords: ['shoe dry cleaning', 'sneaker spa near me', 'leather shoe cleaning', 'canvas shoe wash', 'shoe cleaning service'],
     tagline: 'Deep stain removal, fabric revitalization, and protective coating.'
   },
   'leather-cleaning': {
     name: 'Luxury Leather Bag & Jacket Care',
     icon: '🧥',
-    keywords: ['leather jacket dry clean', 'handbag restoration spa', 'purse cleaning near me', 'leather conditioning', 'suede cleaning'],
     tagline: 'Delicate hand cleaning, mold treatment, and leather re-hydration.'
   },
   'curtain-cleaning': {
     name: 'Premium Curtain Dry Cleaning',
     icon: '🛁',
-    keywords: ['curtain dry cleaners', 'drape washing service', 'velvet curtain clean', 'blinds cleaning', 'home linen dry cleaning'],
     tagline: 'Deep extraction cleaning, sanitization, and crease-free finish.'
   },
   'carpet-cleaning': {
     name: 'Deep Sofa & Carpet Cleaning Spa',
     icon: '🛋',
-    keywords: ['sofa shampooing service', 'carpet dry cleaning near me', 'mattress vacuuming', 'upholstery clean', 'home deep cleaning'],
     tagline: 'Deep pressure extraction, antibacterial sanitization, and odor removal.'
   }
 };
 
-const HIGH_VALUE_PHRASES = (storeName, cityName) => [
-  `Best Dry Cleaning at ${storeName}`,
-  `Best Laundry Service near ${storeName}`,
-  `Best Shoe Spa in ${storeName}`,
-  `Best Sofa Cleaning at ${storeName}`,
-  `Top-Rated Clothes Washing in ${cityName}`,
-  `Premium Garment Care at ${storeName}`,
-  `No.1 Dry Clean Studio in ${cityName}`,
-  `Most Popular Laundry near ${storeName}`,
-  `Highly Recommended Dry Cleaners in ${cityName}`,
-  `Popular Household Cleaning at ${storeName}`,
-  `Trusted Laundry Service near ${storeName}`,
-  `Customer-Favorite Shoe Spa in ${cityName}`,
-  `Cleanest Dry Cleaning Process at ${storeName}`,
-  `Hygienic Wash & Fold in ${cityName}`,
-  `Sanitized Laundry Service at ${storeName}`,
-  `Cleanest Upholstery Dry Cleaners in ${cityName}`,
-  `Germ-Free Carpet Cleaning at ${storeName}`,
-  `Fastest Laundry Delivery near ${storeName}`,
-  `Express 24h Dry Cleaning at ${storeName}`,
-  `Quick Steam Pressing in ${cityName}`,
-  `Fastest Doorstep Pickup near ${storeName}`,
-  `Same-Day Ironing Service at ${storeName}`,
-  `Affordable Laundry Price in ${cityName}`,
-  `Low-Cost Dry Cleaning at ${storeName}`,
-  `Budget-Friendly Sofa Wash in ${cityName}`,
-  `Value For Money Garment Press at ${storeName}`,
-  `Affordable Shoe Spa in ${cityName}`,
-  `Top Notch Dry Cleaning at ${storeName}`,
-  `Elite Premium Fabric Care in ${cityName}`,
-  `Five-Star Rated Dry Cleaners at ${storeName}`,
-  `Top Notch Shoe Restoration in ${cityName}`,
-  `Premium Luxury Bag Spa at ${storeName}`,
-  `High-End Deep Carpet Cleaning in ${cityName}`,
-  `Professional Cleaners near ${storeName}`,
-  `Doorstep Laundry Service at ${storeName}`,
-  `Online Laundry Booking in ${cityName}`,
-  `ISO-Certified Garment Care at ${storeName}`,
-  `Eco-Friendly Solvents in ${cityName}`,
-  `Skin-Safe Detergents at ${storeName}`,
-  `Top Notch Steam Ironing near ${storeName}`,
-  `Most Popular Carpet Wash in ${cityName}`,
-  `Cleanest Clothes Press at ${storeName}`,
-  `Fastest Saree Dry Clean in ${cityName}`,
-  `Affordable Suit Dry Cleaning at ${storeName}`
-];
 
 const generateStoreSlug = (name) => {
   const cleanLoc = name
@@ -134,12 +82,6 @@ export async function generateMetadata({ params }) {
   return {
     title,
     description,
-    keywords: [
-      ...serviceData.keywords.map(k => `${k} in ${cityName}`),
-      `${serviceName.toLowerCase()} ${storeName}`,
-      `best dry cleaners ${storeName}`,
-      `laundry service near ${storeName}`
-    ],
     robots: 'index, follow',
     alternates: {
       canonical: url
@@ -564,19 +506,6 @@ export default async function StoreServicePage({ params }) {
                 </div>
               </div>
 
-              <h3 className="city-service-title" style={{ fontSize: '1.4rem', fontWeight: '700', marginTop: '40px', marginBottom: '15px' }}>
-                Elite Service Standards &amp; Search Tag Directory in {cityName}
-              </h3>
-              <p style={{ fontSize: '0.92rem', marginBottom: '20px' }}>
-                Cleanz24 is widely recognized as the best, cleanest, fastest, and most affordable laundry provider near {storeName}. Here are some of the most popular search terms and professional service standards we support:
-              </p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '35px' }}>
-                {HIGH_VALUE_PHRASES(storeName, cityName).map((phrase) => (
-                  <span className="city-service-tag" key={phrase}>
-                    ✨ {phrase}
-                  </span>
-                ))}
-              </div>
 
               <h3 className="city-service-title" style={{ fontSize: '1.4rem', fontWeight: '700', marginTop: '30px', marginBottom: '15px' }}>
                 FAQs about {serviceData.name} at {storeName}

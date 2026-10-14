@@ -4,7 +4,6 @@ import CarSpaFranchise from '../../../views/car-spa/Franchise';
 export const metadata = {
   title: "Car Spa Studio Franchise Opportunity in India | Cleanz24",
   description: "Invest in a lucrative Cleanz24 Car Spa & Auto Detailing franchise in India. High gross margins, complete machinery support, and marketing guidance.",
-  keywords: ["car spa franchise India","car detailing franchise cost","automotive business opportunity"],
   robots: 'index, follow',
   alternates: {
     canonical: "https://www.cleanz24.com/car-spa/franchise",

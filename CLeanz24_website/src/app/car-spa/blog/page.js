@@ -4,7 +4,6 @@ import CarSpaBlog from '../../../views/car-spa/CarSpaBlog';
 export const metadata = {
   title: "Car Detailing & Maintenance Guides | Cleanz24 Car Spa Blog",
   description: "Learn car care tips, ceramic coating vs PPF comparisons, interior deep cleaning advice, and vehicle maintenance guides from Cleanz24 auto detailing experts.",
-  keywords: ["car care tips","ceramic coating guide","PPF maintenance","car detailing blog"],
   robots: 'index, follow',
   alternates: {
     canonical: "https://www.cleanz24.com/car-spa/blog",

@@ -4,7 +4,6 @@ import Link from 'next/link';
 export const metadata = {
   title: 'Best Laundry & Dry Cleaning Franchise in Noida 2026 | Cleanz24',
   description: 'Looking for the best laundry franchise in Noida? Cleanz24 offers low investment & high ROI dry cleaning franchise opportunities. Enquire now for territory rights!',
-  keywords: [
     'laundry franchise in Noida',
     'best laundry franchise Noida',
     'dry cleaning franchise Noida',

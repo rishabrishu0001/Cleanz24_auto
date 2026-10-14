@@ -4,7 +4,6 @@ import TermsOfService from '../../../views/laundry/TermsOfService';
 export const metadata = {
   title: "Terms of Service | Cleanz24",
   description: "Cleanz24 Terms of Service — Read the terms and conditions governing garment care, order pickup/delivery, payments, and service usage.",
-  keywords: ["laundry terms","Cleanz24 terms","laundry service conditions"],
   robots: 'index, follow',
   alternates: {
     canonical: "https://www.cleanz24.com/best-laundry-drycleaning/terms-of-service",
