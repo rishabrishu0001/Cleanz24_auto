@@ -144,7 +144,7 @@ export default function BestFranchisePillarArticle() {
   ];
 
   return (
-    <article className="container py-4" style={{ maxWidth: '1180px', lineHeight: '1.75' }}>
+    <article className="container pb-5" style={{ maxWidth: '1180px', lineHeight: '1.75', paddingTop: '100px' }}>
       {/* Structured Data */}
       <script
         type="application/ld+json"
