@@ -3,9 +3,11 @@ import LaundryBlog, { BLOG_POSTS } from '../../../../views/laundry/Blog';
 
 export async function generateStaticParams() {
   const postsList = Array.isArray(BLOG_POSTS) ? BLOG_POSTS : [];
-  return postsList.map((p) => ({
-    slug: p.slug,
-  }));
+  return postsList
+    .filter((p) => p && p.slug !== 'best-franchise-to-buy-in-india')
+    .map((p) => ({
+      slug: p.slug,
+    }));
 }
 
 export async function generateMetadata({ params }) {

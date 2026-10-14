@@ -10,7 +10,7 @@
 
 This audit establishes the baseline architectural, routing, and technical SEO framework for publishing a comprehensive, original, long-form comparison guide:
 - **Title:** *10 Best Franchise Businesses to Buy in India in 2026: Investment, Profitability, Risk and Complete Investor Guide*
-- **Target URL:** `https://www.cleanz24.com/blog/best-franchise-to-buy-in-india/`
+- **Target URL:** `https://www.cleanz24.com/best-laundry-drycleaning/blog/best-franchise-to-buy-in-india/`
 - **Scope:** 20,000+ words of high-density editorial and quantitative analysis across 13 distinct sections.
 - **Strategic Goal:** Dominate high-intent commercial franchise searches (*"best franchise to buy in India"*, *"most profitable franchise business in India"*, *"best franchise under 20 lakhs"*) while establishing **Cleanz24 Laundry & Dry Cleaning** at #1 with a fully transparent, evidence-based evaluation methodology.
 
@@ -59,10 +59,10 @@ To maintain strict visual consistency without adding bloat or external dependenc
 ## 4. Proposed Routing Decisions & Cannibalisation Prevention
 
 ### 4.1 URL Selection
-- **Target Route:** `/blog/best-franchise-to-buy-in-india`
-- **Canonical URL:** `https://www.cleanz24.com/blog/best-franchise-to-buy-in-india/`
-- **Routing Implementation:** Dedicated App Router directory `src/app/blog/best-franchise-to-buy-in-india/page.js` with server-rendered initial HTML and static generation.
-- **Handling `/best-laundry-drycleaning/blog/...`:** In `next.config.mjs`, ensure `/blog/best-franchise-to-buy-in-india` is excluded from the `/blog -> /best-laundry-drycleaning/blog` blanket redirect, allowing it to render directly as an authority pillar.
+- **Target Route:** `/best-laundry-drycleaning/blog/best-franchise-to-buy-in-india`
+- **Canonical URL:** `https://www.cleanz24.com/best-laundry-drycleaning/blog/best-franchise-to-buy-in-india/`
+- **Routing Implementation:** Integrated into the existing Next.js App Router blog dynamic architecture at `src/app/best-laundry-drycleaning/blog/[slug]/page.js` with server-rendered initial HTML and static generation.
+- **Handling Previous `/blog/...` URL:** Permanent 301 redirect configured in `next.config.mjs` routing `/blog/best-franchise-to-buy-in-india` directly to `/best-laundry-drycleaning/blog/best-franchise-to-buy-in-india`.
 
 ### 4.2 Strict Anti-Cannibalisation Rules
 - **The Pillar Guide (`/blog/best-franchise-to-buy-in-india`):** Targets informational and broad commercial queries across all business sectors (*"best franchise to buy in India"*, *"top franchises under 20 lakhs"*, *"retail vs laundry franchise"*).

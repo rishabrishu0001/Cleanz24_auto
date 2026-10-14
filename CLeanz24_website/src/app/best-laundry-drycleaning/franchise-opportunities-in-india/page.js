@@ -679,7 +679,7 @@ export default function Page() {
                 Read our in-depth 20,000+ word comparison analyzing Cleanz24 alongside Amul, DTDC, Kidzee, Lenskart, and others across investment costs, net margins, and payback horizons.
               </p>
               <Link
-                href="/blog/best-franchise-to-buy-in-india"
+                href="/best-laundry-drycleaning/blog/best-franchise-to-buy-in-india"
                 style={{
                   display: 'inline-block',
                   background: '#16a34a',

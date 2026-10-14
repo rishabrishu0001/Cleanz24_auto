@@ -9,7 +9,7 @@
 
 To prevent internal keyword cannibalisation, rank dilution, and confusing search engine algorithms, each keyword cluster is mapped strictly to a single primary target URL.
 
-- **URL A (The 20k Pillar Guide):** `https://www.cleanz24.com/blog/best-franchise-to-buy-in-india/`  
+- **URL A (The 20k Pillar Guide):** `https://www.cleanz24.com/best-laundry-drycleaning/blog/best-franchise-to-buy-in-india/`  
   *Role:* Broad, multi-sector franchise comparison, investment thresholds, break-even mechanics, due diligence, and industry-wide rankings.
 - **URL B (The Core Transactional Page):** `https://www.cleanz24.com/best-laundry-drycleaning/franchise-opportunities-in-india`  
   *Role:* Pure-play Cleanz24 laundry franchise conversion, city territory selection, franchise application form, and brand-specific store formats.

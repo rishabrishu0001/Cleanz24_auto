@@ -15,11 +15,11 @@ import {
   section12Content,
   section13Content,
   FRANCHISE_PILLAR_METADATA,
-} from '../../../data/franchisePillarArticle';
+} from '../../data/franchisePillarArticle';
 
-import FranchiseProfitCalculator from '../../../components/franchise/FranchiseProfitCalculator';
-import FranchiseComparisonTable from '../../../components/franchise/FranchiseComparisonTable';
-import DueDiligenceChecklist from '../../../components/franchise/DueDiligenceChecklist';
+import FranchiseProfitCalculator from './FranchiseProfitCalculator';
+import FranchiseComparisonTable from './FranchiseComparisonTable';
+import DueDiligenceChecklist from './DueDiligenceChecklist';
 
 export const metadata = {
   title: FRANCHISE_PILLAR_METADATA.seoTitle,
@@ -61,7 +61,7 @@ export const metadata = {
   },
 };
 
-export default function BestFranchiseToBuyInIndiaPage() {
+export default function BestFranchisePillarArticle() {
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'Article',

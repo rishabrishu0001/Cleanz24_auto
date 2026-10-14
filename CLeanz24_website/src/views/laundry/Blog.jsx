@@ -70,6 +70,19 @@ const ALL_CATEGORIES = ['All', 'Blog', 'All Services', 'Commercial Cleaning', 'D
 
 export const BLOG_POSTS = [
   {
+    id: 200,
+    slug: 'best-franchise-to-buy-in-india',
+    title: '10 Best Franchise Businesses to Buy in India in 2026: Investment, Profitability, Risk and Complete Investor Guide',
+    excerpt:
+      'Complete 2026 investor guide to the 10 best franchise businesses to buy in India. In-depth analysis of investment costs, profit margins, break-even timelines, and risk factors across Cleanz24, Amul, DTDC, Lenskart, and more.',
+    categories: ['Franchise & Business', 'Blog'],
+    author: 'Cleanz24 Franchise Research Desk',
+    date: 'October 14, 2026',
+    dateTime: '2026-10-14',
+    image: promo1,
+    readTime: '85 min read',
+  },
+  {
     id: 105,
     slug: 'most-profitable-business-model-india-2026-laundry-cleanz24',
     title: 'Most Profitable Business Models in India 2026',

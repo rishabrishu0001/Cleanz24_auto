@@ -58,6 +58,7 @@ const nextConfig = {
       { source: '/car-spa-services', destination: '/car-spa/services', permanent: true },
       { source: '/car-spa-book', destination: '/car-spa/book', permanent: true },
       { source: '/book', destination: '/car-spa/book', permanent: true },
+      { source: '/blog/best-franchise-to-buy-in-india', destination: '/best-laundry-drycleaning/blog/best-franchise-to-buy-in-india', permanent: true },
       { source: '/blog', destination: '/best-laundry-drycleaning/blog', permanent: true },
       { source: '/about', destination: '/best-laundry-drycleaning/services', permanent: true },
       { source: '/about-us', destination: '/best-laundry-drycleaning/services', permanent: true },
