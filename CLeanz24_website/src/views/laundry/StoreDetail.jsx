@@ -245,8 +245,22 @@ import kazhakkoottamReception from '../../assets/cleanz24_kazhakkoottam_receptio
 import kazhakkoottamSteamIroning from '../../assets/cleanz24_kazhakkoottam_steam_ironing.jpg';
 import kazhakkoottamLgMachines from '../../assets/cleanz24_kazhakkoottam_lg_machines.jpg';
 
+// Hitech City Hyderabad (id: 80)
+import hitechCityStorefrontFacade from '../../assets/cleanz24_hitech_city_storefront_facade.jpg';
+import hitechCityStorefrontEntrance from '../../assets/cleanz24_hitech_city_storefront_entrance.jpg';
+import hitechCityReceptionCounter from '../../assets/cleanz24_hitech_city_reception_counter.jpg';
+import hitechCityLgMachinesInterior from '../../assets/cleanz24_hitech_city_lg_machines_interior.jpg';
+import hitechCityOpeningCeremony from '../../assets/cleanz24_hitech_city_opening_ceremony.jpg';
+
 // Map of store id -> image arrays (add more stores here as images are added)
 const STORE_IMAGES = {
+  80: [
+    hitechCityStorefrontFacade,
+    hitechCityStorefrontEntrance,
+    hitechCityReceptionCounter,
+    hitechCityLgMachinesInterior,
+    hitechCityOpeningCeremony,
+  ],
   76: [
     kazhakkoottamStorefrontEntrance,
     kazhakkoottamStorefrontBuilding,

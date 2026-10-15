@@ -269,7 +269,7 @@ export default function Stores() {
                             >
                               {store.city}, {store.state}
                             </Link>
-                             {[2, 5, 6, 7, 15, 17, 19, 20, 38, 39, 40, 41, 42, 44, 52, 53, 66, 68, 69, 70, 75].includes(store.id) && (
+                             {[2, 5, 6, 7, 15, 17, 19, 20, 38, 39, 40, 41, 42, 44, 52, 53, 66, 68, 69, 70, 75, 80].includes(store.id) && (
                               <span className="badge bg-success bg-opacity-10 text-success rounded-pill px-2 py-1 font-semibold" style={{ fontSize: '0.7rem' }}>
                                 📸 Photos
                               </span>
