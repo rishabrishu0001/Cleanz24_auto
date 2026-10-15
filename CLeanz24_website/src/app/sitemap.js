@@ -1,4 +1,4 @@
-import { storesData } from '../data';
+import { storesData } from '../data.js';
 import { BLOG_POSTS } from '../views/laundry/Blog';
 import { FRANCHISE_CITIES } from '../data/franchiseCities';
 
@@ -60,6 +60,13 @@ export default async function sitemap() {
     };
   });
 
+  const cityDirectRoutes = (Array.isArray(FRANCHISE_CITIES) ? FRANCHISE_CITIES : []).map((city) => ({
+    url: `${baseUrl}/best-laundry-drycleaning/${city.slug}`,
+    lastModified: new Date().toISOString().split('T')[0],
+    changeFrequency: 'weekly',
+    priority: 0.8,
+  }));
+
   const cityRoutes = (Array.isArray(FRANCHISE_CITIES) ? FRANCHISE_CITIES : []).map((city) => ({
     url: `${baseUrl}/best-laundry-drycleaning/franchise-opportunities/${city.slug}`,
     lastModified: new Date().toISOString().split('T')[0],
@@ -106,5 +113,5 @@ export default async function sitemap() {
     }
   }
 
-  return [...staticRoutes, ...blogRoutes, ...storeRoutes, ...cityRoutes, ...cityConsumerServiceRoutes, ...cityServiceRoutes, ...storeServiceRoutes];
+  return [...staticRoutes, ...blogRoutes, ...storeRoutes, ...cityDirectRoutes, ...cityRoutes, ...cityConsumerServiceRoutes, ...cityServiceRoutes, ...storeServiceRoutes];
 }

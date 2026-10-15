@@ -356,6 +356,7 @@ export const FRANCHISE_CITIES = [
   { city: "Gachibowli", state: "Telangana", slug: "gachibowli-hyderabad" },
   { city: "Kondapur", state: "Telangana", slug: "kondapur-hyderabad" },
   { city: "HITEC City", state: "Telangana", slug: "hitec-city-hyderabad" },
+  { city: "Hitech City", state: "Telangana", slug: "hitech-city" },
   { city: "Kukatpally", state: "Telangana", slug: "kukatpally-hyderabad" },
   { city: "Banjara Hills", state: "Telangana", slug: "banjara-hills-hyderabad" },
   { city: "Jubilee Hills", state: "Telangana", slug: "jubilee-hills-hyderabad" },

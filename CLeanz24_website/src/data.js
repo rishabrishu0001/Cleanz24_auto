@@ -1344,6 +1344,29 @@ export const storesData = [
     tags: ['Hyderabad', 'Telangana', 'Kompally', 'Srinivas Nagar', '500014'],
     rating: 4.8,
     reviews: 24
+  },
+  {
+    id: 80,
+    name: 'Cleanz24 - Hitech City Hyderabad',
+    address: 'H. No. 1-98/17, Shutter No. 2, Near Durgam Cheruvu, Pillar No. 1750, Madhapur, Hi Tech City, Hyderabad, Telangana - 500081',
+    phone: '9138004800',
+    whatsapp: '919138004800',
+    city: 'Hitech City',
+    state: 'Telangana',
+    tags: [
+      'Hyderabad',
+      'Telangana',
+      'Hitech City',
+      'Hi Tech City',
+      'Madhapur',
+      'Durgam Cheruvu',
+      'Pillar No. 1750',
+      '500081',
+      'hitec-city-hyderabad',
+      'madhapur-hyderabad'
+    ],
+    rating: 4.9,
+    reviews: 26
   }
 ];
 
