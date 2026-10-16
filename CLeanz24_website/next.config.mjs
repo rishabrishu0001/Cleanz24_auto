@@ -65,6 +65,89 @@ const nextConfig = {
       { source: '/privacy-policy', destination: '/best-laundry-drycleaning/privacy-policy', permanent: true },
       { source: '/terms-of-service', destination: '/best-laundry-drycleaning/terms-of-service', permanent: true },
 
+      // ─── Specific Store Franchise Overrides ─────────────────────
+      { source: '/laundry/franchise/hsr-layout/:path*', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-hsr-layout-bengaluru', permanent: true },
+      { source: '/laundry/franchise/varthur-hobli-bangalore/:path*', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-varthur-hobli-bengaluru', permanent: true },
+      { source: '/laundry/franchise/ravet-pune/:path*', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-ravet-pune', permanent: true },
+
+      // ─── Legacy WordPress Core & Utility Redirects ───────────
+      { source: '/home', destination: '/', permanent: true },
+      { source: '/home/', destination: '/', permanent: true },
+      { source: '/thank-you', destination: '/', permanent: true },
+      { source: '/thank-you/', destination: '/', permanent: true },
+      { source: '/our-stores', destination: '/best-laundry-drycleaning/stores', permanent: true },
+      { source: '/our-stores/', destination: '/best-laundry-drycleaning/stores', permanent: true },
+      { source: '/home-cleaning-services', destination: '/best-laundry-drycleaning/services/home-furnishing-cleaning', permanent: true },
+      { source: '/home-cleaning-services/', destination: '/best-laundry-drycleaning/services/home-furnishing-cleaning', permanent: true },
+      { source: '/commercial-cleaning-services-for-offices-retail-and-business-spaces', destination: '/best-laundry-drycleaning/services/commercial-laundry', permanent: true },
+      { source: '/commercial-cleaning-workplace-hygiene-productivity', destination: '/best-laundry-drycleaning/services/commercial-laundry', permanent: true },
+      { source: '/category/commercial-cleaning/:path*', destination: '/best-laundry-drycleaning/services/commercial-laundry', permanent: true },
+      { source: '/category/blog/:path*', destination: '/best-laundry-drycleaning/blog', permanent: true },
+      { source: '/category/:path*', destination: '/best-laundry-drycleaning/blog', permanent: true },
+      { source: '/elementor-:path*', destination: '/', permanent: true },
+      { source: '/2026/:month/:day*', destination: '/best-laundry-drycleaning/blog', permanent: true },
+
+      // ─── Legacy Franchise City & Article 301 Redirects ───────────
+      { source: '/best-laundry-franchise-in-:city*', destination: '/best-laundry-drycleaning/franchise-opportunities-in-india', permanent: true },
+      { source: '/best-laundry-and-dry-cleaning-franchise-franchise', destination: '/best-laundry-drycleaning/franchise-opportunities-in-india', permanent: true },
+      { source: '/best-franchise-business-models-in-india', destination: '/best-laundry-drycleaning/blog/best-franchise-to-buy-in-india', permanent: true },
+      { source: '/the-real-investment-behind-a-dry-cleaning-franchise-explained', destination: '/best-laundry-drycleaning/blog/best-franchise-to-buy-in-india', permanent: true },
+      { source: '/why-laundry-and-dry-cleaning-is-one-of-the-best-franchise-businesses-:rest*', destination: '/best-laundry-drycleaning/blog/best-franchise-to-buy-in-india', permanent: true },
+      { source: '/proven-ways-to-increase-profits-in-a-dry-cleaning-franchise-model', destination: '/best-laundry-drycleaning/blog/best-franchise-to-buy-in-india', permanent: true },
+      { source: '/how-a-dry-cleaning-franchise-works-:rest*', destination: '/best-laundry-drycleaning/franchise-opportunities-in-india', permanent: true },
+      { source: '/laundry-and-dry-cleaning-franchise-in-india-:rest*', destination: '/best-laundry-drycleaning/franchise-opportunities-in-india', permanent: true },
+
+      // ─── Legacy State & City Store Directory Redirects ───────────
+      { source: '/best-dry-cleaning-services-in-:state/cleanz24-dry-clean-laundry-service-store-at-:store*', destination: '/best-laundry-drycleaning/stores', permanent: true },
+      { source: '/best-dry-cleaning-services-in-:state*', destination: '/best-laundry-drycleaning/locations', permanent: true },
+      { source: '/laundry-and-dry-cleaning-services-in-:city*', destination: '/best-laundry-drycleaning/locations', permanent: true },
+      { source: '/best-laundry-and-dry-cleaning-services-in-:city*', destination: '/best-laundry-drycleaning/locations', permanent: true },
+      { source: '/best-laundry-and-dry-cleaning-services-near-me-:rest*', destination: '/best-laundry-drycleaning/locations', permanent: true },
+      { source: '/best-dry-cleaning-and-laundry-services-in-:rest*', destination: '/best-laundry-drycleaning/locations', permanent: true },
+      { source: '/best-laundry-service-in-:rest*', destination: '/best-laundry-drycleaning/locations', permanent: true },
+      { source: '/laundry-and-dry-clean-prices-:rest*', destination: '/best-laundry-drycleaning/services', permanent: true },
+      { source: '/laundry-and-dry-clean-prices', destination: '/best-laundry-drycleaning/services', permanent: true },
+
+      // ─── Legacy WordPress Blog Articles ───────────
+      { source: '/why-eco-friendly-laundry-services-are-the-future-:rest*', destination: '/best-laundry-drycleaning/blog', permanent: true },
+      { source: '/the-rise-of-on-demand-laundry-services-in-india', destination: '/best-laundry-drycleaning/blog', permanent: true },
+      { source: '/how-to-prevent-shrinking-of-clothes-during-washing', destination: '/best-laundry-drycleaning/blog', permanent: true },
+      { source: '/how-to-clean-your-sofa-at-home', destination: '/best-laundry-drycleaning/services/home-furnishing-cleaning', permanent: true },
+      { source: '/how-to-wash-wool-silk-linen-premium-fabrics-safely-expert-guide', destination: '/best-laundry-drycleaning/blog', permanent: true },
+      { source: '/how-to-wash-different-fabrics-:rest*', destination: '/best-laundry-drycleaning/blog', permanent: true },
+      { source: '/how-to-treat-stubborn-stains-professional-methods-for-every-fabric-type', destination: '/best-laundry-drycleaning/blog', permanent: true },
+      { source: '/how-to-clean-your-mattress-at-home-:rest*', destination: '/best-laundry-drycleaning/services/home-furnishing-cleaning', permanent: true },
+      { source: '/benefits-of-professional-dry-cleaning-services', destination: '/best-laundry-drycleaning/services/eco-friendly-dry-cleaning', permanent: true },
+      { source: '/how-often-should-leather-be-cleaned-:rest*', destination: '/best-laundry-drycleaning/services/shoe-handbag-spa', permanent: true },
+      { source: '/top-10-laundry-service-providers-in-india', destination: '/best-laundry-drycleaning/blog/best-franchise-to-buy-in-india', permanent: true },
+      { source: '/best-dry-cleaners-near-me-common-mistakes-to-avoid', destination: '/best-laundry-drycleaning/blog', permanent: true },
+      { source: '/best-dry-cleaners-near-me', destination: '/best-laundry-drycleaning', permanent: true },
+      { source: '/what-is-dry-cleaning', destination: '/best-laundry-drycleaning/services/eco-friendly-dry-cleaning', permanent: true },
+      { source: '/how-to-use-detergents-effectively-:rest*', destination: '/best-laundry-drycleaning/blog', permanent: true },
+      { source: '/how-to-clean-and-maintain-your-shoes-:rest*', destination: '/best-laundry-drycleaning/services/shoe-handbag-spa', permanent: true },
+      { source: '/stain-removal-hacks', destination: '/best-laundry-drycleaning/blog', permanent: true },
+      { source: '/tumble-dry-explained-:rest*', destination: '/best-laundry-drycleaning/services/premium-laundry', permanent: true },
+      { source: '/how-to-choose-the-best-laundry-service-in-your-city', destination: '/best-laundry-drycleaning', permanent: true },
+      { source: '/how-to-do-laundry', destination: '/best-laundry-drycleaning/services/premium-laundry', permanent: true },
+      { source: '/how-to-find-the-best-laundry-service-in-bangalore-:rest*', destination: '/best-laundry-drycleaning/locations', permanent: true },
+      { source: '/how-to-wash-dark-clothes-without-fading', destination: '/best-laundry-drycleaning/blog', permanent: true },
+      { source: '/save-time-how-pickup-delivery-laundry-works-:rest*', destination: '/best-laundry-drycleaning/services', permanent: true },
+      { source: '/professional-steam-ironing-what-makes-the-finish-look-premium', destination: '/best-laundry-drycleaning/services/steam-ironing', permanent: true },
+
+      // ─── Legacy Car Spa Blog URLs ───────────
+      { source: '/car-spa/blog/best-ppf-paint-protection-film-in-:rest*', destination: '/car-spa/services', permanent: true },
+      { source: '/car-spa/blog/best-car-spa-nearby-you-:rest*', destination: '/car-spa/stores', permanent: true },
+      { source: '/car-spa/blog/best-car-spa-services-delhi', destination: '/car-spa/services', permanent: true },
+      { source: '/car-spa/blog/car-detailing-vs-car-wash-difference', destination: '/car-spa/blog', permanent: true },
+      { source: '/car-spa/blog/how-ceramic-coating-protects-your-car', destination: '/car-spa/blog', permanent: true },
+
+      // ─── Legacy Store Service & Prefix cleanz24- Redirects ───────────
+      { source: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-valiyathura-thiruvananthapuram/:service*', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-valiyathura/:service*', permanent: true },
+      { source: '/best-laundry-drycleaning/store/cleanz24-:slug/:service*', destination: '/best-laundry-drycleaning/store/:slug/:service*', permanent: true },
+      { source: '/best-laundry-drycleaning/store/cleanz24-:slug', destination: '/best-laundry-drycleaning/store/:slug', permanent: true },
+      { source: '/laundry/store/cleanz24-:slug/:service*', destination: '/best-laundry-drycleaning/store/:slug/:service*', permanent: true },
+      { source: '/laundry/store/:path*', destination: '/best-laundry-drycleaning/store/:path*', permanent: true },
+
       // ─── Store: Explicit short-slug → canonical-slug 301 redirects ───────────
       // Generated from storesData. Canonical = /store/best-laundry-drycleaning-services-[slug]
       // Short slug (name without prefix) ─── id:1 Sector 41 Noida
@@ -87,7 +170,6 @@ const nextConfig = {
       { source: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-greater-noida', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-swarn-nagari-greater-noida', permanent: true },
       // id:7 Indirapuram
       { source: '/best-laundry-drycleaning/store/indirapuram', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-indirapuram', permanent: true },
-      { source: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-indirapuram', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-indirapuram', permanent: true },
       // id:8 Bhinga
       { source: '/best-laundry-drycleaning/store/bhinga', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-bhinga', permanent: true },
       // id:10 Karnaprayag
@@ -126,7 +208,6 @@ const nextConfig = {
       { source: '/best-laundry-drycleaning/store/angul', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-angul', permanent: true },
       // id:31 Palasuni Bhubaneswar
       { source: '/best-laundry-drycleaning/store/palasuni-bhubaneswar', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-palasuni-bhubaneswar', permanent: true },
-      { source: '/best-laundry-drycleaning/store/palasuni-bhubaneswar', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-palasuni-bhubaneswar', permanent: true },
       // id:32 Arjunda
       { source: '/best-laundry-drycleaning/store/arjunda', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-arjunda', permanent: true },
       // id:33 Udaipur
@@ -140,7 +221,6 @@ const nextConfig = {
       { source: '/best-laundry-drycleaning/store/wakad', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-wakad-pune', permanent: true },
       { source: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-wakad', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-wakad-pune', permanent: true },
       // id:37 Thane West
-      { source: '/best-laundry-drycleaning/store/thane-west', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-thane-west', permanent: true },
       { source: '/best-laundry-drycleaning/store/thane-west', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-thane-west', permanent: true },
       // id:38 Alibag
       { source: '/best-laundry-drycleaning/store/alibag', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-alibag', permanent: true },
@@ -230,12 +310,9 @@ const nextConfig = {
       { source: '/best-laundry-drycleaning/store/churu', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-churu', permanent: true },
       // id:72 Jatni Khordha
       { source: '/best-laundry-drycleaning/store/jatni-khordha', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-jatni-khordha', permanent: true },
-      { source: '/best-laundry-drycleaning/store/jatni-khordha', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-jatni-khordha', permanent: true },
       // id:73 Old Town Bhubaneswar
       { source: '/best-laundry-drycleaning/store/old-town-bhubaneswar', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-old-town-bhubaneswar', permanent: true },
-      { source: '/best-laundry-drycleaning/store/old-town-bhubaneswar', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-old-town-bhubaneswar', permanent: true },
       // id:74 CDA Cuttack
-      { source: '/best-laundry-drycleaning/store/cda-cuttack', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-cda-cuttack', permanent: true },
       { source: '/best-laundry-drycleaning/store/cda-cuttack', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-cda-cuttack', permanent: true },
       // id:75 Kurukkol Malappuram (city=Cheriyamundam)
       { source: '/best-laundry-drycleaning/store/kurukkol-malappuram', destination: '/best-laundry-drycleaning/store/best-laundry-drycleaning-services-kurukkol-malappuram', permanent: true },

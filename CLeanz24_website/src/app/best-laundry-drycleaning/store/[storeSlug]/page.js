@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import { redirect } from 'next/navigation';
 import StoreDetail from '../../../../views/laundry/StoreDetail';
 import { storesData } from '../../../../data';
 
@@ -27,13 +28,22 @@ const isStoreLive = (store) => {
 
 const findStoreBySlug = (slug) => {
   if (!slug) return null;
+  const normalizedSlug = slug.replace(/^cleanz24-/i, '').replace(/(^-|-$)+/g, '');
   return storesData.find((s) => {
     if (!s || !s.name || !isStoreLive(s)) return false;
     const fullSlug = generateStoreSlug(s.name);
     const shortSlug = getShortSlug(s.name);
     const citySlug = s.city ? s.city.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-') : '';
     const cityFullSlug = citySlug ? `best-laundry-drycleaning-services-${citySlug}` : '';
-    return slug === fullSlug || slug === shortSlug || slug === citySlug || slug === cityFullSlug;
+    return (
+      slug === fullSlug ||
+      slug === shortSlug ||
+      slug === citySlug ||
+      slug === cityFullSlug ||
+      normalizedSlug === shortSlug ||
+      normalizedSlug === fullSlug ||
+      normalizedSlug === citySlug
+    );
   });
 };
 
@@ -109,6 +119,10 @@ export default async function StoreDetailPage({ params }) {
   const resolvedParams = await params;
   const storeSlug = resolvedParams?.storeSlug || '';
   const store = findStoreBySlug(storeSlug);
+
+  if (!store) {
+    redirect('/best-laundry-drycleaning/stores');
+  }
 
   const url = `https://cleanz24.com/best-laundry-drycleaning/store/${storeSlug}`;
   const storeName = store ? store.name : 'Cleanz24 Studio';

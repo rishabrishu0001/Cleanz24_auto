@@ -726,13 +726,22 @@ export default function StoreDetail() {
 
   const isStoreLive = (s) => !s?.openingTime || new Date() >= new Date(s.openingTime);
 
+  const normalizedSlug = (storeSlug || '').replace(/^cleanz24-/i, '').replace(/(^-|-$)+/g, '');
   const store = storesData.find((s) => {
     if (!s || !s.name || !isStoreLive(s)) return false;
     const fullSlug = generateStoreSlug(s.name);
     const shortSlug = getShortSlug(s.name);
     const citySlug = s.city ? s.city.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-') : '';
     const cityFullSlug = citySlug ? `best-laundry-drycleaning-services-${citySlug}` : '';
-    return storeSlug === fullSlug || storeSlug === shortSlug || storeSlug === citySlug || storeSlug === cityFullSlug;
+    return (
+      storeSlug === fullSlug ||
+      storeSlug === shortSlug ||
+      storeSlug === citySlug ||
+      storeSlug === cityFullSlug ||
+      normalizedSlug === shortSlug ||
+      normalizedSlug === fullSlug ||
+      normalizedSlug === citySlug
+    );
   });
 
   const theme = {

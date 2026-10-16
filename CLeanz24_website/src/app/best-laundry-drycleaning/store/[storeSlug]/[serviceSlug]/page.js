@@ -1,5 +1,5 @@
 import React from 'react';
-import { notFound } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { storesData } from '../../../../../data';
 import StoreServiceForm from './StoreServiceForm';
 import Link from 'next/link';
@@ -60,15 +60,20 @@ export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const { storeSlug, serviceSlug } = resolvedParams;
   
+  const normalizedSlug = (storeSlug || '').replace(/^cleanz24-/i, '').replace(/(^-|-$)+/g, '');
   const store = storesData.find(
     (s) =>
       generateStoreSlug(s.name) === storeSlug ||
-      getShortSlug(s.name) === storeSlug
+      getShortSlug(s.name) === storeSlug ||
+      generateStoreSlug(s.name) === normalizedSlug ||
+      getShortSlug(s.name) === normalizedSlug
   );
   const serviceData = SERVICES_MAP[serviceSlug];
 
   if (!store || !serviceData) {
-    return {};
+    return {
+      robots: 'noindex, nofollow',
+    };
   }
 
   const cleanLoc = (store.name || '').replace(/^Cleanz24\s*[-–—:]\s*/i, '').trim();
@@ -115,15 +120,18 @@ export default async function StoreServicePage({ params }) {
   const resolvedParams = await params;
   const { storeSlug, serviceSlug } = resolvedParams;
 
+  const normalizedSlug = (storeSlug || '').replace(/^cleanz24-/i, '').replace(/(^-|-$)+/g, '');
   const store = storesData.find(
     (s) =>
       generateStoreSlug(s.name) === storeSlug ||
-      getShortSlug(s.name) === storeSlug
+      getShortSlug(s.name) === storeSlug ||
+      generateStoreSlug(s.name) === normalizedSlug ||
+      getShortSlug(s.name) === normalizedSlug
   );
   const serviceData = SERVICES_MAP[serviceSlug];
 
   if (!store || !serviceData) {
-    notFound();
+    redirect('/best-laundry-drycleaning/services');
   }
 
   const cleanLoc = (store.name || '').replace(/^Cleanz24\s*[-–—:]\s*/i, '').trim();

@@ -1,5 +1,5 @@
 import React from 'react';
-import { notFound } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { FRANCHISE_CITIES } from '../../../../../data/franchiseCities';
 import { storesData } from '../../../../../data';
 import CityServiceForm from './CityServiceForm';
@@ -72,7 +72,9 @@ export async function generateMetadata({ params }) {
   const serviceData = SERVICES_MAP[serviceSlug];
 
   if (!cityData || !serviceData) {
-    return {};
+    return {
+      robots: 'noindex, nofollow',
+    };
   }
 
   const cityName = cityData.city;
@@ -118,7 +120,7 @@ export default async function CityServicePage({ params }) {
   const serviceData = SERVICES_MAP[serviceSlug];
 
   if (!cityData || !serviceData) {
-    return notFound();
+    redirect('/best-laundry-drycleaning/franchise-opportunities-in-india');
   }
 
   const cityName = cityData.city;
