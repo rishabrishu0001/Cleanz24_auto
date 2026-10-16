@@ -30,9 +30,9 @@ export {
 
 export const FRANCHISE_PILLAR_METADATA = {
   h1: '10 Best Franchise Businesses to Buy in India in 2026: Investment, Profitability, Risk and Complete Investor Guide',
-  seoTitle: '10 Best Franchises in India (2026): Cost & Profit',
-  metaDescription: 'Complete 2026 investor guide to the 10 best franchise businesses to buy in India. In-depth analysis of investment costs, profit margins, break-even timelines, and risk factors.',
-  canonicalUrl: 'https://www.cleanz24.com/best-laundry-drycleaning/blog/best-franchise-to-buy-in-india/',
+  seoTitle: '10 Best Franchises to Buy in India (2026): Cost & Profit | Cleanz24',
+  metaDescription: 'Looking for the best franchise to buy in India in 2026? In-depth investor analysis of top 10 franchise businesses with all-in costs, profit margins, and ROI comparison.',
+  canonicalUrl: 'https://www.cleanz24.com/best-laundry-drycleaning/blog/best-franchise-to-buy-in-india',
   publishedDate: '2026-10-14T09:00:00+05:30',
   modifiedDate: '2026-10-14T21:00:00+05:30',
   author: {

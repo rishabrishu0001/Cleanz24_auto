@@ -1216,11 +1216,11 @@ export const BLOG_POSTS = [
           <strong>Cleanz24</strong> is widely recognized as the most modern and investor-friendly laundry franchise of <strong>2026</strong>. What sets the brand apart is its pioneering stance as India's only <strong>24/7 laundry and dry cleaning franchise</strong> model. By utilizing contactless smart locker integrations and a fully automated mobile application, Cleanz24 outlets operate round-the-clock, allowing customers to drop off and pick up their garments at any hour. This maximizes the revenue potential per square foot and completely eliminates the limitations of traditional 9 AM to 9 PM retail store hours.
         </p>
         <p>
-          With a highly competitive investment model of <strong>₹13 Lakhs – ₹29 Lakhs</strong>, and dual revenue streams spanning retail walk-ins (B2C) and corporate tie-ups (B2B), Cleanz24 delivers a highly efficient path to profitability. The business is built to require <strong>no prior industry experience</strong> from the franchise partner. Cleanz24 manages the technical complexities—from hiring and certifying your cleaning staff to running automated local Google campaigns.
+          With a highly competitive investment model of <strong>₹13 Lakhs – ₹35 Lakhs+</strong>, and dual revenue streams spanning retail walk-ins (B2C) and corporate tie-ups (B2B), Cleanz24 delivers a highly efficient path to profitability. The business is built to require <strong>no prior industry experience</strong> from the franchise partner. Cleanz24 manages the technical complexities—from hiring and certifying your cleaning staff to running automated local Google campaigns.
         </p>
         <ul>
-          <li><strong>Investment Required:</strong> Affordable and flexible range of <strong>₹13 Lakhs – ₹29 Lakhs</strong> (contact the Cleanz24 team for specific models).</li>
-          <li><strong>Area Required:</strong> Compact store format suitable for <strong>200 – 400 sq ft</strong> locations.</li>
+          <li><strong>Investment Required:</strong> Affordable and flexible range of <strong>₹13 Lakhs – ₹35 Lakhs+</strong> (Alpha ₹13L, Beta ₹15L, Combo ₹22L, Hydro-Carbon ₹35L+).</li>
+          <li><strong>Area Required:</strong> Compact studio format suitable for <strong>250 – 500 sq ft</strong> (Minimum 250 sq.ft) locations.</li>
           <li><strong>Key Services Offered:</strong>
             <ul>
               <li>Dry cleaning using premium eco-friendly solvents</li>
@@ -1245,7 +1245,7 @@ export const BLOG_POSTS = [
           <li><strong>Ideal Cities:</strong> Metros and Tier-1 cities.</li>
         </ul>
         <p>
-          👉 <Link href="/franchise-opportunities-in-india">Contact Cleanz24 Franchise Team</Link>
+          👉 <Link href="/best-laundry-drycleaning/franchise-opportunities-in-india">Contact Cleanz24 Franchise Team</Link>
         </p>
 
         {/* Embedded Interactive Franchise Form inside Top 10 Guide */}
@@ -1253,7 +1253,7 @@ export const BLOG_POSTS = [
           <BlogFranchiseForm
             isDarkMode={false}
             compact={false}
-            title="Apply for Cleanz24 Franchise (₹13L – ₹29L)"
+            title="Apply for Cleanz24 Franchise (₹13L – ₹35L+)"
             subtitle="Get instant access to free franchise brochure, city audit report, and ROI projections."
           />
         </div>
@@ -1395,12 +1395,12 @@ export const BLOG_POSTS = [
               <tr style={{ backgroundColor: 'rgba(43, 108, 176, 0.1)' }}>
                 <td style={{ padding: '12px' }}><strong>⭐ 1</strong></td>
                 <td style={{ padding: '12px' }}><strong>Cleanz24</strong></td>
-                <td style={{ padding: '12px' }}><strong>₹13L – ₹29L</strong></td>
-                <td style={{ padding: '12px' }}><strong>200 – 400 sq ft</strong></td>
-                <td style={{ padding: '12px' }}><strong>100+ Outlets</strong></td>
+                <td style={{ padding: '12px' }}><strong>₹13L – ₹35L+</strong></td>
+                <td style={{ padding: '12px' }}><strong>250 – 500 sq ft</strong></td>
+                <td style={{ padding: '12px' }}><strong>100+ Stores (21+ States)</strong></td>
                 <td style={{ padding: '12px' }}><strong>Excellent (App + 24/7 Lockers)</strong></td>
                 <td style={{ padding: '12px' }}><strong>100% Eco-Solvents</strong></td>
-                <td style={{ padding: '12px' }}><strong>10 – 12 Months</strong></td>
+                <td style={{ padding: '12px' }}><strong>18 – 20 Months</strong></td>
                 <td style={{ padding: '12px' }}><strong>Automated, Premium, 24/7 Income</strong></td>
               </tr>
               <tr>

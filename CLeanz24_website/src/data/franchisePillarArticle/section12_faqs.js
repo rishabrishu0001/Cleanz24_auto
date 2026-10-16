@@ -37,7 +37,7 @@ export const section12Content = {
     },
     {
       q: '8. What is the typical physical space required to launch a Cleanz24 studio?',
-      a: `Cleanz24 requires between 200 sq. ft. (for compact Alpha Neighborhood Hubs) and 450–600 sq. ft. (for full-service Beta and Combo formats). The space must ideally be on the ground floor with convenient curbside vehicular access for quick customer drop-offs and delivery bike loading.`
+      a: `Cleanz24 requires a minimum of 250 sq. ft. for Alpha and Beta Studio formats, 400 sq. ft. minimum for Combo models, and 500 sq. ft. minimum for Hydro-Carbon formats. The space must ideally be on the ground floor with convenient curbside vehicular access for quick customer drop-offs and delivery bike loading.`
     },
     {
       q: '9. What electrical and plumbing connections are necessary for a laundry store?',
@@ -45,7 +45,7 @@ export const section12Content = {
     },
     {
       q: '10. What is a typical capital payback horizon for a laundry franchise?',
-      a: `For an efficiently managed Cleanz24 studio, complete capital payback (recovering 100% of the initial ₹13L to ₹15L investment from cumulative net operating surplus) is typically achieved within 16 to 22 months of continuous operation.`
+      a: `Operating break-even is typically achieved within 3 to 6 months, while full capital investment payback (recovering 100% of the initial capital from cumulative net operating surplus) is achieved in 18 to 20 months of continuous operation.`
     },
     {
       q: '11. How does territorial exclusivity work in a Cleanz24 franchise agreement?',
@@ -53,7 +53,7 @@ export const section12Content = {
     },
     {
       q: '12. Who handles staff recruitment and training for the store?',
-      a: `Cleanz24 provides complete recruitment guidelines and candidate profiling. Once local operators (wash masters and pressing technicians) are hired, corporate master trainers deliver comprehensive 14-day training covering fiber diagnosis, stain spotting chemistry, machine operation, and customer service standards.`
+      a: `Cleanz24 provides complete recruitment guidelines and candidate profiling. Corporate master trainers deliver comprehensive 7-day hands-on operational and technical training covering laundry operations, garment fabric care, spot removal techniques, POS software usage, and customer relation skills.`
     },
     {
       q: '13. What happens if a customer garment is damaged during processing?',

@@ -31,7 +31,7 @@ export const section1Content = {
     },
     {
       metric: 'Fastest Working Capital Payback',
-      value: 'DTDC Logistics (6–12 Mo) / Cleanz24 (18–24 Mo)',
+      value: 'DTDC Logistics (6–12 Mo) / Cleanz24 (18–20 Mo)',
       note: 'Service-driven business models with minimal deadstock and low civil infrastructure risk.'
     }
   ],

@@ -26,6 +26,7 @@ export const section6Content = {
         ['#1 Cleanz24 (Alpha)', 'Included in setup', '₹7.5L – ₹8.5L', '₹2.5L – ₹3.2L', '₹1.5L – ₹2.0L', '₹13.0L – ₹14.5L'],
         ['#1 Cleanz24 (Beta)', 'Included in setup', '₹8.5L – ₹9.8L', '₹3.0L – ₹4.0L', '₹2.0L – ₹2.5L', '₹15.0L – ₹16.5L'],
         ['#1 Cleanz24 (Combo)', 'Included in setup', '₹12.5L – ₹14.5L', '₹4.5L – ₹5.5L', '₹2.5L – ₹3.5L', '₹22.0L – ₹24.5L'],
+        ['#1 Cleanz24 (Hydro-Carbon)', 'Included in setup', '₹20.0L – ₹24.0L', '₹6.5L – ₹8.0L', '₹4.0L – ₹5.5L', '₹35.0L+ All-In'],
         ['#2 Amul (APO Kiosk)', '₹0 (Zero Fee)', '₹70k – ₹90k (Coolers)', '₹80k – ₹1.2L', '₹30k – ₹50k', '₹2.0L – ₹2.8L'],
         ['#3 DTDC Courier', '₹25k – ₹50k (Deposit)', '₹40k – ₹60k (Scales/PC)', '₹30k – ₹50k', '₹30k – ₹50k', '₹1.3L – ₹2.2L'],
         ['#4 Kidzee Preschool', '₹2.5L – ₹4.5L', '₹2.0L – ₹3.5L (Play)', '₹6.0L – ₹9.0L', '₹3.0L – ₹4.5L', '₹14.0L – ₹21.5L'],

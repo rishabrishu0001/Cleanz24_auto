@@ -20,6 +20,7 @@ import {
 import FranchiseProfitCalculator from './FranchiseProfitCalculator';
 import FranchiseComparisonTable from './FranchiseComparisonTable';
 import DueDiligenceChecklist from './DueDiligenceChecklist';
+import FranchiseReturnsWidget from './FranchiseReturnsWidget';
 
 export const metadata = {
   title: FRANCHISE_PILLAR_METADATA.seoTitle,
@@ -132,6 +133,7 @@ export default function BestFranchisePillarArticle() {
     { href: '#section-2-ranking-methodology', label: '2. 7-Pillar Quantitative Methodology' },
     { href: '#section-3-franchise-landscape-india', label: '3. Indian Macroeconomic Landscape' },
     { href: '#section-4-cleanz24-master-profile', label: '4. #1 Cleanz24 Laundry Master Profile' },
+    { href: '#returns-calculator', label: '📊 Calculate Estimated Franchise Returns (Interactive Widget)' },
     { href: '#section-5-nine-competitor-profiles', label: '5. Profiles of 9 Other Franchise Brands' },
     { href: '#section-6-investment-cost-comparison', label: '6. All-In Investment & CapEx Breakdown' },
     { href: '#section-7-profitability-and-breakeven', label: '7. Unit Economics & Profit Simulator' },
@@ -387,17 +389,30 @@ export default function BestFranchisePillarArticle() {
         </div>
 
         <h3 className="h5 fw-bold text-dark mb-3">Available Cleanz24 Studio Franchise Models (2026)</h3>
-        <div className="row g-4 mb-5">
+        <p className="text-secondary small mb-4">
+          Four standardized, turnkey commercial laundry and garment care studio formats engineered for high ROI, zero inventory loss, and recurring weekly customer demand.
+        </p>
+
+        <div className="row g-4 mb-4">
           {section4Content.modelsOverview.map((m, idx) => (
             <div key={idx} className="col-12 col-md-6">
-              <div className="card h-100 border-primary-subtle shadow-sm">
-                <div className="card-header bg-primary text-white py-3">
-                  <h4 className="h6 fw-bold mb-0 text-white">{m.name}</h4>
+              <div className="card h-100 border-primary-subtle shadow-sm" style={{ borderRadius: '16px', overflow: 'hidden' }}>
+                <div className="card-header bg-primary text-white py-3 d-flex justify-content-between align-items-center">
+                  <div>
+                    <h4 className="h6 fw-bold mb-0 text-white">{m.name}</h4>
+                  </div>
+                  {m.tag && (
+                    <span className={`badge ${m.featured ? 'bg-warning text-dark' : 'bg-light text-dark'} fw-bold`}>
+                      {m.tag}
+                    </span>
+                  )}
                 </div>
-                <div className="card-body">
+                <div className="card-body d-flex flex-column">
+                  {m.sub && <p className="small text-muted mb-3 fst-italic">{m.sub}</p>}
+
                   <div className="d-flex justify-content-between mb-2 pb-2 border-bottom">
                     <span className="text-muted small">All-In Investment:</span>
-                    <strong className="text-primary">{m.investment}</strong>
+                    <strong className="text-primary fs-6">{m.investment}</strong>
                   </div>
                   <div className="d-flex justify-content-between mb-2 pb-2 border-bottom">
                     <span className="text-muted small">Space Required:</span>
@@ -405,24 +420,52 @@ export default function BestFranchisePillarArticle() {
                   </div>
                   <div className="d-flex justify-content-between mb-2 pb-2 border-bottom">
                     <span className="text-muted small">Target Monthly Turnover:</span>
-                    <strong>{m.turnoverTarget}</strong>
+                    <strong className="text-dark">{m.turnoverTarget}</strong>
                   </div>
                   <div className="d-flex justify-content-between mb-2 pb-2 border-bottom">
                     <span className="text-muted small">Projected Net Monthly Surplus:</span>
                     <strong className="text-success">{m.projectedNetMargin}</strong>
                   </div>
                   <div className="d-flex justify-content-between mb-3 pb-2 border-bottom">
-                    <span className="text-muted small">Capital Payback:</span>
-                    <strong>{m.payback}</strong>
+                    <span className="text-muted small">Capital Payback / ROI:</span>
+                    <strong className="text-warning-emphasis">{m.payback}</strong>
                   </div>
-                  <div className="small text-secondary mb-2"><strong>Focus:</strong> {m.focus}</div>
-                  <div className="small text-secondary mb-2"><strong>Machinery:</strong> {m.machinery}</div>
-                  <div className="small text-secondary"><strong>Ideal Catchment:</strong> {m.idealLocation}</div>
+
+                  {m.features && (
+                    <div className="my-2 p-3 rounded-2 bg-light border">
+                      <div className="fw-bold small text-dark mb-2">Turnkey Setup Inclusions:</div>
+                      <ul className="list-unstyled mb-0 small">
+                        {m.features.map((f, fIdx) => (
+                          <li key={fIdx} className="mb-1 text-secondary d-flex align-items-start gap-2">
+                            <span className="text-success fw-bold">✓</span>
+                            <span>{f}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  <div className="small text-secondary mb-2 mt-2"><strong>Focus:</strong> {m.focus}</div>
+                  <div className="small text-secondary mb-2"><strong>Machinery Battery:</strong> {m.machinery}</div>
+                  <div className="small text-secondary mb-3"><strong>Ideal Catchment:</strong> {m.idealLocation}</div>
+
+                  <div className="mt-auto pt-2">
+                    <a
+                      href="#returns-calculator"
+                      className="btn btn-outline-success w-100 fw-bold btn-sm py-2"
+                      style={{ borderRadius: '8px' }}
+                    >
+                      Calculate Returns for {m.name.split(' ')[0]} Model →
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
           ))}
         </div>
+
+        {/* ═══ INTERACTIVE RETURNS WIDGET (EXACT MATCH WITH FRANCHISE PAGE) ═══ */}
+        <FranchiseReturnsWidget initialModel="alpha" />
 
         <div className="mb-4">
           <h3 className="h5 fw-bold text-dark mb-3">Operational Economics & Standard Studio Balance Sheet</h3>

@@ -20,7 +20,7 @@ export const section8Content = {
       tier: 'Tier 2: Under ₹20 Lakhs (The Sweet Spot for Scalable Utilities)',
       description: `The ₹12L to ₹20L bracket represents the optimal risk-to-reward corridor in Indian franchising. Investors in this bracket can afford commercial grade machinery, professional brand-standard fit-outs, and a secure 4-to-6 month working capital cushion.`,
       recommendations: [
-        `• Cleanz24 Alpha (₹13 Lakhs) & Beta (₹15 Lakhs) Models (Rank #1 Pick): The definitive market leader in this capital band. Complete commercial washer-extractor, reverse-tumble dryer, and vacuum steam press table battery included. Weekly recurring utility demand from 500+ neighborhood households. Yields ₹1,00,000 to ₹2,20,000 monthly net surplus with 16–20 month payback.`,
+        `• Cleanz24 Alpha (₹13 Lakhs) & Beta (₹15 Lakhs) Models (Rank #1 Pick): The definitive market leader in this capital band. Complete commercial washer-extractor, reverse-tumble dryer, and vacuum steam press table battery included. Weekly recurring utility demand from 500+ neighborhood households. Yields ₹1,00,000 to ₹1,50,000+ monthly net surplus (₹12L to ₹24L annually) with 18–20 month payback.`,
         `• UClean Laundromat (₹14.5L to ₹18.5L): Proven commercial stack laundromat hardware. Strong app-based order routing for wash-and-fold services.`,
         `• Kidzee Preschool (₹14L to ₹20L): If favorable ground-floor residential lease terms can be secured, Kidzee offers high customer lifetime value through multi-year student retention.`
       ]
