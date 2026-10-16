@@ -85,7 +85,16 @@ const nextConfig = {
       { source: '/category/blog/:path*', destination: '/best-laundry-drycleaning/blog', permanent: true },
       { source: '/category/:path*', destination: '/best-laundry-drycleaning/blog', permanent: true },
       { source: '/elementor-:path*', destination: '/', permanent: true },
+      { source: '/locations.kml', destination: '/best-laundry-drycleaning/locations', permanent: true },
+      { source: '/author/:path*', destination: '/best-laundry-drycleaning/blog', permanent: true },
       { source: '/2026/:month/:day*', destination: '/best-laundry-drycleaning/blog', permanent: true },
+      { source: '/2025/:month/:day*', destination: '/best-laundry-drycleaning/blog', permanent: true },
+      { source: '/2024/:month/:day*', destination: '/best-laundry-drycleaning/blog', permanent: true },
+      { source: '/:path*/feed', destination: '/:path*', permanent: true },
+      { source: '/:path*/feed/', destination: '/:path*', permanent: true },
+      { source: '/what-to-expect-from-a-professional-laundry-service-near-you', destination: '/best-laundry-drycleaning/blog', permanent: true },
+      { source: '/what-to-expect-from-a-professional-laundry-service-near-you/', destination: '/best-laundry-drycleaning/blog', permanent: true },
+      { source: '/best-dry-cleaner-laundry-in-:city*', destination: '/best-laundry-drycleaning/locations', permanent: true },
 
       // ─── Legacy Franchise City & Article 301 Redirects ───────────
       { source: '/best-laundry-franchise-in-:city*', destination: '/best-laundry-drycleaning/franchise-opportunities-in-india', permanent: true },
