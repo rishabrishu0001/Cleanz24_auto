@@ -1,49 +1,35 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import logoImg from '../assets/laundry_logo_user.jpg';
 import carSpaLogo from '../assets/logo3.jpeg';
-import '../styles/carSpa.css';
+
+// Static deterministic particle coordinates — zero hydration lag & zero layout shift
+const BUBBLES = [
+  { id: 0, left: '15%', size: '18px', delay: '0s', duration: '7s' },
+  { id: 1, left: '35%', size: '26px', delay: '2s', duration: '9s' },
+  { id: 2, left: '55%', size: '14px', delay: '4s', duration: '6s' },
+  { id: 3, left: '75%', size: '22px', delay: '1s', duration: '8s' },
+  { id: 4, left: '88%', size: '16px', delay: '3s', duration: '10s' },
+];
+
+const SPARKS = [
+  { id: 0, left: '12%', size: '4px', delay: '0s', duration: '6s' },
+  { id: 1, left: '28%', size: '3px', delay: '1.5s', duration: '5s' },
+  { id: 2, left: '42%', size: '5px', delay: '0.8s', duration: '7s' },
+  { id: 3, left: '58%', size: '3px', delay: '2.2s', duration: '6.5s' },
+  { id: 4, left: '72%', size: '6px', delay: '1.2s', duration: '5.5s' },
+  { id: 5, left: '84%', size: '4px', delay: '3s', duration: '8s' },
+  { id: 6, left: '92%', size: '3px', delay: '0.5s', duration: '6s' },
+  { id: 7, left: '48%', size: '5px', delay: '2.8s', duration: '7.2s' },
+];
 
 function Landing() {
   const [hoveredSide, setHoveredSide] = useState(null); // 'laundry' | 'car-spa' | null
-  const [bubbles, setBubbles] = useState([]);
-  const [sparks, setSparks] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Hide preloader after 2.5 seconds
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2500);
-
-    // Generate bubbles for Laundry side
-    const bubbleArray = Array.from({ length: 5 }).map((_, i) => ({
-      id: i,
-      left: `${Math.random() * 90}%`,
-      size: `${Math.random() * 25 + 8}px`,
-      delay: `${Math.random() * 6}s`,
-      duration: `${Math.random() * 6 + 5}s`
-    }));
-    setBubbles(bubbleArray);
-
-    // Generate sparks for Car Spa side
-    const sparkArray = Array.from({ length: 8 }).map((_, i) => ({
-      id: i,
-      left: `${Math.random() * 90}%`,
-      size: `${Math.random() * 5 + 2}px`,
-      delay: `${Math.random() * 4}s`,
-      duration: `${Math.random() * 5 + 4}s`
-    }));
-    setSparks(sparkArray);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Diagonal clip path values 
+  // Diagonal clip path values for interactive desktop split screen
   let leftClip = "polygon(0 0, 52% 0, 48% 100%, 0 100%)";
   let rightClip = "polygon(52% 0, 100% 0, 100% 100%, 48% 100%)";
   let dividerClip = "polygon(calc(52% - 2px) 0, calc(52% + 2px) 0, calc(48% + 2px) 100%, calc(48% - 2px) 100%)";
@@ -61,68 +47,9 @@ function Landing() {
   return (
     <div className="landing-container bg-black min-vh-100 position-relative overflow-hidden w-100">
       
-      {/* ── PRELOADER ANIMATION ── */}
-      <AnimatePresence>
-        {loading && (
-          <motion.div
-            key="preloader"
-            className="preloader-overlay"
-            initial={{ opacity: 1 }}
-            exit={{ 
-              opacity: 0,
-              y: '-100vh',
-              transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } 
-            }}
-          >
-            <div className="preloader-glow" />
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 1, ease: 'easeOut' }}
-              className="d-flex flex-column align-items-center"
-            >
-              <Image src={logoImg} alt="Cleanz24 Logo" className="preloader-logo mb-3" />
-            </motion.div>
-            <motion.div 
-              className="preloader-line"
-              initial={{ width: 0 }}
-              animate={{ width: '120px' }}
-              transition={{ delay: 0.5, duration: 1.2, ease: 'easeInOut' }}
-            />
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
-              className="preloader-tagline"
-            >
-              INDIA'S PREMIUM SERVICE NETWORK
-            </motion.div>
-            <div className="preloader-bar-bg">
-              <motion.div 
-                className="preloader-bar-fill"
-                initial={{ width: '0%' }}
-                animate={{ width: '100%' }}
-                transition={{ duration: 2.2, ease: 'easeInOut' }}
-              />
-            </div>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
-              transition={{ delay: 1.2, duration: 0.5 }}
-              className="preloader-status"
-            >
-              Loading experience...
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* Dynamic Midline neon separator */}
-      <motion.div 
+      <div 
         className={`split-midline d-none d-md-block ${hoveredSide ? `active-${hoveredSide}` : ''}`}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8, duration: 0.8 }}
         style={{
           position: 'absolute',
           top: 0,
@@ -141,11 +68,8 @@ function Landing() {
       <div className="d-flex flex-column flex-md-row min-vh-100 w-100 position-relative">
         
         {/* 1. LAUNDRY SIDE */}
-        <motion.div 
+        <div 
           className="split-panel laundry-panel position-absolute top-0 start-0 w-100 h-100 text-decoration-none text-white overflow-hidden d-flex align-items-center justify-content-center"
-          initial={{ x: '-10%', opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           style={{
             clipPath: leftClip,
             transition: 'clip-path 0.7s cubic-bezier(0.25, 0.8, 0.25, 1)',
@@ -157,7 +81,7 @@ function Landing() {
         >
           {/* Animated Water Bubbles */}
           <div className="particles-layer position-absolute w-100 h-100 top-0 start-0 overflow-hidden" style={{ pointerEvents: 'none' }}>
-            {bubbles.map((b) => (
+            {BUBBLES.map((b) => (
               <div 
                 key={b.id} 
                 className="bubble" 
@@ -174,49 +98,35 @@ function Landing() {
 
           <div className="landing-content laundry-content-wrapper z-2">
             {/* Cleanz24 Logo */}
-            <motion.div 
-              className="landing-icon-wrap mb-4" 
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-            >
-              <Image src={logoImg} alt="Cleanz24 Logo" style={{ height: '70px', width: 'auto', borderRadius: '8px', boxShadow: '0 4px 15px rgba(0,0,0,0.3)', objectFit: 'contain' }} />
-            </motion.div>
-            <motion.h2 
-              className="display-4 fw-black text-uppercase tracking-wide font-oswald text-white mb-3"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-            >
+            <div className="landing-icon-wrap mb-4 anim-fade-scale">
+              <Image 
+                src={logoImg} 
+                alt="Cleanz24 Premium Laundry Logo" 
+                priority={true}
+                sizes="(max-width: 768px) 140px, 180px"
+                style={{ height: '70px', width: 'auto', borderRadius: '8px', boxShadow: '0 4px 15px rgba(0,0,0,0.3)', objectFit: 'contain' }} 
+              />
+            </div>
+            <h2 className="display-4 fw-black text-uppercase tracking-wide font-oswald text-white mb-3 anim-fade-up anim-delay-1">
               PREMIUM <br /><span style={{ color: '#00C96D' }}>LAUNDRY</span>
-            </motion.h2>
-            <motion.p 
-              className="lead fw-light mb-4 text-light-custom" 
+            </h2>
+            <p 
+              className="lead fw-light mb-4 text-light-custom anim-fade-up anim-delay-2" 
               style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'rgba(255, 255, 255, 0.78)' }}
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.7, duration: 0.6 }}
             >
               Expert garment care, chemical dry cleaning, and fabric restoration services with door-to-door convenience.
-            </motion.p>
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.8, duration: 0.6 }}
-            >
+            </p>
+            <div className="anim-fade-up anim-delay-3">
               <Link href="/best-laundry-drycleaning" className="btn-portal btn-laundry text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border text-decoration-none position-relative" style={{ borderColor: '#00C96D', display: 'inline-block', zIndex: 20 }}>
                 ENTER LAUNDRY
               </Link>
-            </motion.div>
+            </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* 2. CAR SPA SIDE */}
-        <motion.div 
+        <div 
           className="split-panel carspa-panel position-absolute top-0 start-0 w-100 h-100 text-decoration-none text-white overflow-hidden d-flex align-items-center justify-content-center"
-          initial={{ x: '10%', opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           style={{
             clipPath: rightClip,
             transition: 'clip-path 0.7s cubic-bezier(0.25, 0.8, 0.25, 1)',
@@ -228,7 +138,7 @@ function Landing() {
         >
           {/* Animated Sparks */}
           <div className="particles-layer position-absolute w-100 h-100 top-0 start-0 overflow-hidden" style={{ pointerEvents: 'none' }}>
-            {sparks.map((s) => (
+            {SPARKS.map((s) => (
               <div 
                 key={s.id} 
                 className="spark" 
@@ -245,123 +155,69 @@ function Landing() {
 
           <div className="landing-content carspa-content-wrapper z-2">
             {/* Premium Car Spa Logo */}
-            <motion.div 
-              className="landing-icon-wrap mb-4" 
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-            >
-              <Image src={carSpaLogo} alt="Cleanz24 Car Spa Logo" style={{ height: '70px', width: 'auto', borderRadius: '8px', boxShadow: '0 4px 15px rgba(0,0,0,0.3)', objectFit: 'contain' }} />
-            </motion.div>
-            <motion.h2 
-              className="display-4 fw-black text-uppercase tracking-wide font-oswald text-white mb-3"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-            >
+            <div className="landing-icon-wrap mb-4 anim-fade-scale">
+              <Image 
+                src={carSpaLogo} 
+                alt="Cleanz24 Car Spa Logo" 
+                priority={true}
+                sizes="(max-width: 768px) 140px, 180px"
+                style={{ height: '70px', width: 'auto', borderRadius: '8px', boxShadow: '0 4px 15px rgba(0,0,0,0.3)', objectFit: 'contain' }} 
+              />
+            </div>
+            <h2 className="display-4 fw-black text-uppercase tracking-wide font-oswald text-white mb-3 anim-fade-up anim-delay-1">
               CAR <br /><span style={{ color: '#D4AF37' }}>SPA</span>
-            </motion.h2>
-            <motion.p 
-              className="lead fw-light mb-4 text-light-custom" 
+            </h2>
+            <p 
+              className="lead fw-light mb-4 text-light-custom anim-fade-up anim-delay-2" 
               style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'rgba(255, 255, 255, 0.78)' }}
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.7, duration: 0.6 }}
             >
               Advanced paint protection film (PPF), 10H DNA Graphene coatings, & premium detail wash restoration.
-            </motion.p>
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.8, duration: 0.6 }}
-            >
+            </p>
+            <div className="anim-fade-up anim-delay-3">
               <Link href="/car-spa" className="btn-portal btn-carspa text-uppercase fw-bold py-3 px-5 rounded-pill shadow-lg border text-decoration-none position-relative" style={{ borderColor: '#D4AF37', display: 'inline-block', zIndex: 20 }}>
                 ENTER CAR SPA
               </Link>
-            </motion.div>
+            </div>
           </div>
-        </motion.div>
+        </div>
 
       </div>
 
       <style>{`
-
-        /* Preloader Styles */
-        .preloader-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: radial-gradient(circle at center, #111a24 0%, #05080c 100%);
-          z-index: 9999;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
+        /* Lightweight Hardware-Accelerated Animations */
+        @keyframes slideInLeft {
+          from { opacity: 0; transform: translateX(-30px); }
+          to { opacity: 1; transform: translateX(0); }
         }
-
-        .preloader-glow {
-          position: absolute;
-          width: 400px;
-          height: 400px;
-          background: radial-gradient(circle, rgba(0, 201, 109, 0.08) 0%, rgba(212, 175, 55, 0.06) 50%, transparent 100%);
-          filter: blur(40px);
-          pointer-events: none;
-          animation: pulseGlow 3s infinite alternate ease-in-out;
+        @keyframes slideInRight {
+          from { opacity: 0; transform: translateX(30px); }
+          to { opacity: 1; transform: translateX(0); }
         }
-
-        @keyframes pulseGlow {
-          0% { transform: scale(0.9); opacity: 0.6; }
-          100% { transform: scale(1.1); opacity: 1; }
+        @keyframes fadeScale {
+          from { opacity: 0; transform: scale(0.85); }
+          to { opacity: 1; transform: scale(1); }
         }
-
-        .preloader-logo {
-          max-height: 80px;
-          object-fit: contain;
-          border-radius: 8px;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.05);
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(16px); }
+          to { opacity: 1; transform: translateY(0); }
         }
-
-        .preloader-line {
-          height: 2px;
-          background: linear-gradient(90deg, #00C96D, #D4AF37);
-          margin: 15px 0;
-          border-radius: 1px;
+        .anim-fade-scale {
+          animation: fadeScale 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
-
-        .preloader-tagline {
-          font-family: 'Oswald', sans-serif;
-          font-size: 0.8rem;
-          color: #D4AF37;
-          letter-spacing: 3px;
-          font-weight: 800;
-          text-transform: uppercase;
+        .anim-fade-up {
+          animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
+        .anim-delay-1 { animation-delay: 0.1s; }
+        .anim-delay-2 { animation-delay: 0.2s; }
+        .anim-delay-3 { animation-delay: 0.3s; }
 
-        .preloader-bar-bg {
-          width: 200px;
-          height: 3px;
-          background: rgba(255, 255, 255, 0.07);
-          border-radius: 10px;
-          margin-top: 35px;
-          overflow: hidden;
-          position: relative;
-        }
-
-        .preloader-bar-fill {
-          height: 100%;
-          background: linear-gradient(90deg, #00C96D, #D4AF37);
-          border-radius: 10px;
-          box-shadow: 0 0 8px rgba(0, 201, 109, 0.5);
-        }
-
-        .preloader-status {
-          margin-top: 10px;
-          font-size: 0.65rem;
-          color: rgba(255, 255, 255, 0.5);
-          letter-spacing: 1px;
-          text-transform: uppercase;
+        @media (min-width: 768px) {
+          .laundry-panel {
+            animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+          }
+          .carspa-panel {
+            animation: slideInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+          }
         }
 
         /* Bubble Particles for Laundry */
@@ -373,6 +229,7 @@ function Landing() {
           border-radius: 50%;
           animation: floatUp 8s infinite ease-in;
           pointer-events: none;
+          will-change: transform, opacity;
         }
 
         /* Spark Particles for Car Spa */
@@ -384,16 +241,7 @@ function Landing() {
           border-radius: 50%;
           animation: flyUp 6s infinite linear;
           pointer-events: none;
-        }
-
-        .carbon-mesh-overlay {
-          background-image: 
-            linear-gradient(45deg, #111 25%, transparent 25%), 
-            linear-gradient(-45deg, #111 25%, transparent 25%), 
-            linear-gradient(45deg, transparent 75%, #111 75%), 
-            linear-gradient(-45deg, transparent 75%, #111 75%);
-          background-size: 8px 8px;
-          background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+          will-change: transform, opacity;
         }
 
         @keyframes floatUp {
@@ -408,66 +256,6 @@ function Landing() {
           5% { opacity: 1; }
           95% { opacity: 0.8; }
           100% { transform: translateY(-110vh) translateX(30px) scale(0.3); opacity: 0; }
-        }
-
-        /* Central Glassmorphic Badge Styling */
-        .landing-center-badge {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 320px;
-          height: 320px;
-          border-radius: 50%;
-          z-index: 5;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          pointer-events: none;
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
-          overflow: hidden;
-        }
-        .center-badge-blur {
-          position: absolute;
-          top: 0; left: 0; right: 0; bottom: 0;
-          background: rgba(10, 15, 13, 0.65);
-          backdrop-filter: blur(15px);
-          -webkit-backdrop-filter: blur(15px);
-          z-index: 1;
-        }
-        .center-badge-content {
-          position: relative;
-          z-index: 2;
-          padding: 1.5rem;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-        .landing-center-logo {
-          max-height: 55px;
-          object-fit: contain;
-        }
-        .center-badge-divider {
-          width: 50px;
-          height: 2px;
-          background: linear-gradient(90deg, #00C96D, #D4AF37);
-          margin: 12px 0;
-        }
-        .center-badge-tagline {
-          font-family: 'Oswald', sans-serif;
-          font-size: 0.7rem;
-          color: #D4AF37;
-          letter-spacing: 2px;
-          font-weight: 800;
-        }
-        .center-badge-trust {
-          font-size: 0.58rem;
-          color: rgba(255, 255, 255, 0.45);
-          margin-top: 4px;
-          font-weight: 500;
-          letter-spacing: 0.5px;
-          text-transform: uppercase;
         }
 
         .btn-portal {
@@ -503,38 +291,28 @@ function Landing() {
         }
 
         .font-oswald {
-          font-family: 'Oswald', sans-serif !important;
+          font-family: var(--font-oswald), sans-serif !important;
         }
 
         .split-panel {
           height: 100%;
         }
 
-        .laundry-content-wrapper {
-          max-width: 380px;
-          width: 100%;
-          transition: all 0.5s;
-          padding: 1.5rem;
-          text-align: center;
-        }
+        .laundry-content-wrapper,
         .carspa-content-wrapper {
           max-width: 380px;
           width: 100%;
-          transition: all 0.5s;
+          transition: transform 0.5s ease;
           padding: 1.5rem;
           text-align: center;
         }
 
-        .laundry-panel .laundry-content-wrapper {
-          transform: none;
-        }
+        .laundry-panel .laundry-content-wrapper,
         .carspa-panel .carspa-content-wrapper {
           transform: none;
         }
 
-        .laundry-panel:hover .laundry-content-wrapper {
-          transform: scale(1.03);
-        }
+        .laundry-panel:hover .laundry-content-wrapper,
         .carspa-panel:hover .carspa-content-wrapper {
           transform: scale(1.03);
         }
@@ -609,12 +387,12 @@ function Landing() {
           
           /* Scale down typography & icons for mobile */
           .landing-content h2 {
-            font-size: 1.8rem !important; /* Smaller display title to fit 50vh */
+            font-size: 1.8rem !important;
             margin-bottom: 0.25rem !important;
             line-height: 1.2 !important;
           }
           .landing-content p {
-            font-size: 0.8rem !important; /* Tighter body text to fit 50vh */
+            font-size: 0.8rem !important;
             margin-bottom: 0.75rem !important;
             padding: 0 10px;
             line-height: 1.4 !important;
@@ -627,10 +405,9 @@ function Landing() {
           }
           .landing-icon-wrap svg {
             width: 40px !important;
-            height: 40px !important;
           }
           .btn-portal {
-            padding: 8px 24px !important; /* Smaller button padding to fit 50vh */
+            padding: 8px 24px !important;
             font-size: 0.75rem !important;
           }
           

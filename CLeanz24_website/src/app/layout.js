@@ -4,8 +4,7 @@ import NextTopLoader from 'nextjs-toploader';
 import { Rajdhani, DM_Sans, Poppins, Oswald, Inter, Rethink_Sans } from 'next/font/google';
 import '../index.css';
 import '../App.css';
-import '../styles/store-cards.css';
-import '../styles/store-search.css';
+import '../styles/bootstrap.min.css';
 
 const rajdhani = Rajdhani({
   subsets: ['latin'],
@@ -23,28 +22,28 @@ const dmSans = DM_Sans({
 
 const poppins = Poppins({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '600'],
   variable: '--font-poppins',
   display: 'swap',
 });
 
 const oswald = Oswald({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['600', '700'],
   variable: '--font-oswald',
   display: 'swap',
 });
 
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '600'],
   variable: '--font-inter',
   display: 'swap',
 });
 
 const rethinkSans = Rethink_Sans({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '600'],
   variable: '--font-rethink-sans',
   display: 'swap',
 });
@@ -110,12 +109,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${rajdhani.variable} ${dmSans.variable} ${poppins.variable} ${oswald.variable} ${inter.variable} ${rethinkSans.variable}`}>
       <head>
-        <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-          crossOrigin="anonymous"
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -135,12 +128,12 @@ export default function RootLayout({ children }) {
         />
         {children}
 
-        {/* Google Analytics Script */}
+        {/* Google Analytics Script - lazy loaded so it doesn't block FCP/TBT */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-17624629793"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="gtag-init" strategy="afterInteractive">
+        <Script id="gtag-init" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -151,14 +144,9 @@ export default function RootLayout({ children }) {
           `}
         </Script>
 
-        {/* Bootstrap Bundle JS */}
+        {/* Bootstrap Bundle JS - lazy loaded for FAQ accordion interactions */}
         <Script
           src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-          strategy="afterInteractive"
-        />
-        {/* Lottie Player Web Component */}
-        <Script
-          src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"
           strategy="lazyOnload"
         />
       </body>
