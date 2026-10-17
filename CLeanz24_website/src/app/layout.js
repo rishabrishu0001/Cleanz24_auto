@@ -5,6 +5,8 @@ import { Rajdhani, DM_Sans, Poppins, Oswald, Inter, Rethink_Sans } from 'next/fo
 import '../index.css';
 import '../App.css';
 import '../styles/bootstrap.min.css';
+import '../styles/store-cards.css';
+import '../styles/store-search.css';
 
 const rajdhani = Rajdhani({
   subsets: ['latin'],
